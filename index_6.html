@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Coach: triathlon and running plans</title>
+<meta name="description" content="Triathlon and running plans written each week around your race and your schedule, with sessions sent to your Garmin.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono&family=Noto+Naskh+Arabic:wght@400;600&display=swap">
+<style id="wpbar-css">
+/* WPBAR: the exact site header from saqeralkhalifa.com, replicated for the tool sites. */
+.wpbar{background:#152A55;font-family:'EB Garamond',Georgia,'Times New Roman',serif;}
+.wpbar-in{margin-left:40px;margin-right:40px;padding-top:14px;padding-bottom:14px;padding-left:min(104px,8vw);padding-right:min(104px,8vw);}
+.wpbar-row{width:100%;max-width:1280px;margin-left:auto;margin-right:auto;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;direction:ltr;}
+.wpright{display:flex;align-items:flex-start;gap:20px;}
+html[lang="ar"] .wpright{direction:rtl;}
+.wpbrand{font-size:20px;line-height:33px;margin-top:-1px;margin-bottom:1px;font-weight:500;color:#F3EADA;text-decoration:none;letter-spacing:.2px;white-space:nowrap;border:0;}
+.wpnav{display:flex;align-items:flex-start;gap:20px;flex-wrap:nowrap;margin-top:4px;line-height:19px;}
+.wpdd{line-height:19px;}
+.wpnav-ar{direction:rtl;font-family:'Noto Naskh Arabic','Amiri',Georgia,serif;}
+html[lang="ar"] .wpnav-en{display:none;}
+html:not([lang="ar"]) .wpnav-ar{display:none;}
+.wpitem{display:flex;align-items:center;font-size:15px;font-weight:500;color:#F3EADA;text-decoration:none;white-space:nowrap;border:0;line-height:19px;}
+.wpnav-ar .wpitem{font-size:15px;font-family:'Noto Naskh Arabic','Amiri',Georgia,serif;}
+.wpitem:hover{color:#C09A45;}
+.wplang{background:none;border:0;cursor:pointer;padding:0;margin-top:4px;font-family:'EB Garamond',Georgia,'Times New Roman',serif !important;line-height:19px;}
+.wpcaret{width:10.8px;height:10.8px;margin:0 0 0 4.5px;position:relative;top:3px;flex:none;}
+.wpcaret path{stroke:#F3EADA;}
+.wpitem:hover .wpcaret path{stroke:#C09A45;}
+.wpnav-ar .wpcaret{margin:0 4.5px 0 0;}
+.wpdd{position:relative;}
+.wpmenu{display:none;position:absolute;top:100%;left:-14px;padding-top:10px;min-width:250px;z-index:300;}
+.wpnav-ar .wpmenu{left:auto;right:-14px;text-align:right;}
+.wpdd:hover .wpmenu,.wpdd:focus-within .wpmenu{display:block;}
+.wpmenu > a{display:block;background:#152A55;border:1px solid rgba(0,0,0,.15);border-top:0;padding:9px 16px;font-size:18px;line-height:1.65;color:#F3EADA;text-decoration:none;white-space:nowrap;font-weight:500;}
+.wpmenu > a:first-child{border-top:1px solid #2E4477;border-radius:2px 2px 0 0;}
+.wpmenu > a:last-child{border-radius:0 0 2px 2px;}
+.wpmenu > a:hover{color:#C09A45;}
+.wpburger{display:none;background:none;border:0;padding:0;color:#F3EADA;font-size:20px;line-height:24px;cursor:pointer;}
+.wpburger:hover{color:#C09A45;}
+.wpmob{display:none;}
+.wpmob-nav a{display:block;color:#F3EADA;text-decoration:none;font-weight:500;font-family:'EB Garamond',Georgia,serif;}
+.wpmob-nav a.wpmob-top{font-size:19px;padding:12px 20px 12px 20px;border-top:1px solid #2E4477;margin-top:10px;}
+.wpmob-nav a.wpmob-top:first-child{border-top:0;margin-top:0;}
+.wpmob-nav a.wpmob-sub{font-size:16px;padding:7px 20px 7px 38px;color:#CBD5EA;}
+.wpmob-nav a:hover{color:#C09A45;}
+.wpmob-ar{direction:rtl;text-align:right;}
+.wpmob-ar a{font-family:'Noto Naskh Arabic','Amiri',Georgia,serif;}
+.wpmob-ar a.wpmob-sub{padding:8px 38px 8px 20px;}
+html[lang="ar"] .wpmob-en{display:none;}
+html:not([lang="ar"]) .wpmob-ar{display:none;}
+@media (max-width:1149px){
+.wpbar-in{margin-left:0;margin-right:0;padding:9px 18px;}
+.wpbar-row{max-width:none;align-items:center;gap:14px;}
+.wpright{align-items:center;gap:14px;}
+.wpnav{display:none !important;}
+.wpbrand{margin-right:auto;}
+html[lang="ar"] .wpbrand{margin-right:0;margin-left:auto;}
+.wplang{margin-top:0;}
+.wpburger{display:block;}
+.wpbar.open .wpmob{display:block;background:#152A55;border-top:1px solid #2E4477;max-height:calc(100vh - 51px);overflow-y:auto;}
+}
+
+
+/* MAJLIS BAR, 28 OCT 2026, matched to saqeralkhalifa.com by measuring both bars from 360 to 1920 wide. Side inset clamp(20px,4vw,40px) plus min(104px,8vw) as on the main site, 68px tall below 1280 and 69px from 1280, menu labels 15px from 1440 and 14px from 1280 to 1439, the menu button from 1279 down with the main site icon, every control 44px. */
+.wpbar-in{margin-left:clamp(20px,4vw,40px);margin-right:clamp(20px,4vw,40px);padding:12px min(104px,8vw);}
+.wpbar-row{align-items:center;}
+.wpright{align-items:center;}
+.wpbrand{display:inline-flex;align-items:center;min-height:44px;margin-top:0;margin-bottom:0;font-size:20px;line-height:34px;}
+.wpnav{margin-top:2px;margin-bottom:-2px;align-items:center;}
+.wpitem{min-height:44px;font-size:15px;}
+.wplang{display:inline-flex;align-items:center;min-height:44px;margin-top:0;font-size:15px;}
+.wpmenu > a{font-size:19px;}
+.wpmob-nav a.wpmob-sub{color:#D3DCEF;padding-top:10px;padding-bottom:10px;}
+.wpmob-nav a.wpmob-top{min-height:44px;box-sizing:border-box;}
+.wpburger svg{width:24px;height:24px;fill:currentColor;display:block;}
+.wpcaret{width:11.4px;height:44px;margin:0 0 0 4.75px;top:0;}
+.wpnav-ar .wpcaret{margin:0 4.75px 0 0;}
+@media (min-width:1280px){.wpbar-in{padding-top:13px;}}
+@media (min-width:1280px) and (max-width:1439px){.wpnav{gap:8px;}.wpright{gap:8px;}.wpitem,.wpnav-ar .wpitem{font-size:14px;}}
+@media (max-width:1279px){
+.wpbar-row{max-width:none;align-items:center;gap:14px;}
+.wpright{align-items:center;gap:6px;}
+.wpnav{display:none !important;}
+.wpbrand{margin-right:auto;}
+html[lang="ar"] .wpbrand{margin-left:0;margin-right:auto;}
+html[lang="ar"] .wpright{direction:ltr;}
+.wpburger{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:0;}
+.wplang{padding:0 8px;}
+.wpbar.open .wpmob{display:block;background:#152A55;border-top:1px solid #2E4477;max-height:calc(100vh - 68px);overflow-y:auto;}
+}
+</style>
+<style id="coach-css">
+/* AI Coach, Majlis theme. Base rules copied from the approved preview of 2 November 2026; additions below are marked. */
+*{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+body{background:#FAF5EA;color:#4A3728;font-family:'EB Garamond',Georgia,'Times New Roman',serif;font-size:19px;line-height:1.7;}
+a{color:#7D5F27;text-decoration:underline;text-underline-offset:3px;}
+:focus-visible{outline:2px solid #7D5F27;outline-offset:3px;}
+.ck-wrap{max-width:1160px;margin:0 auto;padding:0 20px;}
+@media (min-width:768px){.ck-wrap{padding:0 24px;}}
+@media (min-width:1024px){.ck-wrap{max-width:1000px;padding-left:24px;padding-right:24px;}}
+
+.ck-preview{background:#EFE4CE;border-bottom:1px solid #E2D5BB;}
+.ck-preview p{font-size:15px;line-height:1.6;color:#4A3728;padding:12px 0;}
+.ck-preview b{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-weight:400;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7D5F27;margin-inline-end:8px;}
+
+.eyebrow{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#7D5F27;}
+.micro{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;}
+
+.ck-hero{padding:48px 0 32px;border-bottom:1px solid #E2D5BB;}
+.ck-hero h1{font-weight:400;font-size:32px;line-height:1.06;color:#152A55;margin:12px 0 0;max-width:20ch;}
+.ck-hero .sub{font-size:20px;line-height:1.55;color:#6B5B47;max-width:680px;margin:16px 0 0;}
+@media (min-width:768px){.ck-hero h1{font-size:44px;} .ck-hero .sub{font-size:22px;}}
+@media (min-width:1280px){.ck-hero{padding:96px 0 48px;} .ck-hero h1{font-size:56px;}}
+.ck-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:12px 24px;border:1px solid #1E3A78;background:#1E3A78;color:#FFFDF6;font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border-radius:2px;cursor:pointer;transition:background-color 120ms;}
+.btn:hover{background:#152A55;border-color:#152A55;}
+.btn.ghost{background:transparent;color:#1E3A78;}
+.btn.ghost:hover{background:#EFE4CE;}
+.btn.onband{background:#C09A45;border-color:#C09A45;color:#152A55;}
+.btn.onband:hover{background:#F3EADA;border-color:#F3EADA;}
+.btn[disabled]{background:#EFE4CE;border-color:#D3C0A0;color:#6F5D4A;cursor:default;}
+
+.ck-tabs{display:flex;gap:4px;overflow-x:auto;border-bottom:1px solid #D3C0A0;margin:0 -20px;padding:0 20px;scrollbar-width:none;}
+.ck-tabs::-webkit-scrollbar{display:none;}
+@media (min-width:768px){.ck-tabs{margin:0;padding:0;}}
+.ck-tabs a{flex:0 0 auto;display:inline-flex;align-items:center;min-height:48px;padding:0 16px;font-size:16px;color:#6B5B47;text-decoration:none;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;}
+.ck-tabs a:hover{color:#152A55;}
+.ck-tabs a[aria-current="page"]{color:#152A55;border-bottom-color:#7D5F27;}
+
+.view{display:none;}
+.view.on{display:block;}
+.section{padding:56px 0;}
+@media (min-width:768px){.section{padding:72px 0;}}
+@media (min-width:1280px){.section{padding:96px 0;}}
+.section + .section{border-top:1px solid #E2D5BB;}
+.sand{background:#EFE4CE;}
+.band{background:#152A55;color:#F3EADA;}
+.band h2{color:#F3EADA;}
+.band .eyebrow{color:#C09A45;}
+.band p{color:#D3DCEF;}
+.band a{color:#C09A45;}
+h2{font-weight:400;font-size:26px;line-height:1.15;color:#152A55;margin:12px 0 0;}
+@media (min-width:768px){h2{font-size:32px;}}
+@media (min-width:1280px){h2{font-size:36px;}}
+h3{font-weight:500;font-size:19px;line-height:1.3;color:#152A55;}
+.lead{font-size:20px;line-height:1.55;color:#6B5B47;max-width:680px;margin:16px 0 0;}
+@media (min-width:768px){.lead{font-size:22px;}}
+.band .lead{color:#D3DCEF;}
+
+.grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:32px;}
+@media (min-width:768px){.grid.two{grid-template-columns:1fr 1fr;gap:24px;} .grid.four{grid-template-columns:1fr 1fr;gap:24px;}}
+@media (min-width:1024px){.grid.four{grid-template-columns:repeat(4,1fr);}}
+.card{background:#FFFDF6;border:1px solid #E2D5BB;border-radius:2px;padding:24px;min-width:0;}
+.card p{font-size:16px;line-height:1.65;color:#4A3728;margin-top:8px;}
+.card .micro{color:#6F5D4A;}
+.step .n{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.18em;color:#7D5F27;}
+.step h3{margin-top:8px;}
+
+.conn{display:flex;flex-direction:column;}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+.badge{display:inline-block;font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:4px 8px;border:1px solid #D3C0A0;border-radius:2px;color:#6F5D4A;white-space:nowrap;}
+.badge.ok{border-color:#3F6B4F;color:#3F6B4F;background:#EAEFE3;}
+.badge.wait{border-color:#7D5F27;color:#7D5F27;background:#F5ECDA;}
+.badge.no{border-color:#8C3A30;color:#8C3A30;background:#F4E7E1;}
+.conn .btn{margin-top:auto;align-self:flex-start;}
+.conn .body{flex:1;margin-bottom:24px;}
+.conn ul, .conn ol{margin:12px 0 0;padding-inline-start:20px;font-size:16px;line-height:1.65;}
+
+.srcs{margin-top:32px;}
+.src{border-top:1px solid #E2D5BB;padding:16px 0;display:grid;grid-template-columns:1fr;gap:4px;}
+@media (min-width:768px){.src{grid-template-columns:200px 1fr;gap:24px;}}
+.src:last-child{border-bottom:1px solid #E2D5BB;}
+.src h3{font-size:19px;}
+.src p{font-size:16px;line-height:1.65;}
+.src .stand{display:block;margin-top:4px;font-size:15px;color:#6F5D4A;}
+
+.form{max-width:640px;margin-top:32px;}
+.field{margin-top:24px;}
+.field label, .field legend{display:block;font-size:16px;color:#152A55;margin-bottom:8px;font-weight:500;}
+.field .hint{display:block;font-size:15px;color:#6F5D4A;margin:-4px 0 8px;font-weight:400;}
+.in, .sel, .ta{width:100%;min-height:44px;padding:10px 12px;font-family:'EB Garamond',Georgia,serif;font-size:17px;color:#4A3728;background:#FFFDF6;border:1px solid #D3C0A0;border-radius:2px;}
+.in:focus, .sel:focus, .ta:focus{outline:2px solid #7D5F27;outline-offset:3px;}
+.ta{min-height:110px;line-height:1.6;resize:vertical;}
+fieldset{border:0;}
+.row2{display:grid;grid-template-columns:1fr;gap:16px;}
+@media (min-width:600px){.row2{grid-template-columns:1fr 1fr;}}
+.days{display:flex;flex-wrap:wrap;gap:8px;}
+.day{position:relative;}
+.day input{position:absolute;opacity:0;width:100%;height:100%;cursor:pointer;margin:0;}
+.day span{display:inline-flex;align-items:center;justify-content:center;min-width:56px;min-height:44px;padding:0 12px;border:1px solid #D3C0A0;background:#FFFDF6;border-radius:2px;font-size:16px;}
+.day input:checked + span{background:#152A55;border-color:#152A55;color:#F3EADA;}
+.day input:focus-visible + span{outline:2px solid #7D5F27;outline-offset:3px;}
+.check{display:flex;gap:12px;align-items:flex-start;margin-top:16px;font-size:16px;line-height:1.6;min-height:44px;}
+.check input{flex:0 0 auto;width:20px;height:20px;margin-top:4px;accent-color:#1E3A78;}
+.err{display:none;color:#8C3A30;font-size:15px;margin-top:8px;}
+.err.on{display:block;}
+.ok-msg{display:none;margin-top:24px;padding:16px 24px;background:#EAEFE3;border:1px solid #C9D6C2;font-size:16px;}
+.ok-msg.on{display:block;}
+.note{font-size:15px;line-height:1.6;color:#6F5D4A;margin-top:16px;}
+
+.drop{margin-top:16px;border:1px dashed #D3C0A0;background:#FFFDF6;padding:32px 24px;text-align:center;border-radius:2px;}
+.drop.over{background:#EFE4CE;}
+.drop p{font-size:16px;margin-top:8px;}
+.drop .micro{color:#6F5D4A;margin-top:0;}
+.files{margin-top:12px;list-style:none;font-size:15px;padding:0 !important;}
+.files li{border-top:1px solid #E2D5BB;padding:8px 0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+
+.week{display:grid;grid-template-columns:1fr;gap:8px;margin-top:24px;}
+@media (min-width:1024px){.week{grid-template-columns:repeat(7,1fr);}}
+.wd{background:#FFFDF6;border:1px solid #E2D5BB;padding:16px;border-radius:2px;min-width:0;}
+.wd.today{border-color:#152A55;border-top:3px solid #152A55;}
+.wd .micro{color:#6F5D4A;}
+.wd b{display:block;font-weight:500;color:#152A55;font-size:16px;margin-top:4px;line-height:1.3;}
+.wd p{font-size:15px;line-height:1.6;margin-top:4px;color:#4A3728;}
+.wd .z{display:inline-block;margin-top:8px;}
+.today-card{background:#152A55;color:#F3EADA;padding:24px;border-radius:2px;margin-top:24px;}
+.today-card h3{color:#F3EADA;font-size:24px;line-height:1.25;font-weight:400;margin-top:8px;}
+.today-card .eyebrow{color:#C09A45;}
+.today-card ol{margin:16px 0 0;padding-inline-start:20px;color:#D3DCEF;font-size:16px;line-height:1.65;}
+.today-card .sent{margin-top:16px;font-size:15px;color:#9AAAD0;}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;}
+@media (min-width:768px){.stats{grid-template-columns:repeat(4,1fr);}}
+.stat{border-top:1px solid #D3C0A0;padding-top:12px;}
+.stat .v{font-size:32px;line-height:1.1;color:#152A55;}
+@media (min-width:768px){.stat .v{font-size:40px;}}
+@media (min-width:1280px){.stat .v{font-size:46px;}}
+.stat .l{font-size:15px;color:#6F5D4A;}
+.chart{margin-top:24px;background:#FFFDF6;border:1px solid #E2D5BB;padding:24px;}
+.chart svg{display:block;width:100%;height:auto;}
+.coachnote{margin-top:24px;background:#FFFDF6;border:1px solid #E2D5BB;border-inline-start:3px solid #7D5F27;padding:24px;}
+.coachnote p{font-size:16px;line-height:1.65;margin-top:8px;}
+.price{font-size:32px;color:#152A55;line-height:1.1;margin-top:8px;}
+.wd p.micro, .card p.micro, .today-card p.eyebrow, .coachnote p.eyebrow, .chart p.eyebrow{margin-top:0;}
+.wd p.micro, .card p.micro{font-size:11px;line-height:1.5;}
+.coachnote p.eyebrow, .chart p.eyebrow{font-size:12px;line-height:1.5;}
+footer.site{border-top:1px solid #E2D5BB;margin-top:48px;padding:24px 0 48px;font-size:15px;color:#6F5D4A;}
+
+/* ADDED FOR THE LIVE SERVICE, 2 NOV 2026: language blocks, alerts, data rights, payments, admin, legal pages. */
+html[lang="ar"] [data-lang="en"], html:not([lang="ar"]) [data-lang="ar"]{display:none !important;}
+[hidden]{display:none !important;}
+.vh{position:absolute;left:-9999px;}
+.mt24{margin-top:24px;}
+.center{justify-content:center;}
+.ck-cta.center{margin-top:12px;}
+.ok-msg.alert{background:#F4E7E1;border-color:#E2CBC1;}
+.btn.danger{background:#8C3A30;border-color:#8C3A30;}
+.btn.danger:hover{background:#6F2D25;border-color:#6F2D25;}
+.btn.small{min-height:44px;padding:8px 16px;}
+#banner{margin-top:24px;}
+.rights{margin-top:96px;padding-top:56px;border-top:1px solid #E2D5BB;}
+.consents .check{margin-top:12px;}
+dl.pay{margin-top:16px;display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:16px;}
+dl.pay dt{color:#6F5D4A;}
+dl.pay dd{color:#152A55;overflow-wrap:anywhere;}
+.adm{margin-top:48px;}
+.adm h3{margin-bottom:8px;}
+.adm .card{margin-top:16px;}
+.adm table{width:100%;border-collapse:collapse;font-size:15px;margin-top:8px;}
+.adm td, .adm th{border-top:1px solid #E2D5BB;padding:8px 8px 8px 0;text-align:start;vertical-align:top;font-weight:400;}
+.adm th{color:#6F5D4A;}
+.legal h3{margin-top:32px;font-size:19px;}
+.legal p, .legal li{font-size:16px;line-height:1.7;margin-top:12px;max-width:72ch;}
+.legal ul{padding-inline-start:20px;}
+.legal + .legal{margin-top:96px;padding-top:56px;border-top:1px solid #E2D5BB;}
+.attrib{font-size:15px;color:#6F5D4A;}
+
+/* ARABIC, per the Majlis Arabic column: Noto Naskh, its own heading sizes, no uppercase, no letter-spacing. */
+html[lang="ar"] body, html[lang="ar"] .in, html[lang="ar"] .sel, html[lang="ar"] .ta{font-family:'Noto Naskh Arabic','Amiri',Georgia,serif;}
+html[lang="ar"] main{direction:rtl;text-align:right;}
+html[lang="ar"] body{line-height:1.95;}
+html[lang="ar"] .eyebrow, html[lang="ar"] .micro, html[lang="ar"] .btn, html[lang="ar"] .badge, html[lang="ar"] .step .n, html[lang="ar"] .ck-preview b{font-family:'Noto Naskh Arabic','Amiri',Georgia,serif;font-size:14px;letter-spacing:0;text-transform:none;}
+html[lang="ar"] .ck-hero h1{font-size:28px;line-height:1.4;}
+html[lang="ar"] h2{font-size:24px;line-height:1.45;}
+html[lang="ar"] h3, html[lang="ar"] .src h3, html[lang="ar"] .legal h3, html[lang="ar"] .today-card h3{font-size:20px;line-height:1.55;}
+html[lang="ar"] .lead, html[lang="ar"] .ck-hero .sub{font-size:20px;line-height:1.8;}
+html[lang="ar"] .card p, html[lang="ar"] .src p, html[lang="ar"] .legal p, html[lang="ar"] .legal li, html[lang="ar"] .coachnote p, html[lang="ar"] .check, html[lang="ar"] .field label, html[lang="ar"] .field legend, html[lang="ar"] .conn ul, html[lang="ar"] .conn ol, html[lang="ar"] .today-card ol, html[lang="ar"] .drop p, html[lang="ar"] .ck-tabs a, html[lang="ar"] .wd b, html[lang="ar"] .day span, html[lang="ar"] dl.pay, html[lang="ar"] .ok-msg{font-size:17px;line-height:1.9;}
+html[lang="ar"] .stat .v, html[lang="ar"] .price{font-size:28px;}
+@media (min-width:768px){
+  html[lang="ar"] .ck-hero h1{font-size:36px;}
+  html[lang="ar"] h2{font-size:30px;}
+  html[lang="ar"] h3, html[lang="ar"] .src h3, html[lang="ar"] .legal h3, html[lang="ar"] .today-card h3{font-size:21px;}
+  html[lang="ar"] .lead, html[lang="ar"] .ck-hero .sub{font-size:21px;}
+  html[lang="ar"] .stat .v, html[lang="ar"] .price{font-size:36px;}
+}
+@media (min-width:1280px){
+  html[lang="ar"] .ck-hero h1{font-size:46px;}
+  html[lang="ar"] h2{font-size:34px;}
+  html[lang="ar"] h3, html[lang="ar"] .src h3, html[lang="ar"] .legal h3, html[lang="ar"] .today-card h3{font-size:22px;}
+  html[lang="ar"] .lead, html[lang="ar"] .ck-hero .sub{font-size:22px;}
+  html[lang="ar"] .stat .v, html[lang="ar"] .price{font-size:46px;}
+}
+html[lang="ar"] [dir="ltr"]{text-align:left;}
+html[lang="ar"] .ck-preview{direction:rtl;text-align:right;}
+</style>
+
+</head>
+<body>
+<div class="wpbar" id="wpbar"><div class="wpbar-in"><div class="wpbar-row"><a class="wpbrand" href="https://saqeralkhalifa.com/">Dr. Saqer AlKhalifa</a><div class="wpright"><nav class="wpnav wpnav-en"><div class="wpdd"><a class="wpitem" href="https://saqeralkhalifa.com/mentorship/">Work with me<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://saqeralkhalifa.com/mentorship/">Mentorship</a><a href="https://saqeralkhalifa.com/speaking/">Speaking &amp; Media</a><a href="https://saqeralkhalifa.com/contact-me/">Contact</a></div></div><div class="wpdd"><a class="wpitem" href="https://saqeralkhalifa.com/major-compass/">For Students<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://saqeralkhalifa.github.io/major-compass/">Major Compass Quiz</a><a href="https://saqeralkhalifa.github.io/major-compass/explore.html">Every Major Explained</a><a href="https://saqeralkhalifa.github.io/major-compass/entry.html">Entry Requirements</a><a href="https://saqeralkhalifa.github.io/major-compass/scholarships.html">Scholarships and Funding</a><a href="https://saqeralkhalifa.github.io/major-compass/parents.html">Parent Guide</a><a href="https://saqeralkhalifa.github.io/major-compass/ai.html">AI and Your Major</a><a href="https://saqeralkhalifa.github.io/major-compass/routes.html">What a Dealbreaker Closes</a><a href="https://saqeralkhalifa.github.io/major-compass/alternatives.html">Routes Without a Degree</a><a href="https://internships.saqeralkhalifa.com/?lang=en">Internships</a><a href="https://internships.saqeralkhalifa.com/cv.html?lang=en">Build a CV</a></div></div><div class="wpdd"><a class="wpitem" href="https://gigs.saqeralkhalifa.com/?lang=en">For Job Seekers<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://gigs.saqeralkhalifa.com/?lang=en">Gigs Board</a><a href="https://gigs.saqeralkhalifa.com/?lang=en#jobs">Full-time Jobs</a><a href="https://internships.saqeralkhalifa.com/?lang=en">Internships</a><a href="https://internships.saqeralkhalifa.com/cv.html?lang=en">Build a CV</a><a href="https://saqeralkhalifa.com/post-a-gig/">Post a Gig</a><a href="https://saqeralkhalifa.com/find-work/">Find Work</a><a href="https://saqeralkhalifa.com/find-investors/">Find Investors</a></div></div><div class="wpdd"><a class="wpitem" href="https://saqeralkhalifa.com/">Shackles of Democracy<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://saqeralkhalifa.com/">The Book</a><a href="https://saqeralkhalifa.com/first-chapter/">First Chapter Free</a><a href="https://saqeralkhalifa.com/#formats">Choose Your Format</a><a href="https://saqeralkhalifa.com/#stores">Where to Buy</a><a href="https://saqeralkhalifa.com/check/">The Data</a><a href="https://saqeralkhalifa.com/arabic/">Arabic Edition</a></div></div><div class="wpdd"><a class="wpitem" href="https://saqeralkhalifa.com/the-trust-trap/">The Trust Trap<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://saqeralkhalifa.com/the-trust-trap/">About the Book</a><a href="https://saqeralkhalifa.com/the-trust-trap/#chapters">Inside the Book</a><a href="https://saqeralkhalifa.com/the-trust-trap/#resources">Free Resources</a><a href="https://saqeralkhalifa.com/the-trust-trap/#faq">Questions</a><a href="https://saqeralkhalifa.com/the-trust-trap/#buy">Where to Buy</a></div></div><a class="wpitem" href="https://saqeralkhalifa.com/about/">About</a><div class="wpdd"><a class="wpitem" href="https://market.saqeralkhalifa.com/?lang=en">Sports<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://market.saqeralkhalifa.com/?lang=en">Market</a><a href="https://saqeralkhalifa.com/triathlon-notables/">Triathlon Notables</a><a href="https://coach.saqeralkhalifa.com/?lang=en">AI Coach</a></div></div><div class="wpdd"><a class="wpitem" href="https://saqeralkhalifa.com/blog/">Blog<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://saqeralkhalifa.com/blog/">All Articles</a><a href="https://saqeralkhalifa.com/category/trust-by-design/">Trust by Design</a><a href="https://saqeralkhalifa.com/category/reform-theater/">Reform Theater</a><a href="https://saqeralkhalifa.com/category/country-cases/">Country Cases</a><a href="https://saqeralkhalifa.com/category/institutional-memory/">Institutional Memory</a><a href="https://saqeralkhalifa.com/category/politics/">Politics</a><a href="https://saqeralkhalifa.com/category/economics/">Economics</a><a href="https://saqeralkhalifa.com/category/social/">Social</a><a href="https://saqeralkhalifa.com/category/published-and-mentions/">Published & Mentions</a><a href="https://saqeralkhalifa.com/category/interesting/">Interesting</a></div></div></nav><nav class="wpnav wpnav-ar"><div class="wpdd"><a class="wpitem" href="https://saqeralkhalifa.com/mentorship-ar/">العمل معي<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://saqeralkhalifa.com/mentorship-ar/">الإرشاد والتوجيه</a><a href="https://saqeralkhalifa.com/contact-ar/">تواصل</a></div></div><div class="wpdd"><a class="wpitem" href="https://saqeralkhalifa.com/major-compass/#ar">للطلبة<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://saqeralkhalifa.github.io/major-compass/?lang=ar">بوصلة التخصص</a><a href="https://saqeralkhalifa.github.io/major-compass/explore.html?lang=ar">استكشف التخصصات</a><a href="https://saqeralkhalifa.github.io/major-compass/entry.html?lang=ar">شروط القبول</a><a href="https://saqeralkhalifa.github.io/major-compass/scholarships.html?lang=ar">المنح والتمويل</a><a href="https://saqeralkhalifa.github.io/major-compass/parents.html?lang=ar">دليل أولياء الأمور</a><a href="https://saqeralkhalifa.github.io/major-compass/ai.html?lang=ar">الذكاء الاصطناعي وتخصصك</a><a href="https://saqeralkhalifa.github.io/major-compass/routes.html?lang=ar">ماذا يغلق كل شرط</a><a href="https://saqeralkhalifa.github.io/major-compass/alternatives.html?lang=ar">مسارات بدون شهادة</a><a href="https://internships.saqeralkhalifa.com/?lang=ar">فرص التدريب</a><a href="https://internships.saqeralkhalifa.com/cv.html?lang=ar">السيرة الذاتية</a></div></div><div class="wpdd"><a class="wpitem" href="https://gigs.saqeralkhalifa.com/?lang=ar">للباحثين عن عمل<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://gigs.saqeralkhalifa.com/?lang=ar">لوحة الأعمال القصيرة</a><a href="https://gigs.saqeralkhalifa.com/?lang=ar#jobs">الوظائف الدائمة</a><a href="https://internships.saqeralkhalifa.com/?lang=ar">فرص التدريب</a><a href="https://internships.saqeralkhalifa.com/cv.html?lang=ar">السيرة الذاتية</a><a href="https://saqeralkhalifa.com/post-a-gig/">انشر فرصة</a><a href="https://saqeralkhalifa.com/find-work/">سجّل بياناتك</a><a href="https://saqeralkhalifa.com/find-investors-ar/">أفكار تبحث عن مستثمر</a></div></div><div class="wpdd"><a class="wpitem" href="https://saqeralkhalifa.com/arabic/">أغلال الديمقراطية<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://saqeralkhalifa.com/arabic/">الكتاب</a><a href="https://saqeralkhalifa.com/readers/">الفصل الأول مجانا</a><a href="https://saqeralkhalifa.com/arabic/#buy">الشراء</a><a href="https://saqeralkhalifa.com/check-ar/">البيانات</a></div></div><a class="wpitem" href="https://saqeralkhalifa.com/the-trust-trap-ar/">مصيدة الثقة</a><a class="wpitem" href="https://saqeralkhalifa.com/about-ar/">نبذة</a><div class="wpdd"><a class="wpitem" href="https://market.saqeralkhalifa.com/?lang=ar">الرياضة<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://market.saqeralkhalifa.com/?lang=ar">السوق</a><a href="https://saqeralkhalifa.com/triathlon-notables-ar/">أعلام الترايثلون</a><a href="https://coach.saqeralkhalifa.com/?lang=ar">المدرب الذكي</a></div></div><a class="wpitem" href="https://saqeralkhalifa.com/blog/">المدونة</a></nav><button class="wpitem wplang" id="langToggle" type="button">العربية</button><button class="wpburger" id="wpburger" type="button" aria-label="Open menu"><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7.5h16v1.5H4z"></path><path d="M4 15h16v1.5H4z"></path></svg></button></div></div></div><div class="wpmob"><div class="wpmob-nav wpmob-en"><a class="wpmob-top" href="https://saqeralkhalifa.com/mentorship/">Work with me</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/mentorship/">Mentorship</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/speaking/">Speaking &amp; Media</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/contact-me/">Contact</a><a class="wpmob-top" href="https://saqeralkhalifa.com/major-compass/">For Students</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/">Major Compass Quiz</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/explore.html">Every Major Explained</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/entry.html">Entry Requirements</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/scholarships.html">Scholarships and Funding</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/parents.html">Parent Guide</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/ai.html">AI and Your Major</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/routes.html">What a Dealbreaker Closes</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/alternatives.html">Routes Without a Degree</a><a class="wpmob-sub" href="https://internships.saqeralkhalifa.com/?lang=en">Internships</a><a class="wpmob-sub" href="https://internships.saqeralkhalifa.com/cv.html?lang=en">Build a CV</a><a class="wpmob-top" href="https://gigs.saqeralkhalifa.com/?lang=en">For Job Seekers</a><a class="wpmob-sub" href="https://gigs.saqeralkhalifa.com/?lang=en">Gigs Board</a><a class="wpmob-sub" href="https://gigs.saqeralkhalifa.com/?lang=en#jobs">Full-time Jobs</a><a class="wpmob-sub" href="https://internships.saqeralkhalifa.com/?lang=en">Internships</a><a class="wpmob-sub" href="https://internships.saqeralkhalifa.com/cv.html?lang=en">Build a CV</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/post-a-gig/">Post a Gig</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/find-work/">Find Work</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/find-investors/">Find Investors</a><a class="wpmob-top" href="https://saqeralkhalifa.com/">Shackles of Democracy</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/">The Book</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/first-chapter/">First Chapter Free</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/#formats">Choose Your Format</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/#stores">Where to Buy</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/check/">The Data</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/arabic/">Arabic Edition</a><a class="wpmob-top" href="https://saqeralkhalifa.com/the-trust-trap/">The Trust Trap</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/the-trust-trap/">About the Book</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/the-trust-trap/#chapters">Inside the Book</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/the-trust-trap/#resources">Free Resources</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/the-trust-trap/#faq">Questions</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/the-trust-trap/#buy">Where to Buy</a><a class="wpmob-top" href="https://saqeralkhalifa.com/about/">About</a><a class="wpmob-top" href="https://market.saqeralkhalifa.com/?lang=en">Sports</a><a class="wpmob-sub" href="https://market.saqeralkhalifa.com/?lang=en">Market</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/triathlon-notables/">Triathlon Notables</a><a class="wpmob-sub" href="https://coach.saqeralkhalifa.com/?lang=en">AI Coach</a><a class="wpmob-top" href="https://saqeralkhalifa.com/blog/">Blog</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/blog/">All Articles</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/category/trust-by-design/">Trust by Design</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/category/reform-theater/">Reform Theater</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/category/country-cases/">Country Cases</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/category/institutional-memory/">Institutional Memory</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/category/politics/">Politics</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/category/economics/">Economics</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/category/social/">Social</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/category/published-and-mentions/">Published & Mentions</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/category/interesting/">Interesting</a></div><div class="wpmob-nav wpmob-ar"><a class="wpmob-top" href="https://saqeralkhalifa.com/mentorship-ar/">العمل معي</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/mentorship-ar/">الإرشاد والتوجيه</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/contact-ar/">تواصل</a><a class="wpmob-top" href="https://saqeralkhalifa.com/major-compass/#ar">للطلبة</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/?lang=ar">بوصلة التخصص</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/explore.html?lang=ar">استكشف التخصصات</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/entry.html?lang=ar">شروط القبول</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/scholarships.html?lang=ar">المنح والتمويل</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/parents.html?lang=ar">دليل أولياء الأمور</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/ai.html?lang=ar">الذكاء الاصطناعي وتخصصك</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/routes.html?lang=ar">ماذا يغلق كل شرط</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/alternatives.html?lang=ar">مسارات بدون شهادة</a><a class="wpmob-sub" href="https://internships.saqeralkhalifa.com/?lang=ar">فرص التدريب</a><a class="wpmob-sub" href="https://internships.saqeralkhalifa.com/cv.html?lang=ar">السيرة الذاتية</a><a class="wpmob-top" href="https://gigs.saqeralkhalifa.com/?lang=ar">للباحثين عن عمل</a><a class="wpmob-sub" href="https://gigs.saqeralkhalifa.com/?lang=ar">لوحة الأعمال القصيرة</a><a class="wpmob-sub" href="https://gigs.saqeralkhalifa.com/?lang=ar#jobs">الوظائف الدائمة</a><a class="wpmob-sub" href="https://internships.saqeralkhalifa.com/?lang=ar">فرص التدريب</a><a class="wpmob-sub" href="https://internships.saqeralkhalifa.com/cv.html?lang=ar">السيرة الذاتية</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/post-a-gig/">انشر فرصة</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/find-work/">سجّل بياناتك</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/find-investors-ar/">أفكار تبحث عن مستثمر</a><a class="wpmob-top" href="https://saqeralkhalifa.com/arabic/">أغلال الديمقراطية</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/arabic/">الكتاب</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/readers/">الفصل الأول مجانا</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/arabic/#buy">الشراء</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/check-ar/">البيانات</a><a class="wpmob-top" href="https://saqeralkhalifa.com/the-trust-trap-ar/">مصيدة الثقة</a><a class="wpmob-top" href="https://saqeralkhalifa.com/about-ar/">نبذة</a><a class="wpmob-top" href="https://market.saqeralkhalifa.com/?lang=ar">الرياضة</a><a class="wpmob-sub" href="https://market.saqeralkhalifa.com/?lang=ar">السوق</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/triathlon-notables-ar/">أعلام الترايثلون</a><a class="wpmob-sub" href="https://coach.saqeralkhalifa.com/?lang=ar">المدرب الذكي</a><a class="wpmob-top" href="https://saqeralkhalifa.com/blog/">المدونة</a></div></div><script>(function(){var b=document.getElementById("wpburger"),w=document.getElementById("wpbar");if(b&&w){b.addEventListener("click",function(){var o=w.classList.toggle("open");b.innerHTML=o?'<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"></path></svg>':'<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7.5h16v1.5H4z"></path><path d="M4 15h16v1.5H4z"></path></svg>';b.setAttribute("aria-label",o?"Close menu":"Open menu");});}var t=document.getElementById("langToggle");if(!t)return;function fix(){var ar=document.documentElement.lang==="ar";var want=ar?"English":"العربية";if(t.textContent.trim()!==want){t.textContent=want;}}fix();new MutationObserver(fix).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});new MutationObserver(fix).observe(t,{childList:true,characterData:true,subtree:true});})();</script></div>
+<div class="ck-preview" id="previewBar" hidden><div class="ck-wrap"><p data-th="previewBar"></p></div></div>
+
+<main>
+<div class="ck-wrap">
+  <header class="ck-hero" id="hero">
+    <div data-lang="en">
+      <p class="eyebrow">AI Coach</p>
+      <h1>Triathlon and running plans that adjust to your week</h1>
+      <p class="sub">Register, tell the coach about your race and the days you can train, and connect your watch. A new plan arrives each week, and each day's session is sent to your Garmin.</p>
+    </div>
+    <div data-lang="ar" dir="rtl" lang="ar">
+      <p class="eyebrow">المدرب الذكي</p>
+      <h1>خطط للترايثلون والجري تتكيف مع أسبوعك</h1>
+      <p class="sub">سجّل، وأخبر المدرب عن سباقك والأيام التي تستطيع التدرب فيها، واربط ساعتك. تصلك خطة جديدة كل أسبوع، وتُرسل حصة كل يوم إلى ساعة Garmin الخاصة بك.</p>
+    </div>
+    <div class="ck-cta" id="heroCta"><a class="btn" href="#register" data-go="register" data-t="register"></a><a class="btn ghost" href="#signin" data-go="signin" data-t="signin"></a></div>
+  </header>
+  <nav class="ck-tabs" id="tabs" aria-label="Coach pages">
+    <a href="#overview" data-go="overview" data-t="tabOverview"></a>
+    <a href="#register" data-go="register" data-t="register" data-when="out"></a>
+    <a href="#signin" data-go="signin" data-t="signin" data-when="out"></a>
+    <a href="#week" data-go="week" data-t="tabWeek" data-when="in"></a>
+    <a href="#connect" data-go="connect" data-t="tabConnect" data-when="in"></a>
+    <a href="#profile" data-go="profile" data-t="tabProfile" data-when="in"></a>
+    <a href="#membership" data-go="membership" data-t="tabMembership"></a>
+    <a href="#admin" data-go="admin" data-t="tabAdmin" data-when="admin"></a>
+  </nav>
+  <p class="ok-msg" id="banner" role="status"></p>
+</div>
+
+<!-- OVERVIEW -->
+<section class="view on" id="v-overview">
+  <div class="section" id="how"><div class="ck-wrap">
+    <div data-lang="en">
+      <p class="eyebrow">How it works</p>
+      <h2>From registration to your first session</h2>
+      <div class="grid four">
+        <div class="card step"><p class="n">01</p><h3>Register</h3><p>Create an account with your email and a password. You confirm your email address before the account opens.</p></div>
+        <div class="card step"><p class="n">02</p><h3>Describe your training</h3><p>Your target race and date, the days you can train, your preferred swim days and any injury history.</p></div>
+        <div class="card step"><p class="n">03</p><h3>Connect your watch</h3><p>Link Garmin through Intervals.icu once. Completed workouts and sleep then reach the coach without uploads.</p></div>
+        <div class="card step"><p class="n">04</p><h3>Train</h3><p>Each week's plan appears on your dashboard and by email, and each session appears on your watch.</p></div>
+      </div>
+    </div>
+    <div data-lang="ar" dir="rtl" lang="ar">
+      <p class="eyebrow">كيف تعمل الخدمة</p>
+      <h2>من التسجيل إلى أول حصة تدريب</h2>
+      <div class="grid four">
+        <div class="card step"><p class="n">01</p><h3>التسجيل</h3><p>أنشئ حسابا ببريدك الإلكتروني وكلمة مرور، ثم أكد بريدك الإلكتروني قبل أن يُفعّل الحساب.</p></div>
+        <div class="card step"><p class="n">02</p><h3>وصف تدريبك</h3><p>سباقك المستهدف وتاريخه، والأيام التي تستطيع التدرب فيها، وأيام السباحة المفضلة، وأي إصابات سابقة.</p></div>
+        <div class="card step"><p class="n">03</p><h3>ربط ساعتك</h3><p>اربط ساعة Garmin عبر Intervals.icu مرة واحدة، فتصل تمارينك المكتملة وبيانات نومك إلى المدرب دون رفع ملفات.</p></div>
+        <div class="card step"><p class="n">04</p><h3>التدريب</h3><p>تظهر خطة كل أسبوع في صفحتك وفي بريدك الإلكتروني، وتظهر كل حصة على ساعتك.</p></div>
+      </div>
+    </div>
+  </div></div>
+
+  <div class="section sand"><div class="ck-wrap">
+    <div data-lang="en">
+      <p class="eyebrow">Connections</p>
+      <h2>Where your data comes from and where your sessions go</h2>
+      <p class="lead">Garmin is the first watch supported. Every other watch can be used through file upload, and the daily check-in works for everyone.</p>
+      <div class="grid two">
+        <div class="card"><p class="micro">Garmin, through Intervals.icu</p><p>Planned sessions are written to your Intervals.icu calendar and sync to Garmin Connect and your watch. Completed workouts, sleep and resting heart rate come back the same way.</p></div>
+        <div class="card"><p class="micro">TrainingPeaks</p><p>Partner access will be requested from TrainingPeaks. If it is approved, sessions will also appear in your TrainingPeaks calendar.</p></div>
+        <div class="card"><p class="micro">File upload</p><p>For any watch: upload .fit, .tcx or .gpx files from your computer or phone after each session.</p></div>
+        <div class="card"><p class="micro">Daily check-in</p><p>Sleep, resting heart rate and how you feel. Any report of pain or illness pauses your plan and goes to Dr. Saqer.</p></div>
+      </div>
+      <p class="note">Strava is not connected. Its API terms do not allow the data to be used by AI systems.</p>
+    </div>
+    <div data-lang="ar" dir="rtl" lang="ar">
+      <p class="eyebrow">الربط</p>
+      <h2>من أين تأتي بياناتك وإلى أين تذهب حصصك</h2>
+      <p class="lead">ساعات Garmin هي أول الساعات المدعومة. ويمكن استخدام أي ساعة أخرى برفع الملفات، والتسجيل اليومي متاح للجميع.</p>
+      <div class="grid two">
+        <div class="card"><p class="micro">Garmin عبر Intervals.icu</p><p>تُكتب الحصص المخططة في تقويمك على Intervals.icu وتتزامن مع Garmin Connect وساعتك، وتعود التمارين المكتملة وبيانات النوم ونبض الراحة بالطريقة نفسها.</p></div>
+        <div class="card"><p class="micro">TrainingPeaks</p><p>سيُطلب الوصول بصفة شريك من TrainingPeaks، وإذا وافقت عليه ستظهر الحصص في تقويمك على TrainingPeaks أيضا.</p></div>
+        <div class="card"><p class="micro">رفع الملفات</p><p>لأي ساعة: ارفع ملفات ‎.fit أو ‎.tcx أو ‎.gpx من حاسوبك أو هاتفك بعد كل حصة.</p></div>
+        <div class="card"><p class="micro">التسجيل اليومي</p><p>النوم ونبض الراحة وشعورك اليومي. وأي بلاغ عن ألم أو مرض يوقف خطتك ويصل إلى د. صقر.</p></div>
+      </div>
+      <p class="note">خدمة Strava غير مرتبطة، لأن شروط واجهتها البرمجية لا تسمح باستخدام بياناتها في أنظمة الذكاء الاصطناعي.</p>
+    </div>
+  </div></div>
+
+  <div class="section"><div class="ck-wrap">
+    <div data-lang="en">
+      <p class="eyebrow">The science behind the plans</p>
+      <h2>The rules every plan follows, and where they come from</h2>
+      <p class="lead">The AI proposes each week, and software checks it against fixed rules taken from published research and established coaching methods. Anything outside the rules is corrected or removed before the plan reaches you.</p>
+      <div class="srcs">
+        <div class="src"><h3>Progression</h3><p>Weekly running time rises by no more than 10%, and no single run is more than 10% longer than your longest run of the past 30 days. Sources: Frandsen and colleagues (2025), a study of 5,205 runners; Nielsen and colleagues (2014); Buist and colleagues (2008).<span class="stand">Standing: one large cohort study for the single run limit. The weekly limit is more cautious than the research requires.</span></p></div>
+        <div class="src"><h3>Periodization and taper</h3><p>Plans build toward the race date, with a recovery week after every three load weeks (every two from age 50) and a taper of one to three weeks before the race. Sources: Bosquet and colleagues (2007) and Wang and colleagues (2023), meta-analyses of tapering studies; Mujika and Padilla (2003); Joe Friel.<span class="stand">Standing: well established for the taper; established practitioner method for recovery weeks.</span></p></div>
+        <div class="src"><h3>Intensity mix</h3><p>At least 75% of training time is at low intensity, with no more than two hard sessions a week, spaced at least 48 hours apart. Sources: Seiler (2010); Stöggl and Sperlich (2014, 2015); Rosenblat and colleagues (2019).<span class="stand">Standing: widely accepted. Researchers still debate a polarized against a pyramidal split, so plans allow either within limits.</span></p></div>
+        <div class="src"><h3>Sleep and resting heart rate</h3><p>Short sleep over several nights, or a resting heart rate well above your usual level, turns the next hard sessions into easy ones. Sources: Walsh and colleagues (2021), expert consensus in the British Journal of Sports Medicine; Buchheit (2014).<span class="stand">Standing: expert consensus for sleep. The thresholds are set by the service, because the research gives no single number.</span></p></div>
+        <div class="src"><h3>Heat</h3><p>Sessions are planned for the coolest part of the day, and intensity is held down during the first two weeks of hot weather training. Sources: Racinais and colleagues (2015, 2023), consensus statements on training in the heat; American College of Sports Medicine (2021).<span class="stand">Standing: expert consensus.</span></p></div>
+        <div class="src"><h3>Coaching methods</h3><p>Session design follows Joe Friel for triathlon and Jack Daniels for running.<span class="stand">Standing: established practitioner methods used by coaches worldwide.</span></p></div>
+        <div class="src"><h3>Left out on purpose</h3><p>The acute to chronic workload ratio, which many apps use to predict injury, is not used.<span class="stand">Its injury prediction claims have been seriously challenged in the research (Impellizzeri and colleagues, 2020 and 2021).</span></p></div>
+      </div>
+    </div>
+    <div data-lang="ar" dir="rtl" lang="ar">
+      <p class="eyebrow">العلم وراء الخطط</p>
+      <h2>القواعد التي تلتزم بها كل خطة ومصادرها</h2>
+      <p class="lead">يقترح الذكاء الاصطناعي خطة كل أسبوع، ثم يتحقق منها برنامج وفق قواعد ثابتة مأخوذة من الأبحاث المنشورة ومناهج التدريب المعتمدة، ويُصحح كل ما يتجاوزها أو يُحذف قبل أن تصلك الخطة.</p>
+      <div class="srcs">
+        <div class="src"><h3>التدرج</h3><p>لا يزيد وقت الجري الأسبوعي بأكثر من 10%، ولا تزيد أي حصة جري بأكثر من 10% على أطول جري لك خلال الثلاثين يوما الماضية. المصادر: Frandsen وزملاؤه (2025)، دراسة شملت 5,205 عدائين؛ Nielsen وزملاؤه (2014)؛ Buist وزملاؤه (2008).<span class="stand">مستوى الدليل: دراسة أترابية كبيرة واحدة لحد الحصة الواحدة، والحد الأسبوعي أكثر تحفظا مما تتطلبه الأبحاث.</span></p></div>
+        <div class="src"><h3>التحقيب والتخفيف قبل السباق</h3><p>تُبنى الخطط تدريجيا نحو موعد السباق، مع أسبوع استشفاء بعد كل ثلاثة أسابيع حمل (وبعد كل أسبوعين من سن الخمسين)، وفترة تخفيف من أسبوع إلى ثلاثة أسابيع قبل السباق. المصادر: Bosquet وزملاؤه (2007) وWang وزملاؤه (2023)، تحليلان تجميعيان لدراسات التخفيف؛ Mujika وPadilla (2003)؛ Joe Friel.<span class="stand">مستوى الدليل: راسخ بالنسبة للتخفيف، ومنهج تطبيقي معتمد بالنسبة لأسابيع الاستشفاء.</span></p></div>
+        <div class="src"><h3>توزيع الشدة</h3><p>لا يقل التدريب منخفض الشدة عن 75% من وقت التدريب، ولا تزيد الحصص الشاقة على حصتين في الأسبوع بفاصل لا يقل عن 48 ساعة. المصادر: Seiler (2010)؛ Stöggl وSperlich (2014، 2015)؛ Rosenblat وزملاؤه (2019).<span class="stand">مستوى الدليل: مقبول على نطاق واسع. وما زال الباحثون يناقشون التوزيع المستقطب مقابل التوزيع الهرمي، لذلك تسمح الخطط بأي منهما ضمن حدود.</span></p></div>
+        <div class="src"><h3>النوم ونبض الراحة</h3><p>قلة النوم لعدة ليال، أو ارتفاع نبض الراحة بوضوح عن مستواك المعتاد، يحول الحصص الشاقة التالية إلى حصص سهلة. المصادر: Walsh وزملاؤه (2021)، إجماع خبراء منشور في المجلة البريطانية للطب الرياضي؛ Buchheit (2014).<span class="stand">مستوى الدليل: إجماع خبراء بالنسبة للنوم. وتحدد الخدمة العتبات بنفسها، لأن الأبحاث لا تحدد رقما واحدا.</span></p></div>
+        <div class="src"><h3>الحرارة</h3><p>تُخطط الحصص لأبرد أوقات اليوم، وتبقى الشدة منخفضة خلال أول أسبوعين من التدريب في الطقس الحار. المصادر: Racinais وزملاؤه (2015، 2023)، بيانا إجماع حول التدريب في الحرارة؛ الكلية الأمريكية للطب الرياضي (2021).<span class="stand">مستوى الدليل: إجماع خبراء.</span></p></div>
+        <div class="src"><h3>مناهج التدريب</h3><p>يتبع تصميم الحصص منهج Joe Friel في الترايثلون ومنهج Jack Daniels في الجري.<span class="stand">مستوى الدليل: مناهج تطبيقية معتمدة يستخدمها المدربون حول العالم.</span></p></div>
+        <div class="src"><h3>ما استُبعد عمدا</h3><p>لا تُستخدم نسبة الحمل الحاد إلى المزمن التي تعتمد عليها تطبيقات كثيرة للتنبؤ بالإصابات.<span class="stand">لأن ادعاءات قدرتها على التنبؤ بالإصابات تعرضت لطعن جدي في الأبحاث (Impellizzeri وزملاؤه، 2020 و2021).</span></p></div>
+      </div>
+    </div>
+  </div></div>
+
+  <div class="section band"><div class="ck-wrap">
+    <div data-lang="en">
+      <p class="eyebrow">Safety and privacy</p>
+      <h2>Read before you register</h2>
+      <p class="lead">Registration is open to adults aged 18 and over. Get clearance from a doctor before starting a new training plan. The coach does not give medical advice, and any report of pain, illness, chest symptoms or dizziness pauses your plan and is reviewed by Dr. Saqer.</p>
+      <p class="lead">Your data is used only to write your plans and is handled under Bahrain's Personal Data Protection Law. You can download it or delete your account at any time from your profile. Read the <a href="#privacy" data-go="privacy">privacy notice</a> and the <a href="#terms" data-go="terms">terms and medical disclaimer</a>.</p>
+    </div>
+    <div data-lang="ar" dir="rtl" lang="ar">
+      <p class="eyebrow">السلامة والخصوصية</p>
+      <h2>اقرأ قبل التسجيل</h2>
+      <p class="lead">التسجيل متاح للبالغين الذين أتموا 18 عاما. احصل على إذن من طبيب قبل البدء في أي خطة تدريب جديدة. لا يقدم المدرب أي مشورة طبية، وأي بلاغ عن ألم أو مرض أو أعراض في الصدر أو دوار يوقف خطتك ويراجعه د. صقر.</p>
+      <p class="lead">تُستخدم بياناتك لإعداد خططك فقط، ويُتعامل معها وفق قانون حماية البيانات الشخصية في البحرين. ويمكنك تنزيلها أو حذف حسابك في أي وقت من صفحة ملفك. اقرأ <a href="#privacy" data-go="privacy">إشعار الخصوصية</a> و<a href="#terms" data-go="terms">الشروط وإخلاء المسؤولية الطبية</a>.</p>
+    </div>
+    <div class="ck-cta"><a class="btn onband" href="#register" data-go="register" data-t="register"></a></div>
+  </div></div>
+</section>
+
+<!-- REGISTER -->
+<section class="view" id="v-register"><div class="section"><div class="ck-wrap">
+  <p class="eyebrow" data-t="register"></p>
+  <h2 data-t="regH"></h2>
+  <p class="lead" data-t="regLead"></p>
+  <form class="form" id="regForm" novalidate>
+    <div class="field"><label for="r-name" data-t="fName"></label><input class="in" id="r-name" autocomplete="name" maxlength="120"></div>
+    <div class="field"><label for="r-email" data-t="fEmail"></label><input class="in" id="r-email" type="email" autocomplete="email" dir="ltr"></div>
+    <div class="row2">
+      <div class="field"><label for="r-pass" data-t="fPass"></label><span class="hint" data-t="fPassH"></span><input class="in" id="r-pass" type="password" autocomplete="new-password" dir="ltr"></div>
+      <div class="field"><label for="r-pass2" data-t="fPass2"></label><span class="hint" data-t="fPass2H"></span><input class="in" id="r-pass2" type="password" autocomplete="new-password" dir="ltr"></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label for="r-country" data-t="fCountry"></label><select class="sel" id="r-country" data-opts="countries"></select></div>
+      <div class="field"><label for="r-year" data-t="fYear"></label><span class="hint" data-t="fYearH"></span><input class="in" id="r-year" type="number" inputmode="numeric" min="1920" max="2008" dir="ltr"></div>
+    </div>
+    <fieldset class="field consents"><legend data-t="consentsH"></legend><span class="hint" data-t="consentsHint"></span>
+      <label class="check"><input type="checkbox" id="c-age"><span data-th="cAge"></span></label>
+      <label class="check"><input type="checkbox" id="c-terms"><span data-th="cTerms"></span></label>
+      <label class="check"><input type="checkbox" id="c-health"><span data-th="cHealth"></span></label>
+      <label class="check"><input type="checkbox" id="c-transfer"><span data-th="cTransfer"></span></label>
+      <label class="check"><input type="checkbox" id="c-ai"><span data-th="cAi"></span></label>
+    </fieldset>
+    <p class="err" id="regErr" role="alert"></p>
+    <div class="ck-cta"><button class="btn" type="submit" data-t="regBtn"></button></div>
+    <p class="ok-msg" id="regOk" data-t="regOk"></p>
+  </form>
+</div></div></section>
+
+<!-- SIGN IN -->
+<section class="view" id="v-signin"><div class="section"><div class="ck-wrap">
+  <p class="eyebrow" data-t="signin"></p>
+  <h2 data-t="signinH"></h2>
+  <form class="form" id="signForm" novalidate>
+    <div class="field"><label for="s-email" data-t="fEmail"></label><input class="in" id="s-email" type="email" autocomplete="email" dir="ltr"></div>
+    <div class="field"><label for="s-pass" data-t="fPass"></label><input class="in" id="s-pass" type="password" autocomplete="current-password" dir="ltr"></div>
+    <p class="err" id="signErr" role="alert"></p>
+    <div class="ck-cta"><button class="btn" type="submit" data-t="signin"></button><button class="btn ghost" type="button" id="forgotBtn" data-t="forgot"></button></div>
+    <p class="ok-msg" id="signOk"></p>
+  </form>
+  <form class="form" id="resetForm" hidden novalidate>
+    <h3 data-t="resetH"></h3>
+    <div class="field"><label for="n-pass" data-t="fPassNew"></label><span class="hint" data-t="fPassH"></span><input class="in" id="n-pass" type="password" autocomplete="new-password" dir="ltr"></div>
+    <p class="err" id="resetErr" role="alert"></p>
+    <div class="ck-cta"><button class="btn" type="submit" data-t="save"></button></div>
+  </form>
+</div></div></section>
+
+<!-- MY WEEK -->
+<section class="view" id="v-week"><div class="section"><div class="ck-wrap">
+  <p class="eyebrow" id="wkEyebrow"></p>
+  <h2 id="wkH"></h2>
+  <p class="lead" id="wkLead"></p>
+  <div id="wkStatus"></div>
+  <div class="today-card" id="todayCard" hidden></div>
+  <div class="week" id="weekGrid"></div>
+  <div class="coachnote" id="coachNote" hidden><p class="eyebrow" data-t="coachNoteH"></p><p id="coachNoteText"></p></div>
+  <div class="stats" id="stats"></div>
+  <div class="chart" id="loadChart" hidden><p class="eyebrow" data-t="chartH"></p><div id="chartSvg"></div><p class="note" data-t="chartNote"></p></div>
+  <div class="card" id="recent" hidden><p class="micro" data-t="recentH"></p><ul class="files" id="recentList"></ul></div>
+</div></div></section>
+
+<!-- CHECK-IN AND CONNECTIONS -->
+<section class="view" id="v-connect"><div class="section"><div class="ck-wrap">
+  <p class="eyebrow" data-t="tabConnect"></p>
+  <h2 data-t="connH"></h2>
+  <p class="lead" data-t="connLead"></p>
+  <div class="grid two">
+    <div class="card conn" id="checkinCard"><div class="body"><div class="top"><h3 data-t="ciH"></h3><span class="badge" id="c-status" data-t="ciNot"></span></div>
+      <form id="ciForm" novalidate>
+        <div class="row2"><div class="field"><label for="c-sleep" data-t="ciSleep"></label><input class="in" id="c-sleep" type="number" step="0.5" min="0" max="16" inputmode="decimal" dir="ltr"></div>
+        <div class="field"><label for="c-rhr" data-t="ciRhr"></label><input class="in" id="c-rhr" type="number" min="25" max="140" inputmode="numeric" dir="ltr"></div></div>
+        <div class="field"><label for="c-feel" data-t="ciFeel"></label><select class="sel" id="c-feel" data-opts="feel"></select></div>
+        <label class="check"><input type="checkbox" id="c-pain"><span data-t="ciPain"></span></label>
+        <label class="check"><input type="checkbox" id="c-ill"><span data-t="ciIll"></span></label>
+        <label class="check"><input type="checkbox" id="c-fever"><span data-t="ciFever"></span></label>
+        <label class="check"><input type="checkbox" id="c-warn"><span data-t="ciWarn"></span></label>
+        <div class="field"><label for="c-note" data-t="ciNote"></label><textarea class="ta" id="c-note" maxlength="1000"></textarea></div>
+        <p class="err" id="ciErr" role="alert"></p>
+        <p class="ok-msg alert" id="ciPaused" data-t="ciPaused"></p>
+        <p class="ok-msg alert" id="ciUrgent" data-t="ciUrgent"></p>
+        <div class="ck-cta"><button class="btn" type="submit" data-t="ciSend"></button></div>
+      </form></div></div>
+
+    <div class="card conn"><div class="body"><div class="top"><h3 data-t="gH"></h3><span class="badge" id="g-status" data-t="gNot"></span></div>
+      <p data-t="gP"></p>
+      <ol class="steps"><li data-t="g1"></li><li data-t="g2"></li><li data-t="g3"></li></ol></div>
+      <button class="btn" type="button" id="g-btn" data-t="gBtn"></button></div>
+
+    <div class="card conn"><div class="body"><div class="top"><h3 data-t="uH"></h3><span class="badge" id="u-status" data-t="uNone"></span></div>
+      <p data-t="uP"></p>
+      <div class="drop" id="drop"><p class="micro">.fit .tcx .gpx</p><p data-t="uDrag"></p><div class="ck-cta center"><label class="btn ghost" for="fileIn" data-t="uChoose"></label><input type="file" id="fileIn" multiple accept=".fit,.tcx,.gpx" class="vh"></div></div>
+      <ul class="files" id="files"></ul></div></div>
+
+    <div class="card conn"><div class="body"><div class="top"><h3>TrainingPeaks</h3><span class="badge wait" data-t="planned"></span></div>
+      <p data-t="tpP"></p></div>
+      <button class="btn" type="button" disabled data-t="notYet"></button></div>
+  </div>
+  <div class="card" id="clearCard" hidden><h3 data-t="clearH"></h3><p data-t="clearP"></p>
+    <form id="clearForm" novalidate><label class="check"><input type="checkbox" id="clr-ok"><span data-t="clearCheck"></span></label>
+      <p class="err" id="clearErr" role="alert"></p><div class="ck-cta"><button class="btn" type="submit" data-t="clearBtn"></button></div>
+      <p class="ok-msg" id="clearOk" data-t="clearOk"></p></form></div>
+  <div class="card mt24"><div class="top"><h3>Strava</h3><span class="badge no" data-t="notSupported"></span></div><p data-t="stravaP"></p></div>
+</div></div></section>
+
+<!-- PROFILE -->
+<section class="view" id="v-profile"><div class="section"><div class="ck-wrap">
+  <p class="eyebrow" data-t="tabProfile"></p>
+  <h2 data-t="profH"></h2>
+  <p class="lead" data-t="profLead"></p>
+  <form class="form" id="profForm" novalidate>
+    <div class="row2">
+      <div class="field"><label for="p-race" data-t="pRace"></label><input class="in" id="p-race" maxlength="120"></div>
+      <div class="field"><label for="p-date" data-t="pDate"></label><input class="in" id="p-date" type="date" dir="ltr"></div>
+    </div>
+    <div class="field"><label for="p-dist" data-t="pDist"></label><select class="sel" id="p-dist" data-opts="dist"></select></div>
+    <div class="row2">
+      <div class="field"><label for="p-years" data-t="pYears"></label><select class="sel" id="p-years" data-opts="years"></select></div>
+      <div class="field"><label for="p-hours" data-t="pHours"></label><input class="in" id="p-hours" type="number" min="0" max="40" step="0.5" inputmode="decimal" dir="ltr"></div>
+    </div>
+    <fieldset class="field"><legend data-t="pDays"></legend><div class="days" id="p-days"></div></fieldset>
+    <fieldset class="field"><legend data-t="pSwim"></legend><span class="hint" data-t="pSwimH"></span><div class="days" id="p-swim"></div></fieldset>
+    <div class="row2">
+      <div class="field"><label for="p-long" data-t="pLong"></label><select class="sel" id="p-long" data-opts="days"></select></div>
+      <div class="field"><label for="p-time" data-t="pTime"></label><select class="sel" id="p-time" data-opts="time"></select></div>
+    </div>
+    <fieldset class="field"><legend data-t="pEquip"></legend>
+      <label class="check"><input type="checkbox" id="p-hr"><span data-t="pHr"></span></label>
+      <label class="check"><input type="checkbox" id="p-power"><span data-t="pPower"></span></label>
+      <label class="check"><input type="checkbox" id="p-trainer"><span data-t="pTrainer"></span></label>
+    </fieldset>
+    <div class="field"><label for="p-inj" data-t="pInj"></label><span class="hint" data-t="pInjH"></span><textarea class="ta" id="p-inj" maxlength="2000"></textarea></div>
+    <p class="err" id="profErr" role="alert"></p>
+    <div class="ck-cta"><button class="btn" type="submit" data-t="save"></button></div>
+    <p class="ok-msg" id="profOk" data-t="profOk"></p>
+  </form>
+
+  <div class="rights">
+    <p class="eyebrow" data-t="rightsEyebrow"></p>
+    <h2 data-t="rightsH"></h2>
+    <p class="lead" data-t="rightsLead"></p>
+    <div class="grid two">
+      <div class="card conn"><div class="body"><h3 data-t="dlH"></h3><p data-t="dlP"></p></div><button class="btn ghost" type="button" id="dlBtn" data-t="dlBtn"></button></div>
+      <div class="card conn"><div class="body"><h3 data-t="consH"></h3><p data-t="consP"></p><ul class="files" id="consList"></ul></div></div>
+      <div class="card conn"><div class="body"><h3 data-t="delH"></h3><p data-t="delP"></p><div class="field"><label for="delConfirm" data-t="delLabel"></label><input class="in" id="delConfirm" dir="ltr"></div><p class="err" id="delErr" role="alert"></p></div><button class="btn danger" type="button" id="delBtn" data-t="delBtn"></button></div>
+      <div class="card conn"><div class="body"><h3 data-t="outH"></h3><p data-t="outP"></p></div><button class="btn ghost" type="button" id="outBtn" data-t="signout"></button></div>
+    </div>
+  </div>
+</div></div></section>
+
+<!-- MEMBERSHIP -->
+<section class="view" id="v-membership"><div class="section"><div class="ck-wrap">
+  <p class="eyebrow" data-t="tabMembership"></p>
+  <h2 data-t="memH"></h2>
+  <p class="lead" id="memStatus" data-t="memLead"></p>
+  <div class="grid two">
+    <div class="card"><p class="micro" data-t="memFee"></p><p class="price" data-t="memPrice"></p><p data-t="memIncl"></p></div>
+    <div class="card"><p class="micro">BenefitPay</p><h3 data-t="bpH"></h3><p data-t="bpP"></p><dl class="pay" id="bpDetails"></dl></div>
+    <div class="card"><p class="micro" data-t="bankMicro"></p><h3 data-t="bankH"></h3><p data-t="bankP"></p><dl class="pay" id="bankDetails"></dl></div>
+    <div class="card"><p class="micro" data-t="reportMicro"></p><h3 data-t="reportH"></h3>
+      <form id="payForm" novalidate>
+        <div class="field"><label for="pay-method" data-t="payMethod"></label><select class="sel" id="pay-method" data-opts="paymethod"></select></div>
+        <div class="row2">
+          <div class="field"><label for="pay-months" data-t="payMonths"></label><select class="sel" id="pay-months" data-opts="months"></select></div>
+          <div class="field"><label for="pay-ref" data-t="payRef"></label><input class="in" id="pay-ref" maxlength="120" dir="ltr"></div>
+        </div>
+        <p class="err" id="payErr" role="alert"></p>
+        <div class="ck-cta"><button class="btn" type="submit" data-t="paySend"></button></div>
+        <p class="ok-msg" id="payOk" data-t="payOk"></p>
+      </form>
+      <ul class="files" id="payList"></ul>
+    </div>
+  </div>
+  <p class="note" data-th="memTerms"></p>
+</div></div></section>
+
+<!-- ADMIN -->
+<section class="view" id="v-admin"><div class="section"><div class="ck-wrap">
+  <p class="eyebrow" data-t="tabAdmin"></p>
+  <h2 data-t="admH"></h2>
+  <div id="admFlags" class="adm"></div>
+  <div id="admPlans" class="adm"></div>
+  <div id="admPays" class="adm"></div>
+  <div id="admClear" class="adm"></div>
+  <div id="admAthletes" class="adm"></div>
+</div></div></section>
+
+<!-- LEGAL -->
+<section class="view" id="v-privacy"><div class="section"><div class="ck-wrap">
+<section class="legal" id="privacy-en" data-lang="en">
+<p class="eyebrow">Privacy notice</p>
+<h2>How AI Coach handles your personal data</h2>
+<p class="note">Version 2026-11-03.</p>
+
+<h3>1. Who is responsible for your data</h3>
+<p>The data controller is Dr. Saqer AlKhalifa, an individual resident in the Kingdom of Bahrain, who runs AI Coach at coach.saqeralkhalifa.com. For any question or request about your data, write through the <a href="https://saqeralkhalifa.com/contact-me/">contact page</a>. This notice is given under the Personal Data Protection Law, Law No. (30) of 2018, and the resolutions issued under it.</p>
+
+<h3>2. What data is collected</h3>
+<ul>
+<li><b>Account data:</b> your name, email address, country of residence and year of birth.</li>
+<li><b>Training profile:</b> your target race and date, your training days and preferred swim days, your years of training and weekly hours, the equipment you use, and any injury or health condition you choose to describe.</li>
+<li><b>Health and training data:</b> completed workouts (time, distance, heart rate and heart rate zones), sleep duration, resting heart rate, how you feel each day, and any report of pain, illness, fever or warning symptoms. This is sensitive personal data under the law.</li>
+<li><b>Connection data:</b> if you connect Intervals.icu, your Intervals.icu athlete number and an access token that lets AI Coach read your activities and wellness data and write planned sessions to your calendar.</li>
+<li><b>Payment data:</b> the payment method, amount, date and the reference you give for each BenefitPay or bank transfer payment. AI Coach does not receive or store card or bank account numbers.</li>
+<li><b>Consent records:</b> which consents you gave or withdrew, the version of the text, and the time.</li>
+</ul>
+
+<h3>3. Why the data is used, and on what legal basis</h3>
+<p>Your data is used only to provide the coaching service: to write and adjust your weekly training plan, to send each session to your calendar and watch, to email you your daily session, to pause your plan and alert Dr. Saqer when you report pain, illness or warning symptoms, to manage your membership, and to meet legal obligations.</p>
+<p>Sensitive health data is processed on the basis of your explicit consent, given at registration and recorded. Account and payment data are processed to perform the membership agreement you enter into. You can withdraw any consent at any time from your profile page. Withdrawing consent to the processing of health data, to transfer outside Bahrain, or to AI processing pauses your plan, because the service cannot run without them. Withdrawal does not affect processing carried out before it.</p>
+<p>Your data is not sold, not used for advertising, and not used to train AI models.</p>
+
+<h3>4. How plans are written: automated processing</h3>
+<p>Each week an AI system (Claude, provided by Anthropic) proposes your training plan from your training data and check-ins. Software then checks every plan against fixed training rules and corrects or removes anything outside them. Dr. Saqer reviews and approves plans for the first group of athletes, and reviews every case that is flagged. Daily adjustments for short sleep or a raised resting heart rate are made automatically and only ever make a session easier. You can ask for any plan or adjustment to be reviewed by Dr. Saqer by writing to the contact address above.</p>
+<p>The AI system does not receive your name, email address or the text you write about injuries or health conditions. It receives your age, race details, training days, training numbers and check-in numbers.</p>
+
+<h3>5. Who receives your data, and where</h3>
+<p>Your data is shared only with the service providers needed to run AI Coach. Each processes it on AI Coach's instructions:</p>
+<ul>
+<li><b>Supabase, Inc.:</b> database, logins and file storage, hosted in Frankfurt, Germany.</li>
+<li><b>Anthropic, PBC:</b> the AI system that proposes plans and daily notes, in the United States. Anthropic does not use data sent through its commercial API to train its models.</li>
+<li><b>Resend, Inc.:</b> email delivery, a United States company whose servers in Ireland send the emails. It receives your email address and the content of each email.</li>
+<li><b>GitHub, Inc.:</b> hosts the website pages, in the United States. It does not receive your account or health data.</li>
+<li><b>Intervals.icu:</b> only if you connect it. Data passes between AI Coach and your own Intervals.icu account at your request, and Intervals.icu handles it under its own terms and privacy policy. If your workouts come from a Garmin device, Garmin's own terms also apply.</li>
+</ul>
+<p>Germany, Ireland and the United States are on the list of countries the Personal Data Protection Authority has recognized as providing adequate protection (Resolution No. (42) of 2022). Transfers to Intervals.icu are made at your request and with your explicit consent. Your data is not disclosed to anyone else unless the law requires it.</p>
+
+<h3>6. How long data is kept</h3>
+<p>Your data is kept while your account is open. When you delete your account, your data is removed from the live systems at once and from backups within 30 days. Records of payments are kept, without any health data, for the period Bahraini law requires for financial records. Consent records are kept for the same period, so that consent can be shown to the Authority if asked.</p>
+
+<h3>7. Your rights</h3>
+<p>Under the law you may ask to be told whether your data is processed and to receive a copy of it, to have inaccurate data corrected, to have your data erased or blocked, to object to processing, to withdraw consent, and to object to a decision based solely on automated processing. Your profile page lets you download all your data, change your profile, withdraw consents and delete your account at any time. For anything else, write to the contact address above. Requests are answered within the period the law sets. You may also complain to the Personal Data Protection Authority.</p>
+
+<h3>8. Security</h3>
+<p>Passwords are stored only in hashed form. All connections are encrypted. Each athlete's data can be read only by that athlete and by Dr. Saqer, which the database enforces. Intervals.icu access tokens cannot be read from any browser. If a breach affects your data, AI Coach will notify the Authority and you as the law requires.</p>
+
+<h3>9. Cookies and local storage</h3>
+<p>The site uses your browser's local storage only to keep you signed in and to remember your language. It uses no advertising or tracking cookies and no analytics.</p>
+
+<h3>10. Changes to this notice</h3>
+<p>If this notice changes in a way that affects how your data is used, you will be told by email and asked for fresh consent where the law requires it.</p>
+</section>
+<section class="legal" id="privacy-ar" data-lang="ar" dir="rtl" lang="ar">
+<p class="eyebrow">إشعار الخصوصية</p>
+<h2>كيف يتعامل المدرب الذكي مع بياناتك الشخصية</h2>
+<p class="note">إصدار 2026-11-03.</p>
+
+<h3>1. المسؤول عن بياناتك</h3>
+<p>مدير البيانات هو د. صقر آل خليفة، وهو شخص طبيعي مقيم في مملكة البحرين، ويدير خدمة المدرب الذكي على الموقع coach.saqeralkhalifa.com. لأي سؤال أو طلب يتعلق ببياناتك، راسلنا عبر <a href="https://saqeralkhalifa.com/contact-ar/">صفحة التواصل</a>. يصدر هذا الإشعار وفقا لقانون حماية البيانات الشخصية الصادر بالقانون رقم (30) لسنة 2018 والقرارات الصادرة تنفيذا له.</p>
+
+<h3>2. البيانات التي تُجمع</h3>
+<ul>
+<li><b>بيانات الحساب:</b> الاسم والبريد الإلكتروني وبلد الإقامة وسنة الميلاد.</li>
+<li><b>ملف التدريب:</b> السباق المستهدف وتاريخه، وأيام التدريب وأيام السباحة المفضلة، وسنوات التدريب وساعاته الأسبوعية، والمعدات المستخدمة، وأي إصابة أو حالة صحية تختار ذكرها.</li>
+<li><b>البيانات الصحية وبيانات التدريب:</b> التمارين المكتملة (المدة والمسافة ونبض القلب ومناطق النبض)، ومدة النوم، ونبض الراحة، وشعورك اليومي، وأي بلاغ عن ألم أو مرض أو حمى أو أعراض تحذيرية. وتعد هذه البيانات بيانات شخصية حساسة بموجب القانون.</li>
+<li><b>بيانات الربط:</b> إذا ربطت حسابك في Intervals.icu، يُحفظ رقم الرياضي لديه ورمز وصول يتيح للمدرب الذكي قراءة تمارينك وبيانات العافية وكتابة الحصص المخططة في تقويمك.</li>
+<li><b>بيانات الدفع:</b> وسيلة الدفع والمبلغ والتاريخ والرقم المرجعي الذي تقدمه لكل دفعة عبر BenefitPay أو التحويل البنكي. لا يتلقى المدرب الذكي أرقام البطاقات أو الحسابات البنكية ولا يحفظها.</li>
+<li><b>سجلات الموافقة:</b> الموافقات التي منحتها أو سحبتها، وإصدار النص، ووقت ذلك.</li>
+</ul>
+
+<h3>3. أغراض استخدام البيانات وأساسها القانوني</h3>
+<p>تُستخدم بياناتك لتقديم خدمة التدريب فقط: لإعداد خطتك الأسبوعية وتعديلها، وإرسال كل حصة إلى تقويمك وساعتك، وإرسال حصة اليوم إليك بالبريد الإلكتروني، وإيقاف خطتك وتنبيه د. صقر عند إبلاغك عن ألم أو مرض أو أعراض تحذيرية، وإدارة اشتراكك، والوفاء بالالتزامات القانونية.</p>
+<p>تُعالج البيانات الصحية الحساسة بناء على موافقتك الصريحة التي تمنحها عند التسجيل وتُسجل. وتُعالج بيانات الحساب والدفع لتنفيذ اتفاق الاشتراك الذي تبرمه. يمكنك سحب أي موافقة في أي وقت من صفحة ملفك. ويؤدي سحب الموافقة على معالجة البيانات الصحية أو على النقل خارج البحرين أو على المعالجة بالذكاء الاصطناعي إلى إيقاف خطتك، لأن الخدمة لا تعمل بدونها. ولا يمس السحب ما تم من معالجة قبله.</p>
+<p>لا تُباع بياناتك، ولا تُستخدم للإعلان، ولا تُستخدم لتدريب نماذج الذكاء الاصطناعي.</p>
+
+<h3>4. كيف تُعد الخطط: المعالجة الآلية</h3>
+<p>يقترح نظام ذكاء اصطناعي (Claude من شركة Anthropic) خطتك كل أسبوع بناء على بيانات تدريبك وتسجيلاتك اليومية. ثم يتحقق برنامج من كل خطة وفق قواعد تدريب ثابتة، ويصحح أو يحذف كل ما يتجاوزها. ويراجع د. صقر الخطط ويعتمدها لأول مجموعة من الرياضيين، ويراجع كل حالة تُرفع إليه. أما التعديلات اليومية بسبب قلة النوم أو ارتفاع نبض الراحة فتتم آليا، ولا تؤدي إلا إلى تخفيف الحصة. ويمكنك طلب مراجعة أي خطة أو تعديل من د. صقر بمراسلة العنوان المذكور أعلاه.</p>
+<p>لا يتلقى نظام الذكاء الاصطناعي اسمك أو بريدك الإلكتروني أو ما تكتبه عن الإصابات أو الحالات الصحية. بل يتلقى عمرك وتفاصيل السباق وأيام التدريب وأرقام التدريب وأرقام التسجيل اليومي.</p>
+
+<h3>5. من يتلقى بياناتك وأين</h3>
+<p>لا تُشارك بياناتك إلا مع مزودي الخدمات اللازمين لتشغيل المدرب الذكي، ويعالجها كل منهم وفق تعليمات المدرب الذكي:</p>
+<ul>
+<li><b>Supabase, Inc.:</b> قاعدة البيانات وتسجيل الدخول وتخزين الملفات، في فرانكفورت بألمانيا.</li>
+<li><b>Anthropic, PBC:</b> نظام الذكاء الاصطناعي الذي يقترح الخطط والملاحظات اليومية، في الولايات المتحدة. ولا تستخدم Anthropic البيانات المرسلة عبر واجهتها التجارية لتدريب نماذجها.</li>
+<li><b>Resend, Inc.:</b> إرسال البريد الإلكتروني، وهي شركة أمريكية ترسل الرسائل من خوادمها في أيرلندا. وتتلقى بريدك الإلكتروني ومحتوى كل رسالة.</li>
+<li><b>GitHub, Inc.:</b> استضافة صفحات الموقع، في الولايات المتحدة. ولا تتلقى بيانات حسابك أو بياناتك الصحية.</li>
+<li><b>Intervals.icu:</b> في حال ربطه فقط. تنتقل البيانات بين المدرب الذكي وحسابك الخاص في Intervals.icu بطلب منك، ويتعامل معها Intervals.icu وفق شروطه وسياسة الخصوصية الخاصة به. وإذا كانت تمارينك مسجلة بجهاز من Garmin، تسري شروط Garmin أيضا.</li>
+</ul>
+<p>ألمانيا وأيرلندا والولايات المتحدة مدرجة في قائمة الدول التي اعتمدتها هيئة حماية البيانات الشخصية بوصفها توفر حماية كافية (القرار رقم (42) لسنة 2022). وتتم عمليات النقل إلى Intervals.icu بطلبك وبموافقتك الصريحة. ولا تُفصح بياناتك لأي جهة أخرى إلا إذا اقتضى القانون ذلك.</p>
+
+<h3>6. مدة الاحتفاظ بالبيانات</h3>
+<p>تُحفظ بياناتك ما دام حسابك قائما. وعند حذف حسابك تُزال بياناتك من الأنظمة العاملة فورا ومن النسخ الاحتياطية خلال 30 يوما. وتُحفظ سجلات المدفوعات، دون أي بيانات صحية، للمدة التي يشترطها القانون البحريني للسجلات المالية. وتُحفظ سجلات الموافقة للمدة نفسها، ليتسنى إثبات الموافقة أمام الهيئة عند الطلب.</p>
+
+<h3>7. حقوقك</h3>
+<p>يحق لك بموجب القانون أن تطلب إعلامك بما إذا كانت بياناتك تُعالج وأن تحصل على نسخة منها، وتصحيح البيانات غير الدقيقة، ومحو بياناتك أو حجبها، والاعتراض على المعالجة، وسحب الموافقة، والاعتراض على أي قرار يقوم على المعالجة الآلية وحدها. وتتيح لك صفحة ملفك تنزيل جميع بياناتك وتعديل ملفك وسحب الموافقات وحذف حسابك في أي وقت. ولأي طلب آخر، راسل العنوان المذكور أعلاه. ويُرد على الطلبات خلال المدة التي يحددها القانون. ويحق لك أيضا تقديم شكوى إلى هيئة حماية البيانات الشخصية.</p>
+
+<h3>8. أمن البيانات</h3>
+<p>لا تُحفظ كلمات المرور إلا بصيغة مشفرة غير قابلة للاسترجاع. وجميع الاتصالات مشفرة. ولا يستطيع قراءة بيانات أي رياضي سوى الرياضي نفسه ود. صقر، وتفرض قاعدة البيانات ذلك. ولا يمكن قراءة رموز الوصول إلى Intervals.icu من أي متصفح. وفي حال وقوع خرق يمس بياناتك، يُخطر المدرب الذكي الهيئة ويخطرك وفقا لما يقتضيه القانون.</p>
+
+<h3>9. ملفات تعريف الارتباط والتخزين المحلي</h3>
+<p>لا يستخدم الموقع التخزين المحلي في متصفحك إلا لإبقائك مسجلا الدخول ولحفظ اللغة التي تختارها. ولا يستخدم ملفات تعريف ارتباط إعلانية أو للتتبع، ولا أدوات تحليل.</p>
+
+<h3>10. تعديل هذا الإشعار</h3>
+<p>إذا عُدل هذا الإشعار بما يمس طريقة استخدام بياناتك، تُبلغ بذلك بالبريد الإلكتروني وتُطلب موافقتك من جديد متى اقتضى القانون ذلك.</p>
+</section>
+</div></div></section>
+<section class="view" id="v-terms"><div class="section"><div class="ck-wrap">
+<section class="legal" id="terms-en" data-lang="en">
+<p class="eyebrow">Terms and medical disclaimer</p>
+<h2>Terms of membership and medical disclaimer</h2>
+<p class="note">Version 2026-11-03.</p>
+
+<h3>1. The service</h3>
+<p>AI Coach provides running and triathlon training plans written by an AI system within fixed training rules, supervised by Dr. Saqer AlKhalifa. It is a training service. It is not a medical service and does not diagnose, treat or advise on any medical condition.</p>
+
+<h3>2. Who may register</h3>
+<p>Registration is open to adults aged 18 and over. By registering you confirm that you are 18 or older and that the information you give is accurate.</p>
+
+<h3>3. Medical disclaimer</h3>
+<p>Endurance training carries a risk of injury, illness and, rarely, serious medical events. Before starting any plan you should be cleared to train by a doctor, particularly if you have a heart, lung or other medical condition, take regular medication, are pregnant, are returning from injury or illness, or have not trained regularly for some time.</p>
+<p>Stop training at once and seek medical help if you have chest pain or pressure, fainting, dizziness, palpitations, unusual breathlessness, or any symptom that worries you. In an emergency in Bahrain, call 999.</p>
+<p>Report pain, illness or warning symptoms in your daily check-in. Doing so pauses your plan and alerts Dr. Saqer. Your plan restarts only after you confirm that a doctor has cleared you to train. You remain responsible for deciding whether you are fit to train on any day, and for training within your own limits.</p>
+<p>Heat is a serious risk in Bahrain and the Gulf. Train in the coolest part of the day, drink before and during sessions, and stop if you feel unwell.</p>
+
+<h3>4. Membership and payment</h3>
+<p>The first 30 athletes who confirm their email address receive their first month free. The free month starts on the first day of the week of their first approved plan, and no payment details are needed for it. After the free month, and for everyone else, the membership fee is BHD 7.5 a month. Athletes in Bahrain pay by BenefitPay. Athletes outside Bahrain pay by bank transfer, and any bank charges are paid by the sender. After paying, enter the payment reference on the Membership page. Your plan starts once the payment is confirmed. Each confirmed payment covers one month from the date your current membership ends, or from the date of confirmation if it has ended.</p>
+<p>If a payment is not received by the end of your membership month, your plan pauses until it is. You can stop your membership at any time by not renewing it. Fees already paid for a month that has started are not refunded. If the fee changes, members are told by email at least 30 days before the change applies to them.</p>
+
+<h3>5. Your responsibilities</h3>
+<p>Keep your password private, keep your profile accurate, and complete your daily check-in honestly. Do not share your account.</p>
+
+<h3>6. Liability</h3>
+<p>Training plans are general guidance written for your stated goals and data. To the extent permitted by the law of the Kingdom of Bahrain, Dr. Saqer AlKhalifa is not liable for injury, illness or loss arising from training you choose to undertake, and his total liability to you in connection with the service is limited to the fees you paid in the three months before the claim. Nothing in these terms limits liability that cannot be limited under Bahraini law, including liability for fraud or gross negligence.</p>
+
+<h3>7. Ending the service</h3>
+<p>You can delete your account at any time from your profile page. Dr. Saqer may suspend or close an account that breaks these terms or where continuing would put the athlete at risk, and will tell the athlete why.</p>
+
+<h3>8. Governing law</h3>
+<p>These terms are governed by the law of the Kingdom of Bahrain, and the courts of the Kingdom of Bahrain have jurisdiction over any dispute.</p>
+</section>
+<section class="legal" id="terms-ar" data-lang="ar" dir="rtl" lang="ar">
+<p class="eyebrow">الشروط وإخلاء المسؤولية الطبية</p>
+<h2>شروط الاشتراك وإخلاء المسؤولية الطبية</h2>
+<p class="note">إصدار 2026-11-03.</p>
+
+<h3>1. الخدمة</h3>
+<p>يقدم المدرب الذكي خطط تدريب للجري والترايثلون يعدها نظام ذكاء اصطناعي وفق قواعد تدريب ثابتة، تحت إشراف د. صقر آل خليفة. وهي خدمة تدريب رياضي، وليست خدمة طبية، ولا تشخص أي حالة طبية ولا تعالجها ولا تقدم المشورة بشأنها.</p>
+
+<h3>2. من يحق له التسجيل</h3>
+<p>التسجيل متاح للبالغين الذين أتموا 18 عاما. وبالتسجيل تقر بأنك أتممت 18 عاما وبأن المعلومات التي تقدمها صحيحة.</p>
+
+<h3>3. إخلاء المسؤولية الطبية</h3>
+<p>ينطوي التدريب على رياضات التحمل على خطر الإصابة والمرض، وفي حالات نادرة على أحداث طبية خطيرة. وينبغي أن تحصل على إذن من طبيب بالتدريب قبل البدء في أي خطة، ولا سيما إذا كانت لديك حالة في القلب أو الرئة أو أي حالة طبية أخرى، أو كنت تتناول دواء بانتظام، أو كنت حاملا، أو عائدا من إصابة أو مرض، أو لم تتدرب بانتظام منذ مدة.</p>
+<p>توقف عن التدريب فورا واطلب المساعدة الطبية إذا شعرت بألم أو ضغط في الصدر، أو إغماء، أو دوار، أو خفقان، أو ضيق غير معتاد في التنفس، أو أي عرض يقلقك. وفي حالات الطوارئ في البحرين اتصل بالرقم 999.</p>
+<p>أبلغ عن أي ألم أو مرض أو أعراض تحذيرية في تسجيلك اليومي، فذلك يوقف خطتك وينبه د. صقر. ولا تُستأنف خطتك إلا بعد أن تؤكد أن طبيبا أذن لك بالتدريب. وتبقى مسؤولا عن تقرير مدى لياقتك للتدريب في أي يوم، وعن التدريب في حدود قدرتك.</p>
+<p>الحرارة خطر جدي في البحرين ومنطقة الخليج. تدرب في أبرد أوقات اليوم، واشرب الماء قبل الحصص وأثناءها، وتوقف إذا شعرت بتوعك.</p>
+
+<h3>4. الاشتراك والدفع</h3>
+<p>يحصل أول 30 رياضيا يؤكدون بريدهم الإلكتروني على شهرهم الأول مجانا، ويبدأ الشهر المجاني من أول يوم في أسبوع أول خطة معتمدة لهم، ولا يلزم الدفع عنه. وبعد الشهر المجاني، ولغيرهم من الرياضيين، تبلغ رسوم الاشتراك 7.5 دينار بحريني شهريا. يدفع الرياضيون داخل البحرين عبر BenefitPay، ويدفع الرياضيون خارج البحرين عبر التحويل البنكي، ويتحمل المرسل أي رسوم بنكية. بعد الدفع، أدخل الرقم المرجعي للدفعة في صفحة الاشتراك. وتبدأ خطتك بعد تأكيد الدفعة. وتغطي كل دفعة مؤكدة شهرا واحدا يبدأ من تاريخ انتهاء اشتراكك الحالي، أو من تاريخ التأكيد إذا كان قد انتهى.</p>
+<p>إذا لم تصل الدفعة بنهاية شهر الاشتراك، تتوقف خطتك حتى تصل. ويمكنك إنهاء اشتراكك في أي وقت بعدم تجديده. ولا تُرد الرسوم المدفوعة عن شهر بدأ. وإذا تغيرت الرسوم، يُبلغ المشتركون بالبريد الإلكتروني قبل 30 يوما على الأقل من سريان التغيير عليهم.</p>
+
+<h3>5. التزاماتك</h3>
+<p>حافظ على سرية كلمة المرور، وأبق ملفك دقيقا، وأكمل تسجيلك اليومي بأمانة. ولا تشارك حسابك مع غيرك.</p>
+
+<h3>6. المسؤولية</h3>
+<p>خطط التدريب إرشادات عامة تُعد وفق أهدافك وبياناتك المعلنة. وفي الحدود التي يجيزها قانون مملكة البحرين، لا يُسأل د. صقر آل خليفة عن أي إصابة أو مرض أو خسارة تنشأ عن تدريب تختار القيام به، وتقتصر مسؤوليته الكاملة تجاهك فيما يتعلق بالخدمة على الرسوم التي دفعتها في الأشهر الثلاثة السابقة للمطالبة. ولا يحد أي من هذه الشروط من المسؤولية التي لا يجوز تحديدها بموجب القانون البحريني، بما في ذلك المسؤولية عن الغش أو الخطأ الجسيم.</p>
+
+<h3>7. إنهاء الخدمة</h3>
+<p>يمكنك حذف حسابك في أي وقت من صفحة ملفك. ويجوز للدكتور صقر تعليق أو إغلاق أي حساب يخالف هذه الشروط أو يكون في استمراره خطر على الرياضي، مع إبلاغ الرياضي بالسبب.</p>
+
+<h3>8. القانون الواجب التطبيق</h3>
+<p>تخضع هذه الشروط لقانون مملكة البحرين، وتختص محاكم مملكة البحرين بالنظر في أي نزاع.</p>
+</section>
+</div></div></section>
+
+<div class="ck-wrap"><footer class="site"><p data-th="footer"></p></footer></div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
+<script src="coach.js?v=20261103"></script>
+</body>
+</html>
