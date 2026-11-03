@@ -6,7 +6,7 @@
 <title>AI Coach: triathlon and running plans</title>
 <meta name="description" content="Triathlon and running plans written each week around your race and your schedule, with sessions sent to your Garmin.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono&family=Noto+Naskh+Arabic:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Geist:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=EB+Garamond:wght@500&family=Noto+Naskh+Arabic:wght@500&display=swap">
 <style id="wpbar-css">
 /* WPBAR: the exact site header from saqeralkhalifa.com, replicated for the tool sites. */
 .wpbar{background:#152A55;font-family:'EB Garamond',Georgia,'Times New Roman',serif;}
@@ -91,209 +91,321 @@ html[lang="ar"] .wpright{direction:ltr;}
 }
 </style>
 <style id="coach-css">
-/* AI Coach, Majlis theme. Base rules copied from the approved preview of 2 November 2026; additions below are marked. */
+/* AI Coach, Pulse design (Claude Design handoff, 3 November 2026). Class names and hooks are unchanged from the Majlis build. */
+:root{--bg:#FBF8F4;--surface:#FFFFFF;--ink:#17140F;--muted:#5E574F;--faint:#8A8279;--line:#ECE5DC;--line-strong:#E3DBD0;--accent:#D9401A;--accent-ink:#B5330F;--accent-tint:#FCE9E2;--accent-dark:#FF6B45;--dark-line:#3A342C;--ok:#2F6B45;--ok-tint:#E6F0E8;--warn:#8A5A00;--warn-tint:#FBF0D9;--danger:#B42318;--danger-tint:#FBE6E3;
+  --fd:'Bricolage Grotesque','Geist',system-ui,sans-serif;--fb:'Geist',system-ui,-apple-system,'Segoe UI',sans-serif;}
 *{box-sizing:border-box;margin:0;padding:0;}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
-body{background:#FAF5EA;color:#4A3728;font-family:'EB Garamond',Georgia,'Times New Roman',serif;font-size:19px;line-height:1.7;}
-a{color:#7D5F27;text-decoration:underline;text-underline-offset:3px;}
-:focus-visible{outline:2px solid #7D5F27;outline-offset:3px;}
-.ck-wrap{max-width:1160px;margin:0 auto;padding:0 20px;}
-@media (min-width:768px){.ck-wrap{padding:0 24px;}}
-@media (min-width:1024px){.ck-wrap{max-width:1000px;padding-left:24px;padding-right:24px;}}
+body{background:var(--bg);color:var(--ink);font-family:var(--fb);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+a{color:var(--accent);text-decoration:none;}
+a:hover{color:var(--ink);}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+.ck-wrap{max-width:1280px;margin:0 auto;padding:0 20px;}
+@media (min-width:768px){.ck-wrap{padding:0 32px;}}
+@media (min-width:1280px){.ck-wrap{padding:0 48px;}}
 
-.ck-preview{background:#EFE4CE;border-bottom:1px solid #E2D5BB;}
-.ck-preview p{font-size:15px;line-height:1.6;color:#4A3728;padding:12px 0;}
-.ck-preview b{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-weight:400;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7D5F27;margin-inline-end:8px;}
-
-.eyebrow{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#7D5F27;}
-.micro{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;}
-
-.ck-hero{padding:48px 0 32px;border-bottom:1px solid #E2D5BB;}
-.ck-hero h1{font-weight:400;font-size:32px;line-height:1.06;color:#152A55;margin:12px 0 0;max-width:20ch;}
-.ck-hero .sub{font-size:20px;line-height:1.55;color:#6B5B47;max-width:680px;margin:16px 0 0;}
-@media (min-width:768px){.ck-hero h1{font-size:44px;} .ck-hero .sub{font-size:22px;}}
-@media (min-width:1280px){.ck-hero{padding:96px 0 48px;} .ck-hero h1{font-size:56px;}}
-.ck-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;}
-
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:12px 24px;border:1px solid #1E3A78;background:#1E3A78;color:#FFFDF6;font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border-radius:2px;cursor:pointer;transition:background-color 120ms;}
-.btn:hover{background:#152A55;border-color:#152A55;}
-.btn.ghost{background:transparent;color:#1E3A78;}
-.btn.ghost:hover{background:#EFE4CE;}
-.btn.onband{background:#C09A45;border-color:#C09A45;color:#152A55;}
-.btn.onband:hover{background:#F3EADA;border-color:#F3EADA;}
-.btn[disabled]{background:#EFE4CE;border-color:#D3C0A0;color:#6F5D4A;cursor:default;}
-
-.ck-tabs{display:flex;gap:4px;overflow-x:auto;border-bottom:1px solid #D3C0A0;margin:0 -20px;padding:0 20px;scrollbar-width:none;}
+/* sticky navigation */
+.pnav{position:sticky;top:0;z-index:200;background:rgba(251,248,244,.86);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
+.pnav-in{max-width:1280px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;min-height:64px;flex-wrap:wrap;}
+@media (min-width:768px){.pnav-in{padding:0 32px;}}
+@media (min-width:1280px){.pnav-in{padding:0 48px;min-height:72px;}}
+.pbrand{display:inline-flex;align-items:center;gap:10px;min-height:44px;font-family:var(--fd);font-weight:800;font-size:18px;letter-spacing:-.01em;color:var(--ink);}
+.pbrand:hover{color:var(--ink);}
+.plogo{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:9px;background:var(--accent);color:#fff;font-size:13px;font-weight:800;}
+.pnav-r{margin-inline-start:auto;display:flex;align-items:center;gap:8px;}
+.pill{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 16px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);color:var(--ink);font-family:'IBM Plex Sans Arabic',var(--fb);font-size:14px;font-weight:600;cursor:pointer;}
+.pill:hover{border-color:var(--ink);}
+.ck-tabs{order:3;flex:1 0 100%;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin:0 -20px;padding:0 20px;}
 .ck-tabs::-webkit-scrollbar{display:none;}
-@media (min-width:768px){.ck-tabs{margin:0;padding:0;}}
-.ck-tabs a{flex:0 0 auto;display:inline-flex;align-items:center;min-height:48px;padding:0 16px;font-size:16px;color:#6B5B47;text-decoration:none;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;}
-.ck-tabs a:hover{color:#152A55;}
-.ck-tabs a[aria-current="page"]{color:#152A55;border-bottom-color:#7D5F27;}
+@media (min-width:1024px){.ck-tabs{order:0;flex:0 1 auto;margin:0 auto;padding:0;justify-content:center;}}
+.ck-tabs a{flex:0 0 auto;display:inline-flex;align-items:center;min-height:48px;padding:0 12px;font-size:15px;font-weight:500;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap;}
+.ck-tabs a:hover{color:var(--ink);}
+.ck-tabs a[aria-current="page"]{color:var(--ink);font-weight:600;border-bottom-color:var(--accent);}
 
+.ck-preview{background:var(--accent-tint);border-bottom:1px solid var(--line);}
+.ck-preview p{font-size:15px;line-height:1.6;color:var(--ink);padding:12px 0;}
+.ck-preview b{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink);margin-inline-end:8px;}
+
+.eyebrow{font-size:15px;font-weight:600;color:var(--accent);}
+.micro{font-size:13px;font-weight:600;color:var(--muted);}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:32px;padding:4px 14px;border-radius:999px;background:var(--accent-tint);color:var(--accent-ink);font-size:14px;font-weight:600;}
+.chip::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 1.8s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(217,64,26,.45)}100%{box-shadow:0 0 0 10px rgba(217,64,26,0)}}
+@media (prefers-reduced-motion:reduce){.chip::before{animation:none;}}
+.acc{color:var(--accent);}
+
+/* hero */
+.ck-hero{padding:48px 0 56px;}
+.hero-grid{display:grid;grid-template-columns:1fr;gap:40px;align-items:center;}
+@media (min-width:1024px){.hero-grid{grid-template-columns:1.05fr 1fr;gap:56px;} .ck-hero{padding:80px 0 96px;}}
+.ck-hero h1{font-family:var(--fd);font-weight:800;font-size:44px;line-height:1;letter-spacing:-.035em;color:var(--ink);margin:20px 0 0;}
+@media (min-width:768px){.ck-hero h1{font-size:56px;}}
+@media (min-width:1280px){.ck-hero h1{font-size:72px;}}
+.ck-hero .lede{font-size:20px;line-height:1.4;font-weight:600;color:var(--ink);max-width:560px;margin:24px 0 0;}
+.ck-hero .sub{font-size:17px;line-height:1.65;color:var(--muted);max-width:540px;margin:16px 0 0;}
+.ck-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;align-items:center;}
+.free{margin-top:16px;font-size:15px;color:var(--muted);}
+.free::before{content:"★";color:var(--accent);margin-inline-end:6px;}
+.hero-vis{position:relative;min-height:380px;border-radius:28px;background:linear-gradient(160deg,var(--accent-tint),#F6EFE7 60%,#EFE6DB);overflow:hidden;padding:28px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;}
+@media (min-width:768px){.hero-vis{min-height:440px;padding:36px;}}
+.hero-vis::after{content:"";position:absolute;inset:auto -60px -80px auto;width:260px;height:260px;border-radius:50%;border:36px solid rgba(217,64,26,.08);pointer-events:none;}
+.bub{max-width:300px;padding:12px 16px;border-radius:18px;font-size:15px;line-height:1.45;box-shadow:0 10px 30px rgba(23,20,15,.08);position:relative;z-index:1;}
+.bub.me{align-self:flex-end;background:var(--surface);color:var(--ink);font-weight:600;border-end-end-radius:6px;}
+.bub.ai{align-self:flex-start;background:var(--accent);color:#fff;border-end-start-radius:6px;}
+.bub small{display:block;font-size:12px;font-weight:600;opacity:.75;margin-bottom:2px;}
+.sess{position:relative;z-index:1;background:var(--ink);color:#fff;border-radius:22px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 20px 40px rgba(23,20,15,.22);}
+.sess .micro{color:#B9B1A7;}
+.sess b{display:block;font-family:var(--fd);font-size:22px;line-height:1.2;font-weight:700;margin-top:4px;}
+.sess p{font-size:14px;color:#B9B1A7;margin-top:2px;}
+.tick{flex:0 0 auto;width:48px;height:48px;border-radius:50%;background:var(--accent);display:inline-flex;align-items:center;justify-content:center;}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 24px;border:1px solid var(--accent);background:var(--accent);color:#fff;font-family:inherit;font-size:16px;font-weight:600;border-radius:999px;cursor:pointer;text-decoration:none;transition:background-color 120ms,transform 120ms;box-shadow:0 8px 20px rgba(217,64,26,.22);}
+.btn:hover{background:var(--accent-ink);border-color:var(--accent-ink);color:#fff;}
+.btn:active{transform:translateY(1px);}
+.btn.ghost{background:var(--surface);color:var(--ink);border-color:var(--line-strong);box-shadow:none;}
+.btn.ghost:hover{border-color:var(--ink);background:var(--surface);color:var(--ink);}
+.btn.dark{background:var(--ink);border-color:var(--ink);box-shadow:none;}
+.btn.dark:hover{background:#000;}
+.btn.onband{background:#fff;border-color:#fff;color:var(--ink);box-shadow:none;}
+.btn.onband:hover{background:var(--ink);border-color:var(--ink);color:#fff;}
+.btn.outline-dark{background:transparent;border-color:var(--dark-line);color:#fff;box-shadow:none;}
+.btn.outline-dark:hover{border-color:#fff;}
+.btn[disabled]{background:#EEE7DE;border-color:#EEE7DE;color:var(--faint);cursor:default;box-shadow:none;}
+.btn.danger{background:var(--danger);border-color:var(--danger);box-shadow:none;}
+.btn.danger:hover{background:#8F1C13;border-color:#8F1C13;}
+.btn.small{min-height:44px;padding:8px 18px;font-size:15px;}
+
+/* layout */
 .view{display:none;}
 .view.on{display:block;}
-.section{padding:56px 0;}
-@media (min-width:768px){.section{padding:72px 0;}}
-@media (min-width:1280px){.section{padding:96px 0;}}
-.section + .section{border-top:1px solid #E2D5BB;}
-.sand{background:#EFE4CE;}
-.band{background:#152A55;color:#F3EADA;}
-.band h2{color:#F3EADA;}
-.band .eyebrow{color:#C09A45;}
-.band p{color:#D3DCEF;}
-.band a{color:#C09A45;}
-h2{font-weight:400;font-size:26px;line-height:1.15;color:#152A55;margin:12px 0 0;}
-@media (min-width:768px){h2{font-size:32px;}}
-@media (min-width:1280px){h2{font-size:36px;}}
-h3{font-weight:500;font-size:19px;line-height:1.3;color:#152A55;}
-.lead{font-size:20px;line-height:1.55;color:#6B5B47;max-width:680px;margin:16px 0 0;}
-@media (min-width:768px){.lead{font-size:22px;}}
-.band .lead{color:#D3DCEF;}
+.section{padding:64px 0;}
+@media (min-width:768px){.section{padding:88px 0;}}
+@media (min-width:1280px){.section{padding:112px 0;}}
+.section.tight{padding-top:0;}
+h2{font-family:var(--fd);font-weight:800;font-size:34px;line-height:1.05;letter-spacing:-.03em;color:var(--ink);margin:12px 0 0;max-width:20ch;}
+@media (min-width:768px){h2{font-size:44px;}}
+@media (min-width:1280px){h2{font-size:56px;}}
+h3{font-family:var(--fd);font-weight:700;font-size:20px;line-height:1.25;letter-spacing:-.01em;color:var(--ink);}
+.lead{font-size:18px;line-height:1.6;color:var(--muted);max-width:640px;margin:16px 0 0;}
+.ink{background:var(--ink);color:#fff;}
+.ink h2, .ink h3{color:#fff;}
+.ink .eyebrow{color:var(--accent-dark);}
+.ink p, .ink .lead{color:#C9C1B7;}
+.band{background:var(--ink);color:#fff;}
+.band h2{color:#fff;}
+.sand{background:transparent;}
 
-.grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:32px;}
-@media (min-width:768px){.grid.two{grid-template-columns:1fr 1fr;gap:24px;} .grid.four{grid-template-columns:1fr 1fr;gap:24px;}}
+.grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:40px;}
+@media (min-width:768px){.grid.two{grid-template-columns:1fr 1fr;gap:20px;} .grid.four{grid-template-columns:1fr 1fr;gap:20px;}}
 @media (min-width:1024px){.grid.four{grid-template-columns:repeat(4,1fr);}}
-.card{background:#FFFDF6;border:1px solid #E2D5BB;border-radius:2px;padding:24px;min-width:0;}
-.card p{font-size:16px;line-height:1.65;color:#4A3728;margin-top:8px;}
-.card .micro{color:#6F5D4A;}
-.step .n{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.18em;color:#7D5F27;}
-.step h3{margin-top:8px;}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px;min-width:0;}
+@media (min-width:768px){.card{padding:28px;}}
+.card p{font-size:16px;line-height:1.6;color:var(--muted);margin-top:8px;}
+.card h3 + p{margin-top:8px;}
+.card.tint{background:var(--accent-tint);border-color:transparent;}
+.card.tint p{color:var(--ink);}
+.card.dark{background:var(--ink);border-color:var(--ink);color:#fff;}
+.card.dark h3{color:#fff;} .card.dark p{color:#C9C1B7;} .card.dark .micro{color:#B9B1A7;}
+.num{display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;padding:0 10px;border-radius:12px;background:var(--accent-tint);color:var(--accent-ink);font-size:15px;font-weight:700;margin-bottom:24px;}
+.feat h3{font-size:22px;}
+
+/* stats band */
+.stats3{display:grid;grid-template-columns:1fr;gap:24px;margin-top:40px;}
+@media (min-width:768px){.stats3{grid-template-columns:repeat(3,1fr);}}
+.stats3 > div{border-top:1px solid var(--dark-line);padding-top:20px;}
+.stats3 .v{font-family:var(--fd);font-weight:800;font-size:72px;line-height:1;letter-spacing:-.04em;color:var(--accent-dark);}
+@media (min-width:1280px){.stats3 .v{font-size:96px;}}
+.stats3 .l{margin-top:12px;font-size:17px;color:#C9C1B7;max-width:24ch;}
+
+/* steps */
+.steps4{display:grid;grid-template-columns:1fr;gap:28px;margin-top:40px;}
+@media (min-width:768px){.steps4{grid-template-columns:1fr 1fr;}}
+@media (min-width:1024px){.steps4{grid-template-columns:repeat(4,1fr);}}
+.step .n{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:700;color:#fff;margin:0;}
+.step .n span{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:var(--ink);flex:0 0 auto;}
+.step .n::after{content:"";flex:1;height:1px;background:var(--line-strong);}
+.step h3{margin-top:20px;font-size:22px;}
+.step p{margin-top:8px;font-size:16px;color:var(--muted);}
+.card.step .n{color:var(--accent-ink);}
+
+/* list rows inside a card */
+.rows{margin-top:24px;}
+.rowi{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;border-top:1px solid var(--line);padding:16px 0;}
+.rowi b{display:block;font-weight:600;font-size:16px;color:var(--ink);}
+.rowi p{margin-top:2px;font-size:15px;}
+.duo{display:grid;grid-template-columns:1fr;gap:20px;}
+@media (min-width:1024px){.duo{grid-template-columns:1fr 1fr;}}
+.duo .card{padding:28px;}
+@media (min-width:1024px){.duo .card{padding:40px;}}
+.duo .card h2{font-size:28px;max-width:none;}
+@media (min-width:768px){.duo .card h2{font-size:34px;}}
+.card.tint .links{margin-top:auto;padding-top:24px;display:flex;flex-wrap:wrap;gap:4px 20px;}
+.card.tint .links a{display:inline-flex;align-items:center;min-height:44px;font-weight:600;color:var(--accent-ink);}
+.card.flex{display:flex;flex-direction:column;}
+
+/* accent CTA band */
+.ctaband{background:var(--accent);color:#fff;border-radius:28px;padding:40px 28px;display:flex;flex-direction:column;gap:28px;}
+@media (min-width:1024px){.ctaband{flex-direction:row;align-items:flex-end;justify-content:space-between;padding:72px 80px;}}
+.ctaband h2{color:#fff;max-width:18ch;}
+.ctaband p{color:#FFE3D9;margin-top:12px;font-size:16px;}
 
 .conn{display:flex;flex-direction:column;}
 .top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
-.badge{display:inline-block;font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:4px 8px;border:1px solid #D3C0A0;border-radius:2px;color:#6F5D4A;white-space:nowrap;}
-.badge.ok{border-color:#3F6B4F;color:#3F6B4F;background:#EAEFE3;}
-.badge.wait{border-color:#7D5F27;color:#7D5F27;background:#F5ECDA;}
-.badge.no{border-color:#8C3A30;color:#8C3A30;background:#F4E7E1;}
+.badge{display:inline-flex;align-items:center;font-size:13px;font-weight:600;padding:4px 10px;border-radius:999px;background:#F3EEE7;color:var(--muted);white-space:nowrap;}
+.badge.ok{background:var(--ok-tint);color:var(--ok);}
+.badge.wait{background:var(--accent-tint);color:var(--accent-ink);}
+.badge.no{background:var(--danger-tint);color:var(--danger);}
 .conn .btn{margin-top:auto;align-self:flex-start;}
 .conn .body{flex:1;margin-bottom:24px;}
-.conn ul, .conn ol{margin:12px 0 0;padding-inline-start:20px;font-size:16px;line-height:1.65;}
+.conn ul, .conn ol{margin:12px 0 0;padding-inline-start:20px;font-size:16px;line-height:1.6;color:var(--muted);}
 
-.srcs{margin-top:32px;}
-.src{border-top:1px solid #E2D5BB;padding:16px 0;display:grid;grid-template-columns:1fr;gap:4px;}
-@media (min-width:768px){.src{grid-template-columns:200px 1fr;gap:24px;}}
-.src:last-child{border-bottom:1px solid #E2D5BB;}
-.src h3{font-size:19px;}
-.src p{font-size:16px;line-height:1.65;}
-.src .stand{display:block;margin-top:4px;font-size:15px;color:#6F5D4A;}
+/* science rules */
+.srcs{display:grid;grid-template-columns:1fr;gap:16px;margin-top:40px;}
+@media (min-width:768px){.srcs{grid-template-columns:1fr 1fr;}}
+@media (min-width:1280px){.srcs{grid-template-columns:repeat(3,1fr);}}
+.src{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px;}
+.src h3{font-size:20px;}
+.src p{font-size:15px;line-height:1.6;color:var(--muted);margin-top:8px;}
+.src .stand{display:block;margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:14px;color:var(--accent-ink);}
 
+/* forms */
 .form{max-width:640px;margin-top:32px;}
-.field{margin-top:24px;}
-.field label, .field legend{display:block;font-size:16px;color:#152A55;margin-bottom:8px;font-weight:500;}
-.field .hint{display:block;font-size:15px;color:#6F5D4A;margin:-4px 0 8px;font-weight:400;}
-.in, .sel, .ta{width:100%;min-height:44px;padding:10px 12px;font-family:'EB Garamond',Georgia,serif;font-size:17px;color:#4A3728;background:#FFFDF6;border:1px solid #D3C0A0;border-radius:2px;}
-.in:focus, .sel:focus, .ta:focus{outline:2px solid #7D5F27;outline-offset:3px;}
-.ta{min-height:110px;line-height:1.6;resize:vertical;}
+.formcard{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:24px;box-shadow:0 24px 60px rgba(23,20,15,.07);max-width:none;margin-top:0;}
+@media (min-width:768px){.formcard{padding:40px;}}
+.split{display:grid;grid-template-columns:1fr;gap:32px;align-items:start;}
+@media (min-width:1024px){.split{grid-template-columns:1fr 1.1fr;gap:64px;} .split > .intro{position:sticky;top:120px;}}
+.field{margin-top:20px;}
+.formcard > .field:first-child, .formcard > .row2:first-child .field{margin-top:0;}
+.field label, .field legend{display:block;font-size:15px;color:var(--ink);margin-bottom:8px;font-weight:600;}
+.field .hint{display:block;font-size:14px;color:var(--faint);margin:-4px 0 8px;font-weight:400;}
+.in, .sel, .ta{width:100%;min-height:52px;padding:12px 16px;font-family:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line-strong);border-radius:14px;}
+.in:focus, .sel:focus, .ta:focus{outline:2px solid var(--accent);outline-offset:1px;background:var(--surface);}
+.ta{min-height:120px;line-height:1.6;resize:vertical;}
 fieldset{border:0;}
-.row2{display:grid;grid-template-columns:1fr;gap:16px;}
+.row2{display:grid;grid-template-columns:1fr;gap:0 16px;}
 @media (min-width:600px){.row2{grid-template-columns:1fr 1fr;}}
 .days{display:flex;flex-wrap:wrap;gap:8px;}
 .day{position:relative;}
 .day input{position:absolute;opacity:0;width:100%;height:100%;cursor:pointer;margin:0;}
-.day span{display:inline-flex;align-items:center;justify-content:center;min-width:56px;min-height:44px;padding:0 12px;border:1px solid #D3C0A0;background:#FFFDF6;border-radius:2px;font-size:16px;}
-.day input:checked + span{background:#152A55;border-color:#152A55;color:#F3EADA;}
-.day input:focus-visible + span{outline:2px solid #7D5F27;outline-offset:3px;}
-.check{display:flex;gap:12px;align-items:flex-start;margin-top:16px;font-size:16px;line-height:1.6;min-height:44px;}
-.check input{flex:0 0 auto;width:20px;height:20px;margin-top:4px;accent-color:#1E3A78;}
-.err{display:none;color:#8C3A30;font-size:15px;margin-top:8px;}
+.day span{display:inline-flex;align-items:center;justify-content:center;min-width:60px;min-height:48px;padding:0 14px;border:1px solid var(--line-strong);background:var(--surface);border-radius:14px;font-size:15px;font-weight:600;}
+.day input:checked + span{background:var(--ink);border-color:var(--ink);color:#fff;}
+.day input:focus-visible + span{outline:2px solid var(--accent);outline-offset:3px;}
+.check{display:flex;gap:12px;align-items:flex-start;margin-top:10px;font-size:15px;line-height:1.55;min-height:44px;padding:12px 14px;border:1px solid var(--line-strong);border-radius:14px;background:var(--surface);cursor:pointer;}
+.check:has(input:checked){border-color:var(--accent);background:#FFF8F5;}
+.field label.check{display:flex;font-weight:500;margin-bottom:0;font-size:15px;}
+.check input{flex:0 0 auto;width:20px;height:20px;margin-top:1px;accent-color:var(--accent);}
+.err{display:none;color:var(--danger);font-size:15px;margin-top:12px;}
 .err.on{display:block;}
-.ok-msg{display:none;margin-top:24px;padding:16px 24px;background:#EAEFE3;border:1px solid #C9D6C2;font-size:16px;}
+.ok-msg{display:none;margin-top:20px;padding:16px 20px;background:var(--ok-tint);border-radius:14px;font-size:15px;color:var(--ink);}
 .ok-msg.on{display:block;}
-.note{font-size:15px;line-height:1.6;color:#6F5D4A;margin-top:16px;}
+.note{font-size:15px;line-height:1.6;color:var(--faint);margin-top:16px;}
 
-.drop{margin-top:16px;border:1px dashed #D3C0A0;background:#FFFDF6;padding:32px 24px;text-align:center;border-radius:2px;}
-.drop.over{background:#EFE4CE;}
-.drop p{font-size:16px;margin-top:8px;}
-.drop .micro{color:#6F5D4A;margin-top:0;}
+.drop{margin-top:16px;border:1.5px dashed var(--line-strong);background:var(--bg);padding:28px 20px;text-align:center;border-radius:18px;}
+.drop.over{background:var(--accent-tint);border-color:var(--accent);}
+.drop p{font-size:15px;margin-top:8px;}
+.drop .micro{margin-top:0;}
 .files{margin-top:12px;list-style:none;font-size:15px;padding:0 !important;}
-.files li{border-top:1px solid #E2D5BB;padding:8px 0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+.files li{border-top:1px solid var(--line);padding:10px 0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;color:var(--ink);}
 
-.week{display:grid;grid-template-columns:1fr;gap:8px;margin-top:24px;}
+/* my week */
+.week{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px;}
+@media (min-width:768px){.week{grid-template-columns:repeat(4,1fr);}}
 @media (min-width:1024px){.week{grid-template-columns:repeat(7,1fr);}}
-.wd{background:#FFFDF6;border:1px solid #E2D5BB;padding:16px;border-radius:2px;min-width:0;}
-.wd.today{border-color:#152A55;border-top:3px solid #152A55;}
-.wd .micro{color:#6F5D4A;}
-.wd b{display:block;font-weight:500;color:#152A55;font-size:16px;margin-top:4px;line-height:1.3;}
-.wd p{font-size:15px;line-height:1.6;margin-top:4px;color:#4A3728;}
-.wd .z{display:inline-block;margin-top:8px;}
-.today-card{background:#152A55;color:#F3EADA;padding:24px;border-radius:2px;margin-top:24px;}
-.today-card h3{color:#F3EADA;font-size:24px;line-height:1.25;font-weight:400;margin-top:8px;}
-.today-card .eyebrow{color:#C09A45;}
-.today-card ol{margin:16px 0 0;padding-inline-start:20px;color:#D3DCEF;font-size:16px;line-height:1.65;}
-.today-card .sent{margin-top:16px;font-size:15px;color:#9AAAD0;}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;}
+.wd{background:var(--surface);border:1px solid var(--line);padding:16px;border-radius:18px;min-width:0;}
+.wd.today{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 14px 30px rgba(217,64,26,.25);}
+.wd .micro{color:var(--faint);}
+.wd.today .micro, .wd.today p, .wd.today b{color:#fff;}
+.wd b{display:block;font-family:var(--fd);font-weight:700;color:var(--ink);font-size:18px;margin-top:8px;line-height:1.2;}
+.wd p{font-size:14px;line-height:1.5;margin-top:4px;color:var(--muted);}
+.wd .z{display:inline-flex;margin-top:10px;}
+.wd.today .badge{background:rgba(255,255,255,.2);color:#fff;}
+.today-card{background:var(--ink);color:#fff;padding:28px;border-radius:28px;margin-top:28px;}
+@media (min-width:768px){.today-card{padding:36px;}}
+.today-card h3{color:#fff;font-size:28px;line-height:1.15;font-weight:800;margin-top:14px;letter-spacing:-.02em;}
+@media (min-width:768px){.today-card h3{font-size:40px;}}
+.today-card .eyebrow{display:inline-flex;align-items:center;min-height:28px;padding:2px 12px;border-radius:999px;background:var(--accent);color:#fff;font-size:13px;}
+.today-card ol{margin:20px 0 0;padding:0;list-style:none;color:#E8E2DA;font-size:16px;line-height:1.55;}
+.today-card ol li{border-top:1px solid var(--dark-line);padding:12px 0;}
+.today-card p{color:#C9C1B7;font-size:16px;margin-top:12px;}
+.today-card .sent{margin-top:20px;font-size:15px;font-weight:600;color:var(--accent-dark);}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;}
 @media (min-width:768px){.stats{grid-template-columns:repeat(4,1fr);}}
-.stat{border-top:1px solid #D3C0A0;padding-top:12px;}
-.stat .v{font-size:32px;line-height:1.1;color:#152A55;}
-@media (min-width:768px){.stat .v{font-size:40px;}}
-@media (min-width:1280px){.stat .v{font-size:46px;}}
-.stat .l{font-size:15px;color:#6F5D4A;}
-.chart{margin-top:24px;background:#FFFDF6;border:1px solid #E2D5BB;padding:24px;}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px 20px;}
+.stat .v{font-family:var(--fd);font-weight:800;font-size:34px;line-height:1.05;letter-spacing:-.02em;color:var(--ink);}
+@media (min-width:1280px){.stat .v{font-size:40px;}}
+.stat .l{font-size:14px;color:var(--muted);margin-top:4px;}
+.chart{margin-top:20px;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px;}
 .chart svg{display:block;width:100%;height:auto;}
-.coachnote{margin-top:24px;background:#FFFDF6;border:1px solid #E2D5BB;border-inline-start:3px solid #7D5F27;padding:24px;}
-.coachnote p{font-size:16px;line-height:1.65;margin-top:8px;}
-.price{font-size:32px;color:#152A55;line-height:1.1;margin-top:8px;}
+.coachnote{margin-top:20px;background:var(--accent-tint);border-radius:22px;padding:24px 28px;}
+.coachnote p{font-size:17px;line-height:1.6;margin-top:6px;color:var(--ink);}
+.price{font-family:var(--fd);font-weight:800;font-size:72px;line-height:1;letter-spacing:-.04em;color:#fff;margin-top:16px;}
+@media (min-width:1280px){.price{font-size:96px;}}
 .wd p.micro, .card p.micro, .today-card p.eyebrow, .coachnote p.eyebrow, .chart p.eyebrow{margin-top:0;}
-.wd p.micro, .card p.micro{font-size:11px;line-height:1.5;}
-.coachnote p.eyebrow, .chart p.eyebrow{font-size:12px;line-height:1.5;}
-footer.site{border-top:1px solid #E2D5BB;margin-top:48px;padding:24px 0 48px;font-size:15px;color:#6F5D4A;}
+.coachnote p.eyebrow{font-size:15px;}
+#recent{margin-top:20px;}
+footer.site{border-top:1px solid var(--line);margin-top:48px;padding:28px 0 48px;font-size:14px;color:var(--faint);}
+footer.site a{color:var(--muted);}
+footer.site a:hover{color:var(--ink);}
 
-/* ADDED FOR THE LIVE SERVICE, 2 NOV 2026: language blocks, alerts, data rights, payments, admin, legal pages. */
+.card .eyebrow{color:var(--accent);font-size:15px;}
+.card .chip{color:var(--accent-ink);font-size:14px;margin-top:0;}
+.card .micro{color:var(--muted);font-size:13px;}
+.card.dark .micro{color:#B9B1A7;font-size:15px;margin-top:6px;}
+.card.dark .price{color:#fff;font-size:72px;line-height:1;margin-top:20px;}
+@media (min-width:1280px){.card.dark .price{font-size:96px;}}
+.card.dark .chip{background:var(--accent);color:#fff;}
+.card.dark .chip::before{background:#fff;}
+.card.tint .eyebrow{color:var(--accent-ink);}
+.duo .card p.eyebrow{margin-top:0;}
+/* live service additions: language blocks, alerts, data rights, payments, admin, legal pages */
 html[lang="ar"] [data-lang="en"], html:not([lang="ar"]) [data-lang="ar"]{display:none !important;}
 [hidden]{display:none !important;}
 .vh{position:absolute;left:-9999px;}
 .mt24{margin-top:24px;}
 .center{justify-content:center;}
 .ck-cta.center{margin-top:12px;}
-.ok-msg.alert{background:#F4E7E1;border-color:#E2CBC1;}
-.btn.danger{background:#8C3A30;border-color:#8C3A30;}
-.btn.danger:hover{background:#6F2D25;border-color:#6F2D25;}
-.btn.small{min-height:44px;padding:8px 16px;}
+.ok-msg.alert{background:var(--danger-tint);}
 #banner{margin-top:24px;}
-.rights{margin-top:96px;padding-top:56px;border-top:1px solid #E2D5BB;}
-.consents .check{margin-top:12px;}
-dl.pay{margin-top:16px;display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:16px;}
-dl.pay dt{color:#6F5D4A;}
-dl.pay dd{color:#152A55;overflow-wrap:anywhere;}
+#banner:not(.on){margin:0;}
+.rights{margin-top:96px;padding-top:64px;border-top:1px solid var(--line);}
+.consents .check{margin-top:10px;}
+dl.pay{margin-top:16px;display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:15px;}
+dl.pay dt{color:var(--muted);}
+dl.pay dd{color:var(--ink);font-weight:600;overflow-wrap:anywhere;}
+.card.dark .price + p, .card.dark p{color:#C9C1B7;}
+.memgrid{display:grid;grid-template-columns:1fr;gap:20px;margin-top:40px;}
+@media (min-width:1024px){.memgrid{grid-template-columns:1fr 1fr;}}
+.memgrid .card{padding:28px;}
+@media (min-width:768px){.memgrid .card{padding:36px;}}
 .adm{margin-top:48px;}
 .adm h3{margin-bottom:8px;}
 .adm .card{margin-top:16px;}
 .adm table{width:100%;border-collapse:collapse;font-size:15px;margin-top:8px;}
-.adm td, .adm th{border-top:1px solid #E2D5BB;padding:8px 8px 8px 0;text-align:start;vertical-align:top;font-weight:400;}
-.adm th{color:#6F5D4A;}
-.legal h3{margin-top:32px;font-size:19px;}
-.legal p, .legal li{font-size:16px;line-height:1.7;margin-top:12px;max-width:72ch;}
+.adm td, .adm th{border-top:1px solid var(--line);padding:8px 8px 8px 0;text-align:start;vertical-align:top;font-weight:400;}
+.adm th{color:var(--muted);}
+.legal{max-width:820px;}
+.legal h2{max-width:none;}
+.legal h3{margin-top:36px;font-size:22px;}
+.legal p, .legal li{font-size:16px;line-height:1.7;margin-top:12px;max-width:72ch;color:var(--muted);}
 .legal ul{padding-inline-start:20px;}
-.legal + .legal{margin-top:96px;padding-top:56px;border-top:1px solid #E2D5BB;}
-.attrib{font-size:15px;color:#6F5D4A;}
+.legal + .legal{margin-top:96px;padding-top:64px;border-top:1px solid var(--line);}
+.attrib{font-size:14px;color:var(--faint);}
 
-/* ARABIC, per the Majlis Arabic column: Noto Naskh, its own heading sizes, no uppercase, no letter-spacing. */
-html[lang="ar"] body, html[lang="ar"] .in, html[lang="ar"] .sel, html[lang="ar"] .ta{font-family:'Noto Naskh Arabic','Amiri',Georgia,serif;}
-html[lang="ar"] main{direction:rtl;text-align:right;}
-html[lang="ar"] body{line-height:1.95;}
-html[lang="ar"] .eyebrow, html[lang="ar"] .micro, html[lang="ar"] .btn, html[lang="ar"] .badge, html[lang="ar"] .step .n, html[lang="ar"] .ck-preview b{font-family:'Noto Naskh Arabic','Amiri',Georgia,serif;font-size:14px;letter-spacing:0;text-transform:none;}
-html[lang="ar"] .ck-hero h1{font-size:28px;line-height:1.4;}
-html[lang="ar"] h2{font-size:24px;line-height:1.45;}
-html[lang="ar"] h3, html[lang="ar"] .src h3, html[lang="ar"] .legal h3, html[lang="ar"] .today-card h3{font-size:20px;line-height:1.55;}
-html[lang="ar"] .lead, html[lang="ar"] .ck-hero .sub{font-size:20px;line-height:1.8;}
-html[lang="ar"] .card p, html[lang="ar"] .src p, html[lang="ar"] .legal p, html[lang="ar"] .legal li, html[lang="ar"] .coachnote p, html[lang="ar"] .check, html[lang="ar"] .field label, html[lang="ar"] .field legend, html[lang="ar"] .conn ul, html[lang="ar"] .conn ol, html[lang="ar"] .today-card ol, html[lang="ar"] .drop p, html[lang="ar"] .ck-tabs a, html[lang="ar"] .wd b, html[lang="ar"] .day span, html[lang="ar"] dl.pay, html[lang="ar"] .ok-msg{font-size:17px;line-height:1.9;}
-html[lang="ar"] .stat .v, html[lang="ar"] .price{font-size:28px;}
-@media (min-width:768px){
-  html[lang="ar"] .ck-hero h1{font-size:36px;}
-  html[lang="ar"] h2{font-size:30px;}
-  html[lang="ar"] h3, html[lang="ar"] .src h3, html[lang="ar"] .legal h3, html[lang="ar"] .today-card h3{font-size:21px;}
-  html[lang="ar"] .lead, html[lang="ar"] .ck-hero .sub{font-size:21px;}
-  html[lang="ar"] .stat .v, html[lang="ar"] .price{font-size:36px;}
-}
-@media (min-width:1280px){
-  html[lang="ar"] .ck-hero h1{font-size:46px;}
-  html[lang="ar"] h2{font-size:34px;}
-  html[lang="ar"] h3, html[lang="ar"] .src h3, html[lang="ar"] .legal h3, html[lang="ar"] .today-card h3{font-size:22px;}
-  html[lang="ar"] .lead, html[lang="ar"] .ck-hero .sub{font-size:22px;}
-  html[lang="ar"] .stat .v, html[lang="ar"] .price{font-size:46px;}
-}
+/* Arabic: IBM Plex Sans Arabic throughout, more line height, no letter spacing */
+html[lang="ar"] body, html[lang="ar"] .in, html[lang="ar"] .sel, html[lang="ar"] .ta, html[lang="ar"] .btn, html[lang="ar"] h2, html[lang="ar"] h3, html[lang="ar"] .ck-hero h1, html[lang="ar"] .pbrand, html[lang="ar"] .sess b, html[lang="ar"] .wd b, html[lang="ar"] .stat .v{font-family:'IBM Plex Sans Arabic',var(--fb);letter-spacing:0;}
+html[lang="ar"] main, html[lang="ar"] .pnav-in{direction:rtl;text-align:right;}
+html[lang="ar"] body{line-height:1.85;}
+html[lang="ar"] .ck-hero h1{font-weight:700;line-height:1.3;font-size:40px;}
+html[lang="ar"] h2{font-weight:700;line-height:1.35;font-size:30px;}
+html[lang="ar"] h3{font-weight:700;line-height:1.5;}
+html[lang="ar"] .today-card h3{font-size:28px;line-height:1.4;}
+html[lang="ar"] .ck-preview b{letter-spacing:0;text-transform:none;font-size:14px;}
+@media (min-width:768px){html[lang="ar"] .ck-hero h1{font-size:56px;} html[lang="ar"] h2{font-size:40px;}}
+@media (min-width:1280px){html[lang="ar"] .ck-hero h1{font-size:64px;} html[lang="ar"] h2{font-size:46px;}}
 html[lang="ar"] [dir="ltr"]{text-align:left;}
 html[lang="ar"] .ck-preview{direction:rtl;text-align:right;}
+html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);direction:ltr;text-align:right;}
 </style>
 
 </head>
@@ -301,24 +413,10 @@ html[lang="ar"] .ck-preview{direction:rtl;text-align:right;}
 <div class="wpbar" id="wpbar"><div class="wpbar-in"><div class="wpbar-row"><a class="wpbrand" href="https://saqeralkhalifa.com/">Dr. Saqer AlKhalifa</a><div class="wpright"><nav class="wpnav wpnav-en"><div class="wpdd"><a class="wpitem" href="https://saqeralkhalifa.com/mentorship/">Work with me<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://saqeralkhalifa.com/mentorship/">Mentorship</a><a href="https://saqeralkhalifa.com/speaking/">Speaking &amp; Media</a><a href="https://saqeralkhalifa.com/contact-me/">Contact</a></div></div><div class="wpdd"><a class="wpitem" href="https://saqeralkhalifa.com/major-compass/">For Students<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://saqeralkhalifa.github.io/major-compass/">Major Compass Quiz</a><a href="https://saqeralkhalifa.github.io/major-compass/explore.html">Every Major Explained</a><a href="https://saqeralkhalifa.github.io/major-compass/entry.html">Entry Requirements</a><a href="https://saqeralkhalifa.github.io/major-compass/scholarships.html">Scholarships and Funding</a><a href="https://saqeralkhalifa.github.io/major-compass/parents.html">Parent Guide</a><a href="https://saqeralkhalifa.github.io/major-compass/ai.html">AI and Your Major</a><a href="https://saqeralkhalifa.github.io/major-compass/routes.html">What a Dealbreaker Closes</a><a href="https://saqeralkhalifa.github.io/major-compass/alternatives.html">Routes Without a Degree</a><a href="https://internships.saqeralkhalifa.com/?lang=en">Internships</a><a href="https://internships.saqeralkhalifa.com/cv.html?lang=en">Build a CV</a></div></div><div class="wpdd"><a class="wpitem" href="https://gigs.saqeralkhalifa.com/?lang=en">For Job Seekers<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://gigs.saqeralkhalifa.com/?lang=en">Gigs Board</a><a href="https://gigs.saqeralkhalifa.com/?lang=en#jobs">Full-time Jobs</a><a href="https://internships.saqeralkhalifa.com/?lang=en">Internships</a><a href="https://internships.saqeralkhalifa.com/cv.html?lang=en">Build a CV</a><a href="https://saqeralkhalifa.com/post-a-gig/">Post a Gig</a><a href="https://saqeralkhalifa.com/find-work/">Find Work</a><a href="https://saqeralkhalifa.com/find-investors/">Find Investors</a></div></div><div class="wpdd"><a class="wpitem" href="https://saqeralkhalifa.com/">Shackles of Democracy<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://saqeralkhalifa.com/">The Book</a><a href="https://saqeralkhalifa.com/first-chapter/">First Chapter Free</a><a href="https://saqeralkhalifa.com/#formats">Choose Your Format</a><a href="https://saqeralkhalifa.com/#stores">Where to Buy</a><a href="https://saqeralkhalifa.com/check/">The Data</a><a href="https://saqeralkhalifa.com/arabic/">Arabic Edition</a></div></div><div class="wpdd"><a class="wpitem" href="https://saqeralkhalifa.com/the-trust-trap/">The Trust Trap<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://saqeralkhalifa.com/the-trust-trap/">About the Book</a><a href="https://saqeralkhalifa.com/the-trust-trap/#chapters">Inside the Book</a><a href="https://saqeralkhalifa.com/the-trust-trap/#resources">Free Resources</a><a href="https://saqeralkhalifa.com/the-trust-trap/#faq">Questions</a><a href="https://saqeralkhalifa.com/the-trust-trap/#buy">Where to Buy</a></div></div><a class="wpitem" href="https://saqeralkhalifa.com/about/">About</a><div class="wpdd"><a class="wpitem" href="https://market.saqeralkhalifa.com/?lang=en">Sports<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://market.saqeralkhalifa.com/?lang=en">Market</a><a href="https://saqeralkhalifa.com/triathlon-notables/">Triathlon Notables</a><a href="https://coach.saqeralkhalifa.com/?lang=en">AI Coach</a></div></div><div class="wpdd"><a class="wpitem" href="https://saqeralkhalifa.com/blog/">Blog<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://saqeralkhalifa.com/blog/">All Articles</a><a href="https://saqeralkhalifa.com/category/trust-by-design/">Trust by Design</a><a href="https://saqeralkhalifa.com/category/reform-theater/">Reform Theater</a><a href="https://saqeralkhalifa.com/category/country-cases/">Country Cases</a><a href="https://saqeralkhalifa.com/category/institutional-memory/">Institutional Memory</a><a href="https://saqeralkhalifa.com/category/politics/">Politics</a><a href="https://saqeralkhalifa.com/category/economics/">Economics</a><a href="https://saqeralkhalifa.com/category/social/">Social</a><a href="https://saqeralkhalifa.com/category/published-and-mentions/">Published & Mentions</a><a href="https://saqeralkhalifa.com/category/interesting/">Interesting</a></div></div></nav><nav class="wpnav wpnav-ar"><div class="wpdd"><a class="wpitem" href="https://saqeralkhalifa.com/mentorship-ar/">العمل معي<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://saqeralkhalifa.com/mentorship-ar/">الإرشاد والتوجيه</a><a href="https://saqeralkhalifa.com/contact-ar/">تواصل</a></div></div><div class="wpdd"><a class="wpitem" href="https://saqeralkhalifa.com/major-compass/#ar">للطلبة<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://saqeralkhalifa.github.io/major-compass/?lang=ar">بوصلة التخصص</a><a href="https://saqeralkhalifa.github.io/major-compass/explore.html?lang=ar">استكشف التخصصات</a><a href="https://saqeralkhalifa.github.io/major-compass/entry.html?lang=ar">شروط القبول</a><a href="https://saqeralkhalifa.github.io/major-compass/scholarships.html?lang=ar">المنح والتمويل</a><a href="https://saqeralkhalifa.github.io/major-compass/parents.html?lang=ar">دليل أولياء الأمور</a><a href="https://saqeralkhalifa.github.io/major-compass/ai.html?lang=ar">الذكاء الاصطناعي وتخصصك</a><a href="https://saqeralkhalifa.github.io/major-compass/routes.html?lang=ar">ماذا يغلق كل شرط</a><a href="https://saqeralkhalifa.github.io/major-compass/alternatives.html?lang=ar">مسارات بدون شهادة</a><a href="https://internships.saqeralkhalifa.com/?lang=ar">فرص التدريب</a><a href="https://internships.saqeralkhalifa.com/cv.html?lang=ar">السيرة الذاتية</a></div></div><div class="wpdd"><a class="wpitem" href="https://gigs.saqeralkhalifa.com/?lang=ar">للباحثين عن عمل<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://gigs.saqeralkhalifa.com/?lang=ar">لوحة الأعمال القصيرة</a><a href="https://gigs.saqeralkhalifa.com/?lang=ar#jobs">الوظائف الدائمة</a><a href="https://internships.saqeralkhalifa.com/?lang=ar">فرص التدريب</a><a href="https://internships.saqeralkhalifa.com/cv.html?lang=ar">السيرة الذاتية</a><a href="https://saqeralkhalifa.com/post-a-gig/">انشر فرصة</a><a href="https://saqeralkhalifa.com/find-work/">سجّل بياناتك</a><a href="https://saqeralkhalifa.com/find-investors-ar/">أفكار تبحث عن مستثمر</a></div></div><div class="wpdd"><a class="wpitem" href="https://saqeralkhalifa.com/arabic/">أغلال الديمقراطية<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://saqeralkhalifa.com/arabic/">الكتاب</a><a href="https://saqeralkhalifa.com/readers/">الفصل الأول مجانا</a><a href="https://saqeralkhalifa.com/arabic/#buy">الشراء</a><a href="https://saqeralkhalifa.com/check-ar/">البيانات</a></div></div><a class="wpitem" href="https://saqeralkhalifa.com/the-trust-trap-ar/">مصيدة الثقة</a><a class="wpitem" href="https://saqeralkhalifa.com/about-ar/">نبذة</a><div class="wpdd"><a class="wpitem" href="https://market.saqeralkhalifa.com/?lang=ar">الرياضة<svg class="wpcaret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></a><div class="wpmenu"><a href="https://market.saqeralkhalifa.com/?lang=ar">السوق</a><a href="https://saqeralkhalifa.com/triathlon-notables-ar/">أعلام الترايثلون</a><a href="https://coach.saqeralkhalifa.com/?lang=ar">المدرب الذكي</a></div></div><a class="wpitem" href="https://saqeralkhalifa.com/blog/">المدونة</a></nav><button class="wpitem wplang" id="langToggle" type="button">العربية</button><button class="wpburger" id="wpburger" type="button" aria-label="Open menu"><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7.5h16v1.5H4z"></path><path d="M4 15h16v1.5H4z"></path></svg></button></div></div></div><div class="wpmob"><div class="wpmob-nav wpmob-en"><a class="wpmob-top" href="https://saqeralkhalifa.com/mentorship/">Work with me</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/mentorship/">Mentorship</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/speaking/">Speaking &amp; Media</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/contact-me/">Contact</a><a class="wpmob-top" href="https://saqeralkhalifa.com/major-compass/">For Students</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/">Major Compass Quiz</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/explore.html">Every Major Explained</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/entry.html">Entry Requirements</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/scholarships.html">Scholarships and Funding</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/parents.html">Parent Guide</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/ai.html">AI and Your Major</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/routes.html">What a Dealbreaker Closes</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/alternatives.html">Routes Without a Degree</a><a class="wpmob-sub" href="https://internships.saqeralkhalifa.com/?lang=en">Internships</a><a class="wpmob-sub" href="https://internships.saqeralkhalifa.com/cv.html?lang=en">Build a CV</a><a class="wpmob-top" href="https://gigs.saqeralkhalifa.com/?lang=en">For Job Seekers</a><a class="wpmob-sub" href="https://gigs.saqeralkhalifa.com/?lang=en">Gigs Board</a><a class="wpmob-sub" href="https://gigs.saqeralkhalifa.com/?lang=en#jobs">Full-time Jobs</a><a class="wpmob-sub" href="https://internships.saqeralkhalifa.com/?lang=en">Internships</a><a class="wpmob-sub" href="https://internships.saqeralkhalifa.com/cv.html?lang=en">Build a CV</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/post-a-gig/">Post a Gig</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/find-work/">Find Work</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/find-investors/">Find Investors</a><a class="wpmob-top" href="https://saqeralkhalifa.com/">Shackles of Democracy</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/">The Book</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/first-chapter/">First Chapter Free</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/#formats">Choose Your Format</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/#stores">Where to Buy</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/check/">The Data</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/arabic/">Arabic Edition</a><a class="wpmob-top" href="https://saqeralkhalifa.com/the-trust-trap/">The Trust Trap</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/the-trust-trap/">About the Book</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/the-trust-trap/#chapters">Inside the Book</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/the-trust-trap/#resources">Free Resources</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/the-trust-trap/#faq">Questions</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/the-trust-trap/#buy">Where to Buy</a><a class="wpmob-top" href="https://saqeralkhalifa.com/about/">About</a><a class="wpmob-top" href="https://market.saqeralkhalifa.com/?lang=en">Sports</a><a class="wpmob-sub" href="https://market.saqeralkhalifa.com/?lang=en">Market</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/triathlon-notables/">Triathlon Notables</a><a class="wpmob-sub" href="https://coach.saqeralkhalifa.com/?lang=en">AI Coach</a><a class="wpmob-top" href="https://saqeralkhalifa.com/blog/">Blog</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/blog/">All Articles</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/category/trust-by-design/">Trust by Design</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/category/reform-theater/">Reform Theater</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/category/country-cases/">Country Cases</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/category/institutional-memory/">Institutional Memory</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/category/politics/">Politics</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/category/economics/">Economics</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/category/social/">Social</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/category/published-and-mentions/">Published & Mentions</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/category/interesting/">Interesting</a></div><div class="wpmob-nav wpmob-ar"><a class="wpmob-top" href="https://saqeralkhalifa.com/mentorship-ar/">العمل معي</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/mentorship-ar/">الإرشاد والتوجيه</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/contact-ar/">تواصل</a><a class="wpmob-top" href="https://saqeralkhalifa.com/major-compass/#ar">للطلبة</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/?lang=ar">بوصلة التخصص</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/explore.html?lang=ar">استكشف التخصصات</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/entry.html?lang=ar">شروط القبول</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/scholarships.html?lang=ar">المنح والتمويل</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/parents.html?lang=ar">دليل أولياء الأمور</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/ai.html?lang=ar">الذكاء الاصطناعي وتخصصك</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/routes.html?lang=ar">ماذا يغلق كل شرط</a><a class="wpmob-sub" href="https://saqeralkhalifa.github.io/major-compass/alternatives.html?lang=ar">مسارات بدون شهادة</a><a class="wpmob-sub" href="https://internships.saqeralkhalifa.com/?lang=ar">فرص التدريب</a><a class="wpmob-sub" href="https://internships.saqeralkhalifa.com/cv.html?lang=ar">السيرة الذاتية</a><a class="wpmob-top" href="https://gigs.saqeralkhalifa.com/?lang=ar">للباحثين عن عمل</a><a class="wpmob-sub" href="https://gigs.saqeralkhalifa.com/?lang=ar">لوحة الأعمال القصيرة</a><a class="wpmob-sub" href="https://gigs.saqeralkhalifa.com/?lang=ar#jobs">الوظائف الدائمة</a><a class="wpmob-sub" href="https://internships.saqeralkhalifa.com/?lang=ar">فرص التدريب</a><a class="wpmob-sub" href="https://internships.saqeralkhalifa.com/cv.html?lang=ar">السيرة الذاتية</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/post-a-gig/">انشر فرصة</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/find-work/">سجّل بياناتك</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/find-investors-ar/">أفكار تبحث عن مستثمر</a><a class="wpmob-top" href="https://saqeralkhalifa.com/arabic/">أغلال الديمقراطية</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/arabic/">الكتاب</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/readers/">الفصل الأول مجانا</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/arabic/#buy">الشراء</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/check-ar/">البيانات</a><a class="wpmob-top" href="https://saqeralkhalifa.com/the-trust-trap-ar/">مصيدة الثقة</a><a class="wpmob-top" href="https://saqeralkhalifa.com/about-ar/">نبذة</a><a class="wpmob-top" href="https://market.saqeralkhalifa.com/?lang=ar">الرياضة</a><a class="wpmob-sub" href="https://market.saqeralkhalifa.com/?lang=ar">السوق</a><a class="wpmob-sub" href="https://saqeralkhalifa.com/triathlon-notables-ar/">أعلام الترايثلون</a><a class="wpmob-sub" href="https://coach.saqeralkhalifa.com/?lang=ar">المدرب الذكي</a><a class="wpmob-top" href="https://saqeralkhalifa.com/blog/">المدونة</a></div></div><script>(function(){var b=document.getElementById("wpburger"),w=document.getElementById("wpbar");if(b&&w){b.addEventListener("click",function(){var o=w.classList.toggle("open");b.innerHTML=o?'<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"></path></svg>':'<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7.5h16v1.5H4z"></path><path d="M4 15h16v1.5H4z"></path></svg>';b.setAttribute("aria-label",o?"Close menu":"Open menu");});}var t=document.getElementById("langToggle");if(!t)return;function fix(){var ar=document.documentElement.lang==="ar";var want=ar?"English":"العربية";if(t.textContent.trim()!==want){t.textContent=want;}}fix();new MutationObserver(fix).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});new MutationObserver(fix).observe(t,{childList:true,characterData:true,subtree:true});})();</script></div>
 <div class="ck-preview" id="previewBar" hidden><div class="ck-wrap"><p data-th="previewBar"></p></div></div>
 
-<main>
-<div class="ck-wrap">
-  <header class="ck-hero" id="hero">
-    <div data-lang="en">
-      <p class="eyebrow">AI Coach</p>
-      <h1>Triathlon and running plans that adjust to your week</h1>
-      <p class="sub">Register, tell the coach about your race and the days you can train, and connect your watch. A new plan arrives each week, and each day's session is sent to your Garmin.</p>
-    </div>
-    <div data-lang="ar" dir="rtl" lang="ar">
-      <p class="eyebrow">المدرب الذكي</p>
-      <h1>خطط للترايثلون والجري تتكيف مع أسبوعك</h1>
-      <p class="sub">سجّل، وأخبر المدرب عن سباقك والأيام التي تستطيع التدرب فيها، واربط ساعتك. تصلك خطة جديدة كل أسبوع، وتُرسل حصة كل يوم إلى ساعة Garmin الخاصة بك.</p>
-    </div>
-    <div class="ck-cta" id="heroCta"><a class="btn" href="#register" data-go="register" data-t="register"></a><a class="btn ghost" href="#signin" data-go="signin" data-t="signin"></a></div>
-  </header>
+<div class="pnav" id="pnav"><div class="pnav-in">
+  <a class="pbrand" href="#overview" data-go="overview"><span class="plogo" aria-hidden="true">AI</span><span data-lang="en">AI COACH</span><span data-lang="ar">المدرب الذكي</span></a>
   <nav class="ck-tabs" id="tabs" aria-label="Coach pages">
     <a href="#overview" data-go="overview" data-t="tabOverview"></a>
-    <a href="#register" data-go="register" data-t="register" data-when="out"></a>
     <a href="#signin" data-go="signin" data-t="signin" data-when="out"></a>
     <a href="#week" data-go="week" data-t="tabWeek" data-when="in"></a>
     <a href="#connect" data-go="connect" data-t="tabConnect" data-when="in"></a>
@@ -326,62 +424,159 @@ html[lang="ar"] .ck-preview{direction:rtl;text-align:right;}
     <a href="#membership" data-go="membership" data-t="tabMembership"></a>
     <a href="#admin" data-go="admin" data-t="tabAdmin" data-when="admin"></a>
   </nav>
-  <p class="ok-msg" id="banner" role="status"></p>
-</div>
+  <div class="pnav-r">
+    <button class="pill" type="button" id="langToggle2"><span data-lang="en" lang="ar">العربية</span><span data-lang="ar" lang="en">English</span></button>
+    <a class="btn small" id="navCta" href="#register" data-go="register"><span data-lang="en">Start free</span><span data-lang="ar">ابدأ مجانا</span></a>
+  </div>
+</div></div>
+
+<main>
+<div class="ck-wrap"><p class="ok-msg" id="banner" role="status"></p></div>
 
 <!-- OVERVIEW -->
 <section class="view on" id="v-overview">
+  <div class="ck-wrap">
+  <header class="ck-hero" id="hero"><div class="hero-grid">
+    <div>
+      <div data-lang="en">
+        <p class="chip">Your personal running and triathlon coach</p>
+        <h1>The AI coach that <span class="acc">really knows you.</span></h1>
+        <p class="lede">One plan built around your race and your schedule, rewritten every week.</p>
+        <p class="sub">Tell it your goal and the days you can train. It learns from every workout and every check-in, then adjusts your training so you reach the start line healthy and ready.</p>
+      </div>
+      <div data-lang="ar" dir="rtl" lang="ar">
+        <p class="chip">مدربك الشخصي للجري والترايثلون</p>
+        <h1>المدرب الذكي الذي <span class="acc">يعرفك حقا.</span></h1>
+        <p class="lede">خطة واحدة مبنية حول سباقك وجدولك، تُكتب من جديد كل أسبوع.</p>
+        <p class="sub">أخبره بهدفك والأيام التي تستطيع التدرب فيها. يتعلم من كل تمرين وكل تسجيل يومي، ثم يعدّل تدريبك لتصل إلى خط البداية بصحة جيدة وجاهزية كاملة.</p>
+      </div>
+      <div class="ck-cta" id="heroCta"><a class="btn" href="#register" data-go="register"><span data-lang="en">Start free</span><span data-lang="ar">ابدأ مجانا</span></a><a class="btn ghost" href="#signin" data-go="signin" data-t="signin"></a></div>
+      <p class="free"><span data-lang="en">First month free for the first 30 athletes who confirm their email</span><span data-lang="ar">الشهر الأول مجانا لأول 30 رياضيا يؤكدون بريدهم الإلكتروني</span></p>
+    </div>
+    <div class="hero-vis" aria-hidden="true">
+      <div data-lang="en" style="display:contents">
+        <p class="bub me"><small>Daily check-in</small>Third short night this week.</p>
+        <p class="bub ai">Three short nights in a row, so today's intervals become an easy 40 minute run.</p>
+        <div class="sess"><div><p class="micro">Today, sent to Garmin</p><b>Easy run, 40 min</b><p>Zone 2, start before 6:30 am</p></div><span class="tick"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      </div>
+      <div data-lang="ar" dir="rtl" lang="ar" style="display:contents">
+        <p class="bub me"><small>التسجيل اليومي</small>الليلة الثالثة بنوم قليل هذا الأسبوع.</p>
+        <p class="bub ai">ثلاث ليال متتالية بنوم قليل، لذلك تتحول حصة التدريب المتقطع اليوم إلى جري سهل لمدة 40 دقيقة.</p>
+        <div class="sess"><div><p class="micro">اليوم، أُرسلت إلى Garmin</p><b>جري سهل، 40 دقيقة</b><p>المنطقة 2، ابدأ قبل 6:30 صباحا</p></div><span class="tick"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      </div>
+    </div>
+  </div></header>
+  </div>
+
+  <div class="section tight"><div class="ck-wrap">
+    <div data-lang="en">
+      <p class="eyebrow">Why it feels personal</p>
+      <h2>Every session is written for you</h2>
+      <div class="grid four">
+        <div class="card feat"><p class="num">01</p><h3>It learns you</h3><p>Your race, your goal, your training days, your injuries and your experience shape every session.</p></div>
+        <div class="card feat"><p class="num">02</p><h3>It adapts every day</h3><p>Short sleep or a resting heart rate well above your usual turns the next hard session into an easy one before you start.</p></div>
+        <div class="card feat"><p class="num">03</p><h3>It reaches your watch</h3><p>Each day's session goes to Garmin through Intervals.icu, so you train from your wrist without typing anything in.</p></div>
+        <div class="card feat"><p class="num">04</p><h3>It keeps you safe</h3><p>Plans follow fixed sports science rules, and any pain or illness you report is reviewed personally by Dr. Saqer.</p></div>
+      </div>
+    </div>
+    <div data-lang="ar" dir="rtl" lang="ar">
+      <p class="eyebrow">لماذا تشعر أنها خطتك</p>
+      <h2>كل حصة مكتوبة لك أنت</h2>
+      <div class="grid four">
+        <div class="card feat"><p class="num">01</p><h3>يتعرف عليك</h3><p>سباقك وهدفك وأيام تدريبك وإصاباتك وخبرتك تحدد كل حصة.</p></div>
+        <div class="card feat"><p class="num">02</p><h3>يتكيف كل يوم</h3><p>قلة النوم أو ارتفاع نبض الراحة بوضوح عن معدلك المعتاد يحول الحصة الشاقة التالية إلى حصة سهلة قبل أن تبدأ.</p></div>
+        <div class="card feat"><p class="num">03</p><h3>يصل إلى ساعتك</h3><p>تُرسل حصة كل يوم إلى ساعة Garmin عبر Intervals.icu، فتتدرب من معصمك دون إدخال أي شيء بنفسك.</p></div>
+        <div class="card feat"><p class="num">04</p><h3>يحافظ على سلامتك</h3><p>تلتزم الخطط بقواعد ثابتة من علوم الرياضة، ويراجع د. صقر بنفسه أي ألم أو مرض تبلغ عنه.</p></div>
+      </div>
+    </div>
+  </div></div>
+
+  <div class="section ink"><div class="ck-wrap">
+    <div data-lang="en">
+      <h2>Built on the science of getting faster without getting hurt</h2>
+      <div class="stats3">
+        <div><p class="v">10%</p><p class="l">the most your weekly running time can rise</p></div>
+        <div><p class="v">75%</p><p class="l">of training time at low intensity, at least</p></div>
+        <div><p class="v">48h</p><p class="l">at least between two hard sessions</p></div>
+      </div>
+    </div>
+    <div data-lang="ar" dir="rtl" lang="ar">
+      <h2>مبني على علم التحسن في السرعة دون التعرض للإصابة</h2>
+      <div class="stats3">
+        <div><p class="v">10%</p><p class="l">أقصى زيادة في وقت الجري الأسبوعي</p></div>
+        <div><p class="v">75%</p><p class="l">على الأقل من وقت التدريب بشدة منخفضة</p></div>
+        <div><p class="v">48h</p><p class="l">على الأقل بين حصتين شاقتين</p></div>
+      </div>
+    </div>
+    <div class="ck-cta"><a class="btn outline-dark" href="#rules" data-scroll="rules"><span data-lang="en">The rules every plan follows</span><span data-lang="ar">القواعد التي تلتزم بها كل خطة</span></a></div>
+  </div></div>
+
   <div class="section" id="how"><div class="ck-wrap">
     <div data-lang="en">
       <p class="eyebrow">How it works</p>
       <h2>From registration to your first session</h2>
-      <div class="grid four">
-        <div class="card step"><p class="n">01</p><h3>Register</h3><p>Create an account with your email and a password. You confirm your email address before the account opens.</p></div>
-        <div class="card step"><p class="n">02</p><h3>Describe your training</h3><p>Your target race and date, the days you can train, your preferred swim days and any injury history.</p></div>
-        <div class="card step"><p class="n">03</p><h3>Connect your watch</h3><p>Link Garmin through Intervals.icu once. Completed workouts and sleep then reach the coach without uploads.</p></div>
-        <div class="card step"><p class="n">04</p><h3>Train</h3><p>Each week's plan appears on your dashboard and by email, and each session appears on your watch.</p></div>
+      <div class="steps4">
+        <div class="step"><p class="n"><span>01</span></p><h3>Register</h3><p>Create an account with your email and a password, then confirm your email address to open it.</p></div>
+        <div class="step"><p class="n"><span>02</span></p><h3>Describe your training</h3><p>Your target race and date, the days you can train, your preferred swim days and any injury history.</p></div>
+        <div class="step"><p class="n"><span>03</span></p><h3>Connect your watch</h3><p>Link Garmin through Intervals.icu once, and your completed workouts and sleep arrive without uploads.</p></div>
+        <div class="step"><p class="n"><span>04</span></p><h3>Train</h3><p>Each week's plan appears on your dashboard and by email, and each session appears on your watch.</p></div>
       </div>
     </div>
     <div data-lang="ar" dir="rtl" lang="ar">
       <p class="eyebrow">كيف تعمل الخدمة</p>
       <h2>من التسجيل إلى أول حصة تدريب</h2>
-      <div class="grid four">
-        <div class="card step"><p class="n">01</p><h3>التسجيل</h3><p>أنشئ حسابا ببريدك الإلكتروني وكلمة مرور، ثم أكد بريدك الإلكتروني قبل أن يُفعّل الحساب.</p></div>
-        <div class="card step"><p class="n">02</p><h3>وصف تدريبك</h3><p>سباقك المستهدف وتاريخه، والأيام التي تستطيع التدرب فيها، وأيام السباحة المفضلة، وأي إصابات سابقة.</p></div>
-        <div class="card step"><p class="n">03</p><h3>ربط ساعتك</h3><p>اربط ساعة Garmin عبر Intervals.icu مرة واحدة، فتصل تمارينك المكتملة وبيانات نومك إلى المدرب دون رفع ملفات.</p></div>
-        <div class="card step"><p class="n">04</p><h3>التدريب</h3><p>تظهر خطة كل أسبوع في صفحتك وفي بريدك الإلكتروني، وتظهر كل حصة على ساعتك.</p></div>
+      <div class="steps4">
+        <div class="step"><p class="n"><span>01</span></p><h3>التسجيل</h3><p>أنشئ حسابا ببريدك الإلكتروني وكلمة مرور، ثم أكد بريدك الإلكتروني ليُفعّل الحساب.</p></div>
+        <div class="step"><p class="n"><span>02</span></p><h3>وصف تدريبك</h3><p>سباقك المستهدف وتاريخه، والأيام التي تستطيع التدرب فيها، وأيام السباحة المفضلة، وأي إصابات سابقة.</p></div>
+        <div class="step"><p class="n"><span>03</span></p><h3>ربط ساعتك</h3><p>اربط ساعة Garmin عبر Intervals.icu مرة واحدة، فتصل تمارينك المكتملة وبيانات نومك دون رفع ملفات.</p></div>
+        <div class="step"><p class="n"><span>04</span></p><h3>التدريب</h3><p>تظهر خطة كل أسبوع في صفحتك وفي بريدك الإلكتروني، وتظهر كل حصة على ساعتك.</p></div>
       </div>
     </div>
   </div></div>
 
-  <div class="section sand"><div class="ck-wrap">
-    <div data-lang="en">
-      <p class="eyebrow">Connections</p>
-      <h2>Where your data comes from and where your sessions go</h2>
-      <p class="lead">Garmin is the first watch supported. Every other watch can be used through file upload, and the daily check-in works for everyone.</p>
-      <div class="grid two">
-        <div class="card"><p class="micro">Garmin, through Intervals.icu</p><p>Planned sessions are written to your Intervals.icu calendar and sync to Garmin Connect and your watch. Completed workouts, sleep and resting heart rate come back the same way.</p></div>
-        <div class="card"><p class="micro">TrainingPeaks</p><p>Partner access will be requested from TrainingPeaks. If it is approved, sessions will also appear in your TrainingPeaks calendar.</p></div>
-        <div class="card"><p class="micro">File upload</p><p>For any watch: upload .fit, .tcx or .gpx files from your computer or phone after each session.</p></div>
-        <div class="card"><p class="micro">Daily check-in</p><p>Sleep, resting heart rate and how you feel. Any report of pain or illness pauses your plan and goes to Dr. Saqer.</p></div>
+  <div class="section tight"><div class="ck-wrap"><div class="duo">
+    <div class="card">
+      <div data-lang="en">
+        <p class="eyebrow">Connections</p>
+        <h2>Where your data comes from and where your sessions go</h2>
+        <div class="rows">
+          <div class="rowi"><div><b>Garmin, through Intervals.icu</b><p>Sessions sync to Garmin Connect and your watch, and workouts, sleep and resting heart rate come back.</p></div><span class="badge ok">Live</span></div>
+          <div class="rowi"><div><b>TrainingPeaks</b><p>Partner access will be requested, and if it is approved, sessions will appear in your TrainingPeaks calendar too.</p></div><span class="badge wait">Planned</span></div>
+          <div class="rowi"><div><b>File upload</b><p>For any watch, upload .fit, .tcx or .gpx files after each session.</p></div><span class="badge ok">Live</span></div>
+          <div class="rowi"><div><b>Daily check-in</b><p>Sleep, resting heart rate and how you feel. Any pain or illness pauses your plan.</p></div><span class="badge ok">Live</span></div>
+        </div>
+        <p class="note">Strava is not connected, because its API terms do not allow the data to be used by AI systems.</p>
       </div>
-      <p class="note">Strava is not connected. Its API terms do not allow the data to be used by AI systems.</p>
-    </div>
-    <div data-lang="ar" dir="rtl" lang="ar">
-      <p class="eyebrow">الربط</p>
-      <h2>من أين تأتي بياناتك وإلى أين تذهب حصصك</h2>
-      <p class="lead">ساعات Garmin هي أول الساعات المدعومة. ويمكن استخدام أي ساعة أخرى برفع الملفات، والتسجيل اليومي متاح للجميع.</p>
-      <div class="grid two">
-        <div class="card"><p class="micro">Garmin عبر Intervals.icu</p><p>تُكتب الحصص المخططة في تقويمك على Intervals.icu وتتزامن مع Garmin Connect وساعتك، وتعود التمارين المكتملة وبيانات النوم ونبض الراحة بالطريقة نفسها.</p></div>
-        <div class="card"><p class="micro">TrainingPeaks</p><p>سيُطلب الوصول بصفة شريك من TrainingPeaks، وإذا وافقت عليه ستظهر الحصص في تقويمك على TrainingPeaks أيضا.</p></div>
-        <div class="card"><p class="micro">رفع الملفات</p><p>لأي ساعة: ارفع ملفات ‎.fit أو ‎.tcx أو ‎.gpx من حاسوبك أو هاتفك بعد كل حصة.</p></div>
-        <div class="card"><p class="micro">التسجيل اليومي</p><p>النوم ونبض الراحة وشعورك اليومي. وأي بلاغ عن ألم أو مرض يوقف خطتك ويصل إلى د. صقر.</p></div>
+      <div data-lang="ar" dir="rtl" lang="ar">
+        <p class="eyebrow">الربط</p>
+        <h2>من أين تأتي بياناتك وإلى أين تذهب حصصك</h2>
+        <div class="rows">
+          <div class="rowi"><div><b>Garmin عبر Intervals.icu</b><p>تتزامن الحصص مع Garmin Connect وساعتك، وتعود التمارين وبيانات النوم ونبض الراحة بالطريقة نفسها.</p></div><span class="badge ok">يعمل</span></div>
+          <div class="rowi"><div><b>TrainingPeaks</b><p>سيُطلب الوصول بصفة شريك، وإذا تمت الموافقة ستظهر الحصص في تقويمك على TrainingPeaks أيضا.</p></div><span class="badge wait">مخطط</span></div>
+          <div class="rowi"><div><b>رفع الملفات</b><p>لأي ساعة، ارفع ملفات ‎.fit أو ‎.tcx أو ‎.gpx بعد كل حصة.</p></div><span class="badge ok">يعمل</span></div>
+          <div class="rowi"><div><b>التسجيل اليومي</b><p>النوم ونبض الراحة وشعورك اليومي. وأي ألم أو مرض يوقف خطتك.</p></div><span class="badge ok">يعمل</span></div>
+        </div>
+        <p class="note">خدمة Strava غير مرتبطة، لأن شروط واجهتها البرمجية لا تسمح باستخدام بياناتها في أنظمة الذكاء الاصطناعي.</p>
       </div>
-      <p class="note">خدمة Strava غير مرتبطة، لأن شروط واجهتها البرمجية لا تسمح باستخدام بياناتها في أنظمة الذكاء الاصطناعي.</p>
     </div>
-  </div></div>
+    <div class="card tint flex">
+      <div data-lang="en">
+        <p class="eyebrow">Safety and privacy</p>
+        <h2>Read before you register</h2>
+        <p>Registration is open to adults aged 18 and over. Get clearance from a doctor before starting a new training plan. The AI Coach system gives no medical advice, and any report of pain, illness, chest symptoms or dizziness pauses your plan and is reviewed by Dr. Saqer.</p>
+        <p>Your data is used only to write your plans and is handled under Bahrain's Personal Data Protection Law. You can download it or delete your account at any time from your profile.</p>
+      </div>
+      <div data-lang="ar" dir="rtl" lang="ar">
+        <p class="eyebrow">السلامة والخصوصية</p>
+        <h2>اقرأ قبل التسجيل</h2>
+        <p>التسجيل متاح للبالغين الذين أتموا 18 عاما. احصل على إذن من طبيب قبل البدء في أي خطة تدريب جديدة. لا يقدم نظام المدرب الذكي أي مشورة طبية، وأي بلاغ عن ألم أو مرض أو أعراض في الصدر أو دوار يوقف خطتك ويراجعه د. صقر.</p>
+        <p>تُستخدم بياناتك لإعداد خططك فقط، ويُتعامل معها وفق قانون حماية البيانات الشخصية في البحرين. ويمكنك تنزيلها أو حذف حسابك في أي وقت من صفحة ملفك.</p>
+      </div>
+      <div class="links"><a href="#privacy" data-go="privacy"><span data-lang="en">Privacy notice</span><span data-lang="ar">إشعار الخصوصية</span></a><a href="#terms" data-go="terms"><span data-lang="en">Terms and medical disclaimer</span><span data-lang="ar">الشروط وإخلاء المسؤولية الطبية</span></a></div>
+    </div>
+  </div></div></div>
 
-  <div class="section"><div class="ck-wrap">
+  <div class="section tight" id="rules"><div class="ck-wrap">
     <div data-lang="en">
       <p class="eyebrow">The science behind the plans</p>
       <h2>The rules every plan follows, and where they come from</h2>
@@ -412,29 +607,28 @@ html[lang="ar"] .ck-preview{direction:rtl;text-align:right;}
     </div>
   </div></div>
 
-  <div class="section band"><div class="ck-wrap">
-    <div data-lang="en">
-      <p class="eyebrow">Safety and privacy</p>
-      <h2>Read before you register</h2>
-      <p class="lead">Registration is open to adults aged 18 and over. Get clearance from a doctor before starting a new training plan. The coach does not give medical advice, and any report of pain, illness, chest symptoms or dizziness pauses your plan and is reviewed by Dr. Saqer.</p>
-      <p class="lead">Your data is used only to write your plans and is handled under Bahrain's Personal Data Protection Law. You can download it or delete your account at any time from your profile. Read the <a href="#privacy" data-go="privacy">privacy notice</a> and the <a href="#terms" data-go="terms">terms and medical disclaimer</a>.</p>
+  <div class="section tight"><div class="ck-wrap">
+    <div class="ctaband">
+      <div>
+        <h2 data-lang="en">Your race is already on the calendar, so your plan should be there too.</h2>
+        <h2 data-lang="ar" dir="rtl" lang="ar">سباقك موجود في التقويم بالفعل، فلتكن خطتك هناك أيضا.</h2>
+        <p data-lang="en">First month free for the first 30 athletes who confirm their email.</p>
+        <p data-lang="ar" dir="rtl" lang="ar">الشهر الأول مجانا لأول 30 رياضيا يؤكدون بريدهم الإلكتروني.</p>
+      </div>
+      <div class="ck-cta" style="margin-top:0"><a class="btn onband" href="#register" data-go="register"><span data-lang="en">Start free</span><span data-lang="ar">ابدأ مجانا</span></a></div>
     </div>
-    <div data-lang="ar" dir="rtl" lang="ar">
-      <p class="eyebrow">السلامة والخصوصية</p>
-      <h2>اقرأ قبل التسجيل</h2>
-      <p class="lead">التسجيل متاح للبالغين الذين أتموا 18 عاما. احصل على إذن من طبيب قبل البدء في أي خطة تدريب جديدة. لا يقدم المدرب أي مشورة طبية، وأي بلاغ عن ألم أو مرض أو أعراض في الصدر أو دوار يوقف خطتك ويراجعه د. صقر.</p>
-      <p class="lead">تُستخدم بياناتك لإعداد خططك فقط، ويُتعامل معها وفق قانون حماية البيانات الشخصية في البحرين. ويمكنك تنزيلها أو حذف حسابك في أي وقت من صفحة ملفك. اقرأ <a href="#privacy" data-go="privacy">إشعار الخصوصية</a> و<a href="#terms" data-go="terms">الشروط وإخلاء المسؤولية الطبية</a>.</p>
-    </div>
-    <div class="ck-cta"><a class="btn onband" href="#register" data-go="register" data-t="register"></a></div>
   </div></div>
 </section>
 
 <!-- REGISTER -->
 <section class="view" id="v-register"><div class="section"><div class="ck-wrap">
+  <div class="split"><div class="intro">
   <p class="eyebrow" data-t="register"></p>
   <h2 data-t="regH"></h2>
   <p class="lead" data-t="regLead"></p>
-  <form class="form" id="regForm" novalidate>
+  <p class="free"><span data-lang="en">First month free for the first 30 athletes who confirm their email</span><span data-lang="ar">الشهر الأول مجانا لأول 30 رياضيا يؤكدون بريدهم الإلكتروني</span></p>
+  </div>
+  <form class="form formcard" id="regForm" novalidate>
     <div class="field"><label for="r-name" data-t="fName"></label><input class="in" id="r-name" autocomplete="name" maxlength="120"></div>
     <div class="field"><label for="r-email" data-t="fEmail"></label><input class="in" id="r-email" type="email" autocomplete="email" dir="ltr"></div>
     <div class="row2">
@@ -455,26 +649,29 @@ html[lang="ar"] .ck-preview{direction:rtl;text-align:right;}
     <p class="err" id="regErr" role="alert"></p>
     <div class="ck-cta"><button class="btn" type="submit" data-t="regBtn"></button></div>
     <p class="ok-msg" id="regOk" data-t="regOk"></p>
-  </form>
+  </form></div>
 </div></div></section>
 
 <!-- SIGN IN -->
 <section class="view" id="v-signin"><div class="section"><div class="ck-wrap">
+  <div class="split"><div class="intro">
   <p class="eyebrow" data-t="signin"></p>
   <h2 data-t="signinH"></h2>
-  <form class="form" id="signForm" novalidate>
+  </div><div>
+  <form class="form formcard" id="signForm" novalidate>
     <div class="field"><label for="s-email" data-t="fEmail"></label><input class="in" id="s-email" type="email" autocomplete="email" dir="ltr"></div>
     <div class="field"><label for="s-pass" data-t="fPass"></label><input class="in" id="s-pass" type="password" autocomplete="current-password" dir="ltr"></div>
     <p class="err" id="signErr" role="alert"></p>
     <div class="ck-cta"><button class="btn" type="submit" data-t="signin"></button><button class="btn ghost" type="button" id="forgotBtn" data-t="forgot"></button></div>
     <p class="ok-msg" id="signOk"></p>
   </form>
-  <form class="form" id="resetForm" hidden novalidate>
+  <form class="form formcard" id="resetForm" hidden novalidate>
     <h3 data-t="resetH"></h3>
     <div class="field"><label for="n-pass" data-t="fPassNew"></label><span class="hint" data-t="fPassH"></span><input class="in" id="n-pass" type="password" autocomplete="new-password" dir="ltr"></div>
     <p class="err" id="resetErr" role="alert"></p>
     <div class="ck-cta"><button class="btn" type="submit" data-t="save"></button></div>
   </form>
+  </div></div>
 </div></div></section>
 
 <!-- MY WEEK -->
@@ -539,7 +736,7 @@ html[lang="ar"] .ck-preview{direction:rtl;text-align:right;}
   <p class="eyebrow" data-t="tabProfile"></p>
   <h2 data-t="profH"></h2>
   <p class="lead" data-t="profLead"></p>
-  <form class="form" id="profForm" novalidate>
+  <form class="form formcard" id="profForm" novalidate>
     <div class="row2">
       <div class="field"><label for="p-race" data-t="pRace"></label><input class="in" id="p-race" maxlength="120"></div>
       <div class="field"><label for="p-date" data-t="pDate"></label><input class="in" id="p-date" type="date" dir="ltr"></div>
@@ -584,8 +781,8 @@ html[lang="ar"] .ck-preview{direction:rtl;text-align:right;}
   <p class="eyebrow" data-t="tabMembership"></p>
   <h2 data-t="memH"></h2>
   <p class="lead" id="memStatus" data-t="memLead"></p>
-  <div class="grid two">
-    <div class="card"><p class="micro" data-t="memFee"></p><p class="price" data-t="memPrice"></p><p data-t="memIncl"></p></div>
+  <div class="memgrid">
+    <div class="card dark"><p class="chip"><span data-lang="en">First month free, first 30 athletes</span><span data-lang="ar">الشهر الأول مجانا لأول 30 رياضيا</span></p><p class="price">7.5</p><p class="micro"><span data-lang="en">BHD a month</span><span data-lang="ar">دينار بحريني شهريا</span></p><p data-t="memIncl"></p><div class="ck-cta" id="memCta"><a class="btn" href="#register" data-go="register"><span data-lang="en">Start free</span><span data-lang="ar">ابدأ مجانا</span></a></div></div>
     <div class="card"><p class="micro">BenefitPay</p><h3 data-t="bpH"></h3><p data-t="bpP"></p><dl class="pay" id="bpDetails"></dl></div>
     <div class="card"><p class="micro" data-t="bankMicro"></p><h3 data-t="bankH"></h3><p data-t="bankP"></p><dl class="pay" id="bankDetails"></dl></div>
     <div class="card"><p class="micro" data-t="reportMicro"></p><h3 data-t="reportH"></h3>
@@ -798,6 +995,6 @@ html[lang="ar"] .ck-preview{direction:rtl;text-align:right;}
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
-<script src="coach.js?v=20261103"></script>
+<script src="coach.js?v=20261103b"></script>
 </body>
 </html>

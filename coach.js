@@ -261,7 +261,9 @@ function applyI18n(){
   if(STATE.view) render(STATE.view);
 }
 var lt = $("langToggle");
-if(lt) lt.addEventListener("click", function(){ LANG = LANG === "ar" ? "en" : "ar"; try{ localStorage.setItem("mc-lang", LANG); }catch(e){} applyI18n(); });
+function flipLang(){ LANG = LANG === "ar" ? "en" : "ar"; try{ localStorage.setItem("mc-lang", LANG); }catch(e){} applyI18n(); }
+if(lt) lt.addEventListener("click", flipLang);
+if($("langToggle2")) $("langToggle2").addEventListener("click", flipLang);
 
 /* ---------- state and routing ---------- */
 var STATE = { view:null, user:null, profile:null, admin:false };
@@ -274,6 +276,7 @@ function setTabs(){
     var w = a.dataset.when; a.hidden = (w === "out" && !!STATE.user) || (w === "in" && !signed) || (w === "admin" && !STATE.admin);
   });
   $("heroCta").hidden = !!STATE.user;
+  ["navCta","memCta"].forEach(function(id){ var x = $(id); if(x) x.hidden = !!STATE.user; });
 }
 function go(v, push){
   var hash = v.split("?")[0];
@@ -286,10 +289,12 @@ function go(v, push){
   render(hash);
 }
 document.addEventListener("click", function(e){
+  var sc = e.target.closest("[data-scroll]");
+  if(sc){ e.preventDefault(); var tg = $(sc.dataset.scroll), nav = $("pnav"); if(tg) window.scrollTo({ top: tg.getBoundingClientRect().top + window.pageYOffset - (nav ? nav.offsetHeight : 0), behavior:"smooth" }); return; }
   var a = e.target.closest("[data-go]"); if(!a) return;
   if(a.getAttribute("target") === "_blank" && STATE.view === "register"){ return; } // opens the legal page in a new tab from the form
   e.preventDefault(); go(a.dataset.go);
-  var top = a.dataset.go === "overview" ? $("hero") : $("tabs"); if(top) top.scrollIntoView({block:"start"});
+  window.scrollTo(0, 0);
 });
 window.addEventListener("hashchange", function(){ var h = (location.hash || "").slice(1); if(h) go(h, false); });
 
@@ -428,11 +433,11 @@ function drawStats(sessions, checkins){
 function drawChart(weeks){
   if(!weeks.length){ $("loadChart").hidden = true; return; }
   var max = Math.max.apply(null, weeks.map(function(w){ return w.minutes; }).concat([1]));
-  var svg = '<svg viewBox="0 0 640 200" role="img" aria-label="' + t("chartH") + '"><line x1="40" y1="170" x2="630" y2="170" stroke="#D3C0A0" stroke-width="1"/>';
+  var svg = '<svg viewBox="0 0 640 200" role="img" aria-label="' + t("chartH") + '"><line x1="40" y1="170" x2="630" y2="170" stroke="#E3DBD0" stroke-width="1"/>';
   weeks.forEach(function(w, i){
     var h = Math.round(w.minutes / max * 140), x = 60 + i * 72;
-    svg += '<rect x="' + x + '" y="' + (170 - h) + '" width="44" height="' + h + '" fill="' + (w.recovery ? "#D3C0A0" : "#1E3A78") + '"/>';
-    svg += '<text x="' + (x + 22) + '" y="190" font-family="IBM Plex Mono, monospace" font-size="11" fill="#6F5D4A" text-anchor="middle">' + w.week_start.slice(5) + '</text>';
+    svg += '<rect x="' + x + '" y="' + (170 - h) + '" rx="6" width="44" height="' + h + '" fill="' + (w.recovery ? "#E3DBD0" : "#D9401A") + '"/>';
+    svg += '<text x="' + (x + 22) + '" y="190" font-family="Geist, sans-serif" font-size="12" fill="#8A8279" text-anchor="middle">' + w.week_start.slice(5) + '</text>';
   });
   $("chartSvg").innerHTML = svg + "</svg>"; $("loadChart").hidden = false;
 }
