@@ -1,0 +1,23 @@
+{
+ "name": "Arabian Method",
+ "short_name": "Arabian Method",
+ "description": "AI coaching for running and triathlon, built around your race and your schedule.",
+ "start_url": "/#week",
+ "scope": "/",
+ "display": "standalone",
+ "background_color": "#FBF8F4",
+ "theme_color": "#FBF8F4",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any maskable"
+  }
+ ]
+}

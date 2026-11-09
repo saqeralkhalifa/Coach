@@ -3,7 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Coach: triathlon and running plans</title>
+<title>Arabian Method: AI coaching for running and triathlon</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<meta name="theme-color" content="#FBF8F4">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Arabian Method">
 <meta name="description" content="Triathlon and running plans written each week around your race and your schedule, with sessions sent to your Garmin.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Geist:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=EB+Garamond:wght@500&family=Noto+Naskh+Arabic:wght@500&display=swap">
@@ -112,6 +120,7 @@ a:hover{color:var(--ink);}
 .pbrand{display:inline-flex;align-items:center;gap:10px;min-height:44px;font-family:var(--fd);font-weight:800;font-size:18px;letter-spacing:-.01em;color:var(--ink);}
 .pbrand:hover{color:var(--ink);}
 .plogo{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:9px;background:var(--accent);color:#fff;font-size:13px;font-weight:800;}
+@media (max-width:440px){.pbrand span:not(.plogo){font-size:14px;} .pnav-r .pill{padding:0 12px;} #navCta{padding:8px 14px;} .pnav-in{gap:10px;}}
 .pnav-r{margin-inline-start:auto;display:flex;align-items:center;gap:8px;}
 .pill{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 16px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);color:var(--ink);font-family:'IBM Plex Sans Arabic',var(--fb);font-size:14px;font-weight:600;cursor:pointer;}
 .pill:hover{border-color:var(--ink);}
@@ -414,7 +423,7 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 <div class="ck-preview" id="previewBar" hidden><div class="ck-wrap"><p data-th="previewBar"></p></div></div>
 
 <div class="pnav" id="pnav"><div class="pnav-in">
-  <a class="pbrand" href="#overview" data-go="overview"><span class="plogo" aria-hidden="true">AI</span><span data-lang="en">AI COACH</span><span data-lang="ar">المدرب الذكي</span></a>
+  <a class="pbrand" href="#overview" data-go="overview"><span class="plogo" aria-hidden="true">AM</span><span data-lang="en">ARABIAN METHOD</span><span data-lang="ar">المنهج العربي</span></a>
   <nav class="ck-tabs" id="tabs" aria-label="Coach pages">
     <a href="#overview" data-go="overview" data-t="tabOverview"></a>
     <a href="#signin" data-go="signin" data-t="signin" data-when="out"></a>
@@ -693,6 +702,16 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
   <p class="eyebrow" data-t="tabConnect"></p>
   <h2 data-t="connH"></h2>
   <p class="lead" data-t="connLead"></p>
+  <div class="card tint mt24" id="appCard">
+    <div data-lang="en"><p class="eyebrow">Use it like an app</p><h3>Add Arabian Method to your phone's home screen</h3>
+      <p><b>iPhone:</b> open arabianmethod.com in Safari, tap the Share button (the square with an arrow), scroll down and tap Add to Home Screen, then tap Add. The icon opens the site full screen, like an app, and you stay signed in.</p>
+      <p><b>Android:</b> open arabianmethod.com in Chrome, tap the three dots menu, then tap Add to Home screen or Install app.</p>
+      <p>There is nothing to download from the App Store or Google Play.</p></div>
+    <div data-lang="ar" dir="rtl" lang="ar"><p class="eyebrow">استخدمه كتطبيق</p><h3>أضف المنهج العربي إلى الشاشة الرئيسية في هاتفك</h3>
+      <p><b>آيفون:</b> افتح arabianmethod.com في متصفح Safari، واضغط زر المشاركة (المربع مع السهم)، ثم انزل واضغط إضافة إلى الشاشة الرئيسية، ثم إضافة. تفتح الأيقونة الموقع بملء الشاشة مثل التطبيق، ويبقى تسجيل دخولك محفوظا.</p>
+      <p><b>أندرويد:</b> افتح arabianmethod.com في متصفح Chrome، واضغط قائمة النقاط الثلاث، ثم إضافة إلى الشاشة الرئيسية أو تثبيت التطبيق.</p>
+      <p>لا حاجة لتنزيل أي شيء من App Store أو Google Play.</p></div>
+  </div>
   <div class="grid two">
     <div class="card conn" id="checkinCard"><div class="body"><div class="top"><h3 data-t="ciH"></h3><span class="badge" id="c-status" data-t="ciNot"></span></div>
       <form id="ciForm" novalidate>
@@ -821,7 +840,7 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 <p class="note">Version 2026-11-03.</p>
 
 <h3>1. Who is responsible for your data</h3>
-<p>The data controller is Dr. Saqer AlKhalifa, an individual resident in the Kingdom of Bahrain, who runs AI Coach at coach.saqeralkhalifa.com. For any question or request about your data, write through the <a href="https://saqeralkhalifa.com/contact-me/">contact page</a>. This notice is given under the Personal Data Protection Law, Law No. (30) of 2018, and the resolutions issued under it.</p>
+<p>The data controller is Dr. Saqer AlKhalifa, an individual resident in the Kingdom of Bahrain, who runs Arabian Method (the AI Coach service) at arabianmethod.com. For any question or request about your data, write through the <a href="https://saqeralkhalifa.com/contact-me/">contact page</a>. This notice is given under the Personal Data Protection Law, Law No. (30) of 2018, and the resolutions issued under it.</p>
 
 <h3>2. What data is collected</h3>
 <ul>
@@ -874,7 +893,7 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 <p class="note">إصدار 2026-11-03.</p>
 
 <h3>1. المسؤول عن بياناتك</h3>
-<p>مدير البيانات هو د. صقر آل خليفة، وهو شخص طبيعي مقيم في مملكة البحرين، ويدير خدمة المدرب الذكي على الموقع coach.saqeralkhalifa.com. لأي سؤال أو طلب يتعلق ببياناتك، راسلنا عبر <a href="https://saqeralkhalifa.com/contact-ar/">صفحة التواصل</a>. يصدر هذا الإشعار وفقا لقانون حماية البيانات الشخصية الصادر بالقانون رقم (30) لسنة 2018 والقرارات الصادرة تنفيذا له.</p>
+<p>مدير البيانات هو د. صقر آل خليفة، وهو شخص طبيعي مقيم في مملكة البحرين، ويدير خدمة المدرب الذكي على الموقع arabianmethod.com. لأي سؤال أو طلب يتعلق ببياناتك، راسلنا عبر <a href="https://saqeralkhalifa.com/contact-ar/">صفحة التواصل</a>. يصدر هذا الإشعار وفقا لقانون حماية البيانات الشخصية الصادر بالقانون رقم (30) لسنة 2018 والقرارات الصادرة تنفيذا له.</p>
 
 <h3>2. البيانات التي تُجمع</h3>
 <ul>
@@ -995,6 +1014,6 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
-<script src="coach.js?v=20261103b"></script>
+<script src="coach.js?v=20261109"></script>
 </body>
 </html>
