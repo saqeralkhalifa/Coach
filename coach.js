@@ -321,8 +321,12 @@ async function loadUser(){
   }
   setTabs();
 }
+// A password reset link arrives with #access_token=...&type=recovery. Remember it, so the first
+// routing after sign-in shows the new password form instead of the overview.
+var RECOVERY = /type=recovery/.test(location.hash);
+function showReset(){ go("signin"); $("signForm").hidden = true; $("resetForm").hidden = false; }
 if(sb) sb.auth.onAuthStateChange(function(ev){
-  if(ev === "PASSWORD_RECOVERY"){ go("signin"); $("signForm").hidden = true; $("resetForm").hidden = false; }
+  if(ev === "PASSWORD_RECOVERY"){ RECOVERY = true; showReset(); }
   if(ev === "SIGNED_IN" || ev === "SIGNED_OUT") loadUser().then(function(){ if(STATE.view) render(STATE.view); });
 });
 
@@ -384,7 +388,7 @@ $("resetForm").addEventListener("submit", async function(e){
   if(p.length < 10) return err("resetErr", t("ePass"));
   var r = await sb.auth.updateUser({ password:p });
   if(r.error) return err("resetErr", t("eNet"));
-  $("resetForm").hidden = true; $("signForm").hidden = false; banner(t("resetDone")); go("week");
+  RECOVERY = false; $("resetForm").hidden = true; $("signForm").hidden = false; banner(t("resetDone")); go("week");
 });
 $("outBtn").addEventListener("click", async function(){ if(sb) await sb.auth.signOut(); STATE.user = null; setTabs(); go("overview"); });
 
@@ -729,5 +733,9 @@ async function renderAdmin(){
 /* ---------- start ---------- */
 if(!LIVE) $("previewBar").hidden = false;
 applyI18n();
-loadUser().then(function(){ var h = (location.hash || "#overview").slice(1); go(h, false); });
+loadUser().then(function(){
+  if(RECOVERY){ showReset(); return; }
+  var h = (location.hash || "#overview").slice(1).split(/[#&]/)[0];
+  go(h || "overview", /access_token|error=/.test(location.hash) ? true : false);
+});
 })();
