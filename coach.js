@@ -267,7 +267,7 @@ if($("langToggle2")) $("langToggle2").addEventListener("click", flipLang);
 
 /* ---------- state and routing ---------- */
 var STATE = { view:null, user:null, profile:null, admin:false };
-var VIEWS = ["overview","register","signin","week","connect","profile","membership","admin","privacy","terms"];
+var VIEWS = ["overview","register","signin","week","connect","profile","membership","sponsor","admin","privacy","terms"];
 var NEEDS_IN = {week:1, connect:1, profile:1, admin:1};
 
 function setTabs(){
@@ -327,6 +327,23 @@ if(sb) sb.auth.onAuthStateChange(function(ev){
 });
 
 /* register */
+$("spForm").addEventListener("submit", async function(e){
+  e.preventDefault(); err("spErr"); ok("spOk", false);
+  var ar = LANG === "ar";
+  var row = { full_name:$("sp-name").value.trim(), email:$("sp-email").value.trim(), phone:$("sp-phone").value.trim(),
+    sport:$("sp-sport").value, goal:$("sp-goal").value.trim() || null, experience:$("sp-exp").value.trim() || null,
+    reason:$("sp-reason").value.trim(), lang:LANG, adult_confirmed:$("sp-adult").checked };
+  if(row.full_name.length < 2) return err("spErr", t("eName"));
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(row.email)) return err("spErr", t("eEmail"));
+  if(row.phone.replace(/\D/g,"").length < 6) return err("spErr", ar ? "يرجى كتابة رقم هاتف صحيح." : "Please enter a valid mobile number.");
+  if(row.reason.length < 10) return err("spErr", ar ? "يرجى كتابة سطر أو سطرين عن سبب تقديمك." : "Please write a line or two on why you are applying.");
+  if(!row.adult_confirmed) return err("spErr", ar ? "يرجى تأكيد أن عمرك 18 عاما أو أكثر." : "Please confirm that you are 18 or older.");
+  if(!sb){ ok("spOk"); return; }
+  var r = await sb.from("sponsorship_applications").insert(row);
+  if(r.error) return err("spErr", ar ? "تعذر إرسال الطلب. يرجى المحاولة مرة أخرى." : "The application could not be sent. Please try again.");
+  ok("spOk"); $("spForm").querySelectorAll("input,textarea").forEach(function(x){ if(x.type === "checkbox") x.checked = false; else x.value = ""; });
+});
+
 $("regForm").addEventListener("submit", async function(e){
   e.preventDefault(); err("regErr"); ok("regOk", false);
   var n = $("r-name").value.trim(), m = $("r-email").value.trim(), p = $("r-pass").value, p2 = $("r-pass2").value, y = parseInt($("r-year").value, 10);
@@ -655,6 +672,16 @@ async function renderAdmin(){
   var name = {}; people.forEach(function(p){ name[p.user_id] = p.full_name; });
   function section(id, title, node){ var box = $(id); box.innerHTML = ""; box.appendChild(el("h3",{text:title})); box.appendChild(node || el("p",{cls:"note", text:t("none")})); }
 
+  var apps = (await sb.from("sponsorship_applications").select("*").order("created_at",{ascending:false}).limit(100)).data || [];
+  if(apps.length){
+    var tb = el("table",{},[el("tr",{},["Date","Name","Sport","Contact","Goal","Why","Status"].map(function(h){ return el("th",{text:h}); }))]);
+    apps.forEach(function(a){
+      var st = el("select",{cls:"sel"},["new","accepted","declined"].map(function(v){ var o = el("option",{value:v, text:v}); if(v === a.status) o.selected = true; return o; }));
+      st.addEventListener("change", async function(){ await sb.from("sponsorship_applications").update({status:st.value, reviewed_at:new Date().toISOString()}).eq("id", a.id); });
+      tb.appendChild(el("tr",{},[el("td",{text:a.created_at.slice(0,10)}), el("td",{text:a.full_name}), el("td",{text:a.sport}), el("td",{text:a.email + " " + a.phone}), el("td",{text:a.goal || ""}), el("td",{text:a.reason}), el("td",{},[st])]));
+    });
+    section("admSponsor", "Sponsorship applications (" + apps.filter(function(a){ return a.status === "new"; }).length + " new)", el("div",{cls:"card"},[tb]));
+  } else section("admSponsor", "Sponsorship applications");
   var flags = (await sb.from("flags").select("*").is("resolved_at", null).order("urgent",{ascending:false}).order("created_at")).data || [];
   section("admFlags", t("admFlags"), flags.length ? table(["", "", "", ""], flags.map(function(f){
     return [f.created_at.slice(0,16).replace("T"," "), name[f.user_id] || "", (f.urgent ? "URGENT, " : "") + f.reason.replace(/_/g," ") + (f.detail ? ": " + f.detail : ""),

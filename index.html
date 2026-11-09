@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Arabian Method">
 <meta name="description" content="Triathlon and running plans written each week around your race and your schedule, with sessions sent to your Garmin.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Geist:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Geist:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@500;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap">
 <style id="coach-css">
 /* AI Coach, Pulse design (Claude Design handoff, 3 November 2026). Class names and hooks are unchanged from the Majlis build. */
 :root{--bg:#FBF8F4;--surface:#FFFFFF;--ink:#17140F;--muted:#5E574F;--faint:#8A8279;--line:#ECE5DC;--line-strong:#E3DBD0;--accent:#D9401A;--accent-ink:#B5330F;--accent-tint:#FCE9E2;--accent-dark:#FF6B45;--dark-line:#3A342C;--ok:#2F6B45;--ok-tint:#E6F0E8;--warn:#8A5A00;--warn-tint:#FBF0D9;--danger:#B42318;--danger-tint:#FBE6E3;
@@ -38,8 +38,18 @@ a:hover{color:var(--ink);}
 .pbrand:hover{color:var(--ink);}
 .plogo{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:9px;background:var(--accent);color:#fff;font-size:13px;font-weight:800;}
 @media (max-width:440px){.pbrand span:not(.plogo){font-size:14px;} .pnav-r .pill{padding:0 12px;} #navCta{padding:8px 14px;} .pnav-in{gap:10px;}}
+.plogo-star{display:block;width:40px;height:40px;flex:0 0 auto;}
+.plock{display:flex;flex-direction:column;line-height:1;}
+.plock b{font-family:var(--fd);font-weight:800;font-size:18px;letter-spacing:-.01em;color:var(--ink);}
+.plock small{font-size:10px;font-weight:600;letter-spacing:.22em;color:var(--accent);margin-top:5px;}
+html[lang="ar"] .plock b{font-family:'Noto Kufi Arabic',sans-serif;font-weight:700;font-size:18px;letter-spacing:0;}
+html[lang="ar"] .plock small{font-family:'Noto Kufi Arabic',sans-serif;letter-spacing:0;font-size:11px;font-weight:500;margin-top:3px;}
+@media (max-width:440px){.plock b{font-size:15px;} .plock small{font-size:9px;letter-spacing:.16em;} .plogo-star{width:34px;height:34px;}}
+.works{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;}
+.works span{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 20px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);font-family:var(--fd);font-weight:700;font-size:17px;color:var(--ink);}
+.works span small{font-family:var(--fb);font-weight:500;font-size:13px;color:var(--faint);}
 .pnav-r{margin-inline-start:auto;display:flex;align-items:center;gap:8px;}
-.pill{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 16px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);color:var(--ink);font-family:'IBM Plex Sans Arabic',var(--fb);font-size:14px;font-weight:600;cursor:pointer;}
+.pill{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 16px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);color:var(--ink);font-family:'Noto Sans Arabic',var(--fb);font-size:14px;font-weight:600;cursor:pointer;}
 .pill:hover{border-color:var(--ink);}
 .ck-tabs{order:3;flex:1 0 100%;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin:0 -20px;padding:0 20px;}
 .ck-tabs::-webkit-scrollbar{display:none;}
@@ -318,17 +328,18 @@ dl.pay dd{color:var(--ink);font-weight:600;overflow-wrap:anywhere;}
 .legal + .legal{margin-top:96px;padding-top:64px;border-top:1px solid var(--line);}
 .attrib{font-size:14px;color:var(--faint);}
 
-/* Arabic: IBM Plex Sans Arabic throughout, more line height, no letter spacing */
-html[lang="ar"] body, html[lang="ar"] .in, html[lang="ar"] .sel, html[lang="ar"] .ta, html[lang="ar"] .btn, html[lang="ar"] h2, html[lang="ar"] h3, html[lang="ar"] .ck-hero h1, html[lang="ar"] .pbrand, html[lang="ar"] .sess b, html[lang="ar"] .wd b, html[lang="ar"] .stat .v{font-family:'IBM Plex Sans Arabic',var(--fb);letter-spacing:0;}
+/* Arabic: Noto Sans Arabic for reading, Noto Kufi Arabic for headings and the brand */
+html[lang="ar"] body, html[lang="ar"] .in, html[lang="ar"] .sel, html[lang="ar"] .ta, html[lang="ar"] .btn{font-family:'Noto Sans Arabic',var(--fb);letter-spacing:0;}
+html[lang="ar"] h2, html[lang="ar"] h3, html[lang="ar"] .ck-hero h1, html[lang="ar"] .sess b, html[lang="ar"] .wd b, html[lang="ar"] .stat .v, html[lang="ar"] .eyebrow, html[lang="ar"] .chip{font-family:'Noto Kufi Arabic','Noto Sans Arabic',var(--fb);letter-spacing:0;}
 html[lang="ar"] main, html[lang="ar"] .pnav-in{direction:rtl;text-align:right;}
 html[lang="ar"] body{line-height:1.85;}
-html[lang="ar"] .ck-hero h1{font-weight:700;line-height:1.3;font-size:40px;}
-html[lang="ar"] h2{font-weight:700;line-height:1.35;font-size:30px;}
+html[lang="ar"] .ck-hero h1{font-weight:700;line-height:1.45;font-size:38px;}
+html[lang="ar"] h2{font-weight:700;line-height:1.5;font-size:28px;max-width:22em;}
 html[lang="ar"] h3{font-weight:700;line-height:1.5;}
 html[lang="ar"] .today-card h3{font-size:28px;line-height:1.4;}
 html[lang="ar"] .ck-preview b{letter-spacing:0;text-transform:none;font-size:14px;}
-@media (min-width:768px){html[lang="ar"] .ck-hero h1{font-size:56px;} html[lang="ar"] h2{font-size:40px;}}
-@media (min-width:1280px){html[lang="ar"] .ck-hero h1{font-size:64px;} html[lang="ar"] h2{font-size:46px;}}
+@media (min-width:768px){html[lang="ar"] .ck-hero h1{font-size:50px;} html[lang="ar"] h2{font-size:36px;}}
+@media (min-width:1280px){html[lang="ar"] .ck-hero h1{font-size:58px;} html[lang="ar"] h2{font-size:42px;}}
 html[lang="ar"] [dir="ltr"]{text-align:left;}
 html[lang="ar"] .ck-preview{direction:rtl;text-align:right;}
 html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);direction:ltr;text-align:right;}
@@ -339,7 +350,7 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 <div class="ck-preview" id="previewBar" hidden><div class="ck-wrap"><p data-th="previewBar"></p></div></div>
 
 <div class="pnav" id="pnav"><div class="pnav-in">
-  <a class="pbrand" href="#overview" data-go="overview"><span class="plogo" aria-hidden="true">AM</span><span data-lang="en">ARABIAN METHOD</span><span data-lang="ar">المنهج العربي</span></a>
+  <a class="pbrand" href="#overview" data-go="overview"><svg class="plogo-star" viewBox="0 0 58 58" aria-hidden="true"><rect width="58" height="58" rx="15" fill="#D9401A"/><g transform="translate(29 29)" fill="none" stroke="#fff" stroke-width="2.8" stroke-linejoin="round"><rect x="-13" y="-13" width="26" height="26"/><rect x="-13" y="-13" width="26" height="26" transform="rotate(45)"/></g></svg><span class="plock" data-lang="en"><b>ARABIAN METHOD</b><small>AI COACHING</small></span><span class="plock" data-lang="ar"><b>المنهج العربي</b><small>تدريب بالذكاء الاصطناعي</small></span></a>
   <nav class="ck-tabs" id="tabs" aria-label="Coach pages">
     <a href="#overview" data-go="overview" data-t="tabOverview"></a>
     <a href="#signin" data-go="signin" data-t="signin" data-when="out"></a>
@@ -376,6 +387,7 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
         <p class="sub">أخبره بهدفك والأيام التي تستطيع التدرب فيها. يتعلم من كل تمرين وكل تسجيل يومي، ثم يعدّل تدريبك لتصل إلى خط البداية بصحة جيدة وجاهزية كاملة.</p>
       </div>
       <div class="ck-cta" id="heroCta"><a class="btn" href="#register" data-go="register"><span data-lang="en">Start free</span><span data-lang="ar">ابدأ مجانا</span></a><a class="btn ghost" href="#signin" data-go="signin" data-t="signin"></a></div>
+      <div class="ck-cta" style="margin-top:12px"><a class="btn dark" href="#sponsor" data-go="sponsor"><span data-lang="en">Apply for sponsored training</span><span data-lang="ar">قدّم على التدريب المموَّل</span></a></div>
       <p class="free"><span data-lang="en">First month free for the first 30 athletes who confirm their email</span><span data-lang="ar">الشهر الأول مجانا لأول 30 رياضيا يؤكدون بريدهم الإلكتروني</span></p>
     </div>
     <div class="hero-vis" aria-hidden="true">
@@ -501,6 +513,11 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
     </div>
   </div></div></div>
 
+  <div class="section tight"><div class="ck-wrap">
+    <p class="eyebrow"><span data-lang="en">Works with</span><span data-lang="ar">يعمل مع</span></p>
+    <div class="works" dir="ltr"><span>Garmin</span><span>Intervals.icu</span><span>Rouvy</span><span>TrainingPeaks <small data-lang="en">planned</small><small data-lang="ar">قريبا</small></span><span>.fit / .tcx / .gpx <small data-lang="en">any watch</small><small data-lang="ar">أي ساعة</small></span></div>
+  </div></div>
+
   <div class="section tight" id="rules"><div class="ck-wrap">
     <div data-lang="en">
       <p class="eyebrow">The science behind the plans</p>
@@ -540,7 +557,7 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
         <p data-lang="en">First month free for the first 30 athletes who confirm their email.</p>
         <p data-lang="ar" dir="rtl" lang="ar">الشهر الأول مجانا لأول 30 رياضيا يؤكدون بريدهم الإلكتروني.</p>
       </div>
-      <div class="ck-cta" style="margin-top:0"><a class="btn onband" href="#register" data-go="register"><span data-lang="en">Start free</span><span data-lang="ar">ابدأ مجانا</span></a></div>
+      <div class="ck-cta" style="margin-top:0"><a class="btn onband" href="#register" data-go="register"><span data-lang="en">Start free</span><span data-lang="ar">ابدأ مجانا</span></a><a class="btn outline-dark" style="border-color:#fff" href="#sponsor" data-go="sponsor"><span data-lang="en">Apply for sponsored training</span><span data-lang="ar">قدّم على التدريب المموَّل</span></a></div>
     </div>
   </div></div>
 </section>
@@ -737,6 +754,32 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
   <p class="note" data-th="memTerms"></p>
 </div></div></section>
 
+<!-- SPONSORED TRAINING -->
+<section class="view" id="v-sponsor"><div class="section"><div class="ck-wrap">
+  <div class="split"><div class="intro">
+    <div data-lang="en"><p class="eyebrow">Sponsored training</p><h2>Apply for a sponsored place</h2>
+      <p class="lead">Arabian Method offers free membership to selected runners and triathletes in Bahrain. Tell us about yourself and your goal. Every application is reviewed, and selected athletes are contacted by email or phone.</p></div>
+    <div data-lang="ar" dir="rtl" lang="ar"><p class="eyebrow">التدريب المموَّل</p><h2>قدّم على مقعد مموَّل</h2>
+      <p class="lead">يقدم المنهج العربي عضوية مجانية لعدد مختار من العدائين ورياضيي الترايثلون في البحرين. أخبرنا عن نفسك وعن هدفك. تُراجع كل الطلبات، ونتواصل مع الرياضيين المختارين عبر البريد الإلكتروني أو الهاتف.</p></div>
+  </div>
+  <form class="form formcard" id="spForm" novalidate>
+    <div class="field"><label for="sp-name"><span data-lang="en">Full name</span><span data-lang="ar">الاسم الكامل</span></label><input class="in" id="sp-name" autocomplete="name" maxlength="120"></div>
+    <div class="row2">
+      <div class="field"><label for="sp-email"><span data-lang="en">Email</span><span data-lang="ar">البريد الإلكتروني</span></label><input class="in" id="sp-email" type="email" autocomplete="email" maxlength="200" dir="ltr"></div>
+      <div class="field"><label for="sp-phone"><span data-lang="en">Mobile number</span><span data-lang="ar">رقم الهاتف</span></label><input class="in" id="sp-phone" type="tel" autocomplete="tel" maxlength="30" dir="ltr"></div>
+    </div>
+    <div class="field"><label for="sp-sport"><span data-lang="en">Sport</span><span data-lang="ar">الرياضة</span></label>
+      <select class="sel" id="sp-sport"><option value="running">Running / الجري</option><option value="triathlon">Triathlon / الترايثلون</option></select></div>
+    <div class="field"><label for="sp-goal"><span data-lang="en">Your goal race and date</span><span data-lang="ar">سباقك المستهدف وتاريخه</span></label><input class="in" id="sp-goal" maxlength="300"></div>
+    <div class="field"><label for="sp-exp"><span data-lang="en">Your experience so far</span><span data-lang="ar">خبرتك حتى الآن</span></label><input class="in" id="sp-exp" maxlength="300"></div>
+    <div class="field"><label for="sp-reason"><span data-lang="en">Why should you be sponsored?</span><span data-lang="ar">لماذا تستحق التمويل؟</span></label><textarea class="ta" id="sp-reason" maxlength="2000"></textarea></div>
+    <fieldset class="field consents"><label class="check"><input type="checkbox" id="sp-adult"><span><span data-lang="en">I am 18 or older, and I agree that Arabian Method may store this application to review it.</span><span data-lang="ar">عمري 18 عاما أو أكثر، وأوافق على أن يحفظ المنهج العربي هذا الطلب لمراجعته.</span></span></label></fieldset>
+    <p class="err" id="spErr" role="alert"></p>
+    <div class="ck-cta"><button class="btn" type="submit"><span data-lang="en">Send application</span><span data-lang="ar">أرسل الطلب</span></button></div>
+    <p class="ok-msg" id="spOk"><span data-lang="en">Thank you. Your application has been received, and we will contact you after it is reviewed.</span><span data-lang="ar">شكرا لك. وصلنا طلبك، وسنتواصل معك بعد مراجعته.</span></p>
+  </form></div>
+</div></div></section>
+
 <!-- ADMIN -->
 <section class="view" id="v-admin"><div class="section"><div class="ck-wrap">
   <p class="eyebrow" data-t="tabAdmin"></p>
@@ -746,6 +789,7 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
   <div id="admPays" class="adm"></div>
   <div id="admClear" class="adm"></div>
   <div id="admAthletes" class="adm"></div>
+  <div id="admSponsor" class="adm"></div>
 </div></div></section>
 
 <!-- LEGAL -->
@@ -930,6 +974,6 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
-<script src="coach.js?v=20261109b"></script>
+<script src="coach.js?v=20261109c"></script>
 </body>
 </html>
