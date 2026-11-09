@@ -13,6 +13,16 @@ var CONFIG = {
   fee: 7.5
 };
 var LIVE = /^https:\/\//.test(CONFIG.supabaseUrl) && CONFIG.supabaseKey.length > 20;
+/* Repair links that arrive as #signin#access_token=... so the auth library can read the tokens. */
+(function(){
+  var h = location.hash, i = h.search(/(access_token|error|error_code)=/);
+  if(i > 1){ var j = h.lastIndexOf("#", i); if(j > 0) history.replaceState(null, "", location.pathname + location.search + h.slice(j)); }
+})();
+var LINK_ERR = /error_code=otp_expired|error=access_denied/.test(location.hash);
+var RECOVERY_TOKENS = (function(){
+  var q = new URLSearchParams(location.hash.replace(/^#/, ""));
+  return q.get("access_token") && q.get("refresh_token") ? { access_token:q.get("access_token"), refresh_token:q.get("refresh_token") } : null;
+})();
 var sb = LIVE && window.supabase ? window.supabase.createClient(CONFIG.supabaseUrl, CONFIG.supabaseKey) : null;
 
 /* ---------- language ---------- */
@@ -48,7 +58,7 @@ en:{
   eNet:"Something went wrong. Check your connection and try again.", ePreview:"This is a preview, so nothing was saved.",
   signinH:"Sign in to your account", forgot:"Forgot password", resetH:"Choose a new password",
   eSignin:"The email or password is not correct, or the email address has not been confirmed yet.",
-  forgotSent:"If an account exists for that address, an email with a link to set a new password has been sent.", resetDone:"Your password has been changed.",
+  forgotSent:"If an account exists for that address, an email with a link to set a new password has been sent.", resetDone:"Your password has been changed.", eLinkOld:"This reset link has expired or was already used. Go back, choose Forgot password, and open the newest email in this same browser.", eSamePass:"Choose a password that is different from your old one.",
   connH:"Your daily check-in and your watch", connLead:"Send the check-in every morning. With Garmin connected through Intervals.icu, you do not need to upload anything.",
   ciH:"Today's check-in", ciNot:"Not sent", ciSent:"Sent", ciPausedBadge:"Plan paused",
   ciSleep:"Hours slept last night", ciRhr:"Resting heart rate this morning", ciFeel:"How you feel",
@@ -109,7 +119,7 @@ en:{
   admH:"Items that need you", admFlags:"Open flags", admPlans:"Plans awaiting approval", admPays:"Payments to confirm", admClear:"Clearance confirmations", admAth:"Athletes",
   approve:"Approve and send", reject:"Reject", confirm:"Confirm", notFound:"Not found", resolve:"Resolve", reactivate:"Restart plan", none:"Nothing here.",
   ruleNotes:"Rule checks", fixed:"fixed automatically", unresolved:"needs your decision",
-  footer:'Dr. Saqer AlKhalifa, AI Coach, <a href="https://saqeralkhalifa.com/">saqeralkhalifa.com</a>, <a href="#privacy" data-go="privacy">Privacy notice</a>, <a href="#terms" data-go="terms">Terms and medical disclaimer</a>',
+  footer:'Arabian Method AI Coaching, <a href="https://arabianmethod.com/">arabianmethod.com</a>, <a href="#privacy" data-go="privacy">Privacy notice</a>, <a href="#terms" data-go="terms">Terms and medical disclaimer</a>',
   opts:{
     countries:[["Bahrain","Bahrain"],["Saudi Arabia","Saudi Arabia"],["United Arab Emirates","United Arab Emirates"],["Kuwait","Kuwait"],["Qatar","Qatar"],["Oman","Oman"],["Other","Other"]],
     feel:[["","Choose one"],["fresh","Fresh"],["normal","Normal"],["tired","Tired"],["very_tired","Very tired"]],
@@ -141,7 +151,7 @@ ar:{
   eNet:"حدث خطأ. تحقق من اتصالك وحاول مرة أخرى.", ePreview:"هذه معاينة، لذلك لم يُحفظ شيء.",
   signinH:"سجّل الدخول إلى حسابك", forgot:"نسيت كلمة المرور", resetH:"اختر كلمة مرور جديدة",
   eSignin:"البريد الإلكتروني أو كلمة المرور غير صحيحة، أو لم يُؤكد البريد الإلكتروني بعد.",
-  forgotSent:"إذا كان هناك حساب بهذا العنوان، فقد أُرسل إليه بريد يتضمن رابطا لتعيين كلمة مرور جديدة.", resetDone:"تم تغيير كلمة المرور.",
+  forgotSent:"إذا كان هناك حساب بهذا العنوان، فقد أُرسل إليه بريد يتضمن رابطا لتعيين كلمة مرور جديدة.", resetDone:"تم تغيير كلمة المرور.", eLinkOld:"انتهت صلاحية رابط إعادة التعيين أو استُخدم من قبل. ارجع واختر نسيت كلمة المرور، ثم افتح أحدث رسالة في المتصفح نفسه.", eSamePass:"اختر كلمة مرور مختلفة عن كلمة المرور القديمة.",
   connH:"تسجيلك اليومي وساعتك", connLead:"أرسل التسجيل اليومي كل صباح. وإذا ربطت Garmin عبر Intervals.icu فلن تحتاج إلى رفع أي ملف.",
   ciH:"تسجيل اليوم", ciNot:"لم يُرسل", ciSent:"أُرسل", ciPausedBadge:"الخطة متوقفة",
   ciSleep:"عدد ساعات النوم الليلة الماضية", ciRhr:"نبض الراحة هذا الصباح", ciFeel:"كيف تشعر",
@@ -202,7 +212,7 @@ ar:{
   admH:"ما يحتاج إليك", admFlags:"البلاغات المفتوحة", admPlans:"خطط بانتظار الاعتماد", admPays:"مدفوعات بانتظار التأكيد", admClear:"تأكيدات الإذن الطبي", admAth:"الرياضيون",
   approve:"اعتماد وإرسال", reject:"رفض", confirm:"تأكيد", notFound:"لم يُعثر عليها", resolve:"إغلاق", reactivate:"استئناف الخطة", none:"لا شيء هنا.",
   ruleNotes:"فحوص القواعد", fixed:"صُححت آليا", unresolved:"تحتاج إلى قرارك",
-  footer:'د. صقر آل خليفة، المدرب الذكي، <a href="https://saqeralkhalifa.com/">saqeralkhalifa.com</a>، <a href="#privacy" data-go="privacy">إشعار الخصوصية</a>، <a href="#terms" data-go="terms">الشروط وإخلاء المسؤولية الطبية</a>',
+  footer:'المنهج العربي للتدريب بالذكاء الاصطناعي، <a href="https://arabianmethod.com/">arabianmethod.com</a>، <a href="#privacy" data-go="privacy">إشعار الخصوصية</a>، <a href="#terms" data-go="terms">الشروط وإخلاء المسؤولية الطبية</a>',
   opts:{
     countries:[["Bahrain","البحرين"],["Saudi Arabia","السعودية"],["United Arab Emirates","الإمارات"],["Kuwait","الكويت"],["Qatar","قطر"],["Oman","عُمان"],["Other","بلد آخر"]],
     feel:[["","اختر"],["fresh","نشيط"],["normal","طبيعي"],["tired","متعب"],["very_tired","متعب جدا"]],
@@ -361,7 +371,7 @@ $("regForm").addEventListener("submit", async function(e){
   var all = ["c-terms","c-health","c-transfer","c-ai"].every(function(id){ return $(id).checked; });
   if(!all) return err("regErr", t("eConsent"));
   if(!sb){ ok("regOk"); $("regOk").textContent = t("ePreview"); return; }
-  var r = await sb.auth.signUp({ email:m, password:p, options:{ emailRedirectTo: location.origin + location.pathname + "#signin",
+  var r = await sb.auth.signUp({ email:m, password:p, options:{ emailRedirectTo: location.origin + location.pathname,
     data:{ full_name:n, country:$("r-country").value, birth_year:String(y), lang:LANG, consent_version:CONFIG.consentVersion,
       consents:{ age:true, terms:true, medical:true, health_data:true, transfer:true, ai_processing:true } } } });
   if(r.error) return err("regErr", t("eNet") + " " + r.error.message);
@@ -380,14 +390,22 @@ $("forgotBtn").addEventListener("click", async function(){
   err("signErr"); var m = $("s-email").value.trim();
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m)) return err("signErr", t("eEmail"));
   if(!sb) return err("signErr", t("ePreview"));
-  await sb.auth.resetPasswordForEmail(m, { redirectTo: location.origin + location.pathname + "#signin" });
+  await sb.auth.resetPasswordForEmail(m, { redirectTo: location.origin + location.pathname });
   $("signOk").textContent = t("forgotSent"); ok("signOk");
 });
 $("resetForm").addEventListener("submit", async function(e){
   e.preventDefault(); var p = $("n-pass").value;
   if(p.length < 10) return err("resetErr", t("ePass"));
+  var cur = (await sb.auth.getSession()).data.session;
+  if(!cur && RECOVERY_TOKENS){ await sb.auth.setSession(RECOVERY_TOKENS); cur = (await sb.auth.getSession()).data.session; }
+  if(!cur) return err("resetErr", t("eLinkOld"));
   var r = await sb.auth.updateUser({ password:p });
-  if(r.error) return err("resetErr", t("eNet"));
+  if(r.error){
+    var c = r.error.code || "";
+    if(c === "same_password") return err("resetErr", t("eSamePass"));
+    if(c === "weak_password") return err("resetErr", t("ePass") + " " + r.error.message);
+    return err("resetErr", t("eNet") + " " + r.error.message);
+  }
   RECOVERY = false; $("resetForm").hidden = true; $("signForm").hidden = false; banner(t("resetDone")); go("week");
 });
 $("outBtn").addEventListener("click", async function(){ if(sb) await sb.auth.signOut(); STATE.user = null; setTabs(); go("overview"); });
@@ -734,6 +752,7 @@ async function renderAdmin(){
 if(!LIVE) $("previewBar").hidden = false;
 applyI18n();
 loadUser().then(function(){
+  if(LINK_ERR){ go("signin", true); banner(t("eLinkOld"), true); history.replaceState(null, "", location.pathname + "#signin"); return; }
   if(RECOVERY){ showReset(); return; }
   var h = (location.hash || "#overview").slice(1).split(/[#&]/)[0];
   go(h || "overview", /access_token|error=/.test(location.hash) ? true : false);
