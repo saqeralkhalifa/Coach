@@ -1,4 +1,4 @@
-/* AI Coach, coach.saqeralkhalifa.com. Accounts, plans and check-ins live in Supabase.
+/* Arabian Method (formerly AI Coach), arabianmethod.com. Accounts, plans and check-ins live in Supabase.
    Until CONFIG.supabaseUrl is filled in, the page runs as a preview and saves nothing. */
 (function(){
 "use strict";
@@ -257,7 +257,7 @@ function applyI18n(){
     box.innerHTML = "";
     DAYS.forEach(function(d){ var inp = el("input",{type:"checkbox",value:d}); inp.checked = checked.indexOf(d) > -1; box.appendChild(el("label",{cls:"day"},[inp, el("span",{text:t("dayShort")[d]})])); });
   });
-  document.title = LANG === "ar" ? "المدرب الذكي: خطط الترايثلون والجري" : "AI Coach: triathlon and running plans";
+  document.title = LANG === "ar" ? "المنهج العربي: تدريب ذكي للجري والترايثلون" : "Arabian Method: AI coaching for running and triathlon";
   if(STATE.view) render(STATE.view);
 }
 var lt = $("langToggle");
@@ -456,8 +456,10 @@ async function renderWeek(){
   if(p.status === "pending_payment"){ $("wkH").textContent = t("wkPending"); lead.textContent = t("wkPendingP"); clearWeek(); return; }
   if(p.status === "paused"){ $("wkH").textContent = t("wkPaused"); lead.textContent = t("wkPausedP"); clearWeek(); return; }
   var ws = weekStartOf(todayStr());
-  var plan = (await sb.from("plans").select("*").eq("user_id", STATE.user.id).eq("week_start", ws).in("status",["approved","sent"]).order("created_at",{ascending:false}).limit(1)).data;
-  plan = plan && plan[0];
+  // Show this week's plan; if there is none yet (plans are written on Thursday night for the week
+  // starting Saturday), show the coming week so athletes can see tomorrow's session.
+  var plans = (await sb.from("plans").select("*").eq("user_id", STATE.user.id).in("week_start", [ws, addDays(ws, 7)]).in("status",["approved","sent"]).order("week_start",{ascending:true}).order("created_at",{ascending:false})).data || [];
+  var plan = plans.filter(function(x){ return x.week_start === ws; })[0] || plans[0];
   var cks = (await sb.from("checkins").select("day,sleep_hours,resting_hr").eq("user_id", STATE.user.id).gte("day", addDays(todayStr(), -7))).data || [];
   if(!plan){ $("wkH").textContent = t("wkNone"); lead.textContent = t("wkNoneP"); clearWeek(); drawStats([], cks); }
   else{
