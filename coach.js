@@ -115,6 +115,14 @@ en:{
   chH:"Talk to your coach", chLead:"Ask about a session, tell your coach about travel or a busy day, or say how training feels. Your coach can move, shorten or change sessions within the safety rules, and changes go to your watch and calendar.",
   chAi:"Your coach is an AI. Dr. Saqer reviews anything flagged and can reply here himself. Report pain or illness here or in the daily check-in, and your plan will pause until a doctor clears you.",
   chLabel:"Your message", chSend:"Send", chEmpty:"Write a message first.", chYou:"You", chCoach:"Coach", chDr:"Dr. Saqer", chThinking:"Your coach is replying.", chHello:"Your conversation with your coach will appear here.",
+  pHeatH:"Heat", pHeat:"I am new to hot weather, or just back from a cooler climate. Your coach takes extra care with heat for the next two weeks.",
+  pRamH:"Ramadan", pRamHint:"Optional. If you fast in Ramadan, your coach plans sessions around iftar and suhoor during the month. This choice is used only for your training plan.",
+  pRamStart:"First day of Ramadan for you (change it if your country starts on a different day)", pRamDays:"The days you plan to fast",
+  condL:function(w, a){ return "Forecast heat (WBGT estimate) " + w + "°C" + (a ? ", " + a : ""); }, condA:{indoors:"moved indoors", easy:"made easy for the heat", shorter:"shortened for the heat", coolest_hour:"train at the coolest hour", watch:"warm, drink well"},
+  dyH:"Plan around my calendar", dyP:"Paste the private address of your work or personal calendar and your coach will place sessions around your busy hours and travel. Only the start and end times of busy periods are kept, never titles, places, people or notes. You can disconnect at any time, which deletes them at once.",
+  dyHowH:"Where to find your calendar's private address", dyHowG:"Google Calendar on a computer: Settings, choose the calendar on the left, then copy \"Secret address in iCal format\".", dyHowO:"Outlook.com or Microsoft 365: Settings, Calendar, Shared calendars, Publish a calendar, choose \"Can view when I'm busy\", Publish, then copy the ICS link.", dyHowA:"iCloud on a Mac or iPhone: open the calendar's settings, turn on Public Calendar, and copy the link.",
+  dyLabel:"Calendar address (ends in .ics)", dyConnect:"Connect calendar", dyDisconnect:"Disconnect and delete busy times", dyBad:"Paste a calendar address from Google Calendar, Outlook or iCloud. It starts with https or webcal.",
+  dyWaiting:"Connected. Your calendar will be read within the hour.", dyOk:function(n, at){ return "Connected. " + n + " busy period(s) in the next three weeks, last read " + at + "."; }, dyFail:function(m){ return "Your calendar could not be read: " + m; }, dyGone:"Disconnected. Your busy times have been deleted.",
   pNudgeH:"Messages from your coach", pNudge:"Let my coach message me first when it notices something useful, such as short sleep, a missed key session or a race coming up.",
   puH:"Notifications", puOff:"Turn on notifications to know when your coach replies or has something for you.", puOn:"Notifications are on for this device.", puIos:"On iPhone, first add Arabian Method to your Home Screen (Share, then Add to Home Screen), open it from there, and turn on notifications on this page.", puBtn:"Turn on notifications", puDenied:"Notifications are blocked for this site in your settings. You can allow them in your browser or phone settings.", puDone:"Notifications are on. You will hear from your coach on this device.",
   admChats:"Coach conversations", admReply:"Reply as Dr. Saqer", admWaiting:"waiting for a reply",
@@ -138,6 +146,7 @@ en:{
     days:[["Fri","Friday"],["Sat","Saturday"],["Sun","Sunday"],["Mon","Monday"],["Tue","Tuesday"],["Wed","Wednesday"],["Thu","Thursday"]],
     time:[["early","Early morning"],["midday","Midday"],["evening","Evening"],["varies","It varies"]],
     paymethod:[["benefitpay","BenefitPay"],["bank_transfer","Bank transfer"]],
+    ramadan:[["","Not set"],["not_fasting","I am not fasting"],["fasting","I am fasting"],["partly","I am fasting on some days"]],
     months:[["1","1 month"],["2","2 months"],["3","3 months"],["6","6 months"],["12","12 months"]]
   },
   dayShort:{Sat:"Sat",Sun:"Sun",Mon:"Mon",Tue:"Tue",Wed:"Wed",Thu:"Thu",Fri:"Fri"}
@@ -218,6 +227,14 @@ ar:{
   chH:"تحدث مع مدربك", chLead:"اسأل عن حصة، أو أخبر مدربك عن سفر أو يوم مزدحم، أو صف كيف تشعر في تدريبك. يستطيع مدربك نقل الحصص أو تقصيرها أو تغييرها ضمن قواعد السلامة، وتصل التغييرات إلى ساعتك وتقويمك.",
   chAi:"مدربك نظام ذكاء اصطناعي. يراجع د. صقر أي حالة يُبلَّغ عنها ويستطيع الرد هنا بنفسه. أبلغ عن أي ألم أو مرض هنا أو في التسجيل اليومي، وستتوقف خطتك مؤقتا حتى يأذن لك الطبيب.",
   chLabel:"رسالتك", chSend:"إرسال", chEmpty:"اكتب رسالة أولا.", chYou:"أنت", chCoach:"المدرب", chDr:"د. صقر", chThinking:"مدربك يكتب الرد.", chHello:"ستظهر هنا محادثتك مع مدربك.",
+  pHeatH:"الحرارة", pHeat:"أنا جديد على الطقس الحار، أو عدت للتو من مناخ أبرد. سيأخذ مدربك الحرارة بحذر إضافي خلال الأسبوعين القادمين.",
+  pRamH:"رمضان", pRamHint:"اختياري. إذا كنت تصوم رمضان فسيخطط مدربك حصصك حول الإفطار والسحور خلال الشهر. ويُستخدم هذا الاختيار لخطتك التدريبية فقط.",
+  pRamStart:"أول أيام رمضان بالنسبة لك (غيّره إذا بدأ في بلدك في يوم مختلف)", pRamDays:"الأيام التي تنوي صيامها",
+  condL:function(w, a){ return "الحرارة المتوقعة (تقدير WBGT) " + w + "°م" + (a ? "، " + a : ""); }, condA:{indoors:"نُقلت إلى الداخل", easy:"خُففت بسبب الحرارة", shorter:"قُصّرت بسبب الحرارة", coolest_hour:"تدرّب في أبرد وقت", watch:"جو دافئ، اشرب جيدا"},
+  dyH:"التخطيط حول تقويمي", dyP:"الصق العنوان الخاص لتقويم عملك أو تقويمك الشخصي، وسيضع مدربك الحصص حول ساعات انشغالك وسفرك. لا يُحفظ إلا وقت بداية ونهاية فترات الانشغال، ولا تُحفظ العناوين أو الأماكن أو الأشخاص أو الملاحظات. ويمكنك قطع الربط في أي وقت، فتُحذف فورا.",
+  dyHowH:"أين تجد العنوان الخاص لتقويمك", dyHowG:"تقويم Google على الحاسوب: الإعدادات، اختر التقويم من القائمة، ثم انسخ \"العنوان السري بتنسيق iCal\".", dyHowO:"Outlook.com أو Microsoft 365: الإعدادات، التقويم، التقاويم المشتركة، نشر تقويم، اختر \"يمكن العرض عندما أكون مشغولا\"، نشر، ثم انسخ رابط ICS.", dyHowA:"iCloud على Mac أو iPhone: افتح إعدادات التقويم، فعّل التقويم العام، وانسخ الرابط.",
+  dyLabel:"عنوان التقويم (ينتهي بـ .ics)", dyConnect:"ربط التقويم", dyDisconnect:"قطع الربط وحذف أوقات الانشغال", dyBad:"الصق عنوان تقويم من Google أو Outlook أو iCloud، يبدأ بـ https أو webcal.",
+  dyWaiting:"تم الربط. ستُقرأ بيانات تقويمك خلال ساعة.", dyOk:function(n, at){ return "تم الربط. " + n + " فترة انشغال خلال الأسابيع الثلاثة القادمة، وآخر قراءة في " + at + "."; }, dyFail:function(m){ return "تعذرت قراءة تقويمك: " + m; }, dyGone:"تم قطع الربط وحُذفت أوقات انشغالك.",
   pNudgeH:"رسائل من مدربك", pNudge:"اسمح لمدربي بمراسلتي أولا عندما يلاحظ أمرا مفيدا، مثل قلة النوم أو تفويت حصة أساسية أو اقتراب السباق.",
   puH:"الإشعارات", puOff:"فعّل الإشعارات لتعرف متى يرد مدربك أو متى لديه ما يخبرك به.", puOn:"الإشعارات مفعلة على هذا الجهاز.", puIos:"على iPhone، أضف المنهج العربي أولا إلى الشاشة الرئيسية (مشاركة، ثم إضافة إلى الشاشة الرئيسية)، وافتحه من هناك، ثم فعّل الإشعارات من هذه الصفحة.", puBtn:"تفعيل الإشعارات", puDenied:"الإشعارات محظورة لهذا الموقع في إعداداتك. يمكنك السماح بها من إعدادات المتصفح أو الهاتف.", puDone:"تم تفعيل الإشعارات. ستصلك رسائل مدربك على هذا الجهاز.",
   admChats:"محادثات المدرب", admReply:"الرد باسم د. صقر", admWaiting:"بانتظار الرد",
@@ -241,6 +258,7 @@ ar:{
     days:[["Fri","الجمعة"],["Sat","السبت"],["Sun","الأحد"],["Mon","الاثنين"],["Tue","الثلاثاء"],["Wed","الأربعاء"],["Thu","الخميس"]],
     time:[["early","الصباح الباكر"],["midday","منتصف النهار"],["evening","المساء"],["varies","يختلف"]],
     paymethod:[["benefitpay","BenefitPay"],["bank_transfer","تحويل بنكي"]],
+    ramadan:[["","غير محدد"],["not_fasting","لن أصوم"],["fasting","سأصوم"],["partly","سأصوم بعض الأيام"]],
     months:[["1","شهر واحد"],["2","شهران"],["3","3 أشهر"],["6","6 أشهر"],["12","12 شهرا"]]
   },
   dayShort:{Sat:"السبت",Sun:"الأحد",Mon:"الاثنين",Tue:"الثلاثاء",Wed:"الأربعاء",Thu:"الخميس",Fri:"الجمعة"}
@@ -281,9 +299,9 @@ function applyI18n(){
     list.forEach(function(o){ s.appendChild(el("option", {value:o[0], text:o[1]})); });
     if(cur) s.value = cur;
   });
-  ["p-days","p-swim"].forEach(function(id){
+  ["p-days","p-swim","p-ram-days"].forEach(function(id){
     var box = $(id), checked = Array.prototype.map.call(box.querySelectorAll("input:checked"), function(i){ return i.value; });
-    if(!box.children.length) checked = id === "p-days" ? ["Sat","Sun","Mon","Wed","Thu","Fri"] : ["Sun","Wed"];
+    if(!box.children.length) checked = id === "p-days" ? ["Sat","Sun","Mon","Wed","Thu","Fri"] : id === "p-swim" ? ["Sun","Wed"] : [];
     box.innerHTML = "";
     DAYS.forEach(function(d){ var inp = el("input",{type:"checkbox",value:d}); inp.checked = checked.indexOf(d) > -1; box.appendChild(el("label",{cls:"day"},[inp, el("span",{text:t("dayShort")[d]})])); });
   });
@@ -466,6 +484,7 @@ function drawWeek(sessions, meta){
       box.appendChild(el("b",{text: s.sport === "rest" ? t("rest") : (LANG === "ar" ? s.title_ar : s.title_en)}));
       if(s.sport !== "rest") box.appendChild(el("p",{text:sessionBlurb(s)}));
       if(s.intensity && s.intensity !== "rest") box.appendChild(el("span",{cls:"badge z" + (s.downgraded_reason ? " wait" : ""), text: s.downgraded_reason ? t("made_easier") : t(s.intensity)}));
+      if(s.id) box.appendChild(el("div",{"data-sid":String(s.id)}));
     });
     grid.appendChild(box);
     if(day === today && list[0].sport !== "rest"){
@@ -528,6 +547,8 @@ async function renderWeek(){
     $("wkH").textContent = t("wkH")(plan.week_index || 1, t("phases")[plan.phase] || plan.phase || "");
     lead.textContent = p.race_name || p.race_date ? t("wkLead")("\u2068" + (p.race_name || "") + "\u2069", p.race_date ? fmtDate(p.race_date) : "", plan.weeks_to_race || "") : "";
     drawWeek(sessions, {note_en:plan.coach_note_en, note_ar:plan.coach_note_ar}); drawStats(sessions, cks);
+    var cond = (await sb.from("session_conditions").select("session_id,wbgt,action").in("session_id", sessions.map(function(s){ return s.id; }))).data || [];
+    cond.forEach(function(c){ var b = document.querySelector('[data-sid="' + c.session_id + '"]'); if(b && c.wbgt != null) b.appendChild(el("p",{cls:"note cond", text:t("condL")(c.wbgt, (t("condA") || {})[c.action] || "")})); });
   }
   var hist = (await sb.from("plans").select("id,week_start,is_recovery").eq("user_id", STATE.user.id).in("status",["approved","sent"]).order("week_start",{ascending:false}).limit(8)).data || [];
   var weeks = [];
@@ -568,6 +589,37 @@ $("calReset").addEventListener("click", async function(){
   STATE.profile.calendar_token = r.data; drawCal(); banner(t("calResetDone"));
 });
 function clearWeek(){ $("weekGrid").innerHTML = ""; $("todayCard").hidden = true; $("coachNote").hidden = true; $("stats").innerHTML = ""; $("loadChart").hidden = true; $("recent").hidden = true; }
+
+function ramToggle(){ var v = $("p-ram").value; $("p-ram-more").hidden = !(v === "fasting" || v === "partly"); $("p-ram-daysf").hidden = v !== "partly"; }
+$("p-ram").addEventListener("change", ramToggle);
+/* ---------- diary ---------- */
+async function drawDiary(){
+  err("dyErr");
+  if(!sb){ $("diaryOff").hidden = false; $("diaryOn").hidden = true; return; }
+  var f = (await sb.from("diary_feeds").select("connected_at,last_sync,last_error").eq("user_id", STATE.user.id).maybeSingle()).data;
+  $("diaryOff").hidden = !!f; $("diaryOn").hidden = !f;
+  if(!f) return;
+  var st = $("dyStatus"), dt = $("dyDetail");
+  if(f.last_error){ st.className = "badge no"; st.textContent = t("dyH"); dt.textContent = t("dyFail")(f.last_error); return; }
+  if(!f.last_sync){ st.className = "badge wait"; st.textContent = t("dyH"); dt.textContent = t("dyWaiting"); return; }
+  var c = (await sb.from("busy_blocks").select("id", { count:"exact", head:true }).eq("user_id", STATE.user.id)).count || 0;
+  st.className = "badge ok"; st.textContent = t("dyH"); dt.textContent = t("dyOk")(c, f.last_sync.slice(0,16).replace("T"," "));
+}
+$("dyConnect").addEventListener("click", async function(){
+  err("dyErr"); var u = $("dy-url").value.trim();
+  if(!/^(https|webcal):\/\/[^\s]+$/i.test(u) || !/(calendar\.google\.com|outlook\.(live|office365|office)\.com|icloud\.com)/i.test(u)) return err("dyErr", t("dyBad"));
+  if(!sb){ banner(t("ePreview")); return; }
+  var r = await sb.from("diary_feeds").upsert({ user_id:STATE.user.id, url:u, connected_at:new Date().toISOString(), last_sync:null, last_error:null }, { onConflict:"user_id" });
+  if(r.error) return err("dyErr", t("eNet"));
+  $("dy-url").value = ""; drawDiary();
+});
+$("dyDisconnect").addEventListener("click", async function(){
+  if(!sb) return;
+  var r = await sb.from("diary_feeds").delete().eq("user_id", STATE.user.id);
+  if(r.error){ banner(t("eNet"), true); return; }
+  await sb.from("busy_blocks").delete().eq("user_id", STATE.user.id);
+  banner(t("dyGone")); drawDiary();
+});
 
 /* ---------- notifications ---------- */
 function pushSupported(){ return "serviceWorker" in navigator && "PushManager" in window && "Notification" in window; }
@@ -719,7 +771,13 @@ async function renderProfile(){
     if(p.train_days && p.train_days.length) setChecks("p-days", p.train_days); if(p.swim_days && p.swim_days.length) setChecks("p-swim", p.swim_days);
     $("p-long").value = p.long_day || "Fri"; $("p-time").value = p.train_time || "early";
     $("p-hr").checked = p.has_hr !== false; $("p-power").checked = !!p.has_power; $("p-trainer").checked = !!p.has_trainer; $("p-inj").value = p.injuries || ""; $("p-nudge").checked = p.nudges_enabled !== false;
+    $("p-heat").checked = !!(p.heat_new_until && p.heat_new_until >= todayStr());
+    $("p-ram").value = p.ramadan_mode || ""; setChecks("p-ram-days", p.ramadan_days || []);
+    $("p-ram-start").value = p.ramadan_start || "";
+    if(!p.ramadan_start && sb) sb.from("ramadan_dates").select("starts").in("country", [p.country, "Other"]).gte("ends", todayStr()).order("starts").limit(1).then(function(r){ if(r.data && r.data[0] && !$("p-ram-start").value) $("p-ram-start").value = r.data[0].starts; });
+    ramToggle();
   }
+  drawDiary();
   var list = $("consList"); list.innerHTML = "";
   if(!sb) return;
   var cs = (await sb.from("consents").select("*").eq("user_id", STATE.user.id).order("given_at")).data || [];
@@ -744,7 +802,9 @@ $("profForm").addEventListener("submit", async function(e){
   var row = { race_name:$("p-race").value.trim() || null, race_date:date, race_distance:$("p-dist").value, years_training:$("p-years").value,
     weekly_hours:$("p-hours").value ? Number($("p-hours").value) : 0, train_days:days, swim_days:getChecks("p-swim"), long_day:$("p-long").value,
     train_time:$("p-time").value, has_hr:$("p-hr").checked, has_power:$("p-power").checked, has_trainer:$("p-trainer").checked,
-    injuries:$("p-inj").value.trim() || null, nudges_enabled:$("p-nudge").checked, lang:LANG };
+    injuries:$("p-inj").value.trim() || null, nudges_enabled:$("p-nudge").checked, lang:LANG,
+    ramadan_mode:$("p-ram").value || null, ramadan_start:$("p-ram").value && $("p-ram").value !== "not_fasting" ? ($("p-ram-start").value || null) : null, ramadan_days:$("p-ram").value === "partly" ? getChecks("p-ram-days") : [],
+    heat_new_until:$("p-heat").checked ? ((STATE.profile && STATE.profile.heat_new_until && STATE.profile.heat_new_until >= todayStr()) ? STATE.profile.heat_new_until : addDays(todayStr(), 14)) : null };
   if(!sb){ ok("profOk"); $("profOk").textContent = t("ePreview"); return; }
   var r = await sb.from("profiles").update(row).eq("user_id", STATE.user.id);
   if(r.error) return err("profErr", t("eNet"));

@@ -291,6 +291,13 @@ fieldset{border:0;}
 .msg p.micro{font-size:13px;margin-bottom:4px;color:var(--faint);}
 .chatform{margin-top:16px;}
 .pushcard{margin-top:16px;}
+.diarycard{margin-top:28px;}
+.wd .cond{font-size:13px;margin-top:6px;}
+#p-ram-more{margin-top:12px;}
+.diarycard > p:not(.micro):not(.err){margin-top:6px;}
+.howto{margin:12px 0;}
+.howto summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center;}
+.howto p{font-size:15px;margin-top:6px;}
 .pushcard p:not(.micro){margin-top:6px;}
 .chai{margin-top:8px;}
 .calcard{margin-top:20px;}
@@ -771,6 +778,16 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
       <label class="check"><input type="checkbox" id="p-power"><span data-t="pPower"></span></label>
       <label class="check"><input type="checkbox" id="p-trainer"><span data-t="pTrainer"></span></label>
     </fieldset>
+    <fieldset class="field"><legend data-t="pHeatH"></legend>
+      <label class="check"><input type="checkbox" id="p-heat"><span data-t="pHeat"></span></label>
+    </fieldset>
+    <fieldset class="field"><legend data-t="pRamH"></legend><span class="hint" data-t="pRamHint"></span>
+      <select class="sel" id="p-ram" data-opts="ramadan" aria-label="Ramadan"></select>
+      <div id="p-ram-more" hidden>
+        <div class="field"><label for="p-ram-start" data-t="pRamStart"></label><input class="in" id="p-ram-start" type="date" dir="ltr"></div>
+        <div class="field" id="p-ram-daysf" hidden><span class="hint" data-t="pRamDays"></span><div class="days" id="p-ram-days"></div></div>
+      </div>
+    </fieldset>
     <fieldset class="field"><legend data-t="pNudgeH"></legend>
       <label class="check"><input type="checkbox" id="p-nudge"><span data-t="pNudge"></span></label>
     </fieldset>
@@ -779,6 +796,24 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
     <div class="ck-cta"><button class="btn" type="submit" data-t="save"></button></div>
     <p class="ok-msg" id="profOk" data-t="profOk"></p>
   </form>
+
+  <div class="card diarycard" id="diaryCard">
+    <p class="micro" data-t="dyH"></p>
+    <p data-t="dyP"></p>
+    <details class="howto"><summary data-t="dyHowH"></summary>
+      <p data-t="dyHowG"></p><p data-t="dyHowO"></p><p data-t="dyHowA"></p>
+    </details>
+    <div id="diaryOff">
+      <div class="field"><label for="dy-url" data-t="dyLabel"></label><input class="in" id="dy-url" type="url" dir="ltr" autocomplete="off" spellcheck="false" placeholder="https://calendar.google.com/calendar/ical/.../basic.ics"></div>
+      <div class="ck-cta"><button class="btn small" type="button" id="dyConnect" data-t="dyConnect"></button></div>
+    </div>
+    <div id="diaryOn" hidden>
+      <p class="badge ok" id="dyStatus"></p>
+      <p class="note" id="dyDetail"></p>
+      <div class="ck-cta"><button class="btn small ghost" type="button" id="dyDisconnect" data-t="dyDisconnect"></button></div>
+    </div>
+    <p class="err" id="dyErr" role="alert"></p>
+  </div>
 
   <div class="rights">
     <p class="eyebrow" data-t="rightsEyebrow"></p>
@@ -1040,6 +1075,6 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
-<script src="coach.js?v=20261110e"></script>
+<script src="coach.js?v=20261110f"></script>
 </body>
 </html>
