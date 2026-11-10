@@ -290,6 +290,8 @@ fieldset{border:0;}
 .msg p{margin:0;font-size:16px;line-height:1.55;white-space:pre-wrap;}
 .msg p.micro{font-size:13px;margin-bottom:4px;color:var(--faint);}
 .chatform{margin-top:16px;}
+.pushcard{margin-top:16px;}
+.pushcard p:not(.micro){margin-top:6px;}
 .chai{margin-top:8px;}
 .calcard{margin-top:20px;}
 .calcard p:not(.micro):not(.note){margin-top:6px;}
@@ -678,6 +680,11 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
   <h2 data-t="chH"></h2>
   <p class="lead" data-t="chLead"></p>
   <p class="note chai" data-t="chAi"></p>
+  <div class="card pushcard" id="pushCard" hidden>
+    <p class="micro" data-t="puH"></p>
+    <p id="pushText"></p>
+    <div class="ck-cta"><button class="btn small ghost" type="button" id="pushBtn" data-t="puBtn"></button></div>
+  </div>
   <div class="chat" id="chatLog" aria-live="polite"></div>
   <form class="form chatform" id="chatForm" novalidate>
     <div class="field"><label for="chatIn" data-t="chLabel"></label><textarea class="ta" id="chatIn" rows="3" maxlength="2000"></textarea></div>
@@ -763,6 +770,9 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
       <label class="check"><input type="checkbox" id="p-hr"><span data-t="pHr"></span></label>
       <label class="check"><input type="checkbox" id="p-power"><span data-t="pPower"></span></label>
       <label class="check"><input type="checkbox" id="p-trainer"><span data-t="pTrainer"></span></label>
+    </fieldset>
+    <fieldset class="field"><legend data-t="pNudgeH"></legend>
+      <label class="check"><input type="checkbox" id="p-nudge"><span data-t="pNudge"></span></label>
     </fieldset>
     <div class="field"><label for="p-inj" data-t="pInj"></label><span class="hint" data-t="pInjH"></span><textarea class="ta" id="p-inj" maxlength="2000"></textarea></div>
     <p class="err" id="profErr" role="alert"></p>
@@ -1030,6 +1040,6 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
-<script src="coach.js?v=20261110d"></script>
+<script src="coach.js?v=20261110e"></script>
 </body>
 </html>

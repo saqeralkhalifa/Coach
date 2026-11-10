@@ -115,6 +115,8 @@ en:{
   chH:"Talk to your coach", chLead:"Ask about a session, tell your coach about travel or a busy day, or say how training feels. Your coach can move, shorten or change sessions within the safety rules, and changes go to your watch and calendar.",
   chAi:"Your coach is an AI. Dr. Saqer reviews anything flagged and can reply here himself. Report pain or illness here or in the daily check-in, and your plan will pause until a doctor clears you.",
   chLabel:"Your message", chSend:"Send", chEmpty:"Write a message first.", chYou:"You", chCoach:"Coach", chDr:"Dr. Saqer", chThinking:"Your coach is replying.", chHello:"Your conversation with your coach will appear here.",
+  pNudgeH:"Messages from your coach", pNudge:"Let my coach message me first when it notices something useful, such as short sleep, a missed key session or a race coming up.",
+  puH:"Notifications", puOff:"Turn on notifications to know when your coach replies or has something for you.", puOn:"Notifications are on for this device.", puIos:"On iPhone, first add Arabian Method to your Home Screen (Share, then Add to Home Screen), open it from there, and turn on notifications on this page.", puBtn:"Turn on notifications", puDenied:"Notifications are blocked for this site in your settings. You can allow them in your browser or phone settings.", puDone:"Notifications are on. You will hear from your coach on this device.",
   admChats:"Coach conversations", admReply:"Reply as Dr. Saqer", admWaiting:"waiting for a reply",
   calH:"Your sessions in your own calendar", calP:"Subscribe once and every session appears in your phone or computer calendar, with the time, the duration and what to do. When your coach changes the plan, your calendar changes too.",
   calApple:"Apple Calendar", calGoogle:"Google Calendar", calOutlook:"Outlook", calCopy:"Copy link", calCopied:"Link copied. Paste it into your calendar app as a subscribed calendar.",
@@ -216,6 +218,8 @@ ar:{
   chH:"تحدث مع مدربك", chLead:"اسأل عن حصة، أو أخبر مدربك عن سفر أو يوم مزدحم، أو صف كيف تشعر في تدريبك. يستطيع مدربك نقل الحصص أو تقصيرها أو تغييرها ضمن قواعد السلامة، وتصل التغييرات إلى ساعتك وتقويمك.",
   chAi:"مدربك نظام ذكاء اصطناعي. يراجع د. صقر أي حالة يُبلَّغ عنها ويستطيع الرد هنا بنفسه. أبلغ عن أي ألم أو مرض هنا أو في التسجيل اليومي، وستتوقف خطتك مؤقتا حتى يأذن لك الطبيب.",
   chLabel:"رسالتك", chSend:"إرسال", chEmpty:"اكتب رسالة أولا.", chYou:"أنت", chCoach:"المدرب", chDr:"د. صقر", chThinking:"مدربك يكتب الرد.", chHello:"ستظهر هنا محادثتك مع مدربك.",
+  pNudgeH:"رسائل من مدربك", pNudge:"اسمح لمدربي بمراسلتي أولا عندما يلاحظ أمرا مفيدا، مثل قلة النوم أو تفويت حصة أساسية أو اقتراب السباق.",
+  puH:"الإشعارات", puOff:"فعّل الإشعارات لتعرف متى يرد مدربك أو متى لديه ما يخبرك به.", puOn:"الإشعارات مفعلة على هذا الجهاز.", puIos:"على iPhone، أضف المنهج العربي أولا إلى الشاشة الرئيسية (مشاركة، ثم إضافة إلى الشاشة الرئيسية)، وافتحه من هناك، ثم فعّل الإشعارات من هذه الصفحة.", puBtn:"تفعيل الإشعارات", puDenied:"الإشعارات محظورة لهذا الموقع في إعداداتك. يمكنك السماح بها من إعدادات المتصفح أو الهاتف.", puDone:"تم تفعيل الإشعارات. ستصلك رسائل مدربك على هذا الجهاز.",
   admChats:"محادثات المدرب", admReply:"الرد باسم د. صقر", admWaiting:"بانتظار الرد",
   calH:"حصصك في تقويمك الخاص", calP:"اشترك مرة واحدة وستظهر كل حصة في تقويم هاتفك أو حاسوبك، مع الوقت والمدة وما عليك فعله. وعندما يغيّر مدربك الخطة يتغير تقويمك أيضا.",
   calApple:"تقويم Apple", calGoogle:"تقويم Google", calOutlook:"Outlook", calCopy:"نسخ الرابط", calCopied:"تم نسخ الرابط. الصقه في تطبيق التقويم كتقويم مشترك.",
@@ -565,6 +569,36 @@ $("calReset").addEventListener("click", async function(){
 });
 function clearWeek(){ $("weekGrid").innerHTML = ""; $("todayCard").hidden = true; $("coachNote").hidden = true; $("stats").innerHTML = ""; $("loadChart").hidden = true; $("recent").hidden = true; }
 
+/* ---------- notifications ---------- */
+function pushSupported(){ return "serviceWorker" in navigator && "PushManager" in window && "Notification" in window; }
+async function drawPush(){
+  var c = $("pushCard"); if(!sb){ c.hidden = true; return; }
+  c.hidden = false;
+  var btnP = $("pushBtn"), txt = $("pushText");
+  if(!pushSupported()){ txt.textContent = t("puIos"); btnP.hidden = true; return; }
+  if(Notification.permission === "denied"){ txt.textContent = t("puDenied"); btnP.hidden = true; return; }
+  var reg = await navigator.serviceWorker.getRegistration("/");
+  var sub = reg ? await reg.pushManager.getSubscription() : null;
+  if(sub && Notification.permission === "granted"){ txt.textContent = t("puOn"); btnP.hidden = true; return; }
+  txt.textContent = t("puOff"); btnP.hidden = false;
+}
+function b64uToBytes(s){ var p = "=".repeat((4 - s.length % 4) % 4), b = atob((s + p).replace(/-/g, "+").replace(/_/g, "/")); var a = new Uint8Array(b.length); for(var i = 0; i < b.length; i++) a[i] = b.charCodeAt(i); return a; }
+$("pushBtn").addEventListener("click", async function(){
+  try{
+    var perm = await Notification.requestPermission();
+    if(perm !== "granted"){ drawPush(); return; }
+    var reg = await navigator.serviceWorker.register("/sw.js", { scope:"/" });
+    await navigator.serviceWorker.ready;
+    var k = (await sb.from("push_public_key").select("public_key").maybeSingle()).data;
+    if(!k){ banner(t("eNet"), true); return; }
+    var sub = await reg.pushManager.getSubscription() || await reg.pushManager.subscribe({ userVisibleOnly:true, applicationServerKey:b64uToBytes(k.public_key) });
+    var j = sub.toJSON();
+    var r = await sb.from("push_subscriptions").upsert({ user_id:STATE.user.id, endpoint:j.endpoint, p256dh:j.keys.p256dh, auth:j.keys.auth }, { onConflict:"endpoint" });
+    if(r.error){ banner(t("eNet"), true); return; }
+    banner(t("puDone")); drawPush();
+  }catch(e){ banner(t("eNet"), true); }
+});
+
 /* ---------- coach chat ---------- */
 function chatBubble(m){
   var who = m.role === "athlete" ? t("chYou") : m.role === "admin" ? t("chDr") : t("chCoach");
@@ -578,6 +612,7 @@ function drawChat(msgs){
   log.scrollTop = log.scrollHeight;
 }
 async function renderCoach(){
+  drawPush();
   if(!sb){ drawChat([]); return; }
   var r = await sb.from("coach_messages").select("id,created_at,role,body,source,pending").eq("user_id", STATE.user.id).order("created_at",{ascending:false}).limit(60);
   drawChat((r.data || []).reverse());
@@ -683,7 +718,7 @@ async function renderProfile(){
     $("p-years").value = p.years_training || ""; $("p-hours").value = p.weekly_hours || "";
     if(p.train_days && p.train_days.length) setChecks("p-days", p.train_days); if(p.swim_days && p.swim_days.length) setChecks("p-swim", p.swim_days);
     $("p-long").value = p.long_day || "Fri"; $("p-time").value = p.train_time || "early";
-    $("p-hr").checked = p.has_hr !== false; $("p-power").checked = !!p.has_power; $("p-trainer").checked = !!p.has_trainer; $("p-inj").value = p.injuries || "";
+    $("p-hr").checked = p.has_hr !== false; $("p-power").checked = !!p.has_power; $("p-trainer").checked = !!p.has_trainer; $("p-inj").value = p.injuries || ""; $("p-nudge").checked = p.nudges_enabled !== false;
   }
   var list = $("consList"); list.innerHTML = "";
   if(!sb) return;
@@ -709,7 +744,7 @@ $("profForm").addEventListener("submit", async function(e){
   var row = { race_name:$("p-race").value.trim() || null, race_date:date, race_distance:$("p-dist").value, years_training:$("p-years").value,
     weekly_hours:$("p-hours").value ? Number($("p-hours").value) : 0, train_days:days, swim_days:getChecks("p-swim"), long_day:$("p-long").value,
     train_time:$("p-time").value, has_hr:$("p-hr").checked, has_power:$("p-power").checked, has_trainer:$("p-trainer").checked,
-    injuries:$("p-inj").value.trim() || null, lang:LANG };
+    injuries:$("p-inj").value.trim() || null, nudges_enabled:$("p-nudge").checked, lang:LANG };
   if(!sb){ ok("profOk"); $("profOk").textContent = t("ePreview"); return; }
   var r = await sb.from("profiles").update(row).eq("user_id", STATE.user.id);
   if(r.error) return err("profErr", t("eNet"));
