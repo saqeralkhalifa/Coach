@@ -7,7 +7,7 @@ var CONFIG = {
   supabaseUrl: "https://rptntnofsuozxnmtzulk.supabase.co",          // e.g. https://abcdefgh.supabase.co
   supabaseKey: "sb_publishable_NqCGnIBcjy5WXwI77eKdFg_JvnwPT4o",          // publishable (anon) key from Settings > API
   intervalsClientId: "1650",    // from the Intervals.icu app page
-  consentVersion: "2026-11-03",
+  consentVersion: "2026-11-10",
   benefitPay: { name: "[NAME ON BENEFITPAY]", number: "[BENEFITPAY NUMBER OR IBAN]" },
   bank: { holder: "[ACCOUNT HOLDER]", bank: "[BANK NAME]", iban: "[IBAN]", swift: "[SWIFT CODE]" },
   fee: 20
@@ -115,8 +115,10 @@ en:{
   chH:"Talk to your coach", chLead:"Ask about a session, tell your coach about travel or a busy day, or say how training feels. Your coach can move, shorten or change sessions within the safety rules, and changes go to your watch and calendar.",
   chAi:"Your coach is an AI. Dr. Saqer reviews anything flagged and can reply here himself. Report pain or illness here or in the daily check-in, and your plan will pause until a doctor clears you.",
   chLabel:"Your message", chSend:"Send", chEmpty:"Write a message first.", chYou:"You", chCoach:"Coach", chDr:"Dr. Saqer", chThinking:"Your coach is replying.", chHello:"Your conversation with your coach will appear here.",
+  chMic:"Speak", chMicStop:"Stop", chMicHint:"Speak now. Check the words before you send them.", chMicNo:"Voice input is not available in this browser. Try Chrome or Safari, or type your message.", chListen:"Listen", chMicErr:"Voice input stopped. Check that the site may use your microphone, or type your message.",
   pHeatH:"Heat", pHeat:"I am new to hot weather, or just back from a cooler climate. Your coach takes extra care with heat for the next two weeks.",
   pRamH:"Ramadan", pRamHint:"Optional. If you fast in Ramadan, your coach plans sessions around iftar and suhoor during the month. This choice is used only for your training plan.",
+  pRamCons:"I agree that my Ramadan setting, which may indicate my religion, is used only to plan my training. I can withdraw this consent on this page at any time.", eRamCons:"Please tick the consent for the Ramadan setting, or choose \"Not set\".", kReligion:"Ramadan setting",
   pRamStart:"First day of Ramadan for you (change it if your country starts on a different day)", pRamDays:"The days you plan to fast",
   condL:function(w, a){ return "Forecast heat (WBGT estimate) " + w + "°C" + (a ? ", " + a : ""); }, condA:{indoors:"moved indoors", easy:"made easy for the heat", shorter:"shortened for the heat", coolest_hour:"train at the coolest hour", watch:"warm, drink well"},
   dyH:"Plan around my calendar", dyP:"Paste the private address of your work or personal calendar and your coach will place sessions around your busy hours and travel. Only the start and end times of busy periods are kept, never titles, places, people or notes. You can disconnect at any time, which deletes them at once.",
@@ -227,8 +229,10 @@ ar:{
   chH:"تحدث مع مدربك", chLead:"اسأل عن حصة، أو أخبر مدربك عن سفر أو يوم مزدحم، أو صف كيف تشعر في تدريبك. يستطيع مدربك نقل الحصص أو تقصيرها أو تغييرها ضمن قواعد السلامة، وتصل التغييرات إلى ساعتك وتقويمك.",
   chAi:"مدربك نظام ذكاء اصطناعي. يراجع د. صقر أي حالة يُبلَّغ عنها ويستطيع الرد هنا بنفسه. أبلغ عن أي ألم أو مرض هنا أو في التسجيل اليومي، وستتوقف خطتك مؤقتا حتى يأذن لك الطبيب.",
   chLabel:"رسالتك", chSend:"إرسال", chEmpty:"اكتب رسالة أولا.", chYou:"أنت", chCoach:"المدرب", chDr:"د. صقر", chThinking:"مدربك يكتب الرد.", chHello:"ستظهر هنا محادثتك مع مدربك.",
+  chMic:"تحدث", chMicStop:"إيقاف", chMicHint:"تحدث الآن، وراجع الكلمات قبل الإرسال.", chMicNo:"الإدخال الصوتي غير متاح في هذا المتصفح. جرّب Chrome أو Safari، أو اكتب رسالتك.", chListen:"استمع", chMicErr:"توقف الإدخال الصوتي. تأكد من السماح للموقع باستخدام الميكروفون، أو اكتب رسالتك.",
   pHeatH:"الحرارة", pHeat:"أنا جديد على الطقس الحار، أو عدت للتو من مناخ أبرد. سيأخذ مدربك الحرارة بحذر إضافي خلال الأسبوعين القادمين.",
   pRamH:"رمضان", pRamHint:"اختياري. إذا كنت تصوم رمضان فسيخطط مدربك حصصك حول الإفطار والسحور خلال الشهر. ويُستخدم هذا الاختيار لخطتك التدريبية فقط.",
+  pRamCons:"أوافق على استخدام إعداد رمضان، الذي قد يدل على ديانتي، لتخطيط تدريبي فقط، ويمكنني سحب هذه الموافقة من هذه الصفحة في أي وقت.", eRamCons:"يرجى تأكيد الموافقة على إعداد رمضان، أو اختيار \"غير محدد\".", kReligion:"إعداد رمضان",
   pRamStart:"أول أيام رمضان بالنسبة لك (غيّره إذا بدأ في بلدك في يوم مختلف)", pRamDays:"الأيام التي تنوي صيامها",
   condL:function(w, a){ return "الحرارة المتوقعة (تقدير WBGT) " + w + "°م" + (a ? "، " + a : ""); }, condA:{indoors:"نُقلت إلى الداخل", easy:"خُففت بسبب الحرارة", shorter:"قُصّرت بسبب الحرارة", coolest_hour:"تدرّب في أبرد وقت", watch:"جو دافئ، اشرب جيدا"},
   dyH:"التخطيط حول تقويمي", dyP:"الصق العنوان الخاص لتقويم عملك أو تقويمك الشخصي، وسيضع مدربك الحصص حول ساعات انشغالك وسفرك. لا يُحفظ إلا وقت بداية ونهاية فترات الانشغال، ولا تُحفظ العناوين أو الأماكن أو الأشخاص أو الملاحظات. ويمكنك قطع الربط في أي وقت، فتُحذف فورا.",
@@ -651,10 +655,45 @@ $("pushBtn").addEventListener("click", async function(){
   }catch(e){ banner(t("eNet"), true); }
 });
 
+/* ---------- voice (built into the browser or phone; no extra cost) ---------- */
+function speak(text){
+  try{
+    speechSynthesis.cancel();
+    var ar = /[\u0600-\u06FF]/.test(text), u = new SpeechSynthesisUtterance(text);
+    u.lang = ar ? "ar-SA" : "en-US";
+    var vs = speechSynthesis.getVoices().filter(function(v){ return v.lang && v.lang.toLowerCase().indexOf(ar ? "ar" : "en") === 0; });
+    if(vs.length) u.voice = vs[0];
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+var REC = null;
+function setupMic(){
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition, mb = $("micBtn");
+  mb.hidden = false;
+  if(!SR){ mb.addEventListener("click", function(){ var n = $("micNote"); n.textContent = t("chMicNo"); n.hidden = false; }); return; }
+  mb.addEventListener("click", function(){
+    var n = $("micNote"), box = $("chatIn");
+    if(REC){ REC.stop(); return; }
+    REC = new SR(); REC.lang = LANG === "ar" ? "ar-BH" : "en-US"; REC.interimResults = true; REC.continuous = false;
+    var before = box.value ? box.value.trim() + " " : "";
+    REC.onresult = function(e){ var s = ""; for(var i = 0; i < e.results.length; i++) s += e.results[i][0].transcript; box.value = before + s; box.dataset.source = "voice"; };
+    REC.onerror = function(){ n.textContent = t("chMicErr"); n.hidden = false; };
+    REC.onend = function(){ REC = null; $("micLabel").textContent = t("chMic"); if(!n.textContent || n.textContent === t("chMicHint")) n.hidden = true; box.focus(); };
+    n.textContent = t("chMicHint"); n.hidden = false; $("micLabel").textContent = t("chMicStop");
+    try{ REC.start(); }catch(err){ REC = null; n.textContent = t("chMicErr"); }
+  });
+}
+setupMic();
+
 /* ---------- coach chat ---------- */
 function chatBubble(m){
   var who = m.role === "athlete" ? t("chYou") : m.role === "admin" ? t("chDr") : t("chCoach");
   var b = el("div",{cls:"msg " + (m.role === "athlete" ? "me" : "them")},[el("p",{cls:"micro", text:who}), el("p",{text:m.body, dir:"auto"})]);
+  if(m.role !== "athlete" && "speechSynthesis" in window){
+    var lb = el("button",{cls:"linkbtn listen", type:"button", text:t("chListen")});
+    lb.addEventListener("click", function(){ speak(m.body); });
+    b.appendChild(lb);
+  }
   return b;
 }
 function drawChat(msgs){
@@ -781,7 +820,8 @@ async function renderProfile(){
   var list = $("consList"); list.innerHTML = "";
   if(!sb) return;
   var cs = (await sb.from("consents").select("*").eq("user_id", STATE.user.id).order("given_at")).data || [];
-  var names = {age:"kAge", terms:"kTerms", medical:"kMedical", health_data:"kHealth", transfer:"kTransfer", ai_processing:"kAi", email:"kEmail"};
+  $("p-ram-cons-l").hidden = cs.some(function(c){ return c.kind === "religion" && !c.withdrawn_at; });
+  var names = {age:"kAge", terms:"kTerms", medical:"kMedical", health_data:"kHealth", transfer:"kTransfer", ai_processing:"kAi", email:"kEmail", religion:"kReligion"};
   cs.forEach(function(c){
     var right = c.withdrawn_at ? el("span",{cls:"badge no", text:t("withdrawn")}) : el("button",{cls:"btn ghost small", type:"button", text:t("withdraw")});
     if(!c.withdrawn_at) right.addEventListener("click", async function(){
@@ -806,6 +846,14 @@ $("profForm").addEventListener("submit", async function(e){
     ramadan_mode:$("p-ram").value || null, ramadan_start:$("p-ram").value && $("p-ram").value !== "not_fasting" ? ($("p-ram-start").value || null) : null, ramadan_days:$("p-ram").value === "partly" ? getChecks("p-ram-days") : [],
     heat_new_until:$("p-heat").checked ? ((STATE.profile && STATE.profile.heat_new_until && STATE.profile.heat_new_until >= todayStr()) ? STATE.profile.heat_new_until : addDays(todayStr(), 14)) : null };
   if(!sb){ ok("profOk"); $("profOk").textContent = t("ePreview"); return; }
+  if(row.ramadan_mode === "fasting" || row.ramadan_mode === "partly"){
+    var hasC = (await sb.from("consents").select("id").eq("user_id", STATE.user.id).eq("kind","religion").is("withdrawn_at", null).limit(1)).data;
+    if(!hasC || !hasC.length){
+      if(!$("p-ram-cons").checked) return err("profErr", t("eRamCons"));
+      var cr = await sb.from("consents").insert({ user_id:STATE.user.id, kind:"religion", version:"2026-11-10", lang:LANG });
+      if(cr.error) return err("profErr", t("eNet"));
+    }
+  }
   var r = await sb.from("profiles").update(row).eq("user_id", STATE.user.id);
   if(r.error) return err("profErr", t("eNet"));
   await loadUser(); $("profOk").textContent = t("profOk"); ok("profOk");
@@ -833,8 +881,8 @@ async function renderMembership(){
   $("bpDetails").hidden = noDetails; $("bankDetails").hidden = noDetails;
   if(noDetails && $("payLaterNote") === null){ var nt = el("p",{cls:"note", id:"payLaterNote"}); $("bpDetails").parentNode.insertBefore(nt, $("bpDetails")); }
   if($("payLaterNote")){ $("payLaterNote").textContent = t("payLater"); $("payLaterNote").hidden = !noDetails; }
-  dl("bpDetails", [[t("dName"), CONFIG.benefitPay.name], [t("dNumber"), CONFIG.benefitPay.number], [t("dRef"), STATE.profile ? STATE.profile.full_name : "AI Coach"]]);
-  dl("bankDetails", [[t("dHolder"), CONFIG.bank.holder], [t("dBank"), CONFIG.bank.bank], [t("dIban"), CONFIG.bank.iban], [t("dSwift"), CONFIG.bank.swift], [t("dRef"), STATE.profile ? STATE.profile.full_name : "AI Coach"]]);
+  dl("bpDetails", [[t("dName"), CONFIG.benefitPay.name], [t("dNumber"), CONFIG.benefitPay.number], [t("dRef"), STATE.profile ? STATE.profile.full_name : "Arabian Method"]]);
+  dl("bankDetails", [[t("dHolder"), CONFIG.bank.holder], [t("dBank"), CONFIG.bank.bank], [t("dIban"), CONFIG.bank.iban], [t("dSwift"), CONFIG.bank.swift], [t("dRef"), STATE.profile ? STATE.profile.full_name : "Arabian Method"]]);
   var ms = $("memStatus"), form = $("payForm");
   if(!STATE.user){ ms.textContent = sb ? t("signedOutMem") : t("memLead"); form.hidden = !!sb; return; }
   form.hidden = false;

@@ -290,6 +290,7 @@ fieldset{border:0;}
 .msg p{margin:0;font-size:16px;line-height:1.55;white-space:pre-wrap;}
 .msg p.micro{font-size:13px;margin-bottom:4px;color:var(--faint);}
 .chatform{margin-top:16px;}
+.msg .listen{font-size:14px;min-height:32px;margin-top:4px;}
 .pushcard{margin-top:16px;}
 .diarycard{margin-top:28px;}
 .wd .cond{font-size:13px;margin-top:6px;}
@@ -543,13 +544,13 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
       <div data-lang="en">
         <p class="eyebrow">Safety and privacy</p>
         <h2>Read before you register</h2>
-        <p>Registration is open to adults aged 18 and over. Get clearance from a doctor before starting a new training plan. The AI Coach system gives no medical advice, and any report of pain, illness, chest symptoms or dizziness pauses your plan and is reviewed by Dr. Saqer.</p>
+        <p>Registration is open to adults aged 18 and over. Get clearance from a doctor before starting a new training plan. The Arabian Method coach gives no medical advice, and any report of pain, illness, chest symptoms or dizziness pauses your plan and is reviewed by Dr. Saqer.</p>
         <p>Your data is used only to write your plans and is handled under the data protection law that applies to you. You can download it or delete your account at any time from your profile.</p>
       </div>
       <div data-lang="ar" dir="rtl" lang="ar">
         <p class="eyebrow">السلامة والخصوصية</p>
         <h2>اقرأ قبل التسجيل</h2>
-        <p>التسجيل متاح للبالغين الذين أتموا 18 عاما. احصل على إذن من طبيب قبل البدء في أي خطة تدريب جديدة. لا يقدم نظام المدرب الذكي أي مشورة طبية، وأي بلاغ عن ألم أو مرض أو أعراض في الصدر أو دوار يوقف خطتك ويراجعه د. صقر.</p>
+        <p>التسجيل متاح للبالغين الذين أتموا 18 عاما. احصل على إذن من طبيب قبل البدء في أي خطة تدريب جديدة. لا يقدم مدرب المنهج العربي أي مشورة طبية، وأي بلاغ عن ألم أو مرض أو أعراض في الصدر أو دوار يوقف خطتك ويراجعه د. صقر.</p>
         <p>تُستخدم بياناتك لإعداد خططك فقط، ويُتعامل معها وفق قانون حماية البيانات الذي ينطبق عليك. ويمكنك تنزيلها أو حذف حسابك في أي وقت من صفحة ملفك.</p>
       </div>
       <div class="links"><a href="#privacy" data-go="privacy"><span data-lang="en">Privacy notice</span><span data-lang="ar">إشعار الخصوصية</span></a><a href="#terms" data-go="terms"><span data-lang="en">Terms and medical disclaimer</span><span data-lang="ar">الشروط وإخلاء المسؤولية الطبية</span></a></div>
@@ -695,7 +696,8 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
   <div class="chat" id="chatLog" aria-live="polite"></div>
   <form class="form chatform" id="chatForm" novalidate>
     <div class="field"><label for="chatIn" data-t="chLabel"></label><textarea class="ta" id="chatIn" rows="3" maxlength="2000"></textarea></div>
-    <div class="ck-cta"><button class="btn" type="submit" id="chatSend" data-t="chSend"></button></div>
+    <div class="ck-cta"><button class="btn" type="submit" id="chatSend" data-t="chSend"></button><button class="btn ghost" type="button" id="micBtn" hidden><span id="micLabel" data-t="chMic"></span></button></div>
+    <p class="note" id="micNote" hidden></p>
     <p class="err" id="chatErr" role="alert"></p>
   </form>
 </div></div></section>
@@ -785,6 +787,7 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
       <select class="sel" id="p-ram" data-opts="ramadan" aria-label="Ramadan"></select>
       <div id="p-ram-more" hidden>
         <div class="field"><label for="p-ram-start" data-t="pRamStart"></label><input class="in" id="p-ram-start" type="date" dir="ltr"></div>
+        <label class="check" id="p-ram-cons-l"><input type="checkbox" id="p-ram-cons"><span data-t="pRamCons"></span></label>
         <div class="field" id="p-ram-daysf" hidden><span class="hint" data-t="pRamDays"></span><div class="days" id="p-ram-days"></div></div>
       </div>
     </fieldset>
@@ -897,64 +900,64 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 <section class="view" id="v-privacy"><div class="section"><div class="ck-wrap">
 <section class="legal" id="privacy-en" data-lang="en">
 <p class="eyebrow">Privacy notice</p>
-<h2>How AI Coach handles your personal data</h2>
-<p class="note">Version 2026-11-03.</p>
+<h2>How Arabian Method handles your personal data</h2>
+<p class="note">Version 2026-11-10.</p>
 
 <h3>1. Who is responsible for your data</h3>
-<p>The data controller is Dr. Saqer AlKhalifa, an individual resident in the Kingdom of Bahrain, who runs Arabian Method (the AI Coach service) at arabianmethod.com. For any question or request about your data, write through the <a href="https://saqeralkhalifa.com/contact-me/">contact page</a>. This notice is given under the Personal Data Protection Law, Law No. (30) of 2018, and the resolutions issued under it.</p>
+<p>The data controller is Dr. Saqer AlKhalifa, an individual resident in the Kingdom of Bahrain, who runs Arabian Method (the Arabian Method service) at arabianmethod.com. For any question or request about your data, write through the <a href="https://saqeralkhalifa.com/contact-me/">contact page</a>. This notice is given under the Personal Data Protection Law, Law No. (30) of 2018, and the resolutions issued under it.</p>
 
 <h3>2. What data is collected</h3>
 <ul>
 <li><b>Account data:</b> your name, email address, country of residence and year of birth.</li>
 <li><b>Training profile:</b> your target race and date, your training days and preferred swim days, your years of training and weekly hours, the equipment you use, and any injury or health condition you choose to describe.</li>
 <li><b>Health and training data:</b> completed workouts (time, distance, heart rate and heart rate zones), sleep duration, resting heart rate, how you feel each day, and any report of pain, illness, fever or warning symptoms. This is sensitive personal data under the law.</li>
-<li><b>Connection data:</b> if you connect Intervals.icu, your Intervals.icu athlete number and an access token that lets AI Coach read your activities and wellness data and write planned sessions to your calendar.</li>
-<li><b>Payment data:</b> the payment method, amount, date and the reference you give for each BenefitPay or bank transfer payment. AI Coach does not receive or store card or bank account numbers.</li>
+<li><b>Connection data:</b> if you connect Intervals.icu, your Intervals.icu athlete number and an access token that lets Arabian Method read your activities and wellness data and write planned sessions to your calendar.</li>
+<li><b>Coach conversations:</b> the messages you write or dictate to your coach, the coach's replies and messages it starts, preferences you tell it, and how sessions felt. If you use voice, your own browser or phone turns your speech into text (Google for Chrome, Apple for Safari, under their own terms); Arabian Method receives only the text, never the recording.</li> <li><b>Calendar busy times (optional):</b> if you connect a calendar, the private address you paste and, from it, only the start and end of busy periods for the next three weeks and whether a period looks like travel. Titles, places, people and notes are never stored.</li> <li><b>Ramadan setting (optional):</b> whether you fast in Ramadan, the start date you confirm and, if you fast on some days, which days. Because this can indicate your religion, it is sensitive personal data and is used only with your explicit consent.</li> <li><b>Heat setting (optional):</b> whether you are new to hot weather, and the forecast heat and dust for each outdoor session, worked out for your country's capital city. Your precise location is never collected.</li> <li><b>Notification address:</b> if you turn on notifications, the technical address your browser or phone gives for delivering them.</li> <li><b>Payment data:</b> the payment method, amount, date and the reference you give for each BenefitPay or bank transfer payment. Arabian Method does not receive or store card or bank account numbers.</li>
 <li><b>Consent records:</b> which consents you gave or withdrew, the version of the text, and the time.</li>
 </ul>
 
 <h3>3. Why the data is used, and on what legal basis</h3>
-<p>Your data is used only to provide the coaching service: to write and adjust your weekly training plan, to send each session to your calendar and watch, to email you your daily session, to pause your plan and alert Dr. Saqer when you report pain, illness or warning symptoms, to manage your membership, and to meet legal obligations.</p>
-<p>Sensitive health data is processed on the basis of your explicit consent, given at registration and recorded. Account and payment data are processed to perform the membership agreement you enter into. You can withdraw any consent at any time from your profile page. Withdrawing consent to the processing of health data, to international transfer, or to AI processing pauses your plan, because the service cannot run without them. Withdrawal does not affect processing carried out before it.</p>
+<p>Your data is used only to provide the coaching service: to write and adjust your weekly training plan, to send each session to your calendar and watch, to email you your daily session, to pause your plan and alert Dr. Saqer when you report pain, illness or warning symptoms, to answer your messages to the coach and make the plan changes you ask for, to send you messages from your coach and notifications, to adjust sessions for forecast heat and dust, to plan around your calendar and, if you choose, around Ramadan, to manage your membership, and to meet legal obligations.</p>
+<p>Sensitive health data is processed on the basis of your explicit consent, given at registration and recorded. Your Ramadan setting is processed only on the basis of a separate explicit consent, given when you choose it, and withdrawing that consent clears the setting. Coach messages and the calendar connection can be switched off on your profile page at any time. Account and payment data are processed to perform the membership agreement you enter into. You can withdraw any consent at any time from your profile page. Withdrawing consent to the processing of health data, to international transfer, or to AI processing pauses your plan, because the service cannot run without them. Withdrawal does not affect processing carried out before it.</p>
 <p>Your data is not sold, not used for advertising, and not used to train AI models.</p>
 
 <h3>4. How plans are written: automated processing</h3>
 <p>Each week an AI system (Claude, provided by Anthropic) proposes your training plan from your training data and check-ins. Software then checks every plan against fixed training rules and corrects or removes anything outside them. Dr. Saqer reviews and approves plans for the first group of athletes, and reviews every case that is flagged. Daily adjustments for short sleep or a raised resting heart rate are made automatically and only ever make a session easier. You can ask for any plan or adjustment to be reviewed by Dr. Saqer by writing to the contact address above.</p>
-<p>The AI system does not receive your name, email address or the text you write about injuries or health conditions. It receives your age, race details, training days, training numbers and check-in numbers.</p>
+<p>The AI system does not receive your name, email address or the text you write about injuries or health conditions. It receives your age, race details, training days, training numbers and check-in numbers. The exception is the coach chat: the AI system receives the messages you write or dictate to the coach, which may include anything you choose to say, together with your plan, recent training, check-ins and calendar busy times, so that it can answer you. Plan changes made in the chat are checked against the same training rules as the weekly plans before they are saved. Changes for heat and dust are made by fixed rules and only make a session easier, shorter or indoor.</p>
 
 <h3>5. Who receives your data, and where</h3>
-<p>Your data is shared only with the service providers needed to run AI Coach. Each processes it on AI Coach's instructions:</p>
+<p>Your data is shared only with the service providers needed to run Arabian Method. Each processes it on Arabian Method's instructions:</p>
 <ul>
 <li><b>Supabase, Inc.:</b> database, logins and file storage, hosted in Frankfurt, Germany.</li>
 <li><b>Anthropic, PBC:</b> the AI system that proposes plans and daily notes, in the United States. Anthropic does not use data sent through its commercial API to train its models.</li>
 <li><b>Resend, Inc.:</b> email delivery, a United States company whose servers in Ireland send the emails. It receives your email address and the content of each email.</li>
-<li><b>GitHub, Inc.:</b> hosts the website pages, in the United States. It does not receive your account or health data.</li>
-<li><b>Intervals.icu:</b> only if you connect it. Data passes between AI Coach and your own Intervals.icu account at your request, and Intervals.icu handles it under its own terms and privacy policy. If your workouts come from a Garmin device, Garmin's own terms also apply.</li>
+<li><b>Open-Meteo:</b> provides the weather and dust forecasts. It receives only the coordinates of your country's capital city, never any information about you.</li> <li><b>Push notification services (Apple, Google or Mozilla, depending on your device):</b> deliver notifications if you turn them on. Each notification is encrypted so that only your device can read it.</li> <li><b>Your calendar provider (Google, Microsoft or Apple):</b> only if you connect a calendar. Arabian Method reads the calendar from the address you give; the provider handles your calendar under its own terms.</li> <li><b>GitHub, Inc.:</b> hosts the website pages, in the United States. It does not receive your account or health data.</li>
+<li><b>Intervals.icu:</b> only if you connect it. Data passes between Arabian Method and your own Intervals.icu account at your request, and Intervals.icu handles it under its own terms and privacy policy. If your workouts come from a Garmin device, Garmin's own terms also apply.</li>
 </ul>
 <p>Germany, Ireland and the United States are on the list of countries the Personal Data Protection Authority has recognized as providing adequate protection (Resolution No. (42) of 2022). Transfers to Intervals.icu are made at your request and with your explicit consent. Your data is not disclosed to anyone else unless the law requires it.</p>
 
 <h3>6. How long data is kept</h3>
-<p>Your data is kept while your account is open. When you delete your account, your data is removed from the live systems at once and from backups within 30 days. Records of payments are kept, without any health data, for the period Bahraini law requires for financial records. Consent records are kept for the same period, so that consent can be shown to the Authority if asked.</p>
+<p>Your data is kept while your account is open. Calendar busy times are replaced each day and deleted at once when you disconnect the calendar. Forecast conditions are deleted with the sessions they belong to. When you delete your account, your data is removed from the live systems at once and from backups within 30 days. Records of payments are kept, without any health data, for the period Bahraini law requires for financial records. Consent records are kept for the same period, so that consent can be shown to the Authority if asked.</p>
 
 <h3>7. Your rights</h3>
 <p>Under the law you may ask to be told whether your data is processed and to receive a copy of it, to have inaccurate data corrected, to have your data erased or blocked, to object to processing, to withdraw consent, and to object to a decision based solely on automated processing. Your profile page lets you download all your data, change your profile, withdraw consents and delete your account at any time. For anything else, write to the contact address above. Requests are answered within the period the law sets. You may also complain to the Personal Data Protection Authority.</p>
 
 <h3>8. Security</h3>
-<p>Passwords are stored only in hashed form. All connections are encrypted. Each athlete's data can be read only by that athlete and by Dr. Saqer, which the database enforces. Intervals.icu access tokens cannot be read from any browser. If a breach affects your data, AI Coach will notify the Authority and you as the law requires.</p>
+<p>Passwords are stored only in hashed form. All connections are encrypted. Each athlete's data can be read only by that athlete and by Dr. Saqer, which the database enforces. Intervals.icu access tokens cannot be read from any browser. If a breach affects your data, Arabian Method will notify the Authority and you as the law requires.</p>
 
 <h3>9. Cookies and local storage</h3>
-<p>The site uses your browser's local storage only to keep you signed in and to remember your language. It uses no advertising or tracking cookies and no analytics.</p>
+<p>The site uses your browser's local storage only to keep you signed in and to remember your language, and, if you turn on notifications, a small background script that shows them. It uses no advertising or tracking cookies and no analytics.</p>
 
 <h3>10. Changes to this notice</h3>
 <p>If this notice changes in a way that affects how your data is used, you will be told by email and asked for fresh consent where the law requires it.</p>
 </section>
 <section class="legal" id="privacy-ar" data-lang="ar" dir="rtl" lang="ar">
 <p class="eyebrow">إشعار الخصوصية</p>
-<h2>كيف يتعامل المدرب الذكي مع بياناتك الشخصية</h2>
-<p class="note">إصدار 2026-11-03.</p>
+<h2>كيف يتعامل المنهج العربي مع بياناتك الشخصية</h2>
+<p class="note">إصدار 2026-11-10.</p>
 
 <h3>1. المسؤول عن بياناتك</h3>
-<p>مدير البيانات هو د. صقر آل خليفة، وهو شخص طبيعي مقيم في مملكة البحرين، ويدير خدمة المدرب الذكي على الموقع arabianmethod.com. لأي سؤال أو طلب يتعلق ببياناتك، راسلنا عبر <a href="https://saqeralkhalifa.com/contact-ar/">صفحة التواصل</a>. يصدر هذا الإشعار وفقا لقانون حماية البيانات الشخصية الصادر بالقانون رقم (30) لسنة 2018 والقرارات الصادرة تنفيذا له.</p>
+<p>مدير البيانات هو د. صقر آل خليفة، وهو شخص طبيعي مقيم في مملكة البحرين، ويدير خدمة المنهج العربي على الموقع arabianmethod.com. لأي سؤال أو طلب يتعلق ببياناتك، راسلنا عبر <a href="https://saqeralkhalifa.com/contact-ar/">صفحة التواصل</a>. يصدر هذا الإشعار وفقا لقانون حماية البيانات الشخصية الصادر بالقانون رقم (30) لسنة 2018 والقرارات الصادرة تنفيذا له.</p>
 
 <h3>2. البيانات التي تُجمع</h3>
 <ul>
@@ -962,41 +965,41 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 <li><b>ملف التدريب:</b> السباق المستهدف وتاريخه، وأيام التدريب وأيام السباحة المفضلة، وسنوات التدريب وساعاته الأسبوعية، والمعدات المستخدمة، وأي إصابة أو حالة صحية تختار ذكرها.</li>
 <li><b>البيانات الصحية وبيانات التدريب:</b> التمارين المكتملة (المدة والمسافة ونبض القلب ومناطق النبض)، ومدة النوم، ونبض الراحة، وشعورك اليومي، وأي بلاغ عن ألم أو مرض أو حمى أو أعراض تحذيرية. وتعد هذه البيانات بيانات شخصية حساسة بموجب القانون.</li>
 <li><b>بيانات الربط:</b> إذا ربطت حسابك في Intervals.icu، يُحفظ رقم الرياضي لديه ورمز وصول يتيح للمدرب الذكي قراءة تمارينك وبيانات العافية وكتابة الحصص المخططة في تقويمك.</li>
-<li><b>بيانات الدفع:</b> وسيلة الدفع والمبلغ والتاريخ والرقم المرجعي الذي تقدمه لكل دفعة عبر BenefitPay أو التحويل البنكي. لا يتلقى المدرب الذكي أرقام البطاقات أو الحسابات البنكية ولا يحفظها.</li>
+<li><b>محادثاتك مع المدرب:</b> الرسائل التي تكتبها لمدربك أو تمليها صوتيا، وردود المدرب والرسائل التي يبدأها، والتفضيلات التي تخبره بها، وشعورك في الحصص. وإذا استخدمت الصوت فإن متصفحك أو هاتفك هو الذي يحول كلامك إلى نص (Google في Chrome وApple في Safari وفق شروطهما)، ولا يتلقى المنهج العربي إلا النص، ولا يتلقى التسجيل الصوتي أبدا.</li> <li><b>أوقات الانشغال في تقويمك (اختياري):</b> إذا ربطت تقويما، يُحفظ العنوان الخاص الذي تلصقه، ولا يُستخرج منه إلا وقت بداية ونهاية فترات الانشغال خلال الأسابيع الثلاثة القادمة وما إذا كانت الفترة تبدو سفرا. ولا تُحفظ العناوين أو الأماكن أو الأشخاص أو الملاحظات أبدا.</li> <li><b>إعداد رمضان (اختياري):</b> ما إذا كنت تصوم رمضان، وتاريخ البداية الذي تؤكده، والأيام التي تصومها إن كنت تصوم بعض الأيام. ولأن هذا قد يدل على ديانتك فهو بيانات شخصية حساسة، ولا يُستخدم إلا بموافقتك الصريحة.</li> <li><b>إعداد الحرارة (اختياري):</b> ما إذا كنت جديدا على الطقس الحار، والحرارة والغبار المتوقعان لكل حصة خارجية محسوبين لعاصمة بلدك. ولا يُجمع موقعك الدقيق أبدا.</li> <li><b>عنوان الإشعارات:</b> إذا فعّلت الإشعارات، العنوان التقني الذي يقدمه متصفحك أو هاتفك لإيصالها.</li> <li><b>بيانات الدفع:</b> وسيلة الدفع والمبلغ والتاريخ والرقم المرجعي الذي تقدمه لكل دفعة عبر BenefitPay أو التحويل البنكي. لا يتلقى المنهج العربي أرقام البطاقات أو الحسابات البنكية ولا يحفظها.</li>
 <li><b>سجلات الموافقة:</b> الموافقات التي منحتها أو سحبتها، وإصدار النص، ووقت ذلك.</li>
 </ul>
 
 <h3>3. أغراض استخدام البيانات وأساسها القانوني</h3>
-<p>تُستخدم بياناتك لتقديم خدمة التدريب فقط: لإعداد خطتك الأسبوعية وتعديلها، وإرسال كل حصة إلى تقويمك وساعتك، وإرسال حصة اليوم إليك بالبريد الإلكتروني، وإيقاف خطتك وتنبيه د. صقر عند إبلاغك عن ألم أو مرض أو أعراض تحذيرية، وإدارة اشتراكك، والوفاء بالالتزامات القانونية.</p>
-<p>تُعالج البيانات الصحية الحساسة بناء على موافقتك الصريحة التي تمنحها عند التسجيل وتُسجل. وتُعالج بيانات الحساب والدفع لتنفيذ اتفاق الاشتراك الذي تبرمه. يمكنك سحب أي موافقة في أي وقت من صفحة ملفك. ويؤدي سحب الموافقة على معالجة البيانات الصحية أو على نقل البيانات دوليا أو على المعالجة بالذكاء الاصطناعي إلى إيقاف خطتك، لأن الخدمة لا تعمل بدونها. ولا يمس السحب ما تم من معالجة قبله.</p>
+<p>تُستخدم بياناتك لتقديم خدمة التدريب فقط: لإعداد خطتك الأسبوعية وتعديلها، وإرسال كل حصة إلى تقويمك وساعتك، وإرسال حصة اليوم إليك بالبريد الإلكتروني، وإيقاف خطتك وتنبيه د. صقر عند إبلاغك عن ألم أو مرض أو أعراض تحذيرية، والرد على رسائلك للمدرب وإجراء التعديلات التي تطلبها، وإرسال رسائل المدرب والإشعارات إليك، وتعديل الحصص بحسب الحرارة والغبار المتوقعين، والتخطيط حول تقويمك، وحول رمضان إن اخترت ذلك، وإدارة اشتراكك، والوفاء بالالتزامات القانونية.</p>
+<p>تُعالج البيانات الصحية الحساسة بناء على موافقتك الصريحة التي تمنحها عند التسجيل وتُسجل. ولا يُعالج إعداد رمضان إلا بناء على موافقة صريحة مستقلة تمنحها عند اختياره، ويؤدي سحبها إلى مسح الإعداد. ويمكنك إيقاف رسائل المدرب وربط التقويم من صفحة ملفك في أي وقت. وتُعالج بيانات الحساب والدفع لتنفيذ اتفاق الاشتراك الذي تبرمه. يمكنك سحب أي موافقة في أي وقت من صفحة ملفك. ويؤدي سحب الموافقة على معالجة البيانات الصحية أو على نقل البيانات دوليا أو على المعالجة بالذكاء الاصطناعي إلى إيقاف خطتك، لأن الخدمة لا تعمل بدونها. ولا يمس السحب ما تم من معالجة قبله.</p>
 <p>لا تُباع بياناتك، ولا تُستخدم للإعلان، ولا تُستخدم لتدريب نماذج الذكاء الاصطناعي.</p>
 
 <h3>4. كيف تُعد الخطط: المعالجة الآلية</h3>
 <p>يقترح نظام ذكاء اصطناعي (Claude من شركة Anthropic) خطتك كل أسبوع بناء على بيانات تدريبك وتسجيلاتك اليومية. ثم يتحقق برنامج من كل خطة وفق قواعد تدريب ثابتة، ويصحح أو يحذف كل ما يتجاوزها. ويراجع د. صقر الخطط ويعتمدها لأول مجموعة من الرياضيين، ويراجع كل حالة تُرفع إليه. أما التعديلات اليومية بسبب قلة النوم أو ارتفاع نبض الراحة فتتم آليا، ولا تؤدي إلا إلى تخفيف الحصة. ويمكنك طلب مراجعة أي خطة أو تعديل من د. صقر بمراسلة العنوان المذكور أعلاه.</p>
-<p>لا يتلقى نظام الذكاء الاصطناعي اسمك أو بريدك الإلكتروني أو ما تكتبه عن الإصابات أو الحالات الصحية. بل يتلقى عمرك وتفاصيل السباق وأيام التدريب وأرقام التدريب وأرقام التسجيل اليومي.</p>
+<p>لا يتلقى نظام الذكاء الاصطناعي اسمك أو بريدك الإلكتروني أو ما تكتبه عن الإصابات أو الحالات الصحية. بل يتلقى عمرك وتفاصيل السباق وأيام التدريب وأرقام التدريب وأرقام التسجيل اليومي. ويُستثنى من ذلك المحادثة مع المدرب: إذ يتلقى نظام الذكاء الاصطناعي الرسائل التي تكتبها لمدربك أو تمليها، وقد تتضمن أي شيء تختار قوله، مع خطتك وتدريبك الأخير وتسجيلاتك اليومية وأوقات انشغالك، ليتمكن من الرد عليك. ويُتحقق من أي تعديل على الخطة يُجرى في المحادثة وفق قواعد التدريب نفسها التي تخضع لها الخطط الأسبوعية قبل حفظه. أما التعديلات بسبب الحرارة والغبار فتتم وفق قواعد ثابتة، ولا تؤدي إلا إلى تخفيف الحصة أو تقصيرها أو نقلها إلى الداخل.</p>
 
 <h3>5. من يتلقى بياناتك وأين</h3>
-<p>لا تُشارك بياناتك إلا مع مزودي الخدمات اللازمين لتشغيل المدرب الذكي، ويعالجها كل منهم وفق تعليمات المدرب الذكي:</p>
+<p>لا تُشارك بياناتك إلا مع مزودي الخدمات اللازمين لتشغيل المنهج العربي، ويعالجها كل منهم وفق تعليمات المنهج العربي:</p>
 <ul>
 <li><b>Supabase, Inc.:</b> قاعدة البيانات وتسجيل الدخول وتخزين الملفات، في فرانكفورت بألمانيا.</li>
 <li><b>Anthropic, PBC:</b> نظام الذكاء الاصطناعي الذي يقترح الخطط والملاحظات اليومية، في الولايات المتحدة. ولا تستخدم Anthropic البيانات المرسلة عبر واجهتها التجارية لتدريب نماذجها.</li>
 <li><b>Resend, Inc.:</b> إرسال البريد الإلكتروني، وهي شركة أمريكية ترسل الرسائل من خوادمها في أيرلندا. وتتلقى بريدك الإلكتروني ومحتوى كل رسالة.</li>
-<li><b>GitHub, Inc.:</b> استضافة صفحات الموقع، في الولايات المتحدة. ولا تتلقى بيانات حسابك أو بياناتك الصحية.</li>
-<li><b>Intervals.icu:</b> في حال ربطه فقط. تنتقل البيانات بين المدرب الذكي وحسابك الخاص في Intervals.icu بطلب منك، ويتعامل معها Intervals.icu وفق شروطه وسياسة الخصوصية الخاصة به. وإذا كانت تمارينك مسجلة بجهاز من Garmin، تسري شروط Garmin أيضا.</li>
+<li><b>Open-Meteo:</b> يقدم توقعات الطقس والغبار، ولا يتلقى إلا إحداثيات عاصمة بلدك، ولا يتلقى أي معلومة عنك.</li> <li><b>خدمات الإشعارات (Apple أو Google أو Mozilla بحسب جهازك):</b> تُوصل الإشعارات إذا فعّلتها، وكل إشعار مشفر بحيث لا يقرؤه إلا جهازك.</li> <li><b>مزود تقويمك (Google أو Microsoft أو Apple):</b> في حال ربط تقويم فقط. يقرأ المنهج العربي التقويم من العنوان الذي تقدمه، ويتعامل المزود مع تقويمك وفق شروطه.</li> <li><b>GitHub, Inc.:</b> استضافة صفحات الموقع، في الولايات المتحدة. ولا تتلقى بيانات حسابك أو بياناتك الصحية.</li>
+<li><b>Intervals.icu:</b> في حال ربطه فقط. تنتقل البيانات بين المنهج العربي وحسابك الخاص في Intervals.icu بطلب منك، ويتعامل معها Intervals.icu وفق شروطه وسياسة الخصوصية الخاصة به. وإذا كانت تمارينك مسجلة بجهاز من Garmin، تسري شروط Garmin أيضا.</li>
 </ul>
 <p>ألمانيا وأيرلندا والولايات المتحدة مدرجة في قائمة الدول التي اعتمدتها هيئة حماية البيانات الشخصية بوصفها توفر حماية كافية (القرار رقم (42) لسنة 2022). وتتم عمليات النقل إلى Intervals.icu بطلبك وبموافقتك الصريحة. ولا تُفصح بياناتك لأي جهة أخرى إلا إذا اقتضى القانون ذلك.</p>
 
 <h3>6. مدة الاحتفاظ بالبيانات</h3>
-<p>تُحفظ بياناتك ما دام حسابك قائما. وعند حذف حسابك تُزال بياناتك من الأنظمة العاملة فورا ومن النسخ الاحتياطية خلال 30 يوما. وتُحفظ سجلات المدفوعات، دون أي بيانات صحية، للمدة التي يشترطها القانون البحريني للسجلات المالية. وتُحفظ سجلات الموافقة للمدة نفسها، ليتسنى إثبات الموافقة أمام الهيئة عند الطلب.</p>
+<p>تُحفظ بياناتك ما دام حسابك قائما. وتُستبدل أوقات الانشغال يوميا وتُحذف فورا عند قطع ربط التقويم. وتُحذف توقعات الطقس مع الحصص التي تخصها. وعند حذف حسابك تُزال بياناتك من الأنظمة العاملة فورا ومن النسخ الاحتياطية خلال 30 يوما. وتُحفظ سجلات المدفوعات، دون أي بيانات صحية، للمدة التي يشترطها القانون البحريني للسجلات المالية. وتُحفظ سجلات الموافقة للمدة نفسها، ليتسنى إثبات الموافقة أمام الهيئة عند الطلب.</p>
 
 <h3>7. حقوقك</h3>
 <p>يحق لك بموجب القانون أن تطلب إعلامك بما إذا كانت بياناتك تُعالج وأن تحصل على نسخة منها، وتصحيح البيانات غير الدقيقة، ومحو بياناتك أو حجبها، والاعتراض على المعالجة، وسحب الموافقة، والاعتراض على أي قرار يقوم على المعالجة الآلية وحدها. وتتيح لك صفحة ملفك تنزيل جميع بياناتك وتعديل ملفك وسحب الموافقات وحذف حسابك في أي وقت. ولأي طلب آخر، راسل العنوان المذكور أعلاه. ويُرد على الطلبات خلال المدة التي يحددها القانون. ويحق لك أيضا تقديم شكوى إلى هيئة حماية البيانات الشخصية.</p>
 
 <h3>8. أمن البيانات</h3>
-<p>لا تُحفظ كلمات المرور إلا بصيغة مشفرة غير قابلة للاسترجاع. وجميع الاتصالات مشفرة. ولا يستطيع قراءة بيانات أي رياضي سوى الرياضي نفسه ود. صقر، وتفرض قاعدة البيانات ذلك. ولا يمكن قراءة رموز الوصول إلى Intervals.icu من أي متصفح. وفي حال وقوع خرق يمس بياناتك، يُخطر المدرب الذكي الهيئة ويخطرك وفقا لما يقتضيه القانون.</p>
+<p>لا تُحفظ كلمات المرور إلا بصيغة مشفرة غير قابلة للاسترجاع. وجميع الاتصالات مشفرة. ولا يستطيع قراءة بيانات أي رياضي سوى الرياضي نفسه ود. صقر، وتفرض قاعدة البيانات ذلك. ولا يمكن قراءة رموز الوصول إلى Intervals.icu من أي متصفح. وفي حال وقوع خرق يمس بياناتك، يُخطر المنهج العربي الهيئة ويخطرك وفقا لما يقتضيه القانون.</p>
 
 <h3>9. ملفات تعريف الارتباط والتخزين المحلي</h3>
-<p>لا يستخدم الموقع التخزين المحلي في متصفحك إلا لإبقائك مسجلا الدخول ولحفظ اللغة التي تختارها. ولا يستخدم ملفات تعريف ارتباط إعلانية أو للتتبع، ولا أدوات تحليل.</p>
+<p>لا يستخدم الموقع التخزين المحلي في متصفحك إلا لإبقائك مسجلا الدخول ولحفظ اللغة التي تختارها، وإذا فعّلت الإشعارات فبرنامجا صغيرا يعمل في الخلفية لعرضها. ولا يستخدم ملفات تعريف ارتباط إعلانية أو للتتبع، ولا أدوات تحليل.</p>
 
 <h3>10. تعديل هذا الإشعار</h3>
 <p>إذا عُدل هذا الإشعار بما يمس طريقة استخدام بياناتك، تُبلغ بذلك بالبريد الإلكتروني وتُطلب موافقتك من جديد متى اقتضى القانون ذلك.</p>
@@ -1006,10 +1009,10 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 <section class="legal" id="terms-en" data-lang="en">
 <p class="eyebrow">Terms and medical disclaimer</p>
 <h2>Terms of membership and medical disclaimer</h2>
-<p class="note">Version 2026-11-03.</p>
+<p class="note">Version 2026-11-10.</p>
 
 <h3>1. The service</h3>
-<p>AI Coach provides running and triathlon training plans written by an AI system within fixed training rules, supervised by Dr. Saqer AlKhalifa. It is a training service. It is not a medical service and does not diagnose, treat or advise on any medical condition.</p>
+<p>Arabian Method provides running and triathlon training plans written by an AI system within fixed training rules, supervised by Dr. Saqer AlKhalifa. It is a training service. It is not a medical service and does not diagnose, treat or advise on any medical condition.</p>
 
 <h3>2. Who may register</h3>
 <p>Registration is open to adults aged 18 and over. By registering you confirm that you are 18 or older and that the information you give is accurate.</p>
@@ -1039,10 +1042,10 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 <section class="legal" id="terms-ar" data-lang="ar" dir="rtl" lang="ar">
 <p class="eyebrow">الشروط وإخلاء المسؤولية الطبية</p>
 <h2>شروط الاشتراك وإخلاء المسؤولية الطبية</h2>
-<p class="note">إصدار 2026-11-03.</p>
+<p class="note">إصدار 2026-11-10.</p>
 
 <h3>1. الخدمة</h3>
-<p>يقدم المدرب الذكي خطط تدريب للجري والترايثلون يعدها نظام ذكاء اصطناعي وفق قواعد تدريب ثابتة، تحت إشراف د. صقر آل خليفة. وهي خدمة تدريب رياضي، وليست خدمة طبية، ولا تشخص أي حالة طبية ولا تعالجها ولا تقدم المشورة بشأنها.</p>
+<p>يقدم المنهج العربي خطط تدريب للجري والترايثلون يعدها نظام ذكاء اصطناعي وفق قواعد تدريب ثابتة، تحت إشراف د. صقر آل خليفة. وهي خدمة تدريب رياضي، وليست خدمة طبية، ولا تشخص أي حالة طبية ولا تعالجها ولا تقدم المشورة بشأنها.</p>
 
 <h3>2. من يحق له التسجيل</h3>
 <p>التسجيل متاح للبالغين الذين أتموا 18 عاما. وبالتسجيل تقر بأنك أتممت 18 عاما وبأن المعلومات التي تقدمها صحيحة.</p>
@@ -1075,6 +1078,6 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
-<script src="coach.js?v=20261110f"></script>
+<script src="coach.js?v=20261110g"></script>
 </body>
 </html>
