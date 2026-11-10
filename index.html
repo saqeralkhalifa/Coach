@@ -284,6 +284,10 @@ fieldset{border:0;}
 .stat .l{font-size:14px;color:var(--muted);margin-top:4px;}
 .chart{margin-top:20px;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px;}
 .chart svg{display:block;width:100%;height:auto;}
+.calcard{margin-top:20px;}
+.calcard p:not(.micro):not(.note){margin-top:6px;}
+.calbtns{margin-top:16px;flex-wrap:wrap;}
+.linkbtn{background:none;border:0;padding:0;color:var(--accent-ink);text-decoration:underline;font:inherit;cursor:pointer;min-height:44px;}
 .coachnote{margin-top:20px;background:var(--accent-tint);border-radius:22px;padding:24px 28px;}
 .coachnote p{font-size:17px;line-height:1.6;margin-top:6px;color:var(--ink);}
 .price{font-family:var(--fd);font-weight:800;font-size:72px;line-height:1;letter-spacing:-.04em;color:#fff;margin-top:16px;}
@@ -642,6 +646,18 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
   <div id="wkStatus"></div>
   <div class="today-card" id="todayCard" hidden></div>
   <div class="week" id="weekGrid"></div>
+  <div class="card calcard" id="calCard" hidden>
+    <p class="micro" data-t="calH"></p>
+    <p data-t="calP"></p>
+    <div class="ck-cta calbtns">
+      <a class="btn small" id="calApple" href="#" target="_blank" rel="noopener" data-t="calApple"></a>
+      <a class="btn small ghost" id="calGoogle" href="#" target="_blank" rel="noopener" data-t="calGoogle"></a>
+      <a class="btn small ghost" id="calOutlook" href="#" target="_blank" rel="noopener" data-t="calOutlook"></a>
+      <button class="btn small ghost" type="button" id="calCopy" data-t="calCopy"></button>
+    </div>
+    <p class="note" data-t="calNote"></p>
+    <p class="note"><button class="linkbtn" type="button" id="calReset" data-t="calReset"></button></p>
+  </div>
   <div class="coachnote" id="coachNote" hidden><p class="eyebrow" data-t="coachNoteH"></p><p id="coachNoteText"></p></div>
   <div class="stats" id="stats"></div>
   <div class="chart" id="loadChart" hidden><p class="eyebrow" data-t="chartH"></p><div id="chartSvg"></div><p class="note" data-t="chartNote"></p></div>
@@ -992,6 +1008,6 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
-<script src="coach.js?v=20261110b"></script>
+<script src="coach.js?v=20261110c"></script>
 </body>
 </html>

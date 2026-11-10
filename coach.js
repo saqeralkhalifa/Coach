@@ -112,6 +112,10 @@ en:{
   wkH:function(i,ph){return "Week "+i+", "+ph+" phase";}, wkLead:function(r,d,w){return "Target race: "+r+", "+d+". "+w+" weeks to go.";},
   todayL:"Today", rest:"Rest day", min:"min", sentGarmin:"Sent to Intervals.icu and Garmin Connect. It appears on your watch after the next sync.", notSent:"It is sent to your watch early on the morning of the session.",
   easy:"Easy", moderate:"Moderate", hard:"Hard", zone:"zone", made_easier:"Made easier",
+  calH:"Your sessions in your own calendar", calP:"Subscribe once and every session appears in your phone or computer calendar, with the time, the duration and what to do. When your coach changes the plan, your calendar changes too.",
+  calApple:"Apple Calendar", calGoogle:"Google Calendar", calOutlook:"Outlook", calCopy:"Copy link", calCopied:"Link copied. Paste it into your calendar app as a subscribed calendar.",
+  calNote:"Google Calendar refreshes subscribed calendars on its own schedule, so a change can take a few hours to show there. Keep this link private, because anyone who has it can see your sessions.",
+  calReset:"Reset my calendar link", calResetQ:"Reset your calendar link? The old link will stop working, and you will need to subscribe again with the new one.", calResetDone:"Your calendar link has been reset. Subscribe again with one of the buttons above.",
   coachNoteH:"Coach's note for this week", chartH:"Planned training, last 8 weeks", chartNote:"The lighter bars are recovery weeks.",
   sPlanned:"Planned this week", sLow:"Time at low intensity", sSleep:"Average sleep, last 7 nights", sRhr:"Resting heart rate, 7 day average",
   recentH:"Recent workouts", garminAttr:"Garmin",
@@ -205,6 +209,10 @@ ar:{
   wkH:function(i,ph){return "الأسبوع "+i+"، مرحلة "+ph;}, wkLead:function(r,d,w){return "السباق المستهدف: "+r+"، "+d+". متبقٍ "+w+" أسبوعا.";},
   todayL:"اليوم", rest:"يوم راحة", min:"دقيقة", sentGarmin:"أُرسلت إلى Intervals.icu وGarmin Connect، وتظهر على ساعتك بعد المزامنة التالية.", notSent:"تُرسل إلى ساعتك في الصباح الباكر من يوم الحصة.",
   easy:"سهلة", moderate:"متوسطة", hard:"شاقة", zone:"منطقة", made_easier:"خُففت",
+  calH:"حصصك في تقويمك الخاص", calP:"اشترك مرة واحدة وستظهر كل حصة في تقويم هاتفك أو حاسوبك، مع الوقت والمدة وما عليك فعله. وعندما يغيّر مدربك الخطة يتغير تقويمك أيضا.",
+  calApple:"تقويم Apple", calGoogle:"تقويم Google", calOutlook:"Outlook", calCopy:"نسخ الرابط", calCopied:"تم نسخ الرابط. الصقه في تطبيق التقويم كتقويم مشترك.",
+  calNote:"يحدّث تقويم Google التقاويم المشتركة وفق جدوله الخاص، لذلك قد يستغرق ظهور التغيير فيه بضع ساعات. احتفظ بهذا الرابط لنفسك، لأن أي شخص يملكه يستطيع رؤية حصصك.",
+  calReset:"إعادة تعيين رابط التقويم", calResetQ:"هل تريد إعادة تعيين رابط التقويم؟ سيتوقف الرابط القديم عن العمل، وستحتاج إلى الاشتراك من جديد بالرابط الجديد.", calResetDone:"تمت إعادة تعيين رابط التقويم. اشترك من جديد بأحد الأزرار أعلاه.",
   coachNoteH:"ملاحظة المدرب لهذا الأسبوع", chartH:"التدريب المخطط خلال آخر 8 أسابيع", chartNote:"الأعمدة الفاتحة أسابيع استشفاء.",
   sPlanned:"المخطط لهذا الأسبوع", sLow:"الوقت بشدة منخفضة", sSleep:"متوسط النوم، آخر 7 ليال", sRhr:"نبض الراحة، متوسط 7 أيام",
   recentH:"آخر التمارين", garminAttr:"Garmin",
@@ -481,7 +489,7 @@ function drawChart(weeks){
   $("chartSvg").innerHTML = svg + "</svg>"; $("loadChart").hidden = false;
 }
 async function renderWeek(){
-  var lead = $("wkLead"), st = $("wkStatus"); st.innerHTML = "";
+  var lead = $("wkLead"), st = $("wkStatus"); st.innerHTML = ""; $("calCard").hidden = true;
   $("wkEyebrow").textContent = t("wkEyebrow");
   if(!sb){
     $("wkH").textContent = t("wkH")(SAMPLE.week_index, t("phases")[SAMPLE.phase]);
@@ -494,6 +502,7 @@ async function renderWeek(){
   var p = STATE.profile || {};
   if(p.status === "pending_payment"){ $("wkH").textContent = t("wkPending"); lead.textContent = t("wkPendingP"); clearWeek(); return; }
   if(p.status === "paused"){ $("wkH").textContent = t("wkPaused"); lead.textContent = t("wkPausedP"); clearWeek(); return; }
+  drawCal();
   var ws = weekStartOf(todayStr());
   // Show this week's plan; if there is none yet (plans are written on Thursday night for the week
   // starting Saturday), show the coming week so athletes can see tomorrow's session.
@@ -522,6 +531,29 @@ async function renderWeek(){
     rl.appendChild(el("li",{},[el("span",{text:left, dir:"ltr"}), el("span",{cls:"attrib", text:right})]));
   });
 }
+/* ---------- calendar subscription ---------- */
+function calFeed(){ var p = STATE.profile || {}; return p.calendar_token ? CONFIG.supabaseUrl + "/functions/v1/calendar-feed?t=" + p.calendar_token : ""; }
+function drawCal(){
+  var url = calFeed(), c = $("calCard");
+  if(!sb || !url){ c.hidden = true; return; }
+  var web = url.replace(/^https:/, "webcal:");
+  $("calApple").href = web;
+  $("calGoogle").href = "https://calendar.google.com/calendar/r?cid=" + encodeURIComponent(web);
+  $("calOutlook").href = "https://outlook.live.com/calendar/0/addfromweb?url=" + encodeURIComponent(url) + "&name=" + encodeURIComponent(LANG === "ar" ? "تدريب المنهج العربي" : "Arabian Method training");
+  c.hidden = false;
+}
+$("calCopy").addEventListener("click", function(){
+  var url = calFeed(); if(!url) return;
+  var done = function(){ banner(t("calCopied")); };
+  if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, function(){ prompt("", url); });
+  else prompt("", url);
+});
+$("calReset").addEventListener("click", async function(){
+  if(!sb || !confirm(t("calResetQ"))) return;
+  var r = await sb.rpc("reset_calendar_token");
+  if(r.error){ banner(t("eNet"), true); return; }
+  STATE.profile.calendar_token = r.data; drawCal(); banner(t("calResetDone"));
+});
 function clearWeek(){ $("weekGrid").innerHTML = ""; $("todayCard").hidden = true; $("coachNote").hidden = true; $("stats").innerHTML = ""; $("loadChart").hidden = true; $("recent").hidden = true; }
 
 /* ---------- check-in, watch, uploads, clearance ---------- */
