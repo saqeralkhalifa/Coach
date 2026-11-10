@@ -10,7 +10,7 @@ var CONFIG = {
   consentVersion: "2026-11-03",
   benefitPay: { name: "[NAME ON BENEFITPAY]", number: "[BENEFITPAY NUMBER OR IBAN]" },
   bank: { holder: "[ACCOUNT HOLDER]", bank: "[BANK NAME]", iban: "[IBAN]", swift: "[SWIFT CODE]" },
-  fee: 7.5
+  fee: 20
 };
 var LIVE = /^https:\/\//.test(CONFIG.supabaseUrl) && CONFIG.supabaseKey.length > 20;
 /* Repair links that arrive as #signin#access_token=... so the auth library can read the tokens. */
@@ -50,7 +50,7 @@ en:{
   cAge:"I am 18 years old or older.",
   cTerms:'I have read and accept the <a href="#terms" data-go="terms" target="_blank">terms and medical disclaimer</a>. I understand the coach does not give medical advice, and I will get clearance from a doctor before starting.',
   cHealth:'I give my explicit consent to the collection and processing of my health data (heart rate, sleep, workouts, and reports of pain, illness or symptoms) to write and adjust my training plans, as set out in the <a href="#privacy" data-go="privacy" target="_blank">privacy notice</a>.',
-  cTransfer:"I consent to my data being stored and processed outside Bahrain, in the European Union (Germany and Ireland) and the United States, by the service providers named in the privacy notice, and exchanged with Intervals.icu if I connect it.",
+  cTransfer:"I consent to my data being stored and processed in the European Union (Germany and Ireland) and the United States, by the service providers named in the privacy notice, and exchanged with Intervals.icu if I connect it.",
   cAi:"I understand that my plans are proposed by an AI system, checked against fixed training rules and supervised by Dr. Saqer, and that I can ask for any plan to be reviewed by him.",
   regBtn:"Create account", regOk:"Check your email and open the confirmation link. Your account opens once your address is confirmed. Then sign in, complete your training profile and pay the first month.",
   eName:"Enter your full name.", eEmail:"Enter a valid email address.", ePass:"The password needs at least 10 characters.", ePass2:"The two passwords do not match.",
@@ -87,18 +87,18 @@ en:{
   pHr:"Heart rate monitor (watch or chest strap)", pPower:"Power meter on the bike", pTrainer:"Indoor trainer",
   pInj:"Injuries or health conditions the coach should know about", pInjH:"Leave blank if none. This is kept for Dr. Saqer and is not sent to the AI system.",
   profOk:"Profile saved.", eDate:"Enter a race date in the future.", eDist:"Choose a race distance.", eDays:"Choose at least three days you can train.", eYears:"Choose your years of training.",
-  rightsEyebrow:"Your data", rightsH:"Download, withdraw or delete", rightsLead:"These are your rights under Bahrain's Personal Data Protection Law, and you can use them here at any time.",
+  rightsEyebrow:"Your data", rightsH:"Download, withdraw or delete", rightsLead:"These are your rights under the data protection law that applies to you, and you can use them here at any time.",
   dlH:"Download your data", dlP:"A file with everything held about you: profile, consents, check-ins, workouts, plans and payments.", dlBtn:"Download",
   consH:"Your consents", consP:"Withdrawing a consent pauses your plan, because the service cannot run without it.", withdraw:"Withdraw", withdrawn:"Withdrawn", given:"Given",
-  kAge:"Age 18 or over", kTerms:"Terms", kMedical:"Medical disclaimer", kHealth:"Health data", kTransfer:"Transfer outside Bahrain", kAi:"AI processing", kEmail:"Email",
+  kAge:"Age 18 or over", kTerms:"Terms", kMedical:"Medical disclaimer", kHealth:"Health data", kTransfer:"International data transfer", kAi:"AI processing", kEmail:"Email",
   confirmWithdraw:"Withdraw this consent? Your plan will pause.",
   delH:"Delete your account", delP:"Deletes your account and all your data, and disconnects Intervals.icu. Payment records are kept without health data, as the law requires.",
   delLabel:"Type DELETE to confirm", delBtn:"Delete account", eDel:"Type DELETE in capital letters to confirm.", delDone:"Your account has been deleted.",
   outH:"Sign out", outP:"Sign out of this browser.",
-  memH:"Monthly membership", memLead:"The first 30 athletes who confirm their email get their first month free, starting with their first approved plan. After that, pay by BenefitPay inside Bahrain or by bank transfer from outside, then report the payment below.",
-  memFee:"Monthly fee", memPrice:"BHD 7.5 a month, first month free for the first 30 athletes",
+  memH:"Monthly membership", memLead:"The first 30 athletes who confirm their email get their first month free, starting with their first approved plan. After that, pay by BenefitPay or by bank transfer, then report the payment below.",
+  memFee:"Monthly fee", memPrice:"US$20 a month, first month free for the first 30 athletes",
   memIncl:"Weekly plans, daily sessions sent to your watch, the daily check-in, and review of any flagged report by Dr. Saqer.",
-  bpH:"Inside Bahrain", bpP:"Send BHD 7.5 for each month by BenefitPay to:", bankMicro:"Bank transfer", bankH:"Outside Bahrain", bankP:"Send BHD 7.5 for each month, or the equivalent, by bank transfer. Bank charges are paid by the sender.",
+  bpH:"BenefitPay", bpP:"Send US$20, or the equivalent, for each month by BenefitPay to:", bankMicro:"Bank transfer", bankH:"From any bank", bankP:"Send US$20 for each month, or the equivalent, by bank transfer. Bank charges are paid by the sender.",
   dName:"Name", dNumber:"BenefitPay", dHolder:"Account holder", dBank:"Bank", dIban:"IBAN", dSwift:"SWIFT", dRef:"Reference",
   reportMicro:"After paying", reportH:"Report your payment", payMethod:"Method", payMonths:"Months paid", payRef:"Payment reference",
   paySend:"Report payment", payOk:"Payment reported. You will see it confirmed here once it has been checked.", eRef:"Enter the payment reference from your receipt.",
@@ -127,7 +127,7 @@ en:{
     years:[["","Choose one"],["lt1","Less than 1"],["1to2","1 to 2"],["3to5","3 to 5"],["gt5","More than 5"]],
     days:[["Fri","Friday"],["Sat","Saturday"],["Sun","Sunday"],["Mon","Monday"],["Tue","Tuesday"],["Wed","Wednesday"],["Thu","Thursday"]],
     time:[["early","Early morning"],["midday","Midday"],["evening","Evening"],["varies","It varies"]],
-    paymethod:[["benefitpay","BenefitPay, inside Bahrain"],["bank_transfer","Bank transfer, outside Bahrain"]],
+    paymethod:[["benefitpay","BenefitPay"],["bank_transfer","Bank transfer"]],
     months:[["1","1 month"],["2","2 months"],["3","3 months"],["6","6 months"],["12","12 months"]]
   },
   dayShort:{Sat:"Sat",Sun:"Sun",Mon:"Mon",Tue:"Tue",Wed:"Wed",Thu:"Thu",Fri:"Fri"}
@@ -143,7 +143,7 @@ ar:{
   cAge:"أقر بأنني أتممت 18 عاما.",
   cTerms:'قرأت <a href="#terms" data-go="terms" target="_blank">الشروط وإخلاء المسؤولية الطبية</a> وأقبلها، وأدرك أن المدرب لا يقدم مشورة طبية، وسأحصل على إذن من طبيب قبل البدء.',
   cHealth:'أوافق صراحة على جمع بياناتي الصحية (نبض القلب والنوم والتمارين وبلاغات الألم أو المرض أو الأعراض) ومعالجتها لإعداد خططي التدريبية وتعديلها، على النحو المبين في <a href="#privacy" data-go="privacy" target="_blank">إشعار الخصوصية</a>.',
-  cTransfer:"أوافق على حفظ بياناتي ومعالجتها خارج البحرين، في الاتحاد الأوروبي (ألمانيا وأيرلندا) والولايات المتحدة، لدى مزودي الخدمات المذكورين في إشعار الخصوصية، وعلى تبادلها مع Intervals.icu إذا ربطته.",
+  cTransfer:"أوافق على حفظ بياناتي ومعالجتها في الاتحاد الأوروبي (ألمانيا وأيرلندا) والولايات المتحدة، لدى مزودي الخدمات المذكورين في إشعار الخصوصية، وعلى تبادلها مع Intervals.icu إذا ربطته.",
   cAi:"أدرك أن خططي يقترحها نظام ذكاء اصطناعي، ويُتحقق منها وفق قواعد تدريب ثابتة، تحت إشراف د. صقر، وأن لي أن أطلب منه مراجعة أي خطة.",
   regBtn:"إنشاء الحساب", regOk:"افتح بريدك الإلكتروني واضغط رابط التأكيد. يُفعّل حسابك بعد تأكيد عنوانك، ثم سجّل الدخول وأكمل ملف تدريبك وادفع رسوم الشهر الأول.",
   eName:"اكتب اسمك الكامل.", eEmail:"اكتب بريدا إلكترونيا صحيحا.", ePass:"يجب ألا تقل كلمة المرور عن 10 أحرف.", ePass2:"كلمتا المرور غير متطابقتين.",
@@ -180,18 +180,18 @@ ar:{
   pHr:"جهاز قياس نبض القلب (ساعة أو حزام صدر)", pPower:"مقياس القدرة على الدراجة", pTrainer:"جهاز تدريب منزلي للدراجة",
   pInj:"الإصابات أو الحالات الصحية التي ينبغي أن يعرفها المدرب", pInjH:"اتركها فارغة إن لم يكن هناك شيء. تُحفظ لاطلاع د. صقر ولا تُرسل إلى نظام الذكاء الاصطناعي.",
   profOk:"حُفظ الملف.", eDate:"اكتب تاريخا قادما للسباق.", eDist:"اختر مسافة السباق.", eDays:"اختر ثلاثة أيام على الأقل للتدريب.", eYears:"اختر سنوات تدريبك.",
-  rightsEyebrow:"بياناتك", rightsH:"التنزيل أو سحب الموافقة أو الحذف", rightsLead:"هذه حقوقك بموجب قانون حماية البيانات الشخصية في البحرين، ويمكنك ممارستها هنا في أي وقت.",
+  rightsEyebrow:"بياناتك", rightsH:"التنزيل أو سحب الموافقة أو الحذف", rightsLead:"هذه حقوقك بموجب قانون حماية البيانات الذي ينطبق عليك، ويمكنك ممارستها هنا في أي وقت.",
   dlH:"تنزيل بياناتك", dlP:"ملف يتضمن كل ما يُحفظ عنك: الملف والموافقات والتسجيلات اليومية والتمارين والخطط والمدفوعات.", dlBtn:"تنزيل",
   consH:"موافقاتك", consP:"يؤدي سحب أي موافقة إلى إيقاف خطتك، لأن الخدمة لا تعمل بدونها.", withdraw:"سحب", withdrawn:"مسحوبة", given:"ممنوحة",
-  kAge:"إتمام 18 عاما", kTerms:"الشروط", kMedical:"إخلاء المسؤولية الطبية", kHealth:"البيانات الصحية", kTransfer:"النقل خارج البحرين", kAi:"المعالجة بالذكاء الاصطناعي", kEmail:"البريد الإلكتروني",
+  kAge:"إتمام 18 عاما", kTerms:"الشروط", kMedical:"إخلاء المسؤولية الطبية", kHealth:"البيانات الصحية", kTransfer:"نقل البيانات دوليا", kAi:"المعالجة بالذكاء الاصطناعي", kEmail:"البريد الإلكتروني",
   confirmWithdraw:"هل تريد سحب هذه الموافقة؟ ستتوقف خطتك.",
   delH:"حذف حسابك", delP:"يحذف حسابك وجميع بياناتك ويلغي ربط Intervals.icu. وتُحفظ سجلات المدفوعات دون بيانات صحية، وفقا لما يقتضيه القانون.",
   delLabel:"اكتب DELETE للتأكيد", delBtn:"حذف الحساب", eDel:"اكتب DELETE بالأحرف الإنجليزية الكبيرة للتأكيد.", delDone:"حُذف حسابك.",
   outH:"تسجيل الخروج", outP:"تسجيل الخروج من هذا المتصفح.",
-  memH:"الاشتراك الشهري", memLead:"يحصل أول 30 رياضيا يؤكدون بريدهم الإلكتروني على الشهر الأول مجانا، ويبدأ مع أول خطة معتمدة لهم. وبعد ذلك ادفع عبر BenefitPay داخل البحرين أو بالتحويل البنكي من خارجها، ثم أبلغ عن الدفعة أدناه.",
-  memFee:"الرسوم الشهرية", memPrice:"7.5 دينار بحريني شهريا، والشهر الأول مجاني لأول 30 رياضيا",
+  memH:"الاشتراك الشهري", memLead:"يحصل أول 30 رياضيا يؤكدون بريدهم الإلكتروني على الشهر الأول مجانا، ويبدأ مع أول خطة معتمدة لهم. وبعد ذلك ادفع عبر BenefitPay أو بالتحويل البنكي، ثم أبلغ عن الدفعة أدناه.",
+  memFee:"الرسوم الشهرية", memPrice:"20 دولارا أمريكيا شهريا، والشهر الأول مجاني لأول 30 رياضيا",
   memIncl:"خطط أسبوعية، وحصص يومية تُرسل إلى ساعتك، والتسجيل اليومي، ومراجعة د. صقر لأي بلاغ يُرفع إليه.",
-  bpH:"داخل البحرين", bpP:"أرسل 7.5 دينار عن كل شهر عبر BenefitPay إلى:", bankMicro:"التحويل البنكي", bankH:"خارج البحرين", bankP:"أرسل 7.5 دينار عن كل شهر أو ما يعادلها بالتحويل البنكي، ويتحمل المرسل الرسوم البنكية.",
+  bpH:"BenefitPay", bpP:"أرسل 20 دولارا أو ما يعادلها عن كل شهر عبر BenefitPay إلى:", bankMicro:"التحويل البنكي", bankH:"من أي بنك", bankP:"أرسل 20 دولارا عن كل شهر أو ما يعادلها بالتحويل البنكي، ويتحمل المرسل الرسوم البنكية.",
   dName:"الاسم", dNumber:"BenefitPay", dHolder:"صاحب الحساب", dBank:"البنك", dIban:"IBAN", dSwift:"SWIFT", dRef:"المرجع",
   reportMicro:"بعد الدفع", reportH:"أبلغ عن دفعتك", payMethod:"طريقة الدفع", payMonths:"عدد الأشهر المدفوعة", payRef:"الرقم المرجعي للدفعة",
   paySend:"إبلاغ عن الدفعة", payOk:"تم الإبلاغ عن الدفعة، وسترى تأكيدها هنا بعد التحقق منها.", eRef:"اكتب الرقم المرجعي من إيصال الدفع.",
@@ -220,7 +220,7 @@ ar:{
     years:[["","اختر"],["lt1","أقل من سنة"],["1to2","من سنة إلى سنتين"],["3to5","من 3 إلى 5 سنوات"],["gt5","أكثر من 5 سنوات"]],
     days:[["Fri","الجمعة"],["Sat","السبت"],["Sun","الأحد"],["Mon","الاثنين"],["Tue","الثلاثاء"],["Wed","الأربعاء"],["Thu","الخميس"]],
     time:[["early","الصباح الباكر"],["midday","منتصف النهار"],["evening","المساء"],["varies","يختلف"]],
-    paymethod:[["benefitpay","BenefitPay، داخل البحرين"],["bank_transfer","تحويل بنكي، من خارج البحرين"]],
+    paymethod:[["benefitpay","BenefitPay"],["bank_transfer","تحويل بنكي"]],
     months:[["1","شهر واحد"],["2","شهران"],["3","3 أشهر"],["6","6 أشهر"],["12","12 شهرا"]]
   },
   dayShort:{Sat:"السبت",Sun:"الأحد",Mon:"الاثنين",Tue:"الثلاثاء",Wed:"الأربعاء",Thu:"الخميس",Fri:"الجمعة"}
@@ -411,7 +411,7 @@ $("resetForm").addEventListener("submit", async function(e){
 $("outBtn").addEventListener("click", async function(){ if(sb) await sb.auth.signOut(); STATE.user = null; setTabs(); go("overview"); });
 
 /* ---------- my week ---------- */
-var SAMPLE = { week_index:6, phase:"build", weeks_to_race:8, race_name:"Bahrain 70.3", race_date:addDays(todayStr(), 56),
+var SAMPLE = { week_index:6, phase:"build", weeks_to_race:8, race_name:"Ironman 70.3", race_date:addDays(todayStr(), 56),
   note_en:"Your check-ins show under six hours of sleep on two nights, so Thursday's tempo ride was made easy. Next week is a recovery week.",
   note_ar:"تُظهر تسجيلاتك أقل من ست ساعات نوم في ليلتين، لذلك خُففت حصة الدراجة يوم الخميس. والأسبوع القادم أسبوع استشفاء." };
 function sampleSessions(){
@@ -668,7 +668,7 @@ async function renderMembership(){
   if(STATE.hasPaid && p.status === "active") ms.textContent = t("stActive")(fmtDate(p.paid_until));
   pays.forEach(function(x){
     var label = {reported:t("pReported"), confirmed:t("pConfirmed"), rejected:t("pRejected")}[x.status];
-    list.appendChild(el("li",{},[el("span",{text:x.created_at.slice(0,10) + ", BHD " + x.amount + ", " + x.reference, dir:"ltr"}), el("span",{cls:"badge" + (x.status === "confirmed" ? " ok" : x.status === "rejected" ? " no" : " wait"), text:label})]));
+    list.appendChild(el("li",{},[el("span",{text:x.created_at.slice(0,10) + ", US$" + x.amount + ", " + x.reference, dir:"ltr"}), el("span",{cls:"badge" + (x.status === "confirmed" ? " ok" : x.status === "rejected" ? " no" : " wait"), text:label})]));
   });
 }
 $("payForm").addEventListener("submit", async function(e){
@@ -730,7 +730,7 @@ async function renderAdmin(){
 
   var pays = (await sb.from("payments").select("*").eq("status","reported").order("created_at")).data || [];
   section("admPays", t("admPays"), pays.length ? table(["", "", "", "", ""], pays.map(function(x){
-    return [x.created_at.slice(0,10), name[x.user_id] || "", "BHD " + x.amount + ", " + x.months + " mo, " + (x.method === "benefitpay" ? "BenefitPay" : "bank"), x.reference,
+    return [x.created_at.slice(0,10), name[x.user_id] || "", "US$" + x.amount + ", " + x.months + " mo, " + (x.method === "benefitpay" ? "BenefitPay" : "bank"), x.reference,
       el("div",{cls:"ck-cta"},[btn(t("confirm"), function(){ return sb.from("payments").update({ status:"confirmed" }).eq("id", x.id); }), btn(t("notFound"), function(){ return sb.from("payments").update({ status:"rejected" }).eq("id", x.id); }, "ghost")])];
   })) : null);
 
