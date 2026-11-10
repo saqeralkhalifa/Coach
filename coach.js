@@ -42,7 +42,7 @@ var T = {
 en:{
   previewBar:"<b>Preview</b>This page is not yet connected to its database. The forms check what you enter, but nothing is saved or sent.",
   register:"Register", signin:"Sign in", signout:"Sign out", save:"Save",
-  tabOverview:"Overview", tabWeek:"My week", tabConnect:"Check-in and watch", tabProfile:"Profile", tabMembership:"Membership", tabAdmin:"Admin",
+  tabOverview:"Overview", tabWeek:"My week", tabCoach:"Coach", tabConnect:"Check-in and watch", tabProfile:"Profile", tabMembership:"Membership", tabAdmin:"Admin",
   regH:"Create your account", regLead:"You will receive an email to confirm your address before your account opens.",
   fName:"Full name", fEmail:"Email", fPass:"Password", fPassH:"At least 10 characters", fPass2:"Repeat password", fPass2H:"Must match", fPassNew:"New password",
   fCountry:"Country of residence", fYear:"Year of birth", fYearH:"Used to set recovery rules for athletes aged 50 and over",
@@ -112,6 +112,10 @@ en:{
   wkH:function(i,ph){return "Week "+i+", "+ph+" phase";}, wkLead:function(r,d,w){return "Target race: "+r+", "+d+". "+w+" weeks to go.";},
   todayL:"Today", rest:"Rest day", min:"min", sentGarmin:"Sent to Intervals.icu and Garmin Connect. It appears on your watch after the next sync.", notSent:"It is sent to your watch early on the morning of the session.",
   easy:"Easy", moderate:"Moderate", hard:"Hard", zone:"zone", made_easier:"Made easier",
+  chH:"Talk to your coach", chLead:"Ask about a session, tell your coach about travel or a busy day, or say how training feels. Your coach can move, shorten or change sessions within the safety rules, and changes go to your watch and calendar.",
+  chAi:"Your coach is an AI. Dr. Saqer reviews anything flagged and can reply here himself. Report pain or illness here or in the daily check-in, and your plan will pause until a doctor clears you.",
+  chLabel:"Your message", chSend:"Send", chEmpty:"Write a message first.", chYou:"You", chCoach:"Coach", chDr:"Dr. Saqer", chThinking:"Your coach is replying.", chHello:"Your conversation with your coach will appear here.",
+  admChats:"Coach conversations", admReply:"Reply as Dr. Saqer", admWaiting:"waiting for a reply",
   calH:"Your sessions in your own calendar", calP:"Subscribe once and every session appears in your phone or computer calendar, with the time, the duration and what to do. When your coach changes the plan, your calendar changes too.",
   calApple:"Apple Calendar", calGoogle:"Google Calendar", calOutlook:"Outlook", calCopy:"Copy link", calCopied:"Link copied. Paste it into your calendar app as a subscribed calendar.",
   calNote:"Google Calendar refreshes subscribed calendars on its own schedule, so a change can take a few hours to show there. Keep this link private, because anyone who has it can see your sessions.",
@@ -139,7 +143,7 @@ en:{
 ar:{
   previewBar:"<b>معاينة</b>هذه الصفحة غير متصلة بقاعدة بياناتها بعد. تتحقق النماذج مما تدخله، لكن لا يُحفظ شيء ولا يُرسل.",
   register:"التسجيل", signin:"تسجيل الدخول", signout:"تسجيل الخروج", save:"حفظ",
-  tabOverview:"نظرة عامة", tabWeek:"أسبوعي", tabConnect:"التسجيل اليومي والساعة", tabProfile:"الملف", tabMembership:"الاشتراك", tabAdmin:"الإدارة",
+  tabOverview:"نظرة عامة", tabWeek:"أسبوعي", tabCoach:"المدرب", tabConnect:"التسجيل اليومي والساعة", tabProfile:"الملف", tabMembership:"الاشتراك", tabAdmin:"الإدارة",
   regH:"أنشئ حسابك", regLead:"ستصلك رسالة بالبريد الإلكتروني لتأكيد عنوانك قبل تفعيل حسابك.",
   fName:"الاسم الكامل", fEmail:"البريد الإلكتروني", fPass:"كلمة المرور", fPassH:"10 أحرف على الأقل", fPass2:"أعد كتابة كلمة المرور", fPass2H:"يجب أن تتطابق", fPassNew:"كلمة المرور الجديدة",
   fCountry:"بلد الإقامة", fYear:"سنة الميلاد", fYearH:"تُستخدم لتطبيق قواعد الاستشفاء الخاصة بمن أتموا 50 عاما",
@@ -209,6 +213,10 @@ ar:{
   wkH:function(i,ph){return "الأسبوع "+i+"، مرحلة "+ph;}, wkLead:function(r,d,w){return "السباق المستهدف: "+r+"، "+d+". متبقٍ "+w+" أسبوعا.";},
   todayL:"اليوم", rest:"يوم راحة", min:"دقيقة", sentGarmin:"أُرسلت إلى Intervals.icu وGarmin Connect، وتظهر على ساعتك بعد المزامنة التالية.", notSent:"تُرسل إلى ساعتك في الصباح الباكر من يوم الحصة.",
   easy:"سهلة", moderate:"متوسطة", hard:"شاقة", zone:"منطقة", made_easier:"خُففت",
+  chH:"تحدث مع مدربك", chLead:"اسأل عن حصة، أو أخبر مدربك عن سفر أو يوم مزدحم، أو صف كيف تشعر في تدريبك. يستطيع مدربك نقل الحصص أو تقصيرها أو تغييرها ضمن قواعد السلامة، وتصل التغييرات إلى ساعتك وتقويمك.",
+  chAi:"مدربك نظام ذكاء اصطناعي. يراجع د. صقر أي حالة يُبلَّغ عنها ويستطيع الرد هنا بنفسه. أبلغ عن أي ألم أو مرض هنا أو في التسجيل اليومي، وستتوقف خطتك مؤقتا حتى يأذن لك الطبيب.",
+  chLabel:"رسالتك", chSend:"إرسال", chEmpty:"اكتب رسالة أولا.", chYou:"أنت", chCoach:"المدرب", chDr:"د. صقر", chThinking:"مدربك يكتب الرد.", chHello:"ستظهر هنا محادثتك مع مدربك.",
+  admChats:"محادثات المدرب", admReply:"الرد باسم د. صقر", admWaiting:"بانتظار الرد",
   calH:"حصصك في تقويمك الخاص", calP:"اشترك مرة واحدة وستظهر كل حصة في تقويم هاتفك أو حاسوبك، مع الوقت والمدة وما عليك فعله. وعندما يغيّر مدربك الخطة يتغير تقويمك أيضا.",
   calApple:"تقويم Apple", calGoogle:"تقويم Google", calOutlook:"Outlook", calCopy:"نسخ الرابط", calCopied:"تم نسخ الرابط. الصقه في تطبيق التقويم كتقويم مشترك.",
   calNote:"يحدّث تقويم Google التقاويم المشتركة وفق جدوله الخاص، لذلك قد يستغرق ظهور التغيير فيه بضع ساعات. احتفظ بهذا الرابط لنفسك، لأن أي شخص يملكه يستطيع رؤية حصصك.",
@@ -285,8 +293,8 @@ if($("langToggle2")) $("langToggle2").addEventListener("click", flipLang);
 
 /* ---------- state and routing ---------- */
 var STATE = { view:null, user:null, profile:null, admin:false };
-var VIEWS = ["overview","register","signin","week","connect","profile","membership","sponsor","admin","privacy","terms"];
-var NEEDS_IN = {week:1, connect:1, profile:1, admin:1};
+var VIEWS = ["overview","register","signin","week","coach","connect","profile","membership","sponsor","admin","privacy","terms"];
+var NEEDS_IN = {week:1, coach:1, connect:1, profile:1, admin:1};
 
 function setTabs(){
   var signed = !!STATE.user || !sb; // the preview shows every athlete page
@@ -319,6 +327,7 @@ window.addEventListener("hashchange", function(){ var h = (location.hash || "").
 function render(v){
   banner("");
   if(v === "week") renderWeek();
+  if(v === "coach") renderCoach();
   if(v === "connect") renderConnect();
   if(v === "profile") renderProfile();
   if(v === "membership") renderMembership();
@@ -556,6 +565,48 @@ $("calReset").addEventListener("click", async function(){
 });
 function clearWeek(){ $("weekGrid").innerHTML = ""; $("todayCard").hidden = true; $("coachNote").hidden = true; $("stats").innerHTML = ""; $("loadChart").hidden = true; $("recent").hidden = true; }
 
+/* ---------- coach chat ---------- */
+function chatBubble(m){
+  var who = m.role === "athlete" ? t("chYou") : m.role === "admin" ? t("chDr") : t("chCoach");
+  var b = el("div",{cls:"msg " + (m.role === "athlete" ? "me" : "them")},[el("p",{cls:"micro", text:who}), el("p",{text:m.body, dir:"auto"})]);
+  return b;
+}
+function drawChat(msgs){
+  var log = $("chatLog"); log.innerHTML = "";
+  if(!msgs.length){ log.appendChild(el("p",{cls:"note", text:t("chHello")})); return; }
+  msgs.forEach(function(m){ log.appendChild(chatBubble(m)); });
+  log.scrollTop = log.scrollHeight;
+}
+async function renderCoach(){
+  if(!sb){ drawChat([]); return; }
+  var r = await sb.from("coach_messages").select("id,created_at,role,body,source,pending").eq("user_id", STATE.user.id).order("created_at",{ascending:false}).limit(60);
+  drawChat((r.data || []).reverse());
+}
+async function sendCoach(text, source){
+  err("chatErr");
+  if(!text){ err("chatErr", t("chEmpty")); return false; }
+  if(!sb){ banner(t("ePreview")); return false; }
+  var log = $("chatLog"); var hello = log.querySelector(".note"); if(hello) hello.remove();
+  log.appendChild(chatBubble({role:"athlete", body:text}));
+  var wait = el("p",{cls:"note typing", text:t("chThinking")}); log.appendChild(wait); log.scrollTop = log.scrollHeight;
+  $("chatSend").disabled = true;
+  try{
+    var s = (await sb.auth.getSession()).data.session;
+    var res = await fetch(CONFIG.supabaseUrl + "/functions/v1/coach-chat", { method:"POST", headers:{ "Content-Type":"application/json", "Authorization":"Bearer " + s.access_token, "apikey":CONFIG.supabaseKey }, body:JSON.stringify({ text:text, source:source || "chat" }) });
+    var j = await res.json();
+    if(!res.ok || !j.messages) throw new Error(j.error || res.status);
+    drawChat(j.messages);
+    await loadUser();
+    return true;
+  }catch(e){ wait.remove(); err("chatErr", t("eNet")); return false; }
+  finally{ $("chatSend").disabled = false; }
+}
+$("chatForm").addEventListener("submit", async function(e){
+  e.preventDefault(); var box = $("chatIn"), text = box.value.trim();
+  if(await sendCoach(text, box.dataset.source || "chat")){ box.value = ""; box.dataset.source = ""; }
+});
+$("chatIn").addEventListener("keydown", function(e){ if(e.key === "Enter" && (e.metaKey || e.ctrlKey)){ e.preventDefault(); $("chatForm").requestSubmit(); } });
+
 /* ---------- check-in, watch, uploads, clearance ---------- */
 async function renderConnect(){
   var q = location.hash.split("?")[1] || "";
@@ -736,6 +787,24 @@ async function renderAdmin(){
     });
     section("admSponsor", "Sponsorship applications (" + apps.filter(function(a){ return a.status === "new"; }).length + " new)", el("div",{cls:"card"},[tb]));
   } else section("admSponsor", "Sponsorship applications");
+  var chats = (await sb.from("coach_messages").select("id,created_at,user_id,role,body,pending").order("created_at",{ascending:false}).limit(300)).data || [];
+  var byUser = {}; chats.forEach(function(m){ (byUser[m.user_id] = byUser[m.user_id] || []).push(m); });
+  var cbox = el("div");
+  Object.keys(byUser).forEach(function(uid){
+    var list = byUser[uid].slice(0, 12).reverse();
+    var waiting = byUser[uid].some(function(m){ return m.pending; });
+    var card = el("div",{cls:"card"},[el("p",{cls:"micro", text:(name[uid] || "Athlete") + (waiting ? ", " + t("admWaiting") : "")})]);
+    list.forEach(function(m){ card.appendChild(el("p",{cls:"note", dir:"auto", text:m.created_at.slice(5,16).replace("T"," ") + "  " + (m.role === "athlete" ? "Athlete" : m.role === "admin" ? "Dr. Saqer" : "Coach") + (m.pending ? " (held)" : "") + ": " + m.body})); });
+    var ta = el("textarea",{cls:"ta", rows:"2", maxlength:"2000"});
+    card.appendChild(ta);
+    card.appendChild(el("div",{cls:"ck-cta"},[btn(t("admReply"), async function(){
+      var v = ta.value.trim(); if(!v) return;
+      await sb.from("coach_messages").insert({ user_id:uid, role:"admin", body:v, source:"chat" });
+      await sb.from("coach_messages").update({ pending:false }).eq("user_id", uid).eq("pending", true);
+    })]));
+    cbox.appendChild(card);
+  });
+  section("admChats", t("admChats"), Object.keys(byUser).length ? cbox : null);
   var flags = (await sb.from("flags").select("*").is("resolved_at", null).order("urgent",{ascending:false}).order("created_at")).data || [];
   section("admFlags", t("admFlags"), flags.length ? table(["", "", "", ""], flags.map(function(f){
     return [f.created_at.slice(0,16).replace("T"," "), name[f.user_id] || "", (f.urgent ? "URGENT, " : "") + f.reason.replace(/_/g," ") + (f.detail ? ": " + f.detail : ""),

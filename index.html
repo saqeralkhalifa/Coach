@@ -284,6 +284,13 @@ fieldset{border:0;}
 .stat .l{font-size:14px;color:var(--muted);margin-top:4px;}
 .chart{margin-top:20px;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px;}
 .chart svg{display:block;width:100%;height:auto;}
+.chat{margin-top:20px;display:flex;flex-direction:column;gap:12px;max-height:60vh;overflow-y:auto;padding:4px;}
+.msg{max-width:min(560px,88%);border-radius:18px;padding:12px 16px;border:1px solid var(--line-strong);background:var(--surface);}
+.msg.me{align-self:flex-end;background:var(--accent-tint);border-color:transparent;}
+.msg p{margin:0;font-size:16px;line-height:1.55;white-space:pre-wrap;}
+.msg p.micro{font-size:13px;margin-bottom:4px;color:var(--faint);}
+.chatform{margin-top:16px;}
+.chai{margin-top:8px;}
 .calcard{margin-top:20px;}
 .calcard p:not(.micro):not(.note){margin-top:6px;}
 .calbtns{margin-top:16px;flex-wrap:wrap;}
@@ -370,6 +377,7 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
     <a href="#overview" data-go="overview" data-t="tabOverview"></a>
     <a href="#signin" data-go="signin" data-t="signin" data-when="out"></a>
     <a href="#week" data-go="week" data-t="tabWeek" data-when="in"></a>
+    <a href="#coach" data-go="coach" data-t="tabCoach" data-when="in"></a>
     <a href="#connect" data-go="connect" data-t="tabConnect" data-when="in"></a>
     <a href="#profile" data-go="profile" data-t="tabProfile" data-when="in"></a>
     <a href="#membership" data-go="membership" data-t="tabMembership"></a>
@@ -665,6 +673,19 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 </div></div></section>
 
 <!-- CHECK-IN AND CONNECTIONS -->
+<section class="view" id="v-coach"><div class="section"><div class="ck-wrap">
+  <p class="eyebrow" data-t="tabCoach"></p>
+  <h2 data-t="chH"></h2>
+  <p class="lead" data-t="chLead"></p>
+  <p class="note chai" data-t="chAi"></p>
+  <div class="chat" id="chatLog" aria-live="polite"></div>
+  <form class="form chatform" id="chatForm" novalidate>
+    <div class="field"><label for="chatIn" data-t="chLabel"></label><textarea class="ta" id="chatIn" rows="3" maxlength="2000"></textarea></div>
+    <div class="ck-cta"><button class="btn" type="submit" id="chatSend" data-t="chSend"></button></div>
+    <p class="err" id="chatErr" role="alert"></p>
+  </form>
+</div></div></section>
+
 <section class="view" id="v-connect"><div class="section"><div class="ck-wrap">
   <p class="eyebrow" data-t="tabConnect"></p>
   <h2 data-t="connH"></h2>
@@ -823,6 +844,7 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
   <div id="admPays" class="adm"></div>
   <div id="admClear" class="adm"></div>
   <div id="admAthletes" class="adm"></div>
+  <div id="admChats" class="adm"></div>
   <div id="admSponsor" class="adm"></div>
 </div></div></section>
 
@@ -1008,6 +1030,6 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
-<script src="coach.js?v=20261110c"></script>
+<script src="coach.js?v=20261110d"></script>
 </body>
 </html>
