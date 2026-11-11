@@ -1036,6 +1036,7 @@ async function drawPrediction(){
   var c = $("predCard"); c.hidden = true; c.innerHTML = "";
   if(!sb || !STATE.user) return;
   var pr = (await sb.from("predictions").select("*").eq("user_id", STATE.user.id).maybeSingle()).data;
+  c.hidden = true; c.innerHTML = "";
   if(!pr) return;
   c.appendChild(el("p",{cls:"micro", text:L("Race time estimate", "الزمن المتوقع للسباق")}));
   if(pr.mid_s){
@@ -1058,14 +1059,15 @@ async function latestRacePlan(){
 }
 async function drawRacePlanCard(){
   var c = $("rpCard"); c.hidden = true; c.innerHTML = "";
-  var rp = await latestRacePlan(); if(!rp) return;
+  var rp = await latestRacePlan(); c.hidden = true; c.innerHTML = ""; if(!rp) return;
   c.appendChild(el("p",{cls:"micro", text:L("Your race plan is ready", "خطة سباقك جاهزة")}));
   var a = el("a",{href:"#raceplan", "data-go":"raceplan", cls:"btn small", text:L("Open the race plan", "افتح خطة السباق")});
   c.appendChild(el("div",{cls:"ck-cta"},[a])); c.hidden = false;
 }
 async function renderRacePlan(){
-  var b = $("rpBody"); b.innerHTML = "";
+  var b = $("rpBody");
   var rp = await latestRacePlan();
+  b.innerHTML = "";
   if(!rp){ $("rpH").textContent = L("No race plan yet", "لا توجد خطة سباق بعد"); b.appendChild(el("p",{cls:"lead", text:L("Your race plan appears here two weeks before your race, and is updated three days before with the latest forecast.", "تظهر خطة سباقك هنا قبل السباق بأسبوعين، وتُحدث قبله بثلاثة أيام بآخر توقعات الطقس.")})); return; }
   $("rpH").textContent = L("Race day, ", "يوم السباق، ") + fmtDate(rp.race_date);
   var lines = (LANG === "ar" ? rp.content.ar : rp.content.en) || [];
@@ -1102,6 +1104,7 @@ async function drawFitness(){
   var list = $("fitList"); list.innerHTML = "";
   if(!sb || !STATE.user) return;
   var rs = (await sb.from("fitness_results").select("id,day,kind,data").eq("user_id", STATE.user.id).order("day",{ascending:false}).limit(10)).data || [];
+  list.innerHTML = "";
   var names = {}; t("opts").fitkind.forEach(function(o){ names[o[0]] = o[1]; });
   rs.forEach(function(r){
     var del = el("button",{cls:"btn ghost small", type:"button", text:L("Delete", "حذف")});
