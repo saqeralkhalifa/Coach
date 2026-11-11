@@ -149,7 +149,11 @@ en:{
     time:[["early","Early morning"],["midday","Midday"],["evening","Evening"],["varies","It varies"]],
     paymethod:[["benefitpay","BenefitPay"],["bank_transfer","Bank transfer"]],
     ramadan:[["","Not set"],["not_fasting","I am not fasting"],["fasting","I am fasting"],["partly","I am fasting on some days"]],
-    months:[["1","1 month"],["2","2 months"],["3","3 months"],["6","6 months"],["12","12 months"]]
+    months:[["1","1 month"],["2","2 months"],["3","3 months"],["6","6 months"],["12","12 months"]],
+    strength:[["none","No strength sessions"],["gym","Gym"],["home","At home, no equipment"]],
+    summer:[["auto","Automatic, from the heat forecast"],["always","Always on"],["never","Never"]],
+    racecond:[["","Not sure"],["hot","Hot"],["mild","Mild"],["cool","Cool"],["altitude","At altitude (above 1,500 m)"]],
+    fitkind:[["run_test","Running 30 minute test"],["race","Race result"],["bike_power_test","Cycling 20 minute power test"],["bike_hr_test","Cycling 30 minute heart rate test"],["swim_css","Swim 400 m and 200 m test"]]
   },
   dayShort:{Sat:"Sat",Sun:"Sun",Mon:"Mon",Tue:"Tue",Wed:"Wed",Thu:"Thu",Fri:"Fri"}
 },
@@ -263,7 +267,11 @@ ar:{
     time:[["early","الصباح الباكر"],["midday","منتصف النهار"],["evening","المساء"],["varies","يختلف"]],
     paymethod:[["benefitpay","BenefitPay"],["bank_transfer","تحويل بنكي"]],
     ramadan:[["","غير محدد"],["not_fasting","لن أصوم"],["fasting","سأصوم"],["partly","سأصوم بعض الأيام"]],
-    months:[["1","شهر واحد"],["2","شهران"],["3","3 أشهر"],["6","6 أشهر"],["12","12 شهرا"]]
+    months:[["1","شهر واحد"],["2","شهران"],["3","3 أشهر"],["6","6 أشهر"],["12","12 شهرا"]],
+    strength:[["none","بدون تمارين قوة"],["gym","في النادي الرياضي"],["home","في المنزل بدون معدات"]],
+    summer:[["auto","تلقائي حسب توقعات الحرارة"],["always","مفعل دائما"],["never","غير مفعل"]],
+    racecond:[["","غير متأكد"],["hot","حار"],["mild","معتدل"],["cool","بارد"],["altitude","على ارتفاع (أكثر من 1500 م)"]],
+    fitkind:[["run_test","اختبار الجري 30 دقيقة"],["race","نتيجة سباق"],["bike_power_test","اختبار القدرة على الدراجة 20 دقيقة"],["bike_hr_test","اختبار النبض على الدراجة 30 دقيقة"],["swim_css","اختبار السباحة 400 م و200 م"]]
   },
   dayShort:{Sat:"السبت",Sun:"الأحد",Mon:"الاثنين",Tue:"الثلاثاء",Wed:"الأربعاء",Thu:"الخميس",Fri:"الجمعة"}
 }};
@@ -319,8 +327,8 @@ if($("langToggle2")) $("langToggle2").addEventListener("click", flipLang);
 
 /* ---------- state and routing ---------- */
 var STATE = { view:null, user:null, profile:null, admin:false };
-var VIEWS = ["overview","register","signin","week","coach","connect","profile","membership","sponsor","admin","privacy","terms"];
-var NEEDS_IN = {week:1, coach:1, connect:1, profile:1, admin:1};
+var VIEWS = ["overview","register","signin","week","raceplan","coach","connect","profile","membership","sponsor","admin","privacy","terms"];
+var NEEDS_IN = {week:1, raceplan:1, coach:1, connect:1, profile:1, admin:1};
 
 function setTabs(){
   var signed = !!STATE.user || !sb; // the preview shows every athlete page
@@ -353,6 +361,7 @@ window.addEventListener("hashchange", function(){ var h = (location.hash || "").
 function render(v){
   banner("");
   if(v === "week") renderWeek();
+  if(v === "raceplan") renderRacePlan();
   if(v === "coach") renderCoach();
   if(v === "connect") renderConnect();
   if(v === "profile") renderProfile();
@@ -487,6 +496,7 @@ function drawWeek(sessions, meta){
     list.forEach(function(s){
       box.appendChild(el("b",{text: s.sport === "rest" ? t("rest") : (LANG === "ar" ? s.title_ar : s.title_en)}));
       if(s.sport !== "rest") box.appendChild(el("p",{text:sessionBlurb(s)}));
+      var pur = LANG === "ar" ? s.purpose_ar : s.purpose_en; if(pur && s.sport !== "rest") box.appendChild(el("p",{cls:"note", text:pur}));
       if(s.intensity && s.intensity !== "rest") box.appendChild(el("span",{cls:"badge z" + (s.downgraded_reason ? " wait" : ""), text: s.downgraded_reason ? t("made_easier") : t(s.intensity)}));
       if(s.id) box.appendChild(el("div",{"data-sid":String(s.id)}));
     });
@@ -495,7 +505,8 @@ function drawWeek(sessions, meta){
       var s0 = list[0];
       tc.appendChild(el("p",{cls:"eyebrow", text:t("todayL")}));
       tc.appendChild(el("h3",{text:(LANG === "ar" ? s0.title_ar : s0.title_en) + sep() + hm(s0.minutes)}));
-      var ol = el("ol"); (s0.steps || []).forEach(function(st){ ol.appendChild(el("li",{text:stepText(st)})); }); tc.appendChild(ol);
+      var pur0 = LANG === "ar" ? s0.purpose_ar : s0.purpose_en; if(pur0) tc.appendChild(el("p",{text:pur0}));
+      var ol = el("ol"); (s0.steps || []).forEach(function(st){ ol.appendChild(el("li",{text:stepText(st) + zoneHint(s0.sport, st.zone)})); }); tc.appendChild(ol);
       tc.appendChild(el("p",{cls:"sent", text: s0.sent_at ? t("sentGarmin") : t("notSent")}));
       tc.hidden = false;
     }
@@ -561,12 +572,16 @@ async function renderWeek(){
     weeks.push({week_start:hist[i].week_start, minutes:s2.reduce(function(a,b){ return a + b.minutes; },0), recovery:hist[i].is_recovery});
   }
   drawChart(weeks);
-  var wk = (await sb.from("workouts").select("started_at,sport,duration_s,distance_m,device_name").eq("user_id", STATE.user.id).order("started_at",{ascending:false}).limit(8)).data || [];
+  drawPrediction(); drawRacePlanCard();
+  var wk = (await sb.from("workouts").select("id,started_at,sport,duration_s,distance_m,device_name").eq("user_id", STATE.user.id).order("started_at",{ascending:false}).limit(8)).data || [];
+  var notes = wk.length ? ((await sb.from("workout_notes").select("workout_id,text_en,text_ar").in("workout_id", wk.map(function(x){ return x.id; }))).data || []) : [];
   var rl = $("recentList"); rl.innerHTML = ""; $("recent").hidden = !wk.length;
   wk.forEach(function(w){
     var left = w.started_at.slice(0,10) + ", " + w.sport + ", " + hm(w.duration_s/60) + (w.distance_m ? ", " + (w.distance_m/1000).toFixed(1) + " km" : "");
     var right = w.device_name && /garmin/i.test(w.device_name) ? t("garminAttr") + " " + w.device_name.replace(/^garmin\s*/i, "") : (w.device_name || "");
     rl.appendChild(el("li",{},[el("span",{text:left, dir:"ltr"}), el("span",{cls:"attrib", text:right})]));
+    var nt = notes.filter(function(n){ return n.workout_id === w.id; })[0];
+    if(nt) rl.appendChild(el("li",{cls:"wnote"},[el("span",{text: LANG === "ar" ? nt.text_ar : nt.text_en})]));
   });
 }
 /* ---------- calendar subscription ---------- */
@@ -811,12 +826,13 @@ async function renderProfile(){
     $("p-long").value = p.long_day || "Fri"; $("p-time").value = p.train_time || "early";
     $("p-hr").checked = p.has_hr !== false; $("p-power").checked = !!p.has_power; $("p-trainer").checked = !!p.has_trainer; $("p-inj").value = p.injuries || ""; $("p-nudge").checked = p.nudges_enabled !== false;
     $("p-heat").checked = !!(p.heat_new_until && p.heat_new_until >= todayStr());
+    $("p-strength").value = p.strength_pref || "none"; $("p-summer").value = p.summer_mode || "auto"; $("p-racecond").value = p.race_conditions || "";
     $("p-ram").value = p.ramadan_mode || ""; setChecks("p-ram-days", p.ramadan_days || []);
     $("p-ram-start").value = p.ramadan_start || "";
     if(!p.ramadan_start && sb) sb.from("ramadan_dates").select("starts").in("country", [p.country, "Other"]).gte("ends", todayStr()).order("starts").limit(1).then(function(r){ if(r.data && r.data[0] && !$("p-ram-start").value) $("p-ram-start").value = r.data[0].starts; });
     ramToggle();
   }
-  drawDiary();
+  drawDiary(); drawFitness(); drawSweat();
   var list = $("consList"); list.innerHTML = "";
   if(!sb) return;
   var cs = (await sb.from("consents").select("*").eq("user_id", STATE.user.id).order("given_at")).data || [];
@@ -844,6 +860,7 @@ $("profForm").addEventListener("submit", async function(e){
     train_time:$("p-time").value, has_hr:$("p-hr").checked, has_power:$("p-power").checked, has_trainer:$("p-trainer").checked,
     injuries:$("p-inj").value.trim() || null, nudges_enabled:$("p-nudge").checked, lang:LANG,
     ramadan_mode:$("p-ram").value || null, ramadan_start:$("p-ram").value && $("p-ram").value !== "not_fasting" ? ($("p-ram-start").value || null) : null, ramadan_days:$("p-ram").value === "partly" ? getChecks("p-ram-days") : [],
+    strength_pref:$("p-strength").value || "none", summer_mode:$("p-summer").value || "auto", race_conditions:$("p-racecond").value || null,
     heat_new_until:$("p-heat").checked ? ((STATE.profile && STATE.profile.heat_new_until && STATE.profile.heat_new_until >= todayStr()) ? STATE.profile.heat_new_until : addDays(todayStr(), 14)) : null };
   if(!sb){ ok("profOk"); $("profOk").textContent = t("ePreview"); return; }
   if(row.ramadan_mode === "fasting" || row.ramadan_mode === "partly"){
@@ -1002,3 +1019,133 @@ loadUser().then(function(){
   go(h || "overview", /access_token|error=/.test(location.hash) ? true : false);
 });
 })();
+
+/* ---------- zones, estimates, race plans, fitness results and sweat rate (added 11 November 2026) ---------- */
+function L(en, ar){ return LANG === "ar" ? ar : en; }
+function mmss(sec){ sec = Math.round(sec); var h = Math.floor(sec / 3600), m = Math.floor(sec % 3600 / 60), x = sec % 60; return (h ? h + ":" + String(m).padStart(2, "0") : String(m)) + ":" + String(x).padStart(2, "0"); }
+function rangeTxt(r, fmt){ if(!r) return ""; var a = r[0], b = r[1]; fmt = fmt || String; if(a == null) return L("under ", "أقل من ") + fmt(b); if(b == null) return fmt(a) + "+"; return fmt(a) + L(" to ", " إلى ") + fmt(b); }
+function paceTxt(r){ if(!r) return ""; var f = r[0], w = r[1]; if(w == null) return L("slower than ", "أبطأ من ") + mmss(f); if(f == null) return L("faster than ", "أسرع من ") + mmss(w); return mmss(f) + L(" to ", " إلى ") + mmss(w); }
+function zoneHint(sport, zone){
+  var z = (STATE.profile || {}).zones; if(!z || !zone) return "";
+  var i = zone - 1, out = [];
+  if(sport === "run" && z.run){ if(z.run.hr) out.push(rangeTxt(z.run.hr[i]) + L(" bpm", " نبضة")); if(z.run.pace) out.push(paceTxt(z.run.pace[i]) + L(" per km", " لكل كم")); }
+  if(sport === "bike" && z.bike){ if(z.bike.power) out.push(rangeTxt(z.bike.power[i]) + " W"); else if(z.bike.hr) out.push(rangeTxt(z.bike.hr[i]) + L(" bpm", " نبضة")); }
+  if(sport === "swim" && z.swim && z.swim.pace) out.push(paceTxt(z.swim.pace[i]) + L(" per 100 m", " لكل 100 م"));
+  return out.length ? " (" + out.join(sep()) + ")" : "";
+}
+async function drawPrediction(){
+  var c = $("predCard"); c.hidden = true; c.innerHTML = "";
+  if(!sb || !STATE.user) return;
+  var pr = (await sb.from("predictions").select("*").eq("user_id", STATE.user.id).maybeSingle()).data;
+  if(!pr) return;
+  c.appendChild(el("p",{cls:"micro", text:L("Race time estimate", "الزمن المتوقع للسباق")}));
+  if(pr.mid_s){
+    c.appendChild(el("h3",{dir:"ltr", text:mmss(pr.low_s) + " to " + mmss(pr.high_s)}));
+    c.appendChild(el("p",{text:L("An estimate from your recent results and training, not a target. It assumes a cool, flat course.", "تقدير مبني على نتائجك وتدريبك الأخير، وليس هدفا، ويفترض مسارا مستويا وجوا معتدلا.")}));
+    if(pr.heat_low_s) c.appendChild(el("p",{text:L("With the race-day forecast (WBGT about " + pr.heat_wbgt + " degrees): " + mmss(pr.heat_low_s) + " to " + mmss(pr.heat_high_s) + ".", "مع توقعات طقس يوم السباق (مؤشر الحرارة الرطبة حوالي " + pr.heat_wbgt + " درجة): من " + mmss(pr.heat_low_s) + " إلى " + mmss(pr.heat_high_s) + ".")}));
+    var h = (pr.history || []).slice(-8);
+    if(h.length > 1) c.appendChild(el("p",{cls:"note", dir:"ltr", text:h.map(function(x){ return x.day.slice(5) + " " + mmss(x.mid_s); }).join("   ")}));
+  } else {
+    var why = {triathlon:L("There is no finish time estimate for triathlon, because no tested method predicts it well. Your race plan gives targets for each discipline instead.", "لا نقدم زمنا متوقعا للترايثلون لعدم وجود طريقة مجربة تتنبأ به بدقة، وتعطيك خطة السباق أهدافا لكل رياضة بدلا من ذلك."), result:L("Add a race from the last eight weeks or a 30 minute running test in your profile to see an estimate.", "أضف سباقا من الأسابيع الثمانية الأخيرة أو اختبار جري لمدة 30 دقيقة في ملفك لترى التقدير."), four_weeks:L("A marathon estimate needs four weeks of training data. It will appear once that is in.", "يحتاج تقدير الماراثون إلى أربعة أسابيع من بيانات التدريب، وسيظهر عند توفرها.")}[pr.missing];
+    if(!why) return;
+    c.appendChild(el("p",{text:why}));
+  }
+  c.hidden = false;
+}
+async function latestRacePlan(){
+  if(!sb || !STATE.user) return null;
+  var r = (await sb.from("race_plans").select("*").eq("user_id", STATE.user.id).gte("race_date", todayStr()).order("created_at",{ascending:false}).limit(1)).data;
+  return r && r[0] ? r[0] : null;
+}
+async function drawRacePlanCard(){
+  var c = $("rpCard"); c.hidden = true; c.innerHTML = "";
+  var rp = await latestRacePlan(); if(!rp) return;
+  c.appendChild(el("p",{cls:"micro", text:L("Your race plan is ready", "خطة سباقك جاهزة")}));
+  var a = el("a",{href:"#raceplan", "data-go":"raceplan", cls:"btn small", text:L("Open the race plan", "افتح خطة السباق")});
+  c.appendChild(el("div",{cls:"ck-cta"},[a])); c.hidden = false;
+}
+async function renderRacePlan(){
+  var b = $("rpBody"); b.innerHTML = "";
+  var rp = await latestRacePlan();
+  if(!rp){ $("rpH").textContent = L("No race plan yet", "لا توجد خطة سباق بعد"); b.appendChild(el("p",{cls:"lead", text:L("Your race plan appears here two weeks before your race, and is updated three days before with the latest forecast.", "تظهر خطة سباقك هنا قبل السباق بأسبوعين، وتُحدث قبله بثلاثة أيام بآخر توقعات الطقس.")})); return; }
+  $("rpH").textContent = L("Race day, ", "يوم السباق، ") + fmtDate(rp.race_date);
+  var lines = (LANG === "ar" ? rp.content.ar : rp.content.en) || [];
+  var card = el("div",{cls:"card"}); lines.forEach(function(l){ card.appendChild(el("p",{text:l})); }); b.appendChild(card);
+}
+var FIT_FIELDS = {
+  run_test:[["hr_last20", "Average heart rate, last 20 minutes", "متوسط النبض في آخر 20 دقيقة", 80, 220], ["distance_m", "Distance covered in 30 minutes (meters)", "المسافة المقطوعة في 30 دقيقة (متر)", 2000, 12000]],
+  race:[["distance_km", "Race distance (km)", "مسافة السباق (كم)", 3, 42.2], ["time_hms", "Finish time (h:mm:ss)", "زمن الوصول (س:دد:ثث)", null, null]],
+  bike_power_test:[["avg_power_20", "Average power over 20 minutes (watts)", "متوسط القدرة خلال 20 دقيقة (واط)", 50, 600]],
+  bike_hr_test:[["hr_last20", "Average heart rate, last 20 minutes", "متوسط النبض في آخر 20 دقيقة", 80, 220]],
+  swim_css:[["t400", "400 m time (m:ss)", "زمن 400 م (د:ثث)", null, null], ["t200", "200 m time (m:ss)", "زمن 200 م (د:ثث)", null, null]]
+};
+function toSec(v){ var p = String(v || "").trim().split(":").map(Number); if(p.some(isNaN) || !p.length) return null; return p.reduce(function(a, x){ return a * 60 + x; }, 0); }
+function fitFields(){
+  var k = $("f-kind").value, box = $("f-fields"); box.innerHTML = "";
+  (FIT_FIELDS[k] || []).forEach(function(f){
+    var inp = el("input",{cls:"in", id:"ff-" + f[0], dir:"ltr", inputmode: f[3] == null ? "text" : "decimal"});
+    box.appendChild(el("div",{cls:"field"},[el("label",{for:"ff-" + f[0], text:L(f[1], f[2])}), inp]));
+  });
+}
+$("f-kind").addEventListener("change", fitFields);
+async function drawFitness(){
+  if(!$("f-day").value) $("f-day").value = todayStr();
+  fitFields();
+  var zv = $("zonesView"), z = (STATE.profile || {}).zones; zv.innerHTML = "";
+  if(z){
+    var ul = el("ul",{cls:"files"});
+    if(z.run){ ul.appendChild(el("li",{},[el("span",{text:L("Running threshold", "عتبة الجري") + ": " + (z.run.lthr ? z.run.lthr + L(" bpm", " نبضة") + sep() : "") + mmss(z.run.threshold_pace_s_km) + L(" per km", " لكل كم")}), el("span",{cls:"attrib", text:z.run.day})])); }
+    if(z.bike){ ul.appendChild(el("li",{},[el("span",{text:L("Cycling threshold", "عتبة الدراجة") + ": " + (z.bike.ftp ? z.bike.ftp + " W" : "") + (z.bike.ftp && z.bike.lthr ? sep() : "") + (z.bike.lthr ? z.bike.lthr + L(" bpm", " نبضة") : "")}), el("span",{cls:"attrib", text:z.bike.day || z.bike.day_hr || ""})])); }
+    if(z.swim){ ul.appendChild(el("li",{},[el("span",{text:L("Swim threshold (CSS)", "عتبة السباحة") + ": " + mmss(z.swim.css_s_100m) + L(" per 100 m", " لكل 100 م")}), el("span",{cls:"attrib", text:z.swim.day})])); }
+    zv.appendChild(ul);
+    zv.appendChild(el("p",{cls:"note", text:L("Zones 1 and 2 are easy, zone 3 is tempo to threshold, zones 4 and 5 are hard intervals. The ranges show next to each step of your sessions.", "المنطقتان 1 و2 سهلتان، والمنطقة 3 من الإيقاع المتوسط حتى العتبة، والمنطقتان 4 و5 فترات صعبة. تظهر النطاقات بجانب كل خطوة في حصصك.")}));
+  }
+  var list = $("fitList"); list.innerHTML = "";
+  if(!sb || !STATE.user) return;
+  var rs = (await sb.from("fitness_results").select("id,day,kind,data").eq("user_id", STATE.user.id).order("day",{ascending:false}).limit(10)).data || [];
+  var names = {}; t("opts").fitkind.forEach(function(o){ names[o[0]] = o[1]; });
+  rs.forEach(function(r){
+    var del = el("button",{cls:"btn ghost small", type:"button", text:L("Delete", "حذف")});
+    del.addEventListener("click", async function(){ if(!confirm(L("Delete this result?", "هل تريد حذف هذه النتيجة؟"))) return; await sb.from("fitness_results").delete().eq("id", r.id); drawFitness(); });
+    list.appendChild(el("li",{},[el("span",{text:r.day + sep() + (names[r.kind] || r.kind)}), del]));
+  });
+}
+$("fitForm").addEventListener("submit", async function(e){
+  e.preventDefault(); err("fitErr");
+  var k = $("f-kind").value, day = $("f-day").value, data = {};
+  if(!day || day > todayStr() || day < addDays(todayStr(), -42)) return err("fitErr", L("Use a date within the last six weeks.", "استخدم تاريخا ضمن الأسابيع الستة الأخيرة."));
+  var bad = false;
+  (FIT_FIELDS[k] || []).forEach(function(f){
+    var v = $("ff-" + f[0]).value.trim();
+    if(f[3] == null){ var sec = toSec(v); if(!sec) bad = true; data[f[0]] = sec; }
+    else { var n = Number(v); if(!v || isNaN(n) || n < f[3] || n > f[4]) bad = true; data[f[0]] = n; }
+  });
+  if(bad) return err("fitErr", L("Check the numbers; one of them is missing or out of range.", "راجع الأرقام، فأحدها ناقص أو خارج النطاق."));
+  if(k === "race"){ data = { distance_m: Math.round(data.distance_km * 1000), time_s: data.time_hms }; }
+  if(k === "swim_css"){ data = { t400_s: data.t400, t200_s: data.t200 }; if(data.t400_s <= data.t200_s) return err("fitErr", L("The 400 m time must be longer than the 200 m time.", "يجب أن يكون زمن 400 م أطول من زمن 200 م.")); }
+  if(!sb){ banner(t("ePreview")); return; }
+  var r = await sb.from("fitness_results").insert({ user_id:STATE.user.id, day:day, kind:k, data:data });
+  if(r.error) return err("fitErr", t("eNet"));
+  banner(L("Saved. Your zones update within the hour.", "تم الحفظ. تتحدث مناطقك خلال ساعة."));
+  drawFitness();
+});
+function sweatCalc(){
+  var b = Number($("sw-before").value), a = Number($("sw-after").value), d = Number($("sw-drink").value || 0), u = Number($("sw-urine").value || 0), m = Number($("sw-min").value);
+  if(!b || !a || !m || b < 30 || a < 30 || m < 30) return null;
+  var lph = ((b - a) + d / 1000 - u / 1000) / (m / 60);
+  return lph > 0 && lph < 5 ? Math.round(lph * 100) / 100 : null;
+}
+["sw-before","sw-after","sw-drink","sw-urine","sw-min"].forEach(function(id){ $(id).addEventListener("input", function(){ var v = sweatCalc(); $("sweatNow").textContent = v ? L("Sweat rate: " + v + " liters an hour.", "معدل التعرق: " + v + " لتر في الساعة.") : ""; }); });
+function drawSweat(){
+  var p = STATE.profile || {};
+  $("sweatNow").textContent = p.sweat_rate_lph ? L("Saved: " + p.sweat_rate_lph + " liters an hour, measured " + (p.sweat_day || "") + ".", "المحفوظ: " + p.sweat_rate_lph + " لتر في الساعة، بتاريخ " + (p.sweat_day || "") + ".") : "";
+}
+$("sweatForm").addEventListener("submit", async function(e){
+  e.preventDefault(); err("sweatErr");
+  var v = sweatCalc();
+  if(!v) return err("sweatErr", L("Check the numbers; the result does not look possible.", "راجع الأرقام، فالنتيجة لا تبدو ممكنة."));
+  if(!sb){ banner(t("ePreview")); return; }
+  var r = await sb.from("profiles").update({ sweat_rate_lph:v, sweat_mass_kg:Number($("sw-before").value), sweat_day:todayStr() }).eq("user_id", STATE.user.id);
+  if(r.error) return err("sweatErr", t("eNet"));
+  await loadUser(); drawSweat(); banner(L("Sweat rate saved.", "تم حفظ معدل التعرق."));
+});
