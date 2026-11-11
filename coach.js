@@ -1018,7 +1018,6 @@ loadUser().then(function(){
   var h = (location.hash || "#overview").slice(1).split(/[#&]/)[0];
   go(h || "overview", /access_token|error=/.test(location.hash) ? true : false);
 });
-})();
 
 /* ---------- zones, estimates, race plans, fitness results and sweat rate (added 11 November 2026) ---------- */
 function L(en, ar){ return LANG === "ar" ? ar : en; }
@@ -1149,3 +1148,4 @@ $("sweatForm").addEventListener("submit", async function(e){
   if(r.error) return err("sweatErr", t("eNet"));
   await loadUser(); drawSweat(); banner(L("Sweat rate saved.", "تم حفظ معدل التعرق."));
 });
+})();
