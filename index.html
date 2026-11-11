@@ -100,6 +100,16 @@ html[lang="ar"] .plock small{font-family:'Noto Kufi Arabic',sans-serif;letter-sp
 .bub.me{align-self:flex-end;background:var(--surface);color:var(--ink);font-weight:600;border-end-end-radius:6px;}
 .bub.ai{align-self:flex-start;background:var(--accent);color:#fff;border-end-start-radius:6px;}
 .bub small{display:block;font-size:12px;font-weight:600;opacity:.75;margin-bottom:2px;}
+.hero-list{list-style:none;padding:0;margin:20px 0 4px;display:grid;gap:10px;}
+@media (min-width:768px){.hero-list{grid-template-columns:1fr 1fr;column-gap:24px;}}
+.hero-list li{position:relative;padding-inline-start:28px;font-size:15px;line-height:1.45;font-weight:500;color:var(--ink);}
+.hero-list li::before{content:"";position:absolute;inset-inline-start:0;top:2px;width:18px;height:18px;border-radius:50%;background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/11px no-repeat;}
+.bub.after{background:var(--surface);color:var(--ink);font-weight:500;}
+.bub.after small{color:var(--accent);opacity:1;}
+.inc{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:10px;}
+.inc li{position:relative;padding-inline-start:28px;font-size:15px;line-height:1.45;color:#fff;}
+.inc li::before{content:"";position:absolute;inset-inline-start:0;top:2px;width:18px;height:18px;border-radius:50%;background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/11px no-repeat;}
+.inc-h{font-weight:700;color:#fff;margin-top:22px;font-size:17px;}
 .sess{position:relative;z-index:1;background:var(--ink);color:#fff;border-radius:22px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 20px 40px rgba(23,20,15,.22);}
 .sess .micro{color:#B9B1A7;}
 .sess b{display:block;font-family:var(--fd);font-size:22px;line-height:1.2;font-weight:700;margin-top:4px;}
@@ -412,14 +422,28 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
       <div data-lang="en">
         <p class="chip">Your personal running and triathlon coach</p>
         <h1>The AI coach that <span class="acc">really knows you.</span></h1>
-        <p class="lede">One plan built around your race and your schedule, rewritten every week.</p>
-        <p class="sub">Tell it your goal and the days you can train. It learns from every workout and every check-in, then adjusts your training so you reach the start line healthy and ready.</p>
+        <p class="lede">A training plan for your race that adjusts every day to your sleep, your workouts, the heat and your calendar, and goes straight to your watch.</p>
+        <ul class="hero-list">
+          <li>A weekly plan written for your race and your training days</li>
+          <li>Every session on your watch, with targets from your own zones</li>
+          <li>A daily check-in that eases the day when your body needs it</li>
+          <li>Heat, dust and summer indoor planning for your city</li>
+          <li>A race-day plan for pacing, fuel and fluids</li>
+          <li>A coach you can message at any time</li>
+        </ul>
       </div>
       <div data-lang="ar" dir="rtl" lang="ar">
         <p class="chip">مدربك الشخصي للجري والترايثلون</p>
         <h1>المدرب الذكي الذي <span class="acc">يعرفك حقا.</span></h1>
-        <p class="lede">خطة واحدة مبنية حول سباقك وجدولك، تُكتب من جديد كل أسبوع.</p>
-        <p class="sub">أخبره بهدفك والأيام التي تستطيع التدرب فيها. يتعلم من كل تمرين وكل تسجيل يومي، ثم يعدّل تدريبك لتصل إلى خط البداية بصحة جيدة وجاهزية كاملة.</p>
+        <p class="lede">خطة تدريب لسباقك تتكيف كل يوم مع نومك وتمارينك والحرارة وجدولك، وتصل مباشرة إلى ساعتك.</p>
+        <ul class="hero-list">
+          <li>خطة أسبوعية مكتوبة لسباقك وأيام تدريبك</li>
+          <li>كل حصة على ساعتك بأهداف من مناطق جهدك أنت</li>
+          <li>تسجيل يومي يخفف اليوم عندما يحتاج جسمك إلى ذلك</li>
+          <li>تخطيط للحرارة والغبار والتدريب الداخلي صيفا في مدينتك</li>
+          <li>خطة ليوم السباق للإيقاع والوقود والسوائل</li>
+          <li>مدرب تراسله في أي وقت</li>
+        </ul>
       </div>
       <div class="ck-cta" id="heroCta"><a class="btn" href="#register" data-go="register"><span data-lang="en">Start free</span><span data-lang="ar">ابدأ مجانا</span></a><a class="btn ghost" href="#signin" data-go="signin" data-t="signin"></a></div>
       <div class="ck-cta" style="margin-top:12px"><a class="btn dark" href="#sponsor" data-go="sponsor"><span data-lang="en">Apply for sponsored training</span><span data-lang="ar">قدّم على التدريب المموَّل</span></a></div>
@@ -427,14 +451,16 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
     </div>
     <div class="hero-vis" aria-hidden="true">
       <div data-lang="en" style="display:contents">
-        <p class="bub me"><small>Daily check-in</small>Third short night this week.</p>
-        <p class="bub ai">Three short nights in a row, so today's intervals become an easy 40 minute run.</p>
-        <div class="sess"><div><p class="micro">Today, sent to Garmin</p><b>Easy run, 40 min</b><p>Zone 2, start before 6:30 am</p></div><span class="tick"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+        <p class="bub me"><small>Daily check-in, 5:40 am</small>Slept badly again and my legs feel heavy.</p>
+        <p class="bub ai">Three short nights in a row, so today's intervals become an easy 40 minute run, and the threshold work moves to Thursday.</p>
+        <div class="sess"><div><p class="micro">Today, on your Garmin</p><b>Easy run, 40 min</b><p>Heart rate up to 139, start before 6:30 am</p></div><span class="tick"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+        <p class="bub ai after"><small>After your run</small>Easy all the way, average heart rate 131. Thursday stays as planned.</p>
       </div>
       <div data-lang="ar" dir="rtl" lang="ar" style="display:contents">
-        <p class="bub me"><small>التسجيل اليومي</small>الليلة الثالثة بنوم قليل هذا الأسبوع.</p>
-        <p class="bub ai">ثلاث ليال متتالية بنوم قليل، لذلك تتحول حصة التدريب المتقطع اليوم إلى جري سهل لمدة 40 دقيقة.</p>
-        <div class="sess"><div><p class="micro">اليوم، أُرسلت إلى Garmin</p><b>جري سهل، 40 دقيقة</b><p>المنطقة 2، ابدأ قبل 6:30 صباحا</p></div><span class="tick"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+        <p class="bub me"><small>التسجيل اليومي، 5:40 صباحا</small>نمت بشكل سيئ مرة أخرى وساقاي ثقيلتان.</p>
+        <p class="bub ai">ثلاث ليال متتالية بنوم قليل، لذلك تتحول حصة التدريب المتقطع اليوم إلى جري سهل لمدة 40 دقيقة، وينتقل تدريب العتبة إلى الخميس.</p>
+        <div class="sess"><div><p class="micro">اليوم، على ساعة Garmin</p><b>جري سهل، 40 دقيقة</b><p>النبض حتى 139، ابدأ قبل 6:30 صباحا</p></div><span class="tick"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+        <p class="bub ai after"><small>بعد الجري</small>سهل من البداية إلى النهاية، بمتوسط نبض 131. يبقى الخميس كما هو مخطط.</p>
       </div>
     </div>
   </div></header>
@@ -910,7 +936,7 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
   <h2 data-t="memH"></h2>
   <p class="lead" id="memStatus" data-t="memLead"></p>
   <div class="memgrid">
-    <div class="card dark"><p class="chip"><span data-lang="en">First month free, first 30 athletes</span><span data-lang="ar">الشهر الأول مجانا لأول 30 رياضيا</span></p><p class="price">$20</p><p class="micro"><span data-lang="en">US dollars a month</span><span data-lang="ar">دولار أمريكي شهريا</span></p><p data-t="memIncl"></p><div class="ck-cta" id="memCta"><a class="btn" href="#register" data-go="register"><span data-lang="en">Start free</span><span data-lang="ar">ابدأ مجانا</span></a></div></div>
+    <div class="card dark"><p class="chip"><span data-lang="en">First month free, first 30 athletes</span><span data-lang="ar">الشهر الأول مجانا لأول 30 رياضيا</span></p><p class="price">$20</p><p class="micro"><span data-lang="en">US dollars a month</span><span data-lang="ar">دولار أمريكي شهريا</span></p><p class="inc-h"><span data-lang="en">What your membership includes</span><span data-lang="ar">ما يشمله اشتراكك</span></p><ul class="inc"><li><span data-lang="en">A training plan written for your race, your level and the days you can train, rewritten every week</span><span data-lang="ar">خطة تدريب مكتوبة لسباقك ومستواك والأيام التي تستطيع التدرب فيها، تُكتب من جديد كل أسبوع</span></li><li><span data-lang="en">Every session sent to your Garmin or other watch through Intervals.icu, with heart rate, pace or power targets from your own zones</span><span data-lang="ar">كل حصة تُرسل إلى ساعة Garmin أو غيرها عبر Intervals.icu، بأهداف للنبض أو السرعة أو القدرة من مناطق جهدك أنت</span></li><li><span data-lang="en">Short fitness tests every eight weeks that set and update your training zones</span><span data-lang="ar">اختبارات لياقة قصيرة كل ثمانية أسابيع تحدد مناطق تدريبك وتحدّثها</span></li><li><span data-lang="en">A daily check-in on sleep, resting heart rate and how you feel, which turns a hard day into an easy one when your body needs it</span><span data-lang="ar">تسجيل يومي للنوم ونبض الراحة وشعورك، يحوّل اليوم الصعب إلى يوم سهل عندما يحتاج جسمك إلى ذلك</span></li><li><span data-lang="en">A coach you can message at any time to move, shorten or swap sessions around work and travel</span><span data-lang="ar">مدرب تراسله في أي وقت لنقل الحصص أو تقصيرها أو تبديلها بحسب العمل والسفر</span></li><li><span data-lang="en">Sessions placed around the busy hours in your calendar, if you connect it</span><span data-lang="ar">حصص توضع خارج أوقات انشغالك في تقويمك، إن ربطته</span></li><li><span data-lang="en">A heat and dust check every evening for your city, with sessions moved to cooler hours or indoors when needed</span><span data-lang="ar">فحص للحرارة والغبار كل مساء لمدينتك، مع نقل الحصص إلى أوقات أبرد أو إلى الداخل عند الحاجة</span></li><li><span data-lang="en">A summer indoor mode, and open water swims adjusted to the sea temperature and the wetsuit rules</span><span data-lang="ar">وضع للتدريب الداخلي صيفا، وحصص سباحة في المياه المفتوحة تراعي حرارة البحر وقواعد بدلة السباحة</span></li><li><span data-lang="en">A race time estimate that updates as your fitness changes</span><span data-lang="ar">تقدير لزمن السباق يتحدث مع تغير لياقتك</span></li><li><span data-lang="en">A race-day plan for pacing, fuel and fluids two weeks before your race, updated three days before with the forecast</span><span data-lang="ar">خطة ليوم السباق للإيقاع والوقود والسوائل قبل السباق بأسبوعين، تُحدّث قبله بثلاثة أيام بحسب توقعات الطقس</span></li><li><span data-lang="en">An optional sweat rate test that sets your own fluid targets</span><span data-lang="ar">اختبار اختياري لمعدل التعرق يحدد أهدافك الخاصة للسوائل</span></li><li><span data-lang="en">Strength and mobility sessions for the gym or at home, if you want them</span><span data-lang="ar">حصص للقوة والمرونة في النادي أو في المنزل، إن أردتها</span></li><li><span data-lang="en">A short note after every workout on how it went against the plan</span><span data-lang="ar">ملاحظة قصيرة بعد كل تمرين عن أدائك مقارنة بالخطة</span></li><li><span data-lang="en">Training planned around the fast in Ramadan, if you choose it</span><span data-lang="ar">تدريب مخطط حول الصيام في رمضان، إن اخترت ذلك</span></li><li><span data-lang="en">A daily email with the day's session, and a calendar feed for your phone</span><span data-lang="ar">بريد يومي بحصة اليوم، ورابط تقويم لهاتفك</span></li><li><span data-lang="en">Your plan paused and reviewed by our head coach whenever you report pain, illness or warning symptoms</span><span data-lang="ar">إيقاف خطتك ومراجعتها من مدربنا الرئيسي متى أبلغت عن ألم أو مرض أو أعراض مقلقة</span></li></ul><div class="ck-cta" id="memCta"><a class="btn" href="#register" data-go="register"><span data-lang="en">Start free</span><span data-lang="ar">ابدأ مجانا</span></a></div></div>
     <div class="card"><p class="micro">BenefitPay</p><h3 data-t="bpH"></h3><p data-t="bpP"></p><dl class="pay" id="bpDetails"></dl></div>
     <div class="card"><p class="micro" data-t="bankMicro"></p><h3 data-t="bankH"></h3><p data-t="bankP"></p><dl class="pay" id="bankDetails"></dl></div>
     <div class="card"><p class="micro" data-t="reportMicro"></p><h3 data-t="reportH"></h3>
@@ -1153,6 +1179,6 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
-<script src="coach.js?v=20261111c"></script>
+<script src="coach.js?v=20261111d"></script>
 </body>
 </html>
