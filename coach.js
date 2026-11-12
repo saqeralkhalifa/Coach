@@ -344,7 +344,8 @@ function go(v, push){
   if(NEEDS_IN[hash] && !STATE.user && LIVE) hash = "signin";
   STATE.view = hash;
   VIEWS.forEach(function(x){ $("v-" + x).classList.toggle("on", x === hash); });
-  document.querySelectorAll("#tabs a").forEach(function(a){ if(a.dataset.go === hash) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+  document.querySelectorAll("#tabs a").forEach(function(a){ if(a.dataset.go === hash){ a.setAttribute("aria-current","page"); try{ a.scrollIntoView({ inline:"center", block:"nearest" }); }catch(e){} } else a.removeAttribute("aria-current"); });
+  if(window.__tabsMore) window.__tabsMore();
   if(push !== false){ try{ history.replaceState(null, "", "#" + hash); }catch(e){} }
   render(hash);
 }
@@ -427,7 +428,7 @@ $("regForm").addEventListener("submit", async function(e){
     data:{ full_name:n, country:$("r-country").value, birth_year:String(y), lang:LANG, consent_version:CONFIG.consentVersion,
       consents:{ age:true, terms:true, medical:true, health_data:true, transfer:true, ai_processing:true } } } });
   if(r.error) return err("regErr", t("eNet") + " " + r.error.message);
-  $("regForm").reset(); $("regOk").textContent = t("regOk"); ok("regOk");
+  window.__regEmail = m; $("regForm").reset(); $("regOk").textContent = t("regOk"); ok("regOk"); $("regResendBox").hidden = false;
 });
 
 /* sign in, reset */
@@ -435,7 +436,7 @@ $("signForm").addEventListener("submit", async function(e){
   e.preventDefault(); err("signErr"); ok("signOk", false);
   if(!sb) return err("signErr", t("ePreview"));
   var r = await sb.auth.signInWithPassword({ email:$("s-email").value.trim(), password:$("s-pass").value });
-  if(r.error) return err("signErr", t("eSignin"));
+  if(r.error){ if(/not confirmed/i.test(r.error.message || "") || r.error.code === "email_not_confirmed") return err("signErr", L("Your email address has not been confirmed yet. Open the confirmation link we sent you, or use Send it again below.", "لم يُؤكد بريدك الإلكتروني بعد. افتح رابط التأكيد الذي أرسلناه إليك، أو استخدم أعد إرسالها في الأسفل.")); return err("signErr", t("eSignin")); }
   await loadUser(); go(STATE.admin ? "admin" : "week");
 });
 $("forgotBtn").addEventListener("click", async function(){
@@ -1151,4 +1152,53 @@ $("sweatForm").addEventListener("submit", async function(e){
   if(r.error) return err("sweatErr", t("eNet"));
   await loadUser(); drawSweat(); banner(L("Sweat rate saved.", "تم حفظ معدل التعرق."));
 });
+
+/* ---------- standard website fixes, 12 November 2026 ---------- */
+async function resendConfirm(email, outEl, errId){
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email || "")){ if(errId) err(errId, t("eEmail")); else if(outEl){ outEl.textContent = t("eEmail"); outEl.classList.add("on"); } return; }
+  if(!sb){ if(outEl){ outEl.textContent = t("ePreview"); outEl.classList.add("on"); } return; }
+  var r = await sb.auth.resend({ type:"signup", email:email, options:{ emailRedirectTo: location.origin + location.pathname } });
+  var msg = r.error
+    ? (/rate|seconds|too many/i.test(r.error.message || "") ? L("Please wait a minute before asking for another email.", "يرجى الانتظار دقيقة قبل طلب رسالة أخرى.") : L("The email could not be sent. Please try again in a few minutes, or write to contact@arabianmethod.com.", "تعذر إرسال الرسالة. حاول مرة أخرى بعد دقائق، أو راسلنا على contact@arabianmethod.com."))
+    : L("We have sent the confirmation email again to " + email + ". Check your spam or junk folder if it is not in your inbox.", "أعدنا إرسال رسالة التأكيد إلى " + email + ". راجع مجلد البريد غير المرغوب فيه إن لم تجدها في صندوق الوارد.");
+  if(errId && r.error){ err(errId, msg); return; }
+  if(outEl){ outEl.textContent = msg; outEl.classList.add("on"); outEl.hidden = false; }
+}
+$("regResend").addEventListener("click", function(){ resendConfirm(window.__regEmail, $("regResendOk")); });
+$("siResend").addEventListener("click", function(){
+  err("signErr"); var m = $("s-email").value.trim();
+  if(!m){ err("signErr", L("Type the email address you registered with in the Email box, then press Send it again.", "اكتب البريد الإلكتروني الذي سجّلت به في خانة البريد، ثم اضغط أعد إرسالها.")); return; }
+  resendConfirm(m, $("signOk"), "signErr").then(function(){ if($("signOk").textContent) ok("signOk"); });
+});
+
+/* show password buttons */
+(function(){
+  var eye = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+  var eyeOff = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.6 5.1A10.9 10.9 0 0 1 12 5c6.5 0 10 7 10 7a17.6 17.6 0 0 1-3.2 4.2M6.6 6.6C3.8 8.4 2 12 2 12s3.5 7 10 7c1.8 0 3.4-.5 4.8-1.3"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>';
+  document.querySelectorAll('input[type="password"]').forEach(function(inp){
+    var w = document.createElement("span"); w.className = "pw-wrap";
+    inp.parentNode.insertBefore(w, inp); w.appendChild(inp);
+    var b = document.createElement("button"); b.type = "button"; b.className = "pw-eye"; b.innerHTML = eye;
+    var label = function(){ var shown = inp.type === "text"; b.setAttribute("aria-label", shown ? L("Hide password", "إخفاء كلمة المرور") : L("Show password", "إظهار كلمة المرور")); b.setAttribute("aria-pressed", shown ? "true" : "false"); };
+    label();
+    b.addEventListener("click", function(){ inp.type = inp.type === "password" ? "text" : "password"; b.innerHTML = inp.type === "text" ? eyeOff : eye; label(); inp.focus(); });
+    w.appendChild(b);
+    inp.form && inp.form.addEventListener("submit", function(){ inp.type = "password"; b.innerHTML = eye; label(); });
+  });
+})();
+
+/* phone tabs: fade the edge only while there are more tabs to swipe to */
+(function(){
+  var tabs = $("tabs"); if(!tabs) return;
+  var upd = function(){
+    var max = tabs.scrollWidth - tabs.clientWidth;
+    var pos = Math.abs(tabs.scrollLeft);
+    tabs.classList.toggle("more", max > 4 && pos < max - 4);
+  };
+  window.__tabsMore = upd;
+  tabs.addEventListener("scroll", upd, { passive:true });
+  window.addEventListener("resize", upd);
+  setTimeout(upd, 300);
+})();
+
 })();
