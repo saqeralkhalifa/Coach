@@ -1,0 +1,5 @@
+/* Fonts hosted on arabianmethod.com itself (SIL Open Font License), so no visitor data goes to a font service. */
+@font-face{font-family:"Bricolage Grotesque";src:url("BricolageGrotesque.woff2") format("woff2");font-weight:600 800;font-stretch:100%;font-style:normal;font-display:swap;}
+@font-face{font-family:"Geist";src:url("Geist.woff2") format("woff2");font-weight:400 700;font-style:normal;font-display:swap;}
+@font-face{font-family:"Noto Kufi Arabic";src:url("NotoKufiArabic.woff2") format("woff2");font-weight:500 700;font-style:normal;font-display:swap;}
+@font-face{font-family:"Noto Sans Arabic";src:url("NotoSansArabic.woff2") format("woff2");font-weight:400 700;font-style:normal;font-display:swap;}
