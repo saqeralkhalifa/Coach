@@ -8,6 +8,7 @@ var CONFIG = {
   supabaseKey: "sb_publishable_NqCGnIBcjy5WXwI77eKdFg_JvnwPT4o",          // publishable (anon) key from Settings > API
   intervalsClientId: "1650",    // from the Intervals.icu app page
   consentVersion: "2026-11-10",
+  googleSignIn: false, // switched on once the Google provider is saved in Supabase
   benefitPay: { name: "[NAME ON BENEFITPAY]", number: "[BENEFITPAY NUMBER OR IBAN]" },
   bank: { holder: "[ACCOUNT HOLDER]", bank: "[BANK NAME]", iban: "[IBAN]", swift: "[SWIFT CODE]" },
   fee: 20
@@ -55,7 +56,7 @@ en:{
   regBtn:"Create account", regOk:"Check your email and open the confirmation link. Your account opens once your address is confirmed. Then sign in, complete your training profile and pay the first month.",
   eName:"Enter your full name.", eEmail:"Enter a valid email address.", ePass:"The password needs at least 10 characters.", ePass2:"The two passwords do not match.",
   eYear:"Enter your year of birth.", eAge:"Registration is open to adults aged 18 and over.", eConsent:"Every consent box is required to register.",
-  eNet:"Something went wrong. Check your connection and try again.", ePreview:"This is a preview, so nothing was saved.",
+  eNet:"Something went wrong. Check your connection and try again.", eSession:"Your sign-in has expired. Please sign in again, then try once more.", ePreview:"This is a preview, so nothing was saved.",
   signinH:"Sign in to your account", forgot:"Forgot password", resetH:"Choose a new password",
   eSignin:"The email or password is not correct, or the email address has not been confirmed yet.",
   forgotSent:"If an account exists for that address, an email with a link to set a new password has been sent.", resetDone:"Your password has been changed.", eLinkOld:"This reset link has expired or was already used. Go back, choose Forgot password, and open the newest email in this same browser.", eSamePass:"Choose a password that is different from your old one.",
@@ -115,7 +116,7 @@ en:{
   chH:"Talk to your coach", chLead:"Ask about a session, tell your coach about travel or a busy day, or say how training feels. Your coach can move, shorten or change sessions within the safety rules, and changes go to your watch and calendar.",
   chAi:"Your coach is an AI. Dr. Saqer reviews anything flagged and can reply here himself. Report pain or illness here or in the daily check-in, and your plan will pause until a doctor clears you.",
   chLabel:"Your message", chSend:"Send", chEmpty:"Write a message first.", chYou:"You", chCoach:"Coach", chDr:"Dr. Saqer", chThinking:"Your coach is replying.", chHello:"Your conversation with your coach will appear here.",
-  chMic:"Speak", chMicStop:"Stop", chMicHint:"Speak now. Check the words before you send them.", chMicNo:"Voice input is not available in this browser. Try Chrome or Safari, or type your message.", chListen:"Listen", chMicErr:"Voice input stopped. Check that the site may use your microphone, or type your message.",
+  chMic:"Speak", chMicStop:"Stop", chMicHint:"Speak now. Check the words before you send them.", chMicNo:"Voice input is not available in this browser. On an iPhone it works in Safari, and on a computer or Android phone it works in Chrome. You can also type your message.", chListen:"Listen", chMicErr:"Voice input stopped. Check that the site may use your microphone, or type your message.",
   pHeatH:"Heat", pHeat:"I am new to hot weather, or just back from a cooler climate. Your coach takes extra care with heat for the next two weeks.",
   pRamH:"Ramadan", pRamHint:"Optional. If you fast in Ramadan, your coach plans sessions around iftar and suhoor during the month. This choice is used only for your training plan.",
   pRamCons:"I agree that my Ramadan setting, which may indicate my religion, is used only to plan my training. I can withdraw this consent on this page at any time.", eRamCons:"Please tick the consent for the Ramadan setting, or choose \"Not set\".", kReligion:"Ramadan setting",
@@ -173,7 +174,7 @@ ar:{
   regBtn:"إنشاء الحساب", regOk:"افتح بريدك الإلكتروني واضغط رابط التأكيد. يُفعّل حسابك بعد تأكيد عنوانك، ثم سجّل الدخول وأكمل ملف تدريبك وادفع رسوم الشهر الأول.",
   eName:"اكتب اسمك الكامل.", eEmail:"اكتب بريدا إلكترونيا صحيحا.", ePass:"يجب ألا تقل كلمة المرور عن 10 أحرف.", ePass2:"كلمتا المرور غير متطابقتين.",
   eYear:"اكتب سنة ميلادك.", eAge:"التسجيل متاح للبالغين الذين أتموا 18 عاما.", eConsent:"جميع خانات الموافقة مطلوبة للتسجيل.",
-  eNet:"حدث خطأ. تحقق من اتصالك وحاول مرة أخرى.", ePreview:"هذه معاينة، لذلك لم يُحفظ شيء.",
+  eNet:"حدث خطأ. تحقق من اتصالك وحاول مرة أخرى.", eSession:"انتهت صلاحية تسجيل دخولك. يرجى تسجيل الدخول مرة أخرى ثم المحاولة من جديد.", ePreview:"هذه معاينة، لذلك لم يُحفظ شيء.",
   signinH:"سجّل الدخول إلى حسابك", forgot:"نسيت كلمة المرور", resetH:"اختر كلمة مرور جديدة",
   eSignin:"البريد الإلكتروني أو كلمة المرور غير صحيحة، أو لم يُؤكد البريد الإلكتروني بعد.",
   forgotSent:"إذا كان هناك حساب بهذا العنوان، فقد أُرسل إليه بريد يتضمن رابطا لتعيين كلمة مرور جديدة.", resetDone:"تم تغيير كلمة المرور.", eLinkOld:"انتهت صلاحية رابط إعادة التعيين أو استُخدم من قبل. ارجع واختر نسيت كلمة المرور، ثم افتح أحدث رسالة في المتصفح نفسه.", eSamePass:"اختر كلمة مرور مختلفة عن كلمة المرور القديمة.",
@@ -233,7 +234,7 @@ ar:{
   chH:"تحدث مع مدربك", chLead:"اسأل عن حصة، أو أخبر مدربك عن سفر أو يوم مزدحم، أو صف كيف تشعر في تدريبك. يستطيع مدربك نقل الحصص أو تقصيرها أو تغييرها ضمن قواعد السلامة، وتصل التغييرات إلى ساعتك وتقويمك.",
   chAi:"مدربك نظام ذكاء اصطناعي. يراجع د. صقر أي حالة يُبلَّغ عنها ويستطيع الرد هنا بنفسه. أبلغ عن أي ألم أو مرض هنا أو في التسجيل اليومي، وستتوقف خطتك مؤقتا حتى يأذن لك الطبيب.",
   chLabel:"رسالتك", chSend:"إرسال", chEmpty:"اكتب رسالة أولا.", chYou:"أنت", chCoach:"المدرب", chDr:"د. صقر", chThinking:"مدربك يكتب الرد.", chHello:"ستظهر هنا محادثتك مع مدربك.",
-  chMic:"تحدث", chMicStop:"إيقاف", chMicHint:"تحدث الآن، وراجع الكلمات قبل الإرسال.", chMicNo:"الإدخال الصوتي غير متاح في هذا المتصفح. جرّب Chrome أو Safari، أو اكتب رسالتك.", chListen:"استمع", chMicErr:"توقف الإدخال الصوتي. تأكد من السماح للموقع باستخدام الميكروفون، أو اكتب رسالتك.",
+  chMic:"تحدث", chMicStop:"إيقاف", chMicHint:"تحدث الآن، وراجع الكلمات قبل الإرسال.", chMicNo:"الإدخال الصوتي غير متاح في هذا المتصفح. يعمل في Safari على iPhone، وفي Chrome على الحاسوب وهواتف Android، ويمكنك أيضا كتابة رسالتك.", chListen:"استمع", chMicErr:"توقف الإدخال الصوتي. تأكد من السماح للموقع باستخدام الميكروفون، أو اكتب رسالتك.",
   pHeatH:"الحرارة", pHeat:"أنا جديد على الطقس الحار، أو عدت للتو من مناخ أبرد. سيأخذ مدربك الحرارة بحذر إضافي خلال الأسبوعين القادمين.",
   pRamH:"رمضان", pRamHint:"اختياري. إذا كنت تصوم رمضان فسيخطط مدربك حصصك حول الإفطار والسحور خلال الشهر. ويُستخدم هذا الاختيار لخطتك التدريبية فقط.",
   pRamCons:"أوافق على استخدام إعداد رمضان، الذي قد يدل على ديانتي، لتخطيط تدريبي فقط، ويمكنني سحب هذه الموافقة من هذه الصفحة في أي وقت.", eRamCons:"يرجى تأكيد الموافقة على إعداد رمضان، أو اختيار \"غير محدد\".", kReligion:"إعداد رمضان",
@@ -342,6 +343,7 @@ function go(v, push){
   var hash = v.split("?")[0];
   if(VIEWS.indexOf(hash) < 0) hash = "overview";
   if(NEEDS_IN[hash] && !STATE.user && LIVE) hash = "signin";
+  if(LIVE && STATE.profile && STATE.profile.status === "pending_consent" && ["register","privacy","terms"].indexOf(hash) < 0) hash = "register";
   STATE.view = hash;
   VIEWS.forEach(function(x){ $("v-" + x).classList.toggle("on", x === hash); });
   document.querySelectorAll("#tabs a").forEach(function(a){ if(a.dataset.go === hash){ a.setAttribute("aria-current","page"); try{ a.scrollIntoView({ inline:"center", block:"nearest" }); }catch(e){} } else a.removeAttribute("aria-current"); });
@@ -361,6 +363,7 @@ window.addEventListener("hashchange", function(){ var h = (location.hash || "").
 
 function render(v){
   banner("");
+  if(v === "register") setupRegister();
   if(v === "week") renderWeek();
   if(v === "raceplan") renderRacePlan();
   if(v === "coach") renderCoach();
@@ -373,10 +376,16 @@ function render(v){
 /* ---------- auth ---------- */
 async function loadUser(){
   if(!sb){ setTabs(); return; }
-  var s = (await sb.auth.getSession()).data.session;
+  var s = await freshSession();
   STATE.user = s ? s.user : null; STATE.profile = null; STATE.admin = false;
   if(STATE.user){
     var p = await sb.from("profiles").select("*").eq("user_id", STATE.user.id).maybeSingle();
+    if(p.error && /jwt|token|401|PGRST30/i.test((p.error.code || "") + " " + (p.error.message || ""))){
+      // The saved sign-in has gone stale (seen in Chrome on iPhone after the tab sleeps). Refresh it once; if that fails, ask for a fresh sign-in.
+      var rr = await sb.auth.refreshSession();
+      if(rr.error || !rr.data.session){ await sb.auth.signOut().catch(function(){}); STATE.user = null; setTabs(); banner(t("eSession"), true); return; }
+      p = await sb.from("profiles").select("*").eq("user_id", STATE.user.id).maybeSingle();
+    }
     STATE.profile = p.data;
     var a = await sb.from("admins").select("user_id").eq("user_id", STATE.user.id).maybeSingle();
     STATE.admin = !!a.data;
@@ -390,7 +399,11 @@ var RECOVERY = /type=recovery/.test(location.hash);
 function showReset(){ go("signin"); $("signForm").hidden = true; $("resetForm").hidden = false; }
 if(sb) sb.auth.onAuthStateChange(function(ev){
   if(ev === "PASSWORD_RECOVERY"){ RECOVERY = true; showReset(); }
-  if(ev === "SIGNED_IN" || ev === "SIGNED_OUT") loadUser().then(function(){ if(STATE.view) render(STATE.view); });
+  if(ev === "SIGNED_IN" || ev === "SIGNED_OUT") loadUser().then(function(){
+    if(STATE.profile && STATE.profile.status === "pending_consent") return go("register");
+    if(ev === "SIGNED_IN" && (STATE.view === "signin" || STATE.view === "register")) return go(STATE.admin ? "admin" : "week");
+    if(STATE.view) render(STATE.view);
+  });
 });
 
 /* register */
@@ -416,6 +429,15 @@ $("regForm").addEventListener("submit", async function(e){
   var n = $("r-name").value.trim(), m = $("r-email").value.trim(), p = $("r-pass").value, p2 = $("r-pass2").value, y = parseInt($("r-year").value, 10);
   var thisYear = new Date().getFullYear();
   if(n.length < 2) return err("regErr", t("eName"));
+  if(COMPLETING()){
+    if(!y || y < 1920) return err("regErr", t("eYear"));
+    if(thisYear - y < 18 || !$("c-age").checked) return err("regErr", t("eAge"));
+    if(!["c-terms","c-health","c-transfer","c-ai"].every(function(id){ return $(id).checked; })) return err("regErr", t("eConsent"));
+    var cr = await sb.rpc("complete_registration", { p_name:n, p_country:$("r-country").value, p_birth_year:y, p_lang:LANG, p_version:CONFIG.consentVersion,
+      p_consents:{ age:true, terms:true, medical:true, health_data:true, transfer:true, ai_processing:true } });
+    if(cr.error) return err("regErr", /Adults only/.test(cr.error.message) ? t("eAge") : t("eNet") + " " + cr.error.message);
+    await loadUser(); return go("week");
+  }
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m)) return err("regErr", t("eEmail"));
   if(p.length < 10) return err("regErr", t("ePass"));
   if(p !== p2) return err("regErr", t("ePass2"));
@@ -733,8 +755,8 @@ async function sendCoach(text, source){
   var wait = el("p",{cls:"note typing", text:t("chThinking")}); log.appendChild(wait); log.scrollTop = log.scrollHeight;
   $("chatSend").disabled = true;
   try{
-    var s = (await sb.auth.getSession()).data.session;
-    var res = await fetch(CONFIG.supabaseUrl + "/functions/v1/coach-chat", { method:"POST", headers:{ "Content-Type":"application/json", "Authorization":"Bearer " + s.access_token, "apikey":CONFIG.supabaseKey }, body:JSON.stringify({ text:text, source:source || "chat" }) });
+    var res = await callFn("coach-chat", { text:text, source:source || "chat" });
+    if(!res){ wait.remove(); err("chatErr", t("eSession")); return false; }
     var j = await res.json();
     if(!res.ok || !j.messages) throw new Error(j.error || res.status);
     drawChat(j.messages);
@@ -878,8 +900,8 @@ $("profForm").addEventListener("submit", async function(e){
 });
 $("dlBtn").addEventListener("click", async function(){
   if(!sb){ banner(t("ePreview")); return; }
-  var s = (await sb.auth.getSession()).data.session;
-  var r = await fetch(CONFIG.supabaseUrl + "/functions/v1/account", { method:"POST", headers:{ "Authorization":"Bearer " + s.access_token, "apikey":CONFIG.supabaseKey, "Content-Type":"application/json" }, body:JSON.stringify({ action:"export" }) });
+  var r = await callFn("account", { action:"export" });
+  if(!r){ banner(t("eSession"), true); return; }
   if(!r.ok){ banner(t("eNet"), true); return; }
   var blob = await r.blob(), a = el("a",{ href:URL.createObjectURL(blob), download:"ai-coach-data.json" }); document.body.appendChild(a); a.click(); a.remove();
 });
@@ -1201,4 +1223,49 @@ $("siResend").addEventListener("click", function(){
   setTimeout(upd, 300);
 })();
 
+
+/* ---------- Google sign-in ---------- */
+if($("signSocial")) $("signSocial").hidden = !CONFIG.googleSignIn;
+if($("regSocial")) $("regSocial").hidden = !CONFIG.googleSignIn;
+function COMPLETING(){ return !!(STATE.profile && STATE.profile.status === "pending_consent"); }
+function setupRegister(){
+  var c = COMPLETING();
+  ["r-emailRow","r-passRow","regHaveAcc"].forEach(function(id){ var x = $(id); if(x) x.hidden = c; });
+  if($("regSocial")) $("regSocial").hidden = c || !CONFIG.googleSignIn;
+  if($("regDoneH")) $("regDoneH").hidden = !c;
+  if(c && !$("r-name").value && STATE.profile.full_name && STATE.profile.full_name !== "Athlete") $("r-name").value = STATE.profile.full_name;
+}
+document.addEventListener("click", async function(e){
+  var b = e.target.closest("[data-oauth]"); if(!b) return;
+  e.preventDefault();
+  var box = STATE.view === "signin" ? "signErr" : "regErr"; err(box);
+  if(!sb) return err(box, t("ePreview"));
+  var r = await sb.auth.signInWithOAuth({ provider:b.dataset.oauth, options:{ redirectTo: location.origin + location.pathname + (LANG === "ar" ? "?lang=ar" : "") } });
+  if(r.error) err(box, L("Google sign-in is not available right now. Please use your email and password.", "تسجيل الدخول عبر Google غير متاح الآن، يرجى استخدام بريدك الإلكتروني وكلمة المرور."));
+});
+
+/* ---------- sign-in freshness ---------- */
+// Chrome on iPhone can wake a sleeping tab with an access token that has already expired.
+// freshSession() refreshes it before use, and callFn() retries once if the server still says 401.
+async function freshSession(){
+  var s = (await sb.auth.getSession()).data.session;
+  if(s && (!s.expires_at || s.expires_at * 1000 < Date.now() + 60000)){
+    var r = await sb.auth.refreshSession();
+    s = r.error ? null : r.data.session;
+  }
+  return s;
+}
+async function callFn(name, body){
+  for(var attempt = 0; attempt < 2; attempt++){
+    var s = attempt ? (await sb.auth.refreshSession()).data.session : await freshSession();
+    if(!s) return null;
+    var r = await fetch(CONFIG.supabaseUrl + "/functions/v1/" + name, { method:"POST", headers:{ "Content-Type":"application/json", "Authorization":"Bearer " + s.access_token, "apikey":CONFIG.supabaseKey }, body:JSON.stringify(body) });
+    if(r.status !== 401) return r;
+  }
+  return null;
+}
+document.addEventListener("visibilitychange", function(){
+  if(document.hidden || !sb || !STATE.user) return;
+  freshSession().then(function(s){ if(!s){ STATE.user = null; setTabs(); banner(t("eSession"), true); go("signin"); } });
+});
 })();
