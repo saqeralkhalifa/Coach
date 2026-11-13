@@ -8,7 +8,7 @@ var CONFIG = {
   supabaseKey: "sb_publishable_NqCGnIBcjy5WXwI77eKdFg_JvnwPT4o",          // publishable (anon) key from Settings > API
   intervalsClientId: "1650",    // from the Intervals.icu app page
   consentVersion: "2026-11-10",
-  googleSignIn: false, // switched on once the Google provider is saved in Supabase
+  googleSignIn: true, // Google provider saved in Supabase on 13 Nov 2026
   benefitPay: { name: "[NAME ON BENEFITPAY]", number: "[BENEFITPAY NUMBER OR IBAN]" },
   bank: { holder: "[ACCOUNT HOLDER]", bank: "[BANK NAME]", iban: "[IBAN]", swift: "[SWIFT CODE]" },
   fee: 20
