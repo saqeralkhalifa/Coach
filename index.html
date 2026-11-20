@@ -321,6 +321,9 @@ fieldset{border:0;}
 .pushcard{margin-top:16px;}
 .diarycard{margin-top:28px;}
 .wd .cond{font-size:13px;margin-top:6px;}
+.sact{margin-top:10px;display:flex;flex-direction:column;gap:6px;}
+.sel.mini{min-height:44px;font-size:14px;padding:6px 10px;width:100%;}
+.wd.today .sact .btn.ghost{color:#fff;border-color:rgba(255,255,255,.6);}
 #p-ram-more{margin-top:12px;}
 .diarycard > p:not(.micro):not(.err){margin-top:6px;}
 .howto{margin:12px 0;}
@@ -921,6 +924,13 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
       <div class="field"><label for="p-date" data-t="pDate"></label><input class="in" id="p-date" type="date" dir="ltr"></div>
     </div>
     <div class="field"><label for="p-dist" data-t="pDist"></label><select class="sel" id="p-dist" data-opts="dist"></select></div>
+    <div class="field" id="raceFinder"><label for="p-racepick"><span data-lang="en">Upcoming races</span><span data-lang="ar">السباقات القادمة</span></label>
+      <span class="hint"><span data-lang="en">Races in your country come first, then the region. Pick one to fill in your target race, or add it to your races as an extra race. You can also choose any distance above and set your own date.</span><span data-lang="ar">تظهر سباقات بلدك أولا، ثم سباقات المنطقة. اختر سباقا لتعبئة سباقك المستهدف، أو أضفه إلى سباقاتك كسباق إضافي. ويمكنك أيضا اختيار أي مسافة أعلاه وتحديد تاريخك الخاص.</span></span>
+      <select class="sel" id="p-racepick"></select>
+      <div class="row2"><button class="btn ghost small" type="button" id="raceUse"><span data-lang="en">Use as my target race</span><span data-lang="ar">اجعله سباقي المستهدف</span></button><button class="btn ghost small" type="button" id="raceAdd"><span data-lang="en">Add to my races</span><span data-lang="ar">أضفه إلى سباقاتي</span></button></div>
+      <p class="micro" id="myRacesH" hidden><span data-lang="en">Your extra races</span><span data-lang="ar">سباقاتك الإضافية</span></p>
+      <ul class="files" id="myRaces"></ul>
+    </div>
     <div class="row2">
       <div class="field"><label for="p-years" data-t="pYears"></label><select class="sel" id="p-years" data-opts="years"></select></div>
       <div class="field"><label for="p-hours" data-t="pHours"></label><input class="in" id="p-hours" type="number" min="0" max="40" step="0.5" inputmode="decimal" dir="ltr"></div>
@@ -940,6 +950,7 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
       <div class="field"><label for="p-strength"><span data-lang="en">Strength and mobility</span><span data-lang="ar">تمارين القوة والمرونة</span></label><select class="sel" id="p-strength" data-opts="strength"></select></div>
       <div class="field"><label for="p-summer"><span data-lang="en">Summer indoor mode</span><span data-lang="ar">وضع التدريب الداخلي في الصيف</span></label><select class="sel" id="p-summer" data-opts="summer"></select></div>
     </div>
+    <div class="field"><label for="p-recovery"><span data-lang="en">Recovery between hard sessions</span><span data-lang="ar">الاستشفاء بين الحصص الصعبة</span></label><span class="hint"><span data-lang="en">Extra recovery gives 72 hours between hard sessions and a recovery week after every two load weeks. Athletes aged 50 and over get this automatically.</span><span data-lang="ar">يمنح الاستشفاء الإضافي 72 ساعة بين الحصص الصعبة وأسبوع استشفاء بعد كل أسبوعين من التحميل. ويحصل عليه تلقائيا من بلغوا الخمسين فأكثر.</span></span><select class="sel" id="p-recovery" data-opts="recovery"></select></div>
     <div class="field"><label for="p-racecond"><span data-lang="en">Expected race conditions</span><span data-lang="ar">الظروف المتوقعة في السباق</span></label><select class="sel" id="p-racecond" data-opts="racecond"></select></div>
     <fieldset class="field"><legend data-t="pHeatH"></legend>
       <label class="check"><input type="checkbox" id="p-heat"><span data-t="pHeat"></span></label>
@@ -962,8 +973,8 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
   </form>
 
   <div class="card" id="fitCard">
-    <div data-lang="en"><p class="micro">Fitness tests and training zones</p><p>Your zones set the heart rate, pace and power targets in every session. Enter a test your plan asked for, or a race you ran in the last six weeks. Zones change only after a test or a race.</p></div>
-    <div data-lang="ar" dir="rtl" lang="ar"><p class="micro">اختبارات اللياقة ومناطق التدريب</p><p>تحدد مناطقك أهداف النبض والسرعة والقدرة في كل حصة. أدخل نتيجة اختبار طلبته خطتك، أو سباقا ركضته في الأسابيع الستة الأخيرة. لا تتغير المناطق إلا بعد اختبار أو سباق.</p></div>
+    <div data-lang="en"><p class="micro">Fitness tests and training zones</p><p>Optional. A fitness test lets your coach set your heart rate, pace and power zones more precisely, and you can do one on any day you choose. Your plan includes threshold and interval sessions either way, guided by effort until a test or race result is in. Enter a test, or a race you ran in the last six weeks.</p></div>
+    <div data-lang="ar" dir="rtl" lang="ar"><p class="micro">اختبارات اللياقة ومناطق التدريب</p><p>اختياري. يتيح اختبار اللياقة لمدربك ضبط مناطق النبض والسرعة والقدرة بدقة أكبر، ويمكنك إجراؤه في أي يوم تختاره. تتضمن خطتك حصص العتبة والفترات في كل الأحوال، ويُحدد جهدها بالإحساس إلى أن تتوفر نتيجة اختبار أو سباق. أدخل نتيجة اختبار، أو سباقا ركضته في الأسابيع الستة الأخيرة.</p></div>
     <div id="zonesView"></div>
     <form id="fitForm" novalidate>
       <div class="row2">
@@ -1276,6 +1287,6 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
-<script src="coach.js?v=20261113c"></script>
+<script src="coach.js?v=20261120a"></script>
 </body>
 </html>

@@ -144,7 +144,7 @@ en:{
   opts:{
     countries:[["Bahrain","Bahrain"],["Saudi Arabia","Saudi Arabia"],["United Arab Emirates","United Arab Emirates"],["Kuwait","Kuwait"],["Qatar","Qatar"],["Oman","Oman"],["Other","Other"]],
     feel:[["","Choose one"],["fresh","Fresh"],["normal","Normal"],["tired","Tired"],["very_tired","Very tired"]],
-    dist:[["","Choose a distance"],["sprint","Triathlon, sprint"],["olympic","Triathlon, Olympic"],["70.3","Triathlon, half distance (70.3)"],["ironman","Triathlon, full distance (Ironman)"],["5k","Running, 5 km"],["10k","Running, 10 km"],["half_marathon","Running, half marathon"],["marathon","Running, marathon"]],
+    dist:[["","Choose a distance"],["sprint","Triathlon, sprint"],["olympic","Triathlon, Olympic"],["70.3","Triathlon, half distance (70.3)"],["ironman","Triathlon, full distance (Ironman)"],["3k","Running, 3 km"],["5k","Running, 5 km"],["10k","Running, 10 km"],["15k","Running, 15 km"],["half_marathon","Running, half marathon"],["marathon","Running, marathon"]],
     years:[["","Choose one"],["lt1","Less than 1"],["1to2","1 to 2"],["3to5","3 to 5"],["gt5","More than 5"]],
     days:[["Fri","Friday"],["Sat","Saturday"],["Sun","Sunday"],["Mon","Monday"],["Tue","Tuesday"],["Wed","Wednesday"],["Thu","Thursday"]],
     time:[["early","Early morning"],["midday","Midday"],["evening","Evening"],["varies","It varies"]],
@@ -152,6 +152,7 @@ en:{
     ramadan:[["","Not set"],["not_fasting","I am not fasting"],["fasting","I am fasting"],["partly","I am fasting on some days"]],
     months:[["1","1 month"],["2","2 months"],["3","3 months"],["6","6 months"],["12","12 months"]],
     strength:[["none","No strength sessions"],["gym","Gym"],["home","At home, no equipment"]],
+    recovery:[["standard","Standard"],["extra","Extra recovery"]],
     summer:[["auto","Automatic, from the heat forecast"],["always","Always on"],["never","Never"]],
     racecond:[["","Not sure"],["hot","Hot"],["mild","Mild"],["cool","Cool"],["altitude","At altitude (above 1,500 m)"]],
     fitkind:[["run_test","Running 30 minute test"],["race","Race result"],["bike_power_test","Cycling 20 minute power test"],["bike_hr_test","Cycling 30 minute heart rate test"],["swim_css","Swim 400 m and 200 m test"]]
@@ -262,7 +263,7 @@ ar:{
   opts:{
     countries:[["Bahrain","البحرين"],["Saudi Arabia","السعودية"],["United Arab Emirates","الإمارات"],["Kuwait","الكويت"],["Qatar","قطر"],["Oman","عُمان"],["Other","بلد آخر"]],
     feel:[["","اختر"],["fresh","نشيط"],["normal","طبيعي"],["tired","متعب"],["very_tired","متعب جدا"]],
-    dist:[["","اختر المسافة"],["sprint","ترايثلون، سبرنت"],["olympic","ترايثلون، أولمبي"],["70.3","ترايثلون، نصف المسافة (70.3)"],["ironman","ترايثلون، المسافة الكاملة (آيرونمان)"],["5k","جري، 5 كم"],["10k","جري، 10 كم"],["half_marathon","جري، نصف ماراثون"],["marathon","جري، ماراثون"]],
+    dist:[["","اختر المسافة"],["sprint","ترايثلون، سبرنت"],["olympic","ترايثلون، أولمبي"],["70.3","ترايثلون، نصف المسافة (70.3)"],["ironman","ترايثلون، المسافة الكاملة (آيرونمان)"],["3k","جري، 3 كم"],["5k","جري، 5 كم"],["10k","جري، 10 كم"],["15k","جري، 15 كم"],["half_marathon","جري، نصف ماراثون"],["marathon","جري، ماراثون"]],
     years:[["","اختر"],["lt1","أقل من سنة"],["1to2","من سنة إلى سنتين"],["3to5","من 3 إلى 5 سنوات"],["gt5","أكثر من 5 سنوات"]],
     days:[["Fri","الجمعة"],["Sat","السبت"],["Sun","الأحد"],["Mon","الاثنين"],["Tue","الثلاثاء"],["Wed","الأربعاء"],["Thu","الخميس"]],
     time:[["early","الصباح الباكر"],["midday","منتصف النهار"],["evening","المساء"],["varies","يختلف"]],
@@ -270,6 +271,7 @@ ar:{
     ramadan:[["","غير محدد"],["not_fasting","لن أصوم"],["fasting","سأصوم"],["partly","سأصوم بعض الأيام"]],
     months:[["1","شهر واحد"],["2","شهران"],["3","3 أشهر"],["6","6 أشهر"],["12","12 شهرا"]],
     strength:[["none","بدون تمارين قوة"],["gym","في النادي الرياضي"],["home","في المنزل بدون معدات"]],
+    recovery:[["standard","عادي"],["extra","استشفاء إضافي"]],
     summer:[["auto","تلقائي حسب توقعات الحرارة"],["always","مفعل دائما"],["never","غير مفعل"]],
     racecond:[["","غير متأكد"],["hot","حار"],["mild","معتدل"],["cool","بارد"],["altitude","على ارتفاع (أكثر من 1500 م)"]],
     fitkind:[["run_test","اختبار الجري 30 دقيقة"],["race","نتيجة سباق"],["bike_power_test","اختبار القدرة على الدراجة 20 دقيقة"],["bike_hr_test","اختبار النبض على الدراجة 30 دقيقة"],["swim_css","اختبار السباحة 400 م و200 م"]]
@@ -522,6 +524,7 @@ function drawWeek(sessions, meta){
       var pur = LANG === "ar" ? s.purpose_ar : s.purpose_en; if(pur && s.sport !== "rest") box.appendChild(el("p",{cls:"note", text:pur}));
       if(s.intensity && s.intensity !== "rest") box.appendChild(el("span",{cls:"badge z" + (s.downgraded_reason ? " wait" : ""), text: s.downgraded_reason ? t("made_easier") : t(s.intensity)}));
       if(s.id) box.appendChild(el("div",{"data-sid":String(s.id)}));
+      if(s.id && s.sport !== "rest") box.appendChild(sessionActions(s, day, today));
     });
     grid.appendChild(box);
     if(day === today && list[0].sport !== "rest"){
@@ -582,6 +585,8 @@ async function renderWeek(){
   if(!plan){ $("wkH").textContent = t("wkNone"); lead.textContent = t("wkNoneP"); clearWeek(); drawStats([], cks); }
   else{
     var sessions = (await sb.from("sessions").select("*").eq("plan_id", plan.id).order("day")).data || [];
+    FEEDBACK = {};
+    if(sessions.length){ var fbr = (await sb.from("session_feedback").select("session_id,rpe,created_at").in("session_id", sessions.map(function(s){ return s.id; })).order("created_at")).data || []; fbr.forEach(function(f){ if(f.rpe) FEEDBACK[f.session_id] = f.rpe; }); }
     $("wkH").textContent = t("wkH")(plan.week_index || 1, t("phases")[plan.phase] || plan.phase || "");
     lead.textContent = p.race_name || p.race_date ? t("wkLead")("\u2068" + (p.race_name || "") + "\u2069", p.race_date ? fmtDate(p.race_date) : "", plan.weeks_to_race || "") : "";
     drawWeek(sessions, {note_en:plan.coach_note_en, note_ar:plan.coach_note_ar}); drawStats(sessions, cks);
@@ -607,6 +612,94 @@ async function renderWeek(){
     if(nt) rl.appendChild(el("li",{cls:"wnote"},[el("span",{text: LANG === "ar" ? nt.text_ar : nt.text_en})]));
   });
 }
+/* ---------- session buttons: missed, short on time, effort (rules 24 and 6.5) ---------- */
+var FEEDBACK = {};
+async function quickAsk(text){ go("coach"); await renderCoach(); await sendCoach(text, "chat"); }
+function sessionActions(s, day, today){
+  var wrap = el("div",{cls:"sact"});
+  if(!sb) return wrap;
+  if(day === today){
+    var mb = el("button",{cls:"btn ghost small", type:"button", text:L("I missed this", "فاتتني هذه الحصة")});
+    mb.addEventListener("click", function(){ quickAsk(L("I missed today's session (session id " + s.id + ", " + s.title_en + ", " + s.day + "). Please move it to a later day this week if the rules allow, or tell me what to do instead.", "فاتتني حصة اليوم (رقم الحصة " + s.id + "، " + s.title_ar + "، " + s.day + "). أرجو نقلها إلى يوم لاحق هذا الأسبوع إن سمحت القواعد، أو أخبرني بما أفعل بدلا منها.")); });
+    wrap.appendChild(mb);
+  }
+  if(day >= today){
+    var sel = el("select",{cls:"sel mini", "aria-label":L("Short on time", "وقتك ضيق")});
+    sel.appendChild(el("option",{value:"", text:L("Short on time?", "وقتك ضيق؟")}));
+    [20,30,45,60,75,90].filter(function(m){ return m < (s.minutes || 0); }).forEach(function(m){ sel.appendChild(el("option",{value:String(m), text:L("I have " + m + " minutes", "لدي " + m + " دقيقة")})); });
+    sel.addEventListener("change", function(){ if(!sel.value) return; quickAsk(L("I only have " + sel.value + " minutes for my session on " + s.day + " (session id " + s.id + ", " + s.title_en + "). Please shorten it and keep its purpose.", "لدي " + sel.value + " دقيقة فقط لحصتي بتاريخ " + s.day + " (رقم الحصة " + s.id + "، " + s.title_ar + "). أرجو تقصيرها مع الحفاظ على هدفها.")); });
+    if(sel.options.length > 1) wrap.appendChild(sel);
+  }
+  if(day <= today){
+    var r = el("select",{cls:"sel mini", "aria-label":L("How hard it felt", "مدى صعوبة الحصة")});
+    r.appendChild(el("option",{value:"", text:L("How hard was it? 1 to 10", "ما مدى صعوبتها؟ من 1 إلى 10")}));
+    for(var i = 1; i <= 10; i++) r.appendChild(el("option",{value:String(i), text:String(i) + (i === 1 ? L(", very easy", "، سهلة جدا") : i === 5 ? L(", moderate", "، متوسطة") : i === 10 ? L(", maximal", "، أقصى جهد") : "")}));
+    if(FEEDBACK[s.id]) r.value = String(FEEDBACK[s.id]);
+    r.addEventListener("change", async function(){
+      if(!r.value) return;
+      var res = await sb.from("session_feedback").insert({ user_id:STATE.user.id, session_id:s.id, day:s.day, rpe:Number(r.value) });
+      if(res.error){ banner(t("eNet"), true); return; }
+      FEEDBACK[s.id] = Number(r.value);
+      banner(L("Effort saved. Your coach uses it when writing next week.", "تم حفظ الجهد، وسيستخدمه مدربك عند كتابة الأسبوع القادم."));
+    });
+    wrap.appendChild(r);
+  }
+  return wrap;
+}
+/* ---------- race list (rule 25) ---------- */
+var RACE_EVENTS = [], GCC = ["Bahrain","Saudi Arabia","United Arab Emirates","Kuwait","Qatar","Oman"];
+function distName(k){ var n = k; t("opts").dist.forEach(function(o){ if(o[0] === k) n = o[1]; }); return n; }
+async function drawRaces(){
+  var sel = $("p-racepick"); if(!sel) return;
+  sel.innerHTML = ""; sel.appendChild(el("option",{value:"", text:L("Choose an upcoming race", "اختر سباقا قادما")}));
+  if(!sb){ drawMyRaces(); return; }
+  var home = (STATE.profile && STATE.profile.country) || "Bahrain";
+  RACE_EVENTS = (await sb.from("race_events").select("id,name,name_ar,day,country,city,distance").gte("day", addDays(todayStr(), 1)).order("day").limit(300)).data || [];
+  var groups = [[L("In your country", "في بلدك"), RACE_EVENTS.filter(function(r){ return r.country === home; })],
+    [L("Nearby in the region", "في المنطقة القريبة"), RACE_EVENTS.filter(function(r){ return r.country !== home && GCC.indexOf(r.country) >= 0; })],
+    [L("Elsewhere", "في أماكن أخرى"), RACE_EVENTS.filter(function(r){ return r.country !== home && GCC.indexOf(r.country) < 0; })]];
+  groups.forEach(function(g){
+    if(!g[1].length) return;
+    var og = el("optgroup",{label:g[0]});
+    g[1].forEach(function(r){ og.appendChild(el("option",{value:String(r.id), text:fmtDate(r.day) + sep() + ((LANG === "ar" && r.name_ar) || r.name) + sep() + distName(r.distance) + (r.city ? sep() + r.city : "")})); });
+    sel.appendChild(og);
+  });
+  drawMyRaces();
+}
+function pickedRace(){ var id = Number($("p-racepick").value); return RACE_EVENTS.filter(function(r){ return r.id === id; })[0]; }
+function drawMyRaces(){
+  var ul = $("myRaces"); if(!ul) return; ul.innerHTML = "";
+  var list = ((STATE.profile && STATE.profile.other_races) || []).filter(function(r){ return r.day >= todayStr(); }).sort(function(a,b){ return a.day < b.day ? -1 : 1; });
+  $("myRacesH").hidden = !list.length;
+  list.forEach(function(r){
+    var del = el("button",{cls:"btn ghost small", type:"button", text:L("Remove", "إزالة")});
+    del.addEventListener("click", async function(){
+      var rest = (STATE.profile.other_races || []).filter(function(x){ return !(x.day === r.day && x.distance === r.distance); });
+      var res = await sb.from("profiles").update({ other_races:rest }).eq("user_id", STATE.user.id);
+      if(res.error){ banner(t("eNet"), true); return; }
+      await loadUser(); drawMyRaces();
+    });
+    ul.appendChild(el("li",{},[el("span",{text:fmtDate(r.day) + sep() + (r.name || distName(r.distance)) + sep() + distName(r.distance)}), del]));
+  });
+}
+$("raceUse").addEventListener("click", function(){
+  var r = pickedRace(); if(!r){ banner(L("Choose a race from the list first.", "اختر سباقا من القائمة أولا."), true); return; }
+  $("p-race").value = (LANG === "ar" && r.name_ar) || r.name; $("p-date").value = r.day; $("p-dist").value = r.distance;
+  banner(L("Race filled in. Press Save at the bottom of the form to make it your target race.", "تمت تعبئة السباق. اضغط حفظ في أسفل النموذج ليصبح سباقك المستهدف."));
+});
+$("raceAdd").addEventListener("click", async function(){
+  var r = pickedRace(); if(!r){ banner(L("Choose a race from the list first.", "اختر سباقا من القائمة أولا."), true); return; }
+  if(!sb){ banner(t("ePreview")); return; }
+  var p = STATE.profile || {};
+  if(p.race_date === r.day){ banner(L("This race is already your target race.", "هذا السباق هو سباقك المستهدف بالفعل.")); return; }
+  var list = (p.other_races || []).filter(function(x){ return x.day >= todayStr() && !(x.day === r.day && x.distance === r.distance); });
+  if(list.length >= 12){ banner(L("You can keep up to 12 extra races.", "يمكنك الاحتفاظ بما يصل إلى 12 سباقا إضافيا."), true); return; }
+  list.push({ day:r.day, distance:r.distance, name:(LANG === "ar" && r.name_ar) || r.name, event_id:r.id });
+  var res = await sb.from("profiles").update({ other_races:list }).eq("user_id", STATE.user.id);
+  if(res.error){ banner(t("eNet"), true); return; }
+  await loadUser(); drawMyRaces();
+  banner(L("Added to your races. Your coach keeps the days around it easier, and it appears on your calendar and watch.", "أضيف إلى سباقاتك. سيخفف مدربك الأيام المحيطة به، وسيظهر في تقويمك وساعتك."));
+});
 /* ---------- calendar subscription ---------- */
 function calFeed(){ var p = STATE.profile || {}; return p.calendar_token ? CONFIG.supabaseUrl + "/functions/v1/calendar-feed?t=" + p.calendar_token : ""; }
 function drawCal(){
@@ -849,13 +942,13 @@ async function renderProfile(){
     $("p-long").value = p.long_day || "Fri"; $("p-time").value = p.train_time || "early";
     $("p-hr").checked = p.has_hr !== false; $("p-power").checked = !!p.has_power; $("p-trainer").checked = !!p.has_trainer; $("p-inj").value = p.injuries || ""; $("p-nudge").checked = p.nudges_enabled !== false;
     $("p-heat").checked = !!(p.heat_new_until && p.heat_new_until >= todayStr());
-    $("p-strength").value = p.strength_pref || "none"; $("p-summer").value = p.summer_mode || "auto"; $("p-racecond").value = p.race_conditions || "";
+    $("p-strength").value = p.strength_pref || "none"; $("p-recovery").value = p.recovery_pref || "standard"; $("p-summer").value = p.summer_mode || "auto"; $("p-racecond").value = p.race_conditions || "";
     $("p-ram").value = p.ramadan_mode || ""; setChecks("p-ram-days", p.ramadan_days || []);
     $("p-ram-start").value = p.ramadan_start || "";
     if(!p.ramadan_start && sb) sb.from("ramadan_dates").select("starts").in("country", [p.country, "Other"]).gte("ends", todayStr()).order("starts").limit(1).then(function(r){ if(r.data && r.data[0] && !$("p-ram-start").value) $("p-ram-start").value = r.data[0].starts; });
     ramToggle();
   }
-  drawDiary(); drawFitness(); drawSweat();
+  drawDiary(); drawFitness(); drawSweat(); drawRaces();
   var list = $("consList"); list.innerHTML = "";
   if(!sb) return;
   var cs = (await sb.from("consents").select("*").eq("user_id", STATE.user.id).order("given_at")).data || [];
@@ -883,7 +976,7 @@ $("profForm").addEventListener("submit", async function(e){
     train_time:$("p-time").value, has_hr:$("p-hr").checked, has_power:$("p-power").checked, has_trainer:$("p-trainer").checked,
     injuries:$("p-inj").value.trim() || null, nudges_enabled:$("p-nudge").checked, lang:LANG,
     ramadan_mode:$("p-ram").value || null, ramadan_start:$("p-ram").value && $("p-ram").value !== "not_fasting" ? ($("p-ram-start").value || null) : null, ramadan_days:$("p-ram").value === "partly" ? getChecks("p-ram-days") : [],
-    strength_pref:$("p-strength").value || "none", summer_mode:$("p-summer").value || "auto", race_conditions:$("p-racecond").value || null,
+    strength_pref:$("p-strength").value || "none", recovery_pref:$("p-recovery").value || "standard", summer_mode:$("p-summer").value || "auto", race_conditions:$("p-racecond").value || null,
     heat_new_until:$("p-heat").checked ? ((STATE.profile && STATE.profile.heat_new_until && STATE.profile.heat_new_until >= todayStr()) ? STATE.profile.heat_new_until : addDays(todayStr(), 14)) : null };
   if(!sb){ ok("profOk"); $("profOk").textContent = t("ePreview"); return; }
   if(row.ramadan_mode === "fasting" || row.ramadan_mode === "partly"){
