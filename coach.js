@@ -38,7 +38,7 @@ function initLang(){
 }
 var LANG = initLang();
 
-var DAYS = ["Sat","Sun","Mon","Tue","Wed","Thu","Fri"];
+var DAYS = ["Fri","Sat","Sun","Mon","Tue","Wed","Thu"];
 var T = {
 en:{
   previewBar:"<b>Preview</b>This page is not yet connected to its database. The forms check what you enter, but nothing is saved or sent.",
@@ -107,7 +107,7 @@ en:{
   memTerms:'Membership terms are in the <a href="#terms" data-go="terms">terms and medical disclaimer</a>. Fees already paid for a month that has started are not refunded.',
   stPending:"Your account is waiting for the first payment.", stTrialWait:"You have one of the 30 free months. It starts when your first plan is approved.", stTrial:function(d){return "Your free month runs until "+d+". To continue after that, pay below.";}, payLater:"Payment details will appear here before the free months end.", stActive:function(d){return "Your membership is active until "+d+".";}, stPaused:"Your plan is paused.", stClosed:"Your account is closed.",
   signedOutMem:"Register or sign in to pay and see your membership.",
-  wkEyebrow:"My week", wkNone:"Your first plan is being prepared", wkNoneP:"Plans are written each Thursday evening for the week starting Saturday, and the first group's plans are approved by Dr. Saqer before they are sent. Complete your profile, connect your watch and send your daily check-in.",
+  wkEyebrow:"My week", wkNone:"Your first plan is being prepared", wkNoneP:"Plans are written each Wednesday evening for the week starting Friday, and the first group's plans are approved by Dr. Saqer before they are sent. Complete your profile, connect your watch and send your daily check-in.",
   wkPending:"Your account is waiting for payment", wkPendingP:"Pay the first month on the Membership page. Your first plan follows once the payment is confirmed.",
   wkPaused:"Your plan is paused", wkPausedP:"Your plan was paused after a report of pain, illness or symptoms, a withdrawn consent, or a payment due. Dr. Saqer has been told.",
   wkH:function(i,ph){return "Week "+i+", "+ph+" phase";}, wkLead:function(r,d,w){return "Target race: "+r+", "+d+". "+w+" weeks to go.";},
@@ -226,7 +226,7 @@ ar:{
   memTerms:'شروط الاشتراك واردة في <a href="#terms" data-go="terms">الشروط وإخلاء المسؤولية الطبية</a>. ولا تُرد الرسوم المدفوعة عن شهر بدأ.',
   stPending:"حسابك بانتظار الدفعة الأولى.", stTrialWait:"لك أحد الأشهر المجانية الثلاثين، ويبدأ عند اعتماد أول خطة لك.", stTrial:function(d){return "شهرك المجاني ساري حتى "+d+". وللاستمرار بعده ادفع أدناه.";}, payLater:"ستظهر بيانات الدفع هنا قبل انتهاء الأشهر المجانية.", stActive:function(d){return "اشتراكك ساري حتى "+d+".";}, stPaused:"خطتك متوقفة.", stClosed:"حسابك مغلق.",
   signedOutMem:"سجّل أو سجّل الدخول لتدفع وترى اشتراكك.",
-  wkEyebrow:"أسبوعي", wkNone:"يجري إعداد خطتك الأولى", wkNoneP:"تُكتب الخطط مساء كل خميس للأسبوع الذي يبدأ يوم السبت، ويعتمد د. صقر خطط المجموعة الأولى قبل إرسالها. أكمل ملفك واربط ساعتك وأرسل تسجيلك اليومي.",
+  wkEyebrow:"أسبوعي", wkNone:"يجري إعداد خطتك الأولى", wkNoneP:"تُكتب الخطط مساء كل أربعاء للأسبوع الذي يبدأ يوم الجمعة، ويعتمد د. صقر خطط المجموعة الأولى قبل إرسالها. أكمل ملفك واربط ساعتك وأرسل تسجيلك اليومي.",
   wkPending:"حسابك بانتظار الدفع", wkPendingP:"ادفع رسوم الشهر الأول من صفحة الاشتراك، وتصلك خطتك الأولى بعد تأكيد الدفعة.",
   wkPaused:"خطتك متوقفة", wkPausedP:"توقفت خطتك بعد بلاغ عن ألم أو مرض أو أعراض، أو سحب موافقة، أو استحقاق دفعة. وقد أُبلغ د. صقر.",
   wkH:function(i,ph){return "الأسبوع "+i+"، مرحلة "+ph;}, wkLead:function(r,d,w){return "السباق المستهدف: "+r+"، "+d+". متبقٍ "+w+" أسبوعا.";},
@@ -294,7 +294,7 @@ function banner(msg, bad){ var b = $("banner"); b.textContent = msg || ""; b.cla
 function iso(d){ return d.toISOString().slice(0,10); }
 function todayStr(){ return new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Bahrain",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date()); }
 function addDays(s, n){ var d = new Date(s + "T00:00:00Z"); d.setUTCDate(d.getUTCDate() + n); return iso(d); }
-function weekStartOf(s){ var day = new Date(s + "T00:00:00Z").getUTCDay(); return addDays(s, -((day + 1) % 7)); }
+function weekStartOf(s){ var day = new Date(s + "T00:00:00Z").getUTCDay(); return addDays(s, -((day + 2) % 7)); }
 function dowKey(s){ return ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][new Date(s + "T00:00:00Z").getUTCDay()]; }
 function fmtDate(s){ try{ return new Intl.DateTimeFormat(LANG === "ar" ? "ar-BH-u-nu-latn" : "en-GB",{day:"numeric",month:"long",year:"numeric",timeZone:"UTC"}).format(new Date(s + "T00:00:00Z")); }catch(e){ return s; } }
 function hm(min){
@@ -489,8 +489,8 @@ $("outBtn").addEventListener("click", async function(){ if(sb) await sb.auth.sig
 
 /* ---------- my week ---------- */
 var SAMPLE = { week_index:6, phase:"build", weeks_to_race:8, race_name:"Ironman 70.3", race_date:addDays(todayStr(), 56),
-  note_en:"Your check-ins show under six hours of sleep on two nights, so Thursday's tempo ride was made easy. Next week is a recovery week.",
-  note_ar:"تُظهر تسجيلاتك أقل من ست ساعات نوم في ليلتين، لذلك خُففت حصة الدراجة يوم الخميس. والأسبوع القادم أسبوع استشفاء." };
+  note_en:"Your check-ins show under six hours of sleep on two nights, so Wednesday's tempo ride was made easy. Next week is a recovery week.",
+  note_ar:"تُظهر تسجيلاتك أقل من ست ساعات نوم في ليلتين، لذلك خُففت حصة الدراجة يوم الأربعاء. والأسبوع القادم أسبوع استشفاء." };
 function sampleSessions(){
   var ws = weekStartOf(todayStr());
   return [
@@ -500,7 +500,7 @@ function sampleSessions(){
     {day:addDays(ws,3), sport:"rest", intensity:"rest", title_en:"Rest", title_ar:"راحة", minutes:0, steps:[]},
     {day:addDays(ws,4), sport:"run", intensity:"hard", title_en:"Threshold intervals", title_ar:"فترات عند العتبة", minutes:55, steps:[{min:15,zone:2,label_en:"easy with strides",label_ar:"جري سهل مع تسارعات قصيرة"},{min:6,zone:4,repeat:4,label_en:"threshold, 2 min easy between",label_ar:"عند العتبة، دقيقتان سهلتان بينها"},{min:10,zone:1,label_en:"easy",label_ar:"سهل"}]},
     {day:addDays(ws,5), sport:"bike", intensity:"easy", title_en:"Easy ride", title_ar:"دراجة بإيقاع سهل", minutes:60, steps:[{min:60,zone:2,label_en:"easy",label_ar:"سهل"}], downgraded_reason:"sleep_floor"},
-    {day:addDays(ws,6), sport:"run", intensity:"easy", title_en:"Long run", title_ar:"جري طويل", minutes:95, steps:[{min:95,zone:2,label_en:"easy",label_ar:"سهل"}]}
+    {day:addDays(ws,6), sport:"run", intensity:"easy", title_en:"Easy run", title_ar:"جري سهل", minutes:45, steps:[{min:45,zone:2,label_en:"easy",label_ar:"سهل"}]}
   ];
 }
 function stepText(s){
@@ -513,7 +513,7 @@ function sessionBlurb(s){
 function drawWeek(sessions, meta){
   var today = todayStr(), grid = $("weekGrid"); grid.innerHTML = "";
   var tc = $("todayCard"); tc.hidden = true; tc.innerHTML = "";
-  var ws = weekStartOf(today);
+  var ws = (meta && meta.week_start) || weekStartOf(today);
   for(var i = 0; i < 7; i++){
     var day = addDays(ws, i), list = sessions.filter(function(s){ return s.day === day; });
     var box = el("div", {cls:"wd" + (day === today ? " today" : "")}, [el("p",{cls:"micro", text:t("dayShort")[dowKey(day)] + (day === today ? sep() + t("todayL") : "")})]);
@@ -577,10 +577,12 @@ async function renderWeek(){
   if(p.status === "paused"){ $("wkH").textContent = t("wkPaused"); lead.textContent = t("wkPausedP"); clearWeek(); return; }
   drawCal();
   var ws = weekStartOf(todayStr());
-  // Show this week's plan; if there is none yet (plans are written on Thursday night for the week
-  // starting Saturday), show the coming week so athletes can see tomorrow's session.
-  var plans = (await sb.from("plans").select("*").eq("user_id", STATE.user.id).in("week_start", [ws, addDays(ws, 7)]).in("status",["approved","sent"]).order("week_start",{ascending:true}).order("created_at",{ascending:false})).data || [];
-  var plan = plans.filter(function(x){ return x.week_start === ws; })[0] || plans[0];
+  // Show the plan that covers today; if there is none yet (plans are written on Wednesday night for the week
+  // starting Friday), show the coming week so athletes can see tomorrow's session. The range also finds
+  // plans from before the change to Friday weeks, which started on a Saturday.
+  var td = todayStr();
+  var plans = (await sb.from("plans").select("*").eq("user_id", STATE.user.id).gte("week_start", addDays(ws, -6)).lte("week_start", addDays(ws, 7)).in("status",["approved","sent"]).order("week_start",{ascending:true}).order("created_at",{ascending:false})).data || [];
+  var plan = plans.filter(function(x){ return x.week_start <= td && addDays(x.week_start, 6) >= td; })[0] || plans.filter(function(x){ return x.week_start > td; })[0];
   var cks = (await sb.from("checkins").select("day,sleep_hours,resting_hr").eq("user_id", STATE.user.id).gte("day", addDays(todayStr(), -7))).data || [];
   if(!plan){ $("wkH").textContent = t("wkNone"); lead.textContent = t("wkNoneP"); clearWeek(); drawStats([], cks); }
   else{
@@ -589,7 +591,7 @@ async function renderWeek(){
     if(sessions.length){ var fbr = (await sb.from("session_feedback").select("session_id,rpe,created_at").in("session_id", sessions.map(function(s){ return s.id; })).order("created_at")).data || []; fbr.forEach(function(f){ if(f.rpe) FEEDBACK[f.session_id] = f.rpe; }); }
     $("wkH").textContent = t("wkH")(plan.week_index || 1, t("phases")[plan.phase] || plan.phase || "");
     lead.textContent = p.race_name || p.race_date ? t("wkLead")("\u2068" + (p.race_name || "") + "\u2069", p.race_date ? fmtDate(p.race_date) : "", plan.weeks_to_race || "") : "";
-    drawWeek(sessions, {note_en:plan.coach_note_en, note_ar:plan.coach_note_ar}); drawStats(sessions, cks);
+    drawWeek(sessions, {note_en:plan.coach_note_en, note_ar:plan.coach_note_ar, week_start:plan.week_start}); drawStats(sessions, cks);
     var cond = (await sb.from("session_conditions").select("session_id,wbgt,action").in("session_id", sessions.map(function(s){ return s.id; }))).data || [];
     cond.forEach(function(c){ var b = document.querySelector('[data-sid="' + c.session_id + '"]'); if(b && c.wbgt != null) b.appendChild(el("p",{cls:"note cond", text:t("condL")(c.wbgt, (t("condA") || {})[c.action] || "")})); });
   }
