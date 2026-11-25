@@ -7,15 +7,14 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<meta name="theme-color" content="#FBF8F4">
+<meta name="theme-color" content="#0F1B2D">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="Arabian Method">
 <meta name="description" content="Running and triathlon coaching with a plan that adjusts every day to your sleep, your workouts, the heat and your calendar, and goes straight to your watch.">
-<link rel="preload" href="fonts/Geist.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/BricolageGrotesque.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="preload" href="fonts/ReadexPro-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css?v=20261125">
 <link rel="canonical" href="https://arabianmethod.com/">
 <link rel="alternate" hreflang="en" href="https://arabianmethod.com/?lang=en">
 <link rel="alternate" hreflang="ar" href="https://arabianmethod.com/?lang=ar">
@@ -33,449 +32,550 @@
 <meta property="og:locale:alternate" content="ar_AR">
 <meta name="twitter:card" content="summary_large_image">
 <style id="coach-css">
-/* AI Coach, Pulse design (Claude Design handoff, 3 November 2026). Class names and hooks are unchanged from the Majlis build. */
-:root{--bg:#FBF8F4;--surface:#FFFFFF;--ink:#17140F;--muted:#5E574F;--faint:#8A8279;--line:#ECE5DC;--line-strong:#E3DBD0;--accent:#D9401A;--accent-ink:#B5330F;--accent-tint:#FCE9E2;--accent-dark:#FF6B45;--dark-line:#3A342C;--ok:#2F6B45;--ok-tint:#E6F0E8;--warn:#8A5A00;--warn-tint:#FBF0D9;--danger:#B42318;--danger-tint:#FBE6E3;
-  --fd:'Bricolage Grotesque','Geist',system-ui,sans-serif;--fb:'Geist',system-ui,-apple-system,'Segoe UI',sans-serif;}
+/* Arabian Method theme, Night and sand (refresh of 25 November 2026). One theme for the coach app, the legal pages,
+   the 404 page and Triathlon Notables. Night blue is kept to the header, the footer, the morning run card on the
+   landing page and the selected day card on My week. Gold is used on night only; on light surfaces the gold family
+   is the darker --acc. Every text pair passes WCAG AA (lowest 4.68), chart marks pass 3:1. Class names and hooks are
+   unchanged from the earlier builds, so coach.js keeps working as it was. */
+:root{
+  --bg:#F6F2EB;--surface:#FFFFFF;--sand2:#EFE8DC;
+  --ink:#111827;--text:#374151;--muted:#5B6472;--faint:#5B6472;
+  --line:#E5DED2;--line-strong:#D9D0C2;--field:#8B8478;
+  --night:#0F1B2D;--night2:#16253B;--night-line:#2C3E5A;--night-hover:#1C2C45;--on-night:#EEE7DB;--on-night-muted:#A7B3C6;
+  --gold:#E2A93B;--gold-hover:#F0BC57;--acc:#8A5A00;
+  --ok:#2E6B47;--ok-tint:#E4EFE7;--warn:#8A5A00;--warn-tint:#FBF0D9;--danger:#B42318;--danger-tint:#FBE6E3;
+  --swim:#2A6F9E;--bike:#3A7A50;--run:#8A5A00;
+  --r-s:10px;--r-m:12px;--r-l:14px;
+  --f:'Readex Pro',system-ui,-apple-system,'Segoe UI',Tahoma,sans-serif;
+  /* names kept for pages that still read the older tokens */
+  --accent:#8A5A00;--accent-ink:#8A5A00;--accent-tint:#EFE8DC;--accent-dark:#E2A93B;--dark-line:#2C3E5A;--fd:var(--f);--fb:var(--f);
+}
 *{box-sizing:border-box;margin:0;padding:0;}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
-body{background:var(--bg);color:var(--ink);font-family:var(--fb);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;}
-a{color:var(--accent);text-decoration:none;}
+body{background:var(--bg);color:var(--text);font-family:var(--f);font-size:17px;line-height:1.65;font-weight:400;-webkit-font-smoothing:antialiased;}
+a{color:var(--acc);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em;}
 a:hover{color:var(--ink);}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+:focus-visible{outline:2px solid var(--night);outline-offset:3px;border-radius:4px;}
 .ck-wrap{max-width:1280px;margin:0 auto;padding:0 20px;}
 @media (min-width:768px){.ck-wrap{padding:0 32px;}}
 @media (min-width:1280px){.ck-wrap{padding:0 48px;}}
+img,svg{max-width:100%;}
 
-/* sticky navigation */
-.pnav{position:sticky;top:0;z-index:200;background:rgba(251,248,244,.86);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
-.pnav-in{max-width:1280px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;min-height:64px;flex-wrap:wrap;}
-@media (min-width:768px){.pnav-in{padding:0 32px;}}
-@media (min-width:1280px){.pnav-in{padding:0 48px;min-height:72px;}}
-.pbrand{display:inline-flex;align-items:center;gap:10px;min-height:44px;font-family:var(--fd);font-weight:800;font-size:18px;letter-spacing:-.01em;color:var(--ink);}
-.pbrand:hover{color:var(--ink);}
-.plogo{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:9px;background:var(--accent);color:#fff;font-size:13px;font-weight:800;}
-@media (max-width:440px){.pbrand span:not(.plogo){font-size:14px;} .pnav-r .pill{padding:0 12px;} #navCta{padding:8px 14px;} .pnav-in{gap:10px;}}
-.plogo-star{display:block;width:40px;height:40px;flex:0 0 auto;}
-.plock{display:flex;flex-direction:column;line-height:1;}
-.plock b{font-family:var(--fd);font-weight:800;font-size:18px;letter-spacing:-.01em;color:var(--ink);}
-.plock small{font-size:10px;font-weight:600;letter-spacing:.22em;color:var(--accent);margin-top:5px;}
-html[lang="ar"] .plock b{font-family:'Noto Kufi Arabic',sans-serif;font-weight:700;font-size:18px;letter-spacing:0;}
-html[lang="ar"] .plock small{font-family:'Noto Kufi Arabic',sans-serif;letter-spacing:0;font-size:11px;font-weight:500;margin-top:3px;}
-@media (max-width:440px){.plock b{font-size:15px;} .plock small{font-size:9px;letter-spacing:.16em;} .plogo-star{width:34px;height:34px;}}
-.logoband{padding:8px 0 36px;}
-.logos{display:flex;flex-wrap:nowrap;align-items:center;gap:12px;}
-.logos .lg{display:inline-flex;align-items:center;justify-content:center;gap:12px;height:112px;padding:0 18px;flex:1 1 auto;background:#fff;border:1px solid var(--line-strong);border-radius:18px;}
-.logos .lg img{display:block;max-width:220px;width:auto;}
-.logos .lg-garmin{padding:0 12px;flex:0 0 auto;}
-.logos .lg-garmin img{height:88px;max-width:none;}
-.logos .lg-iv{height:48px;}
-.logos .lg b{font-family:var(--fd);font-weight:700;font-size:20px;color:#111;}
-.logonote{margin-top:14px;color:var(--faint);}
-@media (max-width:1060px){.logos{flex-wrap:wrap;}}
-@media (max-width:640px){.logos .lg{height:96px;padding:0 12px;flex:1 1 100%;}.logos .lg-garmin img{height:auto;width:100%;max-width:386px;}}
-.works{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;}
-.works span{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 20px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);font-family:var(--fd);font-weight:700;font-size:17px;color:var(--ink);}
-.works span small{font-family:var(--fb);font-weight:500;font-size:13px;color:var(--faint);}
-.pnav-r{margin-inline-start:auto;display:flex;align-items:center;gap:8px;}
-.pill{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 16px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);color:var(--ink);font-family:'Noto Sans Arabic',var(--fb);font-size:14px;font-weight:600;cursor:pointer;}
-.pill:hover{border-color:var(--ink);}
-.ck-tabs{order:3;flex:1 0 100%;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin:0 -20px;padding:0 20px;}
-.ck-tabs::-webkit-scrollbar{display:none;}
-@media (min-width:1024px){.ck-tabs{order:0;flex:0 1 auto;margin:0 auto;padding:0;justify-content:center;}}
-.ck-tabs a{flex:0 0 auto;display:inline-flex;align-items:center;min-height:48px;padding:0 12px;font-size:15px;font-weight:500;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap;}
-.ck-tabs a:hover{color:var(--ink);}
-.ck-tabs a[aria-current="page"]{color:var(--ink);font-weight:600;border-bottom-color:var(--accent);}
+/* ---------- header: one night bar on every page ---------- */
+.pnav{position:sticky;top:0;z-index:200;background:var(--night);color:var(--on-night);}
+.pnav-in{position:relative;max-width:1280px;height:64px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:8px;}
+@media (min-width:768px){.pnav-in{padding:0 32px;gap:12px;}}
+@media (min-width:1280px){.pnav-in{padding:0 48px;}}
+.pnav a{text-decoration:none;}
+.pnav :focus-visible{outline-color:var(--gold);}
+.pbrand{display:inline-flex;align-items:center;gap:10px;min-height:44px;color:var(--on-night);flex:0 0 auto;}
+.pbrand:hover{color:#FFFFFF;}
+.plogo-star{display:block;width:32px;height:32px;flex:0 0 auto;}
+.plock{display:block;font-weight:600;font-size:17px;line-height:1.2;letter-spacing:0;white-space:nowrap;}
+@media (max-width:359px){.pnav-in{padding:0 12px;gap:6px;} .plock{font-size:15px;} .plogo-star{width:28px;height:28px;} .pbrand{gap:8px;}}
+.ck-tabs{display:flex;align-items:center;flex:1 1 auto;min-width:0;align-self:stretch;}
+.hnav{display:none;}
+@media (min-width:1024px){
+  .hnav{display:flex;align-items:stretch;gap:24px;margin-inline-start:28px;height:64px;}
+  .hnav a{display:inline-flex;align-items:center;padding:0 2px;font-size:15px;font-weight:500;color:var(--on-night-muted);border-bottom:2px solid transparent;border-top:2px solid transparent;white-space:nowrap;}
+  .hnav a:hover{color:var(--on-night);}
+  .hnav a[aria-current="page"]{color:var(--on-night);border-bottom-color:var(--gold);}
+}
+.pnav-r{margin-inline-start:auto;display:flex;align-items:center;gap:8px;flex:0 0 auto;}
+@media (max-width:359px){.pnav-r{gap:6px;}}
+.pill,.hlang{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 14px;border:1px solid var(--night-line);border-radius:999px;background:transparent;color:var(--on-night);font-family:var(--f);font-size:15px;font-weight:500;cursor:pointer;white-space:nowrap;}
+.pill:hover,.hlang:hover{background:var(--night-line);color:#FFFFFF;}
+@media (max-width:359px){.pill,.hlang{padding:0 11px;font-size:14px;}}
+#navCta{display:none;}
+@media (min-width:600px){#navCta{display:inline-flex;}}
+#navCta[hidden]{display:none !important;}
+.hmenu{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--night-line);border-radius:var(--r-s);background:transparent;color:var(--on-night);cursor:pointer;flex:0 0 auto;}
+.hmenu:hover,.hmenu[aria-expanded="true"]{background:var(--night-line);}
+.hmenu svg{display:block;width:20px;height:20px;}
+.hpanel{position:absolute;top:64px;inset-inline:0;background:var(--night2);border-top:1px solid var(--night-line);box-shadow:0 18px 36px rgba(15,27,45,.28);padding:8px 0 14px;max-height:calc(100vh - 64px);max-height:calc(100dvh - 64px);overflow-y:auto;}
+@media (min-width:768px){.hpanel{inset-inline:auto;inset-inline-end:32px;width:320px;border:1px solid var(--night-line);border-top:0;border-radius:0 0 var(--r-m) var(--r-m);}}
+@media (min-width:1280px){.hpanel{inset-inline-end:48px;}}
+.hpanel[hidden]{display:none !important;}
+.hpanel nav{display:flex;flex-direction:column;}
+.hpanel a{display:flex;align-items:center;min-height:48px;padding:0 20px;font-size:16px;font-weight:400;color:var(--on-night);}
+.hpanel a:hover{background:var(--night-line);color:#FFFFFF;}
+.hpanel a[aria-current="page"]{color:var(--gold);font-weight:600;}
+.hpanel .hsep{height:1px;background:var(--night-line);margin:8px 20px;}
+.hpanel a.btn.gold{margin:8px 20px 6px;justify-content:center;font-weight:600;color:var(--night);}
+.hpanel a.btn.gold:hover{color:var(--night);background:var(--gold-hover);}
+@media (min-width:600px){.hpanel a.btn.gold{display:none;}}
+.hpanel .hlang-row{display:none;}
 
-.ck-preview{background:var(--accent-tint);border-bottom:1px solid var(--line);}
+/* app tabs for athletes on phones and tablets: a light row under the header */
+.apptabs{display:flex;background:var(--surface);border-bottom:1px solid var(--line);padding:0 8px;}
+@media (min-width:1024px){.apptabs{display:none !important;}}
+.apptabs a{flex:1 1 0;min-width:0;display:flex;align-items:center;justify-content:center;min-height:48px;padding:0 6px;font-size:15px;font-weight:600;color:var(--muted);text-decoration:none;text-align:center;border-bottom:2px solid transparent;border-top:2px solid transparent;}
+.apptabs a:hover{color:var(--ink);}
+.apptabs a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--night);}
+@media (max-width:359px){.apptabs{padding:0 2px;} .apptabs a{font-size:14px;padding:0 3px;}}
+
+.ck-preview{background:var(--warn-tint);border-bottom:1px solid var(--line);}
 .ck-preview p{font-size:15px;line-height:1.6;color:var(--ink);padding:12px 0;}
-.ck-preview b{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink);margin-inline-end:8px;}
+.ck-preview b{font-size:14px;font-weight:600;color:var(--acc);margin-inline-end:8px;}
 
-.eyebrow{font-size:15px;font-weight:600;color:var(--accent);}
-.micro{font-size:13px;font-weight:600;color:var(--muted);}
-.chip{display:inline-flex;align-items:center;gap:8px;min-height:32px;padding:4px 14px;border-radius:999px;background:var(--accent-tint);color:var(--accent-ink);font-size:14px;font-weight:600;}
-.chip::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 1.8s infinite;}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(217,64,26,.45)}100%{box-shadow:0 0 0 10px rgba(217,64,26,0)}}
-@media (prefers-reduced-motion:reduce){.chip::before{animation:none;}}
-.acc{color:var(--accent);}
+/* ---------- type ---------- */
+.eyebrow{font-size:15px;font-weight:600;color:var(--acc);}
+.micro{font-size:14px;font-weight:600;color:var(--muted);}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:32px;padding:4px 14px;border-radius:999px;background:var(--sand2);color:var(--acc);font-size:14px;font-weight:600;}
+.chip::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--acc);}
+.acc{color:var(--acc);}
+h2{font-weight:700;font-size:28px;line-height:1.18;letter-spacing:-.01em;color:var(--ink);margin:10px 0 0;max-width:24ch;text-wrap:balance;}
+@media (min-width:768px){h2{font-size:34px;}}
+@media (min-width:1280px){h2{font-size:38px;}}
+h3{font-weight:600;font-size:20px;line-height:1.3;color:var(--ink);}
+.lead{font-size:18px;line-height:1.65;color:var(--text);max-width:660px;margin:14px 0 0;}
+.note{font-size:15px;line-height:1.6;color:var(--muted);margin-top:16px;}
+.attrib{font-size:14px;color:var(--muted);}
 
-/* hero */
-.ck-hero{padding:48px 0 56px;}
-.hero-grid{display:grid;grid-template-columns:1fr;gap:40px;align-items:center;}
-@media (min-width:1024px){.hero-grid{grid-template-columns:1.05fr 1fr;gap:56px;} .ck-hero{padding:80px 0 96px;}}
-.ck-hero h1{font-family:var(--fd);font-weight:800;font-size:44px;line-height:1;letter-spacing:-.035em;color:var(--ink);margin:20px 0 0;}
-@media (min-width:768px){.ck-hero h1{font-size:56px;}}
-@media (min-width:1280px){.ck-hero h1{font-size:72px;}}
-.ck-hero .lede{font-size:20px;line-height:1.4;font-weight:600;color:var(--ink);max-width:560px;margin:24px 0 0;}
-.ck-hero .sub{font-size:17px;line-height:1.65;color:var(--muted);max-width:540px;margin:16px 0 0;}
+/* ---------- landing hero ---------- */
+.ck-hero{padding:36px 0 48px;}
+@media (min-width:1024px){.ck-hero{padding:64px 0 72px;}}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:36px;align-items:center;}
+@media (min-width:1024px){.hero-grid{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:56px;}}
+.sports{display:flex;flex-wrap:wrap;gap:8px;}
+.sp{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font-size:15px;font-weight:500;}
+.sp svg{width:18px;height:18px;flex:0 0 auto;}
+.sp .icons{display:inline-flex;gap:3px;}
+.ck-hero h1{font-weight:700;font-size:34px;line-height:1.12;letter-spacing:-.015em;color:var(--ink);margin:20px 0 0;text-wrap:balance;}
+@media (min-width:768px){.ck-hero h1{font-size:44px;}}
+@media (min-width:1280px){.ck-hero h1{font-size:48px;}}
+.ck-hero .lede{font-size:18px;line-height:1.65;font-weight:400;color:var(--text);max-width:580px;margin:20px 0 0;}
+@media (min-width:768px){.ck-hero .lede{font-size:19px;}}
 .ck-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;align-items:center;}
 .free{margin-top:16px;font-size:15px;color:var(--muted);}
-.free::before{content:"★";color:var(--accent);margin-inline-end:6px;}
-.hero-vis{position:relative;min-height:380px;border-radius:28px;background:linear-gradient(160deg,var(--accent-tint),#F6EFE7 60%,#EFE6DB);overflow:hidden;padding:28px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;}
-@media (min-width:768px){.hero-vis{min-height:440px;padding:36px;}}
-.hero-vis::after{content:"";position:absolute;inset:auto -60px -80px auto;width:260px;height:260px;border-radius:50%;border:36px solid rgba(217,64,26,.08);pointer-events:none;}
-.bub{max-width:300px;padding:12px 16px;border-radius:18px;font-size:15px;line-height:1.45;box-shadow:0 10px 30px rgba(23,20,15,.08);position:relative;z-index:1;}
-.bub.me{align-self:flex-end;background:var(--surface);color:var(--ink);font-weight:600;border-end-end-radius:6px;}
-.bub.ai{align-self:flex-start;background:var(--accent);color:#fff;border-end-start-radius:6px;}
-.bub small{display:block;font-size:12px;font-weight:600;opacity:.75;margin-bottom:2px;}
-.hero-list{list-style:none;padding:0;margin:20px 0 4px;display:grid;gap:10px;}
-@media (min-width:768px){.hero-list{grid-template-columns:1fr 1fr;column-gap:24px;}}
-.hero-list li{position:relative;padding-inline-start:28px;font-size:15px;line-height:1.45;font-weight:500;color:var(--ink);}
-.hero-list li::before{content:"";position:absolute;inset-inline-start:0;top:2px;width:18px;height:18px;border-radius:50%;background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/11px no-repeat;}
-.bub.after{background:var(--surface);color:var(--ink);font-weight:500;}
-.bub.after small{color:var(--accent);opacity:1;}
-.inc{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:10px;}
-.inc li{position:relative;padding-inline-start:28px;font-size:15px;line-height:1.45;color:#fff;}
-.inc li::before{content:"";position:absolute;inset-inline-start:0;top:2px;width:18px;height:18px;border-radius:50%;background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/11px no-repeat;}
-.inc-h{font-weight:700;color:#fff;margin-top:22px;font-size:17px;}
-.sess{position:relative;z-index:1;background:var(--ink);color:#fff;border-radius:22px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 20px 40px rgba(23,20,15,.22);}
-.sess .micro{color:#B9B1A7;}
-.sess b{display:block;font-family:var(--fd);font-size:22px;line-height:1.2;font-weight:700;margin-top:4px;}
-.sess p{font-size:14px;color:#B9B1A7;margin-top:2px;}
-.tick{flex:0 0 auto;width:48px;height:48px;border-radius:50%;background:var(--accent);display:inline-flex;align-items:center;justify-content:center;}
+.hero-link{display:inline-flex;align-items:center;min-height:44px;margin-top:6px;font-size:16px;font-weight:600;}
 
-/* buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 24px;border:1px solid var(--accent);background:var(--accent);color:#fff;font-family:inherit;font-size:16px;font-weight:600;border-radius:999px;cursor:pointer;text-decoration:none;transition:background-color 120ms,transform 120ms;box-shadow:0 8px 20px rgba(217,64,26,.22);}
-.btn:hover{background:var(--accent-ink);border-color:var(--accent-ink);color:#fff;}
+/* the morning run card, one of the two night cards */
+.mcard{background:var(--night2);border:1px solid var(--night-line);border-radius:var(--r-l);padding:18px;color:var(--on-night);display:flex;flex-direction:column;gap:14px;min-width:0;}
+@media (min-width:768px){.mcard{padding:24px;}}
+.mc-top{display:flex;justify-content:space-between;align-items:center;gap:10px 12px;flex-wrap:wrap;}
+.mc-lab{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--on-night-muted);}
+.mc-lab svg{width:18px;height:18px;}
+.mc-switch{display:flex;flex-wrap:wrap;gap:8px;}
+.mc-btn{min-height:44px;padding:0 16px;border:1px solid var(--night-line);border-radius:999px;background:transparent;color:var(--on-night-muted);font-family:var(--f);font-size:15px;font-weight:600;cursor:pointer;}
+.mc-btn:hover{color:var(--on-night);border-color:var(--on-night-muted);}
+.mc-btn[aria-pressed="true"]{background:var(--on-night);border-color:var(--on-night);color:var(--night);}
+.mc-btn:focus-visible{outline-color:var(--gold);}
+.mc-pane{display:flex;flex-direction:column;gap:12px;}
+.mc-pane[hidden]{display:none !important;}
+.mc-head{display:flex;justify-content:space-between;align-items:center;gap:8px 12px;flex-wrap:wrap;}
+.mc-title{font-size:20px;line-height:1.3;font-weight:600;color:var(--on-night);}
+@media (min-width:768px){.mc-title{font-size:22px;}}
+.mc-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.mc-chip{display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:0 12px;border:1px solid var(--night-line);border-radius:999px;font-size:14px;color:var(--on-night);}
+.mc-chip svg{width:16px;height:16px;}
+.mc-meta{display:inline-flex;align-items:center;gap:8px;font-size:15px;color:var(--on-night-muted);}
+.mc-meta svg{width:18px;height:18px;}
+.mcard svg.route,.mcard svg.hr,.mcard svg.zones{display:block;width:100%;}
+.mcard svg.route{max-height:140px;}
+@media (min-width:768px){.mcard svg.route{max-height:170px;}}
+.mc-cap{display:flex;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;font-size:14px;color:var(--on-night-muted);}
+.mc-cap b{font-weight:500;color:var(--on-night);}
+.mc-p{font-size:16px;line-height:1.6;color:var(--on-night-muted);}
+.mc-steps{list-style:none;margin:0;padding:0;}
+.mc-steps li{display:grid;grid-template-columns:52px minmax(0,1fr);gap:12px;padding:12px 0;border-top:1px solid var(--night-line);}
+.mc-steps .tm{font-size:15px;color:var(--gold);padding-top:1px;}
+.mc-steps .what{display:block;font-size:14px;font-weight:600;color:var(--on-night);}
+.mc-steps .say{display:block;font-size:15px;line-height:1.55;color:var(--on-night-muted);}
+.draw{animation:draw 1600ms ease-out both;}
+@keyframes draw{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+.fadein{animation:fadein 320ms ease-out both;}
+@keyframes fadein{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.draw,.fadein{animation:none;}}
+
+/* the three sports */
+.sportgrid{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;margin-top:32px;}
+@media (min-width:900px){.sportgrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;}}
+.sportcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:24px;display:flex;flex-direction:column;gap:12px;min-width:0;}
+.sportcard .sh{display:flex;align-items:center;gap:12px;}
+.sportcard .si{width:44px;height:44px;border-radius:50%;background:var(--night);display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;}
+.sportcard .si svg{width:22px;height:22px;}
+.sportcard h3{font-size:22px;}
+.sportcard p{font-size:16px;line-height:1.6;color:var(--text);}
+.sportcard .sz{margin-top:auto;padding-top:6px;display:flex;flex-direction:column;gap:6px;}
+.sportcard .sz svg{display:block;width:100%;height:45px;}
+.sportcard .sz span{font-size:14px;color:var(--muted);}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 22px;border:1px solid var(--night);background:var(--night);color:#FFFFFF;font-family:var(--f);font-size:16px;font-weight:600;line-height:1.25;border-radius:var(--r-s);cursor:pointer;text-decoration:none;text-align:center;transition:background-color 120ms,border-color 120ms,color 120ms,transform 120ms;}
+.btn:hover{background:var(--night-hover);border-color:var(--night-hover);color:#FFFFFF;}
 .btn:active{transform:translateY(1px);}
-.btn.ghost{background:var(--surface);color:var(--ink);border-color:var(--line-strong);box-shadow:none;}
-.btn.ghost:hover{border-color:var(--ink);background:var(--surface);color:var(--ink);}
-.btn.dark{background:var(--ink);border-color:var(--ink);box-shadow:none;}
-.btn.dark:hover{background:#000;}
-.btn.onband{background:#fff;border-color:#fff;color:var(--ink);box-shadow:none;}
-.btn.onband:hover{background:var(--ink);border-color:var(--ink);color:#fff;}
-.btn.outline-dark{background:transparent;border-color:var(--dark-line);color:#fff;box-shadow:none;}
-.btn.outline-dark:hover{border-color:#fff;}
-.btn[disabled]{background:#EEE7DE;border-color:#EEE7DE;color:var(--faint);cursor:default;box-shadow:none;}
-.btn.danger{background:var(--danger);border-color:var(--danger);box-shadow:none;}
+.btn.ghost,.btn.outline-dark{background:var(--surface);color:var(--ink);border-color:var(--line-strong);}
+.btn.ghost:hover,.btn.outline-dark:hover{border-color:var(--ink);background:var(--surface);color:var(--ink);}
+.btn.dark,.btn.onband{background:var(--night);border-color:var(--night);color:#FFFFFF;}
+.btn.dark:hover,.btn.onband:hover{background:var(--night-hover);border-color:var(--night-hover);color:#FFFFFF;}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:var(--night);}
+.btn.gold:hover{background:var(--gold-hover);border-color:var(--gold-hover);color:var(--night);}
+.btn[disabled]{background:#E9E3D8;border-color:#E9E3D8;color:var(--muted);cursor:default;}
+.btn.danger{background:var(--danger);border-color:var(--danger);color:#FFFFFF;}
 .btn.danger:hover{background:#8F1C13;border-color:#8F1C13;}
-.btn.small{min-height:44px;padding:8px 18px;font-size:15px;}
+.btn.small{min-height:44px;padding:8px 16px;font-size:15px;}
+.pnav .btn.gold{min-height:44px;padding:8px 16px;font-size:15px;}
 
-/* layout */
+/* ---------- layout ---------- */
 .view{display:none;}
 .view.on{display:block;}
-.section{padding:64px 0;}
-@media (min-width:768px){.section{padding:88px 0;}}
-@media (min-width:1280px){.section{padding:112px 0;}}
+.section{padding:56px 0;}
+@media (min-width:768px){.section{padding:72px 0;}}
+@media (min-width:1280px){.section{padding:88px 0;}}
 .section.tight{padding-top:0;}
-h2{font-family:var(--fd);font-weight:800;font-size:34px;line-height:1.05;letter-spacing:-.03em;color:var(--ink);margin:12px 0 0;max-width:20ch;}
-@media (min-width:768px){h2{font-size:44px;}}
-@media (min-width:1280px){h2{font-size:56px;}}
-h3{font-family:var(--fd);font-weight:700;font-size:20px;line-height:1.25;letter-spacing:-.01em;color:var(--ink);}
-.lead{font-size:18px;line-height:1.6;color:var(--muted);max-width:640px;margin:16px 0 0;}
-.ink{background:var(--ink);color:#fff;}
-.ink h2, .ink h3{color:#fff;}
-.ink .eyebrow{color:var(--accent-dark);}
-.ink p, .ink .lead{color:#C9C1B7;}
-.band{background:var(--ink);color:#fff;}
-.band h2{color:#fff;}
-.sand{background:transparent;}
+.ink,.band,.sand{background:transparent;}
+.ink h2,.band h2{color:var(--ink);}
+.ink .eyebrow{color:var(--acc);}
+.ink p,.ink .lead{color:var(--text);}
 
-.grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:40px;}
-@media (min-width:768px){.grid.two{grid-template-columns:1fr 1fr;gap:20px;} .grid.four{grid-template-columns:1fr 1fr;gap:20px;}}
-@media (min-width:1024px){.grid.four{grid-template-columns:repeat(4,1fr);}}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px;min-width:0;}
-@media (min-width:768px){.card{padding:28px;}}
-.card p{font-size:16px;line-height:1.6;color:var(--muted);margin-top:8px;}
+.grid{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;margin-top:32px;}
+@media (min-width:768px){.grid.two{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;} .grid.four{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;}}
+@media (min-width:1024px){.grid.four{grid-template-columns:repeat(4,minmax(0,1fr));}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:22px;min-width:0;}
+@media (min-width:768px){.card{padding:26px;}}
+.card p{font-size:16px;line-height:1.6;color:var(--text);margin-top:8px;}
 .card h3 + p{margin-top:8px;}
-.card.tint{background:var(--accent-tint);border-color:transparent;}
-.card.tint p{color:var(--ink);}
-.card.dark{background:var(--ink);border-color:var(--ink);color:#fff;}
-.card.dark h3{color:#fff;} .card.dark p{color:#C9C1B7;} .card.dark .micro{color:#B9B1A7;}
-.num{display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;padding:0 10px;border-radius:12px;background:var(--accent-tint);color:var(--accent-ink);font-size:15px;font-weight:700;margin-bottom:24px;}
-.feat h3{font-size:22px;}
+.card.tint{background:var(--sand2);border-color:var(--line);}
+.card.tint p{color:var(--text);}
+.card.dark{background:var(--surface);border-color:var(--line);color:var(--text);}
+.card.dark h3{color:var(--ink);}
+.card.dark p{color:var(--text);}
+.num,.card p.num{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:var(--night);color:var(--gold);font-size:15px;font-weight:600;margin-bottom:18px;font-variant-numeric:tabular-nums;}
+.feat h3{font-size:20px;}
 
-/* stats band */
-.stats3{display:grid;grid-template-columns:1fr;gap:24px;margin-top:40px;}
-@media (min-width:768px){.stats3{grid-template-columns:repeat(3,1fr);}}
-.stats3 > div{border-top:1px solid var(--dark-line);padding-top:20px;}
-.stats3 .v{font-family:var(--fd);font-weight:800;font-size:72px;line-height:1;letter-spacing:-.04em;color:var(--accent-dark);}
-@media (min-width:1280px){.stats3 .v{font-size:96px;}}
-.stats3 .l{margin-top:12px;font-size:17px;color:#C9C1B7;max-width:24ch;}
+/* the three rules every plan follows */
+.stats3{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;margin-top:32px;}
+@media (min-width:768px){.stats3{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;}}
+.stats3 > div{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--night);border-radius:var(--r-s);padding:22px;}
+.stats3 .v{font-weight:700;font-size:48px;line-height:1;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums;}
+.stats3 .l{margin-top:10px;font-size:16px;color:var(--muted);max-width:26ch;}
 
 /* steps */
-.steps4{display:grid;grid-template-columns:1fr;gap:28px;margin-top:40px;}
-@media (min-width:768px){.steps4{grid-template-columns:1fr 1fr;}}
-@media (min-width:1024px){.steps4{grid-template-columns:repeat(4,1fr);}}
-.step .n{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:700;color:#fff;margin:0;}
-.step .n span{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:var(--ink);flex:0 0 auto;}
-.step .n::after{content:"";flex:1;height:1px;background:var(--line-strong);}
-.step h3{margin-top:20px;font-size:22px;}
-.step p{margin-top:8px;font-size:16px;color:var(--muted);}
-.card.step .n{color:var(--accent-ink);}
+.steps4{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;margin-top:32px;}
+@media (min-width:768px){.steps4{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;}}
+@media (min-width:1024px){.steps4{grid-template-columns:repeat(4,minmax(0,1fr));}}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:22px;}
+.step .n{display:flex;align-items:center;gap:12px;margin:0;}
+.step .n span{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:var(--night);color:var(--gold);font-size:15px;font-weight:600;flex:0 0 auto;}
+.step h3{margin-top:14px;font-size:20px;}
+.step p{margin-top:8px;font-size:16px;color:var(--text);}
+.card.step .n{color:var(--acc);}
 
-/* list rows inside a card */
-.rows{margin-top:24px;}
+/* rows inside a card */
+.rows{margin-top:20px;}
 .rowi{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;border-top:1px solid var(--line);padding:16px 0;}
 .rowi b{display:block;font-weight:600;font-size:16px;color:var(--ink);}
 .rowi p{margin-top:2px;font-size:15px;}
-.duo{display:grid;grid-template-columns:1fr;gap:20px;}
-@media (min-width:1024px){.duo{grid-template-columns:1fr 1fr;}}
-.duo .card{padding:28px;}
-@media (min-width:1024px){.duo .card{padding:40px;}}
-.duo .card h2{font-size:28px;max-width:none;}
-@media (min-width:768px){.duo .card h2{font-size:34px;}}
-.card.tint .links{margin-top:auto;padding-top:24px;display:flex;flex-wrap:wrap;gap:4px 20px;}
-.card.tint .links a{display:inline-flex;align-items:center;min-height:44px;font-weight:600;color:var(--accent-ink);}
+.duo{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;}
+@media (min-width:1024px){.duo{grid-template-columns:repeat(2,minmax(0,1fr));}}
+.duo .card{padding:24px;}
+@media (min-width:1024px){.duo .card{padding:36px;}}
+.duo .card h2{font-size:26px;max-width:none;}
+@media (min-width:768px){.duo .card h2{font-size:30px;}}
+.card.tint .links{margin-top:auto;padding-top:20px;display:flex;flex-wrap:wrap;gap:4px 20px;}
+.card.tint .links a{display:inline-flex;align-items:center;min-height:44px;font-weight:600;}
 .card.flex{display:flex;flex-direction:column;}
 
-/* accent CTA band */
-.ctaband{background:var(--accent);color:#fff;border-radius:28px;padding:40px 28px;display:flex;flex-direction:column;gap:28px;}
-@media (min-width:1024px){.ctaband{flex-direction:row;align-items:flex-end;justify-content:space-between;padding:72px 80px;}}
-.ctaband h2{color:#fff;max-width:18ch;}
-.ctaband p{color:#FFE3D9;margin-top:12px;font-size:16px;}
+/* closing call to action, a light panel */
+.ctaband{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l);padding:32px 24px;display:flex;flex-direction:column;gap:24px;}
+@media (min-width:1024px){.ctaband{flex-direction:row;align-items:flex-end;justify-content:space-between;padding:48px 56px;}}
+.ctaband h2{color:var(--ink);max-width:22ch;}
+.ctaband p{color:var(--text);margin-top:12px;font-size:17px;}
 
 .conn{display:flex;flex-direction:column;}
 .top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
-.badge{display:inline-flex;align-items:center;font-size:13px;font-weight:600;padding:4px 10px;border-radius:999px;background:#F3EEE7;color:var(--muted);white-space:nowrap;}
+.badge{display:inline-flex;align-items:center;font-size:14px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--sand2);color:var(--muted);white-space:nowrap;}
 .badge.ok{background:var(--ok-tint);color:var(--ok);}
-.badge.wait{background:var(--accent-tint);color:var(--accent-ink);}
+.badge.wait{background:var(--warn-tint);color:var(--acc);}
 .badge.no{background:var(--danger-tint);color:var(--danger);}
 .conn .btn{margin-top:auto;align-self:flex-start;}
 .conn .body{flex:1;margin-bottom:24px;}
-.conn ul, .conn ol{margin:12px 0 0;padding-inline-start:20px;font-size:16px;line-height:1.6;color:var(--muted);}
+.conn ul,.conn ol{margin:12px 0 0;padding-inline-start:20px;font-size:16px;line-height:1.6;color:var(--text);}
 
-/* science rules */
-.srcs{display:grid;grid-template-columns:1fr;gap:16px;margin-top:40px;}
-@media (min-width:768px){.srcs{grid-template-columns:1fr 1fr;}}
-@media (min-width:1280px){.srcs{grid-template-columns:repeat(3,1fr);}}
-.src{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px;}
-.src h3{font-size:20px;}
-.src p{font-size:15px;line-height:1.6;color:var(--muted);margin-top:8px;}
-.src .stand{display:block;margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:14px;color:var(--accent-ink);}
+/* science rules and sources */
+.srcs{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;margin-top:32px;}
+@media (min-width:768px){.srcs{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media (min-width:1280px){.srcs{grid-template-columns:repeat(3,minmax(0,1fr));}}
+.src{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:22px;}
+.src h3{font-size:19px;}
+.src p{font-size:15px;line-height:1.6;color:var(--text);margin-top:8px;}
+.src .stand{display:block;margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:14px;color:var(--acc);}
 
-/* forms */
-.form{max-width:640px;margin-top:32px;}
-.formcard{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:24px;box-shadow:0 24px 60px rgba(23,20,15,.07);max-width:none;margin-top:0;}
-@media (min-width:768px){.formcard{padding:40px;}}
-.split{display:grid;grid-template-columns:1fr;gap:32px;align-items:start;}
-@media (min-width:1024px){.split{grid-template-columns:1fr 1.1fr;gap:64px;} .split > .intro{position:sticky;top:120px;}}
+/* ---------- forms ---------- */
+.form{max-width:640px;margin-top:28px;}
+.formcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l);padding:22px;max-width:none;margin-top:0;}
+@media (min-width:768px){.formcard{padding:36px;}}
+.split{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;align-items:start;}
+@media (min-width:1024px){.split{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:56px;} .split > .intro{position:sticky;top:104px;}}
 .field{margin-top:20px;}
-.formcard > .field:first-child, .formcard > .row2:first-child .field{margin-top:0;}
-.field label, .field legend{display:block;font-size:15px;color:var(--ink);margin-bottom:8px;font-weight:600;}
-.field .hint{display:block;font-size:14px;color:var(--faint);margin:-4px 0 8px;font-weight:400;}
-.in, .sel, .ta{width:100%;min-height:52px;padding:12px 16px;font-family:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line-strong);border-radius:14px;}
-.in:focus, .sel:focus, .ta:focus{outline:2px solid var(--accent);outline-offset:1px;background:var(--surface);}
+.formcard > .field:first-child,.formcard > .row2:first-child .field{margin-top:0;}
+.field label,.field legend{display:block;font-size:15px;color:var(--ink);margin-bottom:8px;font-weight:600;}
+.field .hint{display:block;font-size:14px;color:var(--muted);margin:-4px 0 8px;font-weight:400;}
+.in,.sel,.ta{width:100%;min-height:52px;padding:12px 14px;font-family:var(--f);font-size:16px;color:var(--ink);background:var(--surface);border:1px solid var(--field);border-radius:var(--r-s);}
+.in:focus,.sel:focus,.ta:focus{outline:2px solid var(--night);outline-offset:1px;border-color:var(--night);}
 .ta{min-height:120px;line-height:1.6;resize:vertical;}
 fieldset{border:0;}
-.row2{display:grid;grid-template-columns:1fr;gap:0 16px;}
-@media (min-width:600px){.row2{grid-template-columns:1fr 1fr;}}
+.row2{display:grid;grid-template-columns:minmax(0,1fr);gap:0 16px;}
+@media (min-width:600px){.row2{grid-template-columns:repeat(2,minmax(0,1fr));}}
 .days{display:flex;flex-wrap:wrap;gap:8px;}
 .day{position:relative;}
 .day input{position:absolute;opacity:0;width:100%;height:100%;cursor:pointer;margin:0;}
-.day span{display:inline-flex;align-items:center;justify-content:center;min-width:60px;min-height:48px;padding:0 14px;border:1px solid var(--line-strong);background:var(--surface);border-radius:14px;font-size:15px;font-weight:600;}
-.day input:checked + span{background:var(--ink);border-color:var(--ink);color:#fff;}
-.day input:focus-visible + span{outline:2px solid var(--accent);outline-offset:3px;}
-.check{display:flex;gap:12px;align-items:flex-start;margin-top:10px;font-size:15px;line-height:1.55;min-height:44px;padding:12px 14px;border:1px solid var(--line-strong);border-radius:14px;background:var(--surface);cursor:pointer;}
-.check:has(input:checked){border-color:var(--accent);background:#FFF8F5;}
-.field label.check{display:flex;font-weight:500;margin-bottom:0;font-size:15px;}
-.check input{flex:0 0 auto;width:20px;height:20px;margin-top:1px;accent-color:var(--accent);}
+.day span{display:inline-flex;align-items:center;justify-content:center;min-width:60px;min-height:48px;padding:0 14px;border:1px solid var(--field);background:var(--surface);border-radius:var(--r-s);font-size:15px;font-weight:600;color:var(--ink);}
+.day input:checked + span{background:var(--night);border-color:var(--night);color:#FFFFFF;}
+.day input:focus-visible + span{outline:2px solid var(--night);outline-offset:3px;}
+.check{display:flex;gap:12px;align-items:flex-start;margin-top:10px;font-size:15px;line-height:1.55;min-height:44px;padding:12px 14px;border:1px solid var(--line-strong);border-radius:var(--r-s);background:var(--surface);cursor:pointer;color:var(--text);}
+.check:has(input:checked){border-color:var(--night);background:#FBF8F2;}
+.field label.check{display:flex;font-weight:400;margin-bottom:0;font-size:15px;color:var(--text);}
+.check input{flex:0 0 auto;width:20px;height:20px;margin-top:2px;accent-color:var(--night);}
 .err{display:none;color:var(--danger);font-size:15px;margin-top:12px;}
 .err.on{display:block;}
-.ok-msg{display:none;margin-top:20px;padding:16px 20px;background:var(--ok-tint);border-radius:14px;font-size:15px;color:var(--ink);}
+.ok-msg{display:none;margin-top:20px;padding:14px 18px;background:var(--ok-tint);border-radius:var(--r-s);font-size:15px;color:var(--ink);}
 .ok-msg.on{display:block;}
-.note{font-size:15px;line-height:1.6;color:var(--faint);margin-top:16px;}
-
-.drop{margin-top:16px;border:1.5px dashed var(--line-strong);background:var(--bg);padding:28px 20px;text-align:center;border-radius:18px;}
-.drop.over{background:var(--accent-tint);border-color:var(--accent);}
+.drop{margin-top:16px;border:1.5px dashed var(--field);background:var(--bg);padding:28px 20px;text-align:center;border-radius:var(--r-m);}
+.drop.over{background:var(--sand2);border-color:var(--night);}
 .drop p{font-size:15px;margin-top:8px;}
 .drop .micro{margin-top:0;}
 .files{margin-top:12px;list-style:none;font-size:15px;padding:0 !important;}
 .files li{border-top:1px solid var(--line);padding:10px 0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;color:var(--ink);}
+.files li.wnote{display:block;color:var(--text);border-top:0;padding-top:0;}
 
-/* my week */
-.week{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px;}
-@media (min-width:768px){.week{grid-template-columns:repeat(4,1fr);}}
-@media (min-width:1024px){.week{grid-template-columns:repeat(7,1fr);}}
-.wd{background:var(--surface);border:1px solid var(--line);padding:16px;border-radius:18px;min-width:0;}
-.wd.today{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 14px 30px rgba(217,64,26,.25);}
-.wd .micro{color:var(--faint);}
-.wd.today .micro, .wd.today p, .wd.today b{color:#fff;}
-.wd b{display:block;font-family:var(--fd);font-weight:700;color:var(--ink);font-size:18px;margin-top:8px;line-height:1.2;}
-.wd p{font-size:14px;line-height:1.5;margin-top:4px;color:var(--muted);}
+/* ---------- my week ---------- */
+.week{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:20px;}
+@media (min-width:768px){.week{grid-template-columns:repeat(4,minmax(0,1fr));}}
+@media (min-width:1024px){.week{grid-template-columns:repeat(7,minmax(0,1fr));}}
+.wd{background:var(--surface);border:1px solid var(--line);padding:16px;border-radius:var(--r-m);min-width:0;}
+.wd.today{border:2px solid var(--night);padding:15px;}
+.wd .micro{color:var(--muted);}
+.wd.today > .micro{color:var(--acc);}
+.wd b{display:block;font-weight:600;color:var(--ink);font-size:17px;margin-top:8px;line-height:1.3;}
+.wd p{font-size:14px;line-height:1.5;margin-top:4px;color:var(--text);}
 .wd .z{display:inline-flex;margin-top:10px;}
-.wd.today .badge{background:rgba(255,255,255,.2);color:#fff;}
-.today-card{background:var(--ink);color:#fff;padding:28px;border-radius:28px;margin-top:28px;}
-@media (min-width:768px){.today-card{padding:36px;}}
-.today-card h3{color:#fff;font-size:28px;line-height:1.15;font-weight:800;margin-top:14px;letter-spacing:-.02em;}
-@media (min-width:768px){.today-card h3{font-size:40px;}}
-.today-card .eyebrow{display:inline-flex;align-items:center;min-height:28px;padding:2px 12px;border-radius:999px;background:var(--accent);color:#fff;font-size:13px;}
-.today-card ol{margin:20px 0 0;padding:0;list-style:none;color:#E8E2DA;font-size:16px;line-height:1.55;}
-.today-card ol li{border-top:1px solid var(--dark-line);padding:12px 0;}
-.today-card p{color:#C9C1B7;font-size:16px;margin-top:12px;}
-.today-card .sent{margin-top:20px;font-size:15px;font-weight:600;color:var(--accent-dark);}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;}
-@media (min-width:768px){.stats{grid-template-columns:repeat(4,1fr);}}
-.stat{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px 20px;}
-.stat .v{font-family:var(--fd);font-weight:800;font-size:34px;line-height:1.05;letter-spacing:-.02em;color:var(--ink);}
-@media (min-width:1280px){.stat .v{font-size:40px;}}
+.wd .cond{font-size:14px;margin-top:6px;}
+.today-card{background:var(--night);color:var(--on-night);padding:24px;border-radius:var(--r-l);margin-top:24px;}
+@media (min-width:768px){.today-card{padding:32px;}}
+.today-card h3{color:var(--on-night);font-size:26px;line-height:1.2;font-weight:700;margin-top:14px;}
+@media (min-width:768px){.today-card h3{font-size:32px;}}
+.today-card .eyebrow{display:inline-flex;align-items:center;min-height:28px;padding:2px 12px;border-radius:999px;background:var(--gold);color:var(--night);font-size:14px;font-weight:600;}
+.today-card ol{margin:18px 0 0;padding:0;list-style:none;color:var(--on-night);font-size:16px;line-height:1.55;}
+.today-card ol li{border-top:1px solid var(--night-line);padding:12px 0;}
+.today-card p{color:var(--on-night-muted);font-size:16px;margin-top:12px;}
+.today-card .sent{margin-top:18px;font-size:15px;font-weight:600;color:var(--gold);}
+.today-card a{color:var(--gold);}
+.today-card :focus-visible{outline-color:var(--gold);}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:20px;}
+@media (min-width:768px){.stats{grid-template-columns:repeat(4,minmax(0,1fr));}}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:18px 20px;}
+.stat .v{font-weight:700;font-size:30px;line-height:1.1;color:var(--ink);font-variant-numeric:tabular-nums;}
+@media (min-width:1280px){.stat .v{font-size:34px;}}
 .stat .l{font-size:14px;color:var(--muted);margin-top:4px;}
-.chart{margin-top:20px;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px;}
+.chart{margin-top:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:22px;}
 .chart svg{display:block;width:100%;height:auto;}
 .chat{margin-top:20px;display:flex;flex-direction:column;gap:12px;max-height:60vh;overflow-y:auto;padding:4px;}
-.msg{max-width:min(560px,88%);border-radius:18px;padding:12px 16px;border:1px solid var(--line-strong);background:var(--surface);}
-.msg.me{align-self:flex-end;background:var(--accent-tint);border-color:transparent;}
-.msg p{margin:0;font-size:16px;line-height:1.55;white-space:pre-wrap;}
-.msg p.micro{font-size:13px;margin-bottom:4px;color:var(--faint);}
+.msg{max-width:min(560px,88%);border-radius:var(--r-m);padding:12px 16px;border:1px solid var(--line);background:var(--surface);}
+.msg.me{align-self:flex-end;background:var(--sand2);border-color:var(--sand2);}
+.msg p{margin:0;font-size:16px;line-height:1.55;white-space:pre-wrap;color:var(--ink);}
+.msg p.micro{font-size:14px;margin-bottom:4px;color:var(--muted);}
+.msg.typing p{color:var(--muted);}
 .chatform{margin-top:16px;}
 .msg .listen{font-size:14px;min-height:32px;margin-top:4px;}
 .pushcard{margin-top:16px;}
-.diarycard{margin-top:28px;}
-.wd .cond{font-size:13px;margin-top:6px;}
+.diarycard{margin-top:24px;}
 .sact{margin-top:10px;display:flex;flex-direction:column;gap:6px;}
 .sel.mini{min-height:44px;font-size:14px;padding:6px 10px;width:100%;}
-.wd.today .sact .btn.ghost{color:#fff;border-color:rgba(255,255,255,.6);}
 #p-ram-more{margin-top:12px;}
 .diarycard > p:not(.micro):not(.err){margin-top:6px;}
 .howto{margin:12px 0;}
-.howto summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center;}
+.howto summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center;color:var(--ink);}
 .howto p{font-size:15px;margin-top:6px;}
 .pushcard p:not(.micro){margin-top:6px;}
 .chai{margin-top:8px;}
 .calcard{margin-top:20px;}
 .calcard p:not(.micro):not(.note){margin-top:6px;}
 .calbtns{margin-top:16px;flex-wrap:wrap;}
-.linkbtn{background:none;border:0;padding:0;color:var(--accent-ink);text-decoration:underline;font:inherit;cursor:pointer;min-height:44px;}
-.coachnote{margin-top:20px;background:var(--accent-tint);border-radius:22px;padding:24px 28px;}
+.linkbtn{background:none;border:0;padding:0;color:var(--acc);text-decoration:underline;text-underline-offset:.2em;font:inherit;cursor:pointer;min-height:44px;}
+.coachnote{margin-top:20px;background:var(--sand2);border-radius:var(--r-m);padding:22px 26px;}
 .coachnote p{font-size:17px;line-height:1.6;margin-top:6px;color:var(--ink);}
-.price{font-family:var(--fd);font-weight:800;font-size:72px;line-height:1;letter-spacing:-.04em;color:#fff;margin-top:16px;}
-@media (min-width:1280px){.price{font-size:96px;}}
-.wd p.micro, .card p.micro, .today-card p.eyebrow, .coachnote p.eyebrow, .chart p.eyebrow{margin-top:0;}
+.price{font-weight:700;font-size:56px;line-height:1;letter-spacing:-.02em;color:var(--ink);margin-top:14px;}
+.wd p.micro,.card p.micro,.today-card p.eyebrow,.coachnote p.eyebrow,.chart p.eyebrow{margin-top:0;}
 .coachnote p.eyebrow{font-size:15px;}
 #recent{margin-top:20px;}
-footer.site{border-top:1px solid var(--line);margin-top:48px;padding:28px 0 48px;font-size:14px;color:var(--faint);}
-footer.site a{color:var(--muted);}
-footer.site a:hover{color:var(--ink);}
 
-.card .eyebrow{color:var(--accent);font-size:15px;}
-.card .chip{color:var(--accent-ink);font-size:14px;margin-top:0;}
-.card .micro{color:var(--muted);font-size:13px;}
-.card.dark .micro{color:#B9B1A7;font-size:15px;margin-top:6px;}
-.card.dark .price{color:#fff;font-size:72px;line-height:1;margin-top:20px;}
-@media (min-width:1280px){.card.dark .price{font-size:96px;}}
-.card.dark .chip{background:var(--accent);color:#fff;}
-.card.dark .chip::before{background:#fff;}
-.card.tint .eyebrow{color:var(--accent-ink);}
+.card .eyebrow{color:var(--acc);font-size:15px;}
+.card .chip{color:var(--acc);font-size:14px;margin-top:0;}
+.card .micro{color:var(--muted);font-size:14px;}
+.card.dark .micro{color:var(--muted);font-size:15px;margin-top:6px;}
+.card.dark .chip{background:var(--sand2);color:var(--acc);}
+.card.dark .chip::before{background:var(--acc);}
+.card.tint .eyebrow{color:var(--acc);}
 .duo .card p.eyebrow{margin-top:0;}
-/* live service additions: language blocks, alerts, data rights, payments, admin, legal pages */
-html[lang="ar"] [data-lang="en"], html:not([lang="ar"]) [data-lang="ar"]{display:none !important;}
+
+/* ---------- footer: the second night bar ---------- */
+footer.site{background:var(--night);color:var(--on-night-muted);margin-top:56px;padding:40px 0 44px;font-size:15px;}
+@media (min-width:768px){footer.site{padding:48px 0 52px;}}
+footer.site a{color:var(--on-night-muted);text-decoration:none;}
+footer.site a:hover{color:var(--on-night);}
+footer.site :focus-visible{outline-color:var(--gold);}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px 56px;}
+.fbrand{display:flex;flex-direction:column;gap:8px;}
+.fbrand .fname{display:inline-flex;align-items:center;gap:10px;color:var(--on-night);font-weight:600;font-size:16px;}
+.fbrand .fname svg{width:28px;height:28px;}
+footer.site .fmail{display:inline-flex;align-items:center;min-height:44px;color:var(--gold);text-decoration:underline;text-underline-offset:.2em;}
+footer.site .fmail:hover{color:var(--gold-hover);}
+.fnav{display:flex;flex-wrap:wrap;gap:0 28px;max-width:620px;}
+.fnav a{display:inline-flex;align-items:center;min-height:44px;}
+.copy{margin-top:20px;padding-top:18px;border-top:1px solid var(--night-line);font-size:14px;color:var(--on-night-muted);}
+.contact-line{margin-top:6px;}
+
+/* ---------- live service additions: language blocks, alerts, data rights, payments, admin, legal pages ---------- */
+html[lang="ar"] [data-lang="en"],html:not([lang="ar"]) [data-lang="ar"]{display:none !important;}
 [hidden]{display:none !important;}
-.vh{position:absolute;left:-9999px;}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0;}
 .mt24{margin-top:24px;}
 .center{justify-content:center;}
 .ck-cta.center{margin-top:12px;}
 .ok-msg.alert{background:var(--danger-tint);}
 #banner{margin-top:24px;}
 #banner:not(.on){margin:0;}
-.rights{margin-top:96px;padding-top:64px;border-top:1px solid var(--line);}
+.rights{margin-top:88px;padding-top:56px;border-top:1px solid var(--line);}
 .consents .check{margin-top:10px;}
 dl.pay{margin-top:16px;display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:15px;}
 dl.pay dt{color:var(--muted);}
 dl.pay dd{color:var(--ink);font-weight:600;overflow-wrap:anywhere;}
-.card.dark .price + p, .card.dark p{color:#C9C1B7;}
-.memgrid{display:grid;grid-template-columns:1fr;gap:20px;margin-top:40px;}
-@media (min-width:1024px){.memgrid{grid-template-columns:1fr 1fr 1fr;}}
+.memgrid{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;margin-top:32px;}
+@media (min-width:1024px){.memgrid{grid-template-columns:repeat(3,minmax(0,1fr));}}
 .si-small{margin:14px 0 0;font-size:14px;color:var(--muted);}
-.linkbtn{background:none;border:0;padding:0;font:inherit;color:var(--accent);text-decoration:underline;cursor:pointer;min-height:32px;}
-.nocontract{margin-top:10px;font-size:15px;color:#fff;font-weight:500;}
+.nocontract{margin-top:10px;font-size:16px;color:var(--text);font-weight:400;}
 .faqlist{margin-top:24px;border-top:1px solid var(--line);}
 .faq{border-bottom:1px solid var(--line);}
 .faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:56px;padding:12px 0;font-size:17px;font-weight:600;color:var(--ink);}
 .faq summary::-webkit-details-marker{display:none;}
-.faq summary::after{content:"+";font-size:24px;line-height:1;color:var(--accent);flex:0 0 auto;}
+.faq summary::after{content:"+";font-size:24px;line-height:1;color:var(--acc);flex:0 0 auto;}
 .faq[open] summary::after{content:"\2212";}
-.faq p{margin:0 0 18px;font-size:15px;line-height:1.6;color:var(--muted);max-width:760px;}
-.copy{margin-top:8px;font-size:13px;color:var(--muted);}
+.faq p{margin:0 0 18px;font-size:16px;line-height:1.65;color:var(--text);max-width:760px;}
 .pw-wrap{position:relative;display:block;}
 .pw-wrap .in{padding-inline-end:52px;}
 .pw-eye{position:absolute;inset-inline-end:4px;top:50%;transform:translateY(-50%);width:44px;height:44px;border:0;background:transparent;cursor:pointer;color:var(--muted);display:flex;align-items:center;justify-content:center;border-radius:8px;}
 .pw-eye:hover{color:var(--ink);}
 .pw-eye svg{width:22px;height:22px;}
-@media (max-width:1023px){.ck-tabs.more{-webkit-mask-image:linear-gradient(to right,#000 82%,transparent);mask-image:linear-gradient(to right,#000 82%,transparent);}
-[dir="rtl"] .ck-tabs.more{-webkit-mask-image:linear-gradient(to left,#000 82%,transparent);mask-image:linear-gradient(to left,#000 82%,transparent);}}
 .si-new{margin-top:24px;padding-top:20px;border-top:1px solid var(--line);}
 .si-new p{margin:0 0 14px;font-size:15px;line-height:1.5;}
 .social{margin:0 0 6px;}
-.gbtn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;min-height:48px;padding:12px 20px;border:1px solid #747775;background:#fff;color:#1f1f1f;font-family:inherit;font-size:16px;font-weight:600;border-radius:999px;cursor:pointer;}
+.gbtn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;min-height:48px;padding:12px 20px;border:1px solid #747775;background:#fff;color:#1f1f1f;font-family:var(--f);font-size:16px;font-weight:600;border-radius:var(--r-s);cursor:pointer;}
 .gbtn:hover{background:#f6f7f8;}
-.gbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
-.or{display:flex;align-items:center;gap:12px;margin:18px 0 4px;color:var(--muted,#666);font-size:14px;}
+.gbtn:focus-visible{outline:2px solid var(--night);outline-offset:2px;}
+.or{display:flex;align-items:center;gap:12px;margin:18px 0 4px;color:var(--muted);font-size:14px;}
 .or::before,.or::after{content:"";flex:1;height:1px;background:var(--line);}
 .done-h{margin-top:0;padding-top:0;border-top:0;}
 .memmain{grid-column:1/-1;}
 .memtop{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 32px;}
 .memtop .ck-cta{margin-top:0;}
-.incgrid{display:grid;grid-template-columns:1fr;gap:8px 32px;margin-top:28px;border-top:1px solid var(--dark-line);}
-@media (min-width:768px){.incgrid{grid-template-columns:1fr 1fr;}}
-@media (min-width:1280px){.incgrid{grid-template-columns:repeat(4,1fr);}}
-.incg .inc-h{margin-top:22px;}
-.inc li b{color:#fff;}
-
-.memgrid .card{padding:28px;}
-@media (min-width:768px){.memgrid .card{padding:36px;}}
+.memprice .price{font-size:44px;}
+@media (min-width:768px){.memprice .price{font-size:52px;}}
+.inc{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:10px;}
+.inc li{position:relative;padding-inline-start:28px;font-size:15px;line-height:1.5;color:var(--text);}
+.inc li::before{content:"";position:absolute;inset-inline-start:0;top:3px;width:18px;height:18px;border-radius:50%;background:var(--night) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' stroke='%23E2A93B' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat;}
+.inc li b{color:var(--ink);font-weight:600;}
+.inc-h{font-weight:600;color:var(--ink);margin-top:20px;font-size:17px;}
+.incgrid{display:grid;grid-template-columns:minmax(0,1fr);gap:8px 32px;margin-top:24px;border-top:1px solid var(--line);}
+@media (min-width:768px){.incgrid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media (min-width:1280px){.incgrid{grid-template-columns:repeat(4,minmax(0,1fr));}}
+.incg .inc-h{margin-top:20px;}
+.memgrid .card{padding:24px;}
+@media (min-width:768px){.memgrid .card{padding:32px;}}
 .adm{margin-top:48px;}
 .adm h3{margin-bottom:8px;}
 .adm .card{margin-top:16px;}
 .adm table{width:100%;border-collapse:collapse;font-size:15px;margin-top:8px;}
-.adm td, .adm th{border-top:1px solid var(--line);padding:8px 8px 8px 0;text-align:start;vertical-align:top;font-weight:400;}
+.adm td,.adm th{border-top:1px solid var(--line);padding:8px 8px 8px 0;text-align:start;vertical-align:top;font-weight:400;}
 .adm th{color:var(--muted);}
+.legal-toc{display:flex;flex-wrap:wrap;gap:0 24px;margin-bottom:28px;padding-bottom:12px;border-bottom:1px solid var(--line);max-width:820px;}
+.legal-toc a{display:inline-flex;align-items:center;min-height:44px;font-weight:600;}
 .legal{max-width:820px;}
 .legal h2{max-width:none;}
-.legal h3{margin-top:36px;font-size:22px;}
-.legal p, .legal li{font-size:16px;line-height:1.7;margin-top:12px;max-width:72ch;color:var(--muted);}
+.legal h3{margin-top:36px;font-size:21px;}
+.legal p,.legal li{font-size:16px;line-height:1.75;margin-top:12px;max-width:72ch;color:var(--text);}
 .legal ul{padding-inline-start:20px;}
-.legal + .legal{margin-top:96px;padding-top:64px;border-top:1px solid var(--line);}
-.attrib{font-size:14px;color:var(--faint);}
+.legal p.eyebrow{color:var(--acc);font-size:15px;}
+.legal p.note{color:var(--muted);}
+.legal + .legal{margin-top:88px;padding-top:56px;border-top:1px solid var(--line);}
 
-/* Arabic: Noto Sans Arabic for reading, Noto Kufi Arabic for headings and the brand */
-html[lang="ar"] body, html[lang="ar"] .in, html[lang="ar"] .sel, html[lang="ar"] .ta, html[lang="ar"] .btn{font-family:'Noto Sans Arabic',var(--fb);letter-spacing:0;}
-html[lang="ar"] h2, html[lang="ar"] h3, html[lang="ar"] .ck-hero h1, html[lang="ar"] .sess b, html[lang="ar"] .wd b, html[lang="ar"] .stat .v, html[lang="ar"] .eyebrow, html[lang="ar"] .chip{font-family:'Noto Kufi Arabic','Noto Sans Arabic',var(--fb);letter-spacing:0;}
-html[lang="ar"] main, html[lang="ar"] .pnav-in{direction:rtl;text-align:right;}
+/* logos of the services the coach works with */
+.logoband{padding:4px 0 32px;}
+.logos{display:flex;flex-wrap:nowrap;align-items:center;gap:12px;margin-top:12px;}
+.logos .lg{display:inline-flex;align-items:center;justify-content:center;gap:12px;height:104px;padding:0 18px;flex:1 1 auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);}
+.logos .lg img{display:block;max-width:220px;width:auto;}
+.logos .lg-garmin{padding:0 12px;flex:0 0 auto;}
+.logos .lg-garmin img{height:84px;max-width:none;}
+.logos .lg-iv{height:46px;}
+.logos .lg b{font-weight:700;font-size:20px;color:#111;}
+.logonote{margin-top:14px;color:var(--muted);}
+@media (max-width:1060px){.logos{flex-wrap:wrap;}}
+@media (max-width:640px){.logos .lg{height:92px;padding:0 12px;flex:1 1 100%;} .logos .lg-garmin img{height:auto;width:100%;max-width:386px;}}
+.works{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;}
+.works span{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 20px;border:1px solid var(--line);border-radius:999px;background:var(--surface);font-weight:600;font-size:17px;color:var(--ink);}
+.works span small{font-weight:400;font-size:14px;color:var(--muted);}
+
+/* ---------- Arabic: the same font, a little more line height, mirrored by html dir="rtl" ---------- */
 html[lang="ar"] body{line-height:1.85;}
-html[lang="ar"] .ck-hero h1{font-weight:700;line-height:1.45;font-size:38px;}
-html[lang="ar"] h2{font-weight:700;line-height:1.5;font-size:28px;max-width:22em;}
-html[lang="ar"] h3{font-weight:700;line-height:1.5;}
-html[lang="ar"] .today-card h3{font-size:28px;line-height:1.4;}
-html[lang="ar"] .ck-preview b{letter-spacing:0;text-transform:none;font-size:14px;}
-@media (min-width:768px){html[lang="ar"] .ck-hero h1{font-size:50px;} html[lang="ar"] h2{font-size:36px;}}
-@media (min-width:1280px){html[lang="ar"] .ck-hero h1{font-size:58px;} html[lang="ar"] h2{font-size:42px;}}
+html[lang="ar"] .ck-hero h1{font-size:30px;line-height:1.4;letter-spacing:0;}
+html[lang="ar"] h2{font-size:26px;line-height:1.45;letter-spacing:0;max-width:24em;}
+html[lang="ar"] h3{line-height:1.5;}
+html[lang="ar"] .today-card h3{font-size:24px;line-height:1.45;}
+html[lang="ar"] .mc-title{line-height:1.45;}
+html[lang="ar"] .stats3 .v,html[lang="ar"] .stat .v,html[lang="ar"] .price{letter-spacing:0;}
+@media (min-width:768px){html[lang="ar"] .ck-hero h1{font-size:40px;} html[lang="ar"] h2{font-size:32px;} html[lang="ar"] .today-card h3{font-size:28px;}}
+@media (min-width:1280px){html[lang="ar"] .ck-hero h1{font-size:46px;} html[lang="ar"] h2{font-size:34px;}}
 html[lang="ar"] [dir="ltr"]{text-align:left;}
-html[lang="ar"] .ck-preview{direction:rtl;text-align:right;}
-html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);direction:ltr;text-align:right;}
-/* Desktop tab row (25 Nov 2026, Triathlon Notables tab added): the tabs fill the space between the brand and the
-   language pill and scroll sideways when they do not fit, so the pill never drops to a second row. */
-@media (min-width:1024px){
-  .ck-tabs{flex:1 1 0;min-width:0;margin:0;justify-content:flex-start;}
-  .ck-tabs::before,.ck-tabs::after{content:"";flex:1 0 0;}
-  .ck-tabs.more{-webkit-mask-image:linear-gradient(to right,#000 88%,transparent);mask-image:linear-gradient(to right,#000 88%,transparent);}
-  html[lang="ar"] .ck-tabs.more{-webkit-mask-image:linear-gradient(to left,#000 88%,transparent);mask-image:linear-gradient(to left,#000 88%,transparent);}
-}
+html[lang="ar"] .in[dir="ltr"],html[lang="ar"] .ta[dir="ltr"]{text-align:left;}
 </style>
 
 </head>
 <body>
 <div class="ck-preview" id="previewBar" hidden><div class="ck-wrap"><p data-th="previewBar"></p></div></div>
 
-<div class="pnav" id="pnav"><div class="pnav-in">
-  <a class="pbrand" href="#overview" data-go="overview"><svg class="plogo-star" viewBox="0 0 58 58" aria-hidden="true"><rect width="58" height="58" rx="15" fill="#D9401A"/><g transform="translate(29 29)" fill="none" stroke="#fff" stroke-width="2.8" stroke-linejoin="round"><rect x="-13" y="-13" width="26" height="26"/><rect x="-13" y="-13" width="26" height="26" transform="rotate(45)"/></g></svg><span class="plock" data-lang="en"><b>ARABIAN METHOD</b><small>AI COACHING</small></span><span class="plock" data-lang="ar"><b>المنهج العربي</b><small>تدريب بالذكاء الاصطناعي</small></span></a>
-  <nav class="ck-tabs" id="tabs" aria-label="Coach pages">
-    <a href="#overview" data-go="overview" data-t="tabOverview"></a>
-    <a href="#signin" data-go="signin" data-t="signin" data-when="out"></a>
-    <a href="#week" data-go="week" data-t="tabWeek" data-when="in"></a>
-    <a href="#coach" data-go="coach" data-t="tabCoach" data-when="in"></a>
-    <a href="#raceplan" data-go="raceplan" data-when="in" id="rpTab"><span data-lang="en">Race plan</span><span data-lang="ar">خطة السباق</span></a>
-    <a href="#connect" data-go="connect" data-t="tabConnect" data-when="in"></a>
-    <a href="#profile" data-go="profile" data-t="tabProfile" data-when="in"></a>
-    <a href="#membership" data-go="membership" data-t="tabMembership"></a>
-    <a href="mailto:contact@arabianmethod.com"><span data-lang="en">Contact</span><span data-lang="ar">تواصل معنا</span></a>
-    <a href="#admin" data-go="admin" data-t="tabAdmin" data-when="admin"></a>
-    <a href="/notables/" data-lang="en">Triathlon Notables</a>
-    <a href="/notables/ar" data-lang="ar">أعلام الترايثلون</a>
-  </nav>
-  <div class="pnav-r">
-    <button class="pill" type="button" id="langToggle2"><span data-lang="en" lang="ar">العربية</span><span data-lang="ar" lang="en">English</span></button>
-    <a class="btn small" id="navCta" href="#register" data-go="register"><span data-lang="en">Start free</span><span data-lang="ar">ابدأ مجانا</span></a>
+<header class="pnav" id="pnav"><div class="pnav-in">
+  <a class="pbrand" href="#overview" data-go="overview"><svg class="plogo-star" viewBox="0 0 32 32" aria-hidden="true"><g transform="translate(16 16)" fill="none" stroke="#E2A93B" stroke-width="2" stroke-linejoin="round"><rect x="-10" y="-10" width="20" height="20"/><rect x="-10" y="-10" width="20" height="20" transform="rotate(45)"/></g></svg><span class="plock" data-lang="en">Arabian Method</span><span class="plock" data-lang="ar">المنهج العربي</span></a>
+  <div class="ck-tabs" id="tabs">
+    <nav class="hnav" aria-label="Main" data-aria-ar="الصفحات الرئيسية">
+      <a href="#overview" data-go="overview" data-t="tabOverview" data-when="out"></a>
+      <a href="#membership" data-go="membership" data-t="tabMembership" data-when="out"></a>
+      <a href="/notables/" data-lang="en" data-when="out">Triathlon Notables</a><a href="/notables/ar" data-lang="ar" data-when="out">أعلام الترايثلون</a>
+      <a href="#signin" data-go="signin" data-t="signin" data-when="out"></a>
+      <a href="#week" data-go="week" data-t="tabWeek" data-when="in"></a>
+      <a href="#coach" data-go="coach" data-t="tabCoach" data-when="in"></a>
+      <a href="#raceplan" data-go="raceplan" data-when="in" id="rpTab"><span data-lang="en">Race plan</span><span data-lang="ar">خطة السباق</span></a>
+      <a href="#profile" data-go="profile" data-t="tabProfile" data-when="in"></a>
+    </nav>
+    <div class="hpanel" id="hpanel" hidden>
+      <nav aria-label="All pages" data-aria-ar="كل الصفحات">
+        <a class="btn gold" href="#register" data-go="register" data-when="out"><span data-lang="en">Start free</span><span data-lang="ar">ابدأ مجانا</span></a>
+        <a href="#week" data-go="week" data-t="tabWeek" data-when="in"></a>
+        <a href="#coach" data-go="coach" data-t="tabCoach" data-when="in"></a>
+        <a href="#raceplan" data-go="raceplan" data-when="in"><span data-lang="en">Race plan</span><span data-lang="ar">خطة السباق</span></a>
+        <a href="#connect" data-go="connect" data-t="tabConnect" data-when="in"></a>
+        <a href="#profile" data-go="profile" data-t="tabProfile" data-when="in"></a>
+        <a href="#admin" data-go="admin" data-t="tabAdmin" data-when="admin"></a>
+        <a href="#overview" data-go="overview" data-t="tabOverview"></a>
+        <a href="#signin" data-go="signin" data-t="signin" data-when="out"></a>
+        <a href="#membership" data-go="membership" data-t="tabMembership"></a>
+        <a href="/notables/" data-lang="en">Triathlon Notables</a><a href="/notables/ar" data-lang="ar">أعلام الترايثلون</a>
+        <a href="mailto:contact@arabianmethod.com"><span data-lang="en">Contact</span><span data-lang="ar">تواصل معنا</span></a>
+      </nav>
+    </div>
   </div>
-</div></div>
+  <div class="pnav-r">
+    <a class="hlang" id="langToggle2" href="?lang=ar#overview" hreflang="ar"><span data-lang="en" lang="ar">العربية</span><span data-lang="ar" lang="en">English</span></a>
+    <a class="btn gold" id="navCta" href="#register" data-go="register"><span data-lang="en">Start free</span><span data-lang="ar">ابدأ مجانا</span></a>
+    <button class="hmenu" id="menuBtn" type="button" aria-expanded="false" aria-controls="hpanel"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span class="vh"><span data-lang="en">Menu</span><span data-lang="ar">القائمة</span></span></button>
+  </div>
+</div></header>
+<nav class="apptabs" id="apptabs" aria-label="Your training" data-aria-ar="تدريبك" hidden>
+  <a href="#week" data-go="week" data-t="tabWeek" data-when="in"></a>
+  <a href="#coach" data-go="coach" data-t="tabCoach" data-when="in"></a>
+  <a href="#raceplan" data-go="raceplan" data-when="in"><span data-lang="en">Race plan</span><span data-lang="ar">خطة السباق</span></a>
+  <a href="#profile" data-go="profile" data-t="tabProfile" data-when="in"></a>
+</nav>
 
 <main>
 <div class="ck-wrap"><p class="ok-msg" id="banner" role="status"></p></div>
@@ -486,47 +586,53 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
   <header class="ck-hero" id="hero"><div class="hero-grid">
     <div>
       <div data-lang="en">
-        <p class="chip">Your personal running and triathlon coach</p>
-        <h1>The AI coach that <span class="acc">really knows you.</span></h1>
+        <p class="sports"><span class="sp"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A5A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="15.5" cy="4.5" r="2"/><path d="M14 8 L11.5 13.5 M14 8 L10.5 9.8 L8.6 12.4 M14 8 L16.6 10.6 L19.6 10.2 M11.5 13.5 L15 16.2 L14 21 M11.5 13.5 L8.8 17.6 L4.8 18.4"/></svg>Running</span><span class="sp"><span class="icons"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A5A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17.5" cy="6.5" r="2"/><path d="M3.5 12.5 C 7 8.5, 11 8, 14.5 10.5 L 17 9"/><path d="M2 16.5 q 2.5 -2 5 0 t 5 0 t 5 0 t 5 0"/><path d="M2 20.5 q 2.5 -2 5 0 t 5 0 t 5 0 t 5 0"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A5A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="16.5" r="3.5"/><circle cx="18.5" cy="16.5" r="3.5"/><path d="M5.5 16.5 L9.5 10 L11.5 16.5 Z M9.5 10 L16 10 L11.5 16.5 M16 10 L18.5 16.5 M9.5 10 L9 8 M7.5 8 H10.5 M16 10 L15.4 7.5 H18"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A5A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="15.5" cy="4.5" r="2"/><path d="M14 8 L11.5 13.5 M14 8 L10.5 9.8 L8.6 12.4 M14 8 L16.6 10.6 L19.6 10.2 M11.5 13.5 L15 16.2 L14 21 M11.5 13.5 L8.8 17.6 L4.8 18.4"/></svg></span>Triathlon</span></p>
+        <h1>Running and triathlon training that changes with your sleep, your sessions, the heat and your week.</h1>
         <p class="lede">A training plan for your race that adjusts every day to your sleep, your workouts, the heat and your calendar, and goes straight to your watch.</p>
-        <ul class="hero-list">
-          <li>A weekly plan written for your race and your training days</li>
-          <li>Every session on your watch, with targets from your own zones</li>
-          <li>A daily check-in that eases the day when your body needs it</li>
-          <li>Heat, dust and summer indoor planning for your city</li>
-          <li>A race-day plan for pacing, fuel and fluids</li>
-          <li>A coach you can message at any time</li>
-        </ul>
       </div>
       <div data-lang="ar" dir="rtl" lang="ar">
-        <p class="chip">مدربك الشخصي للجري والترايثلون</p>
-        <h1>المدرب الذكي الذي <span class="acc">يعرفك حقا.</span></h1>
+        <p class="sports"><span class="sp"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A5A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="15.5" cy="4.5" r="2"/><path d="M14 8 L11.5 13.5 M14 8 L10.5 9.8 L8.6 12.4 M14 8 L16.6 10.6 L19.6 10.2 M11.5 13.5 L15 16.2 L14 21 M11.5 13.5 L8.8 17.6 L4.8 18.4"/></svg>الجري</span><span class="sp"><span class="icons"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A5A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17.5" cy="6.5" r="2"/><path d="M3.5 12.5 C 7 8.5, 11 8, 14.5 10.5 L 17 9"/><path d="M2 16.5 q 2.5 -2 5 0 t 5 0 t 5 0 t 5 0"/><path d="M2 20.5 q 2.5 -2 5 0 t 5 0 t 5 0 t 5 0"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A5A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="16.5" r="3.5"/><circle cx="18.5" cy="16.5" r="3.5"/><path d="M5.5 16.5 L9.5 10 L11.5 16.5 Z M9.5 10 L16 10 L11.5 16.5 M16 10 L18.5 16.5 M9.5 10 L9 8 M7.5 8 H10.5 M16 10 L15.4 7.5 H18"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A5A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="15.5" cy="4.5" r="2"/><path d="M14 8 L11.5 13.5 M14 8 L10.5 9.8 L8.6 12.4 M14 8 L16.6 10.6 L19.6 10.2 M11.5 13.5 L15 16.2 L14 21 M11.5 13.5 L8.8 17.6 L4.8 18.4"/></svg></span>الترايثلون</span></p>
+        <h1>تدريب للجري والترايثلون يتغير مع نومك وحصصك والحرارة وأسبوعك.</h1>
         <p class="lede">خطة تدريب لسباقك تتكيف كل يوم مع نومك وتمارينك والحرارة وجدولك، وتصل مباشرة إلى ساعتك.</p>
-        <ul class="hero-list">
-          <li>خطة أسبوعية مكتوبة لسباقك وأيام تدريبك</li>
-          <li>كل حصة على ساعتك بأهداف من مناطق جهدك أنت</li>
-          <li>تسجيل يومي يخفف اليوم عندما يحتاج جسمك إلى ذلك</li>
-          <li>تخطيط للحرارة والغبار والتدريب الداخلي صيفا في مدينتك</li>
-          <li>خطة ليوم السباق للإيقاع والوقود والسوائل</li>
-          <li>مدرب تراسله في أي وقت</li>
-        </ul>
       </div>
       <div class="ck-cta" id="heroCta"><a class="btn" href="#register" data-go="register"><span data-lang="en">Start free</span><span data-lang="ar">ابدأ مجانا</span></a><a class="btn ghost" href="#signin" data-go="signin" data-t="signin"></a></div>
-      <div class="ck-cta" style="margin-top:12px"><a class="btn dark" href="#sponsor" data-go="sponsor"><span data-lang="en">Apply for sponsored training</span><span data-lang="ar">قدّم على التدريب المموَّل</span></a></div>
-      <p class="free"><span data-lang="en">First month free for every new athlete who confirms their email</span><span data-lang="ar">الشهر الأول مجاني لكل رياضي جديد يؤكد بريده الإلكتروني</span></p>
+      <p class="free"><span data-lang="en">Membership is free, and no payment details are needed.</span><span data-lang="ar">الاشتراك مجاني، ولا حاجة إلى أي بيانات دفع.</span></p>
+      <a class="hero-link" href="#sponsor" data-go="sponsor"><span data-lang="en">Apply for sponsored training</span><span data-lang="ar">قدّم على التدريب المموَّل</span></a>
     </div>
-    <div class="hero-vis" aria-hidden="true">
-      <div data-lang="en" style="display:contents">
-        <p class="bub me"><small>Daily check-in, 5:40 am</small>Slept badly again and my legs feel heavy.</p>
-        <p class="bub ai">Three short nights in a row, so today's intervals become an easy 40 minute run, and the threshold work moves to Thursday.</p>
-        <div class="sess"><div><p class="micro">Today, on your Garmin</p><b>Easy run, 40 min</b><p>Heart rate up to 139, start before 6:30 am</p></div><span class="tick"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
-        <p class="bub ai after"><small>After your run</small>Easy all the way, average heart rate 131. Thursday stays as planned.</p>
+    <div class="mcard" data-lang="en">
+      <div class="mc-top">
+        <span class="mc-lab"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A7B3C6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="3"/><path d="M9 6 L9.6 2.5 H14.4 L15 6 M9 18 L9.6 21.5 H14.4 L15 18 M12 9.5 V12 L13.8 13.2"/></svg>Today, on your Garmin</span>
+        <div class="mc-switch" role="group" aria-label="Show the session"><button class="mc-btn" type="button" data-show="planned" aria-pressed="false">Planned</button><button class="mc-btn" type="button" data-show="after" aria-pressed="true">After your check-in</button></div>
       </div>
-      <div data-lang="ar" dir="rtl" lang="ar" style="display:contents">
-        <p class="bub me"><small>التسجيل اليومي، 5:40 صباحا</small>نمت بشكل سيئ مرة أخرى وساقاي ثقيلتان.</p>
-        <p class="bub ai">ثلاث ليال متتالية بنوم قليل، لذلك تتحول حصة التدريب المتقطع اليوم إلى جري سهل لمدة 40 دقيقة، وينتقل تدريب العتبة إلى الخميس.</p>
-        <div class="sess"><div><p class="micro">اليوم، على ساعة Garmin</p><b>جري سهل، 40 دقيقة</b><p>النبض حتى 139، ابدأ قبل 6:30 صباحا</p></div><span class="tick"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
-        <p class="bub ai after"><small>بعد الجري</small>سهل من البداية إلى النهاية، بمتوسط نبض 131. يبقى الخميس كما هو مخطط.</p>
+      <div class="mc-pane" data-pane="after">
+        <div class="mc-head"><p class="mc-title">Easy run, 40 min</p><span class="mc-chips"><span class="mc-chip"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E2A93B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20 C 6 15.5, 3 12.5, 3 8.8 A 4.4 4.4 0 0 1 12 6.6 A 4.4 4.4 0 0 1 21 8.8 C 21 12.5, 18 15.5, 12 20 Z"/><path d="M6.5 12 H9.5 L11 9.5 L13 14 L14.5 12 H17.5"/></svg>Heart rate up to 139</span><span class="mc-chip"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E2A93B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5 V5 M12 19 V21.5 M2.5 12 H5 M19 12 H21.5 M5.3 5.3 L7 7 M17 17 L18.7 18.7 M5.3 18.7 L7 17 M17 7 L18.7 5.3"/></svg>Start before 6:30 am</span></span></div>
+        <svg class="route" viewBox="0 0 300 150" role="img" aria-label="Route of the morning run"><path d="M30 118 C 18 82, 52 40, 104 44 S 178 18, 226 46 S 292 104, 246 122 S 158 116, 112 126 S 42 142, 30 118 Z" fill="none" stroke="#2C3E5A" stroke-width="8" stroke-linejoin="round"/><path class="draw" d="M30 118 C 18 82, 52 40, 104 44 S 178 18, 226 46 S 292 104, 246 122 S 158 116, 112 126 S 42 142, 30 118 Z" fill="none" stroke="#E2A93B" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="0"/><circle cx="30" cy="118" r="7" fill="#16253B" stroke="#E2A93B" stroke-width="3"/></svg>
+        <div><svg class="hr" viewBox="0 0 300 64" preserveAspectRatio="none" height="64" role="img" aria-label="Heart rate during the run, under the 139 cap"><line x1="0" y1="8.0" x2="300" y2="8.0" stroke="#A7B3C6" stroke-width="1.2" stroke-dasharray="5 5"/><polyline points="0.0,52.3 9.4,43.7 18.8,36.6 28.1,29.4 37.5,25.1 46.9,22.3 56.2,20.9 65.6,19.4 75.0,18.0 84.4,19.4 93.8,16.6 103.1,18.0 112.5,15.1 121.9,16.6 131.2,19.4 140.6,18.0 150.0,15.1 159.4,13.7 168.8,16.6 178.1,18.0 187.5,19.4 196.9,16.6 206.2,15.1 215.6,18.0 225.0,20.9 234.4,19.4 243.8,16.6 253.1,18.0 262.5,20.9 271.9,23.7 281.2,26.6 290.6,30.9 300.0,35.1" fill="none" stroke="#E2A93B" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/></svg><p class="mc-cap"><span>Heart rate stayed under the 139 cap</span><b>Average 131</b></p></div>
+        <ol class="mc-steps"><li><span class="tm">5:40</span><span><span class="what">Daily check-in</span><span class="say">Slept badly again and my legs feel heavy.</span></span></li><li><span class="tm">5:42</span><span><span class="what">Plan adjusted</span><span class="say">Three short nights in a row, so today's intervals become an easy 40 minute run.</span></span></li><li><span class="tm">6:45</span><span><span class="what">After your run</span><span class="say">Easy all the way, average heart rate 131. Thursday stays as planned.</span></span></li></ol>
+      </div>
+      <div class="mc-pane" data-pane="planned" hidden>
+        <p class="mc-title">Run intervals, 5 x 1 km</p>
+        <span class="mc-meta"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E2A93B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="15.5" cy="4.5" r="2"/><path d="M14 8 L11.5 13.5 M14 8 L10.5 9.8 L8.6 12.4 M14 8 L16.6 10.6 L19.6 10.2 M11.5 13.5 L15 16.2 L14 21 M11.5 13.5 L8.8 17.6 L4.8 18.4"/></svg>58 min, with five hard kilometers</span>
+        <svg class="zones" viewBox="0 0 600 57" preserveAspectRatio="none" role="img" aria-label="Run intervals with five hard blocks" height="57"><rect x="0.5" y="44.8" width="122.9" height="11.2" rx="1.5" fill="#6B7A90"/><rect x="124.6" y="33.6" width="29.8" height="22.4" rx="1.5" fill="#9AA8BC"/><rect x="155.7" y="11.2" width="40.2" height="44.8" rx="1.5" fill="#E2A93B"/><rect x="197.1" y="44.8" width="19.5" height="11.2" rx="1.5" fill="#6B7A90"/><rect x="217.7" y="11.2" width="40.2" height="44.8" rx="1.5" fill="#E2A93B"/><rect x="259.1" y="44.8" width="19.5" height="11.2" rx="1.5" fill="#6B7A90"/><rect x="279.8" y="11.2" width="40.2" height="44.8" rx="1.5" fill="#E2A93B"/><rect x="321.2" y="44.8" width="19.5" height="11.2" rx="1.5" fill="#6B7A90"/><rect x="341.9" y="11.2" width="40.2" height="44.8" rx="1.5" fill="#E2A93B"/><rect x="383.3" y="44.8" width="19.5" height="11.2" rx="1.5" fill="#6B7A90"/><rect x="403.9" y="11.2" width="40.2" height="44.8" rx="1.5" fill="#E2A93B"/><rect x="445.3" y="44.8" width="19.5" height="11.2" rx="1.5" fill="#6B7A90"/><rect x="466.0" y="44.8" width="133.3" height="11.2" rx="1.5" fill="#6B7A90"/><line x1="0" y1="56.5" x2="600" y2="56.5" stroke="#2C3E5A" stroke-width="1"/></svg>
+        <p class="mc-p">This was the plan before the check-in. Choose After your check-in to see what changed.</p>
+      </div>
+    </div>
+    <div class="mcard" data-lang="ar" dir="rtl" lang="ar">
+      <div class="mc-top">
+        <span class="mc-lab"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A7B3C6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="3"/><path d="M9 6 L9.6 2.5 H14.4 L15 6 M9 18 L9.6 21.5 H14.4 L15 18 M12 9.5 V12 L13.8 13.2"/></svg>اليوم، على ساعة Garmin</span>
+        <div class="mc-switch" role="group" aria-label="اعرض الحصة"><button class="mc-btn" type="button" data-show="planned" aria-pressed="false">المخطط لها</button><button class="mc-btn" type="button" data-show="after" aria-pressed="true">بعد تسجيلك اليومي</button></div>
+      </div>
+      <div class="mc-pane" data-pane="after">
+        <div class="mc-head"><p class="mc-title">جري سهل، ٤٠ دقيقة</p><span class="mc-chips"><span class="mc-chip"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E2A93B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20 C 6 15.5, 3 12.5, 3 8.8 A 4.4 4.4 0 0 1 12 6.6 A 4.4 4.4 0 0 1 21 8.8 C 21 12.5, 18 15.5, 12 20 Z"/><path d="M6.5 12 H9.5 L11 9.5 L13 14 L14.5 12 H17.5"/></svg>النبض حتى ١٣٩</span><span class="mc-chip"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E2A93B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5 V5 M12 19 V21.5 M2.5 12 H5 M19 12 H21.5 M5.3 5.3 L7 7 M17 17 L18.7 18.7 M5.3 18.7 L7 17 M17 7 L18.7 5.3"/></svg>ابدأ قبل ٦:٣٠ صباحا</span></span></div>
+        <svg class="route" viewBox="0 0 300 150" role="img" aria-label="مسار الجري الصباحي"><path d="M30 118 C 18 82, 52 40, 104 44 S 178 18, 226 46 S 292 104, 246 122 S 158 116, 112 126 S 42 142, 30 118 Z" fill="none" stroke="#2C3E5A" stroke-width="8" stroke-linejoin="round"/><path class="draw" d="M30 118 C 18 82, 52 40, 104 44 S 178 18, 226 46 S 292 104, 246 122 S 158 116, 112 126 S 42 142, 30 118 Z" fill="none" stroke="#E2A93B" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="0"/><circle cx="30" cy="118" r="7" fill="#16253B" stroke="#E2A93B" stroke-width="3"/></svg>
+        <div><svg class="hr" viewBox="0 0 300 64" preserveAspectRatio="none" height="64" role="img" aria-label="النبض أثناء الجري، تحت حد ١٣٩"><line x1="0" y1="8.0" x2="300" y2="8.0" stroke="#A7B3C6" stroke-width="1.2" stroke-dasharray="5 5"/><polyline points="300.0,52.3 290.6,43.7 281.2,36.6 271.9,29.4 262.5,25.1 253.1,22.3 243.8,20.9 234.4,19.4 225.0,18.0 215.6,19.4 206.2,16.6 196.9,18.0 187.5,15.1 178.1,16.6 168.8,19.4 159.4,18.0 150.0,15.1 140.6,13.7 131.2,16.6 121.9,18.0 112.5,19.4 103.1,16.6 93.8,15.1 84.4,18.0 75.0,20.9 65.6,19.4 56.2,16.6 46.9,18.0 37.5,20.9 28.1,23.7 18.8,26.6 9.4,30.9 0.0,35.1" fill="none" stroke="#E2A93B" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/></svg><p class="mc-cap"><span>بقي النبض تحت حد ١٣٩</span><b>المتوسط ١٣١</b></p></div>
+        <ol class="mc-steps"><li><span class="tm">٥:٤٠</span><span><span class="what">التسجيل اليومي</span><span class="say">نمت بشكل سيئ مرة أخرى وساقاي ثقيلتان.</span></span></li><li><span class="tm">٥:٤٢</span><span><span class="what">تعديل الخطة</span><span class="say">ثلاث ليال متتالية بنوم قليل، لذلك تتحول حصة الفترات اليوم إلى جري سهل لمدة ٤٠ دقيقة.</span></span></li><li><span class="tm">٦:٤٥</span><span><span class="what">بعد الجري</span><span class="say">سهل من البداية إلى النهاية، بمتوسط نبض ١٣١. يبقى الخميس كما هو مخطط.</span></span></li></ol>
+      </div>
+      <div class="mc-pane" data-pane="planned" hidden>
+        <p class="mc-title">فترات جري ٥ × ١ كم</p>
+        <span class="mc-meta"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E2A93B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="15.5" cy="4.5" r="2"/><path d="M14 8 L11.5 13.5 M14 8 L10.5 9.8 L8.6 12.4 M14 8 L16.6 10.6 L19.6 10.2 M11.5 13.5 L15 16.2 L14 21 M11.5 13.5 L8.8 17.6 L4.8 18.4"/></svg>٥٨ دقيقة، منها خمسة كيلومترات شاقة</span>
+        <svg class="zones" viewBox="0 0 600 57" preserveAspectRatio="none" role="img" aria-label="فترات جري بخمس كتل شاقة" height="57"><rect x="476.4" y="44.8" width="122.9" height="11.2" rx="1.5" fill="#6B7A90"/><rect x="445.3" y="33.6" width="29.8" height="22.4" rx="1.5" fill="#9AA8BC"/><rect x="403.9" y="11.2" width="40.2" height="44.8" rx="1.5" fill="#E2A93B"/><rect x="383.3" y="44.8" width="19.5" height="11.2" rx="1.5" fill="#6B7A90"/><rect x="341.9" y="11.2" width="40.2" height="44.8" rx="1.5" fill="#E2A93B"/><rect x="321.2" y="44.8" width="19.5" height="11.2" rx="1.5" fill="#6B7A90"/><rect x="279.8" y="11.2" width="40.2" height="44.8" rx="1.5" fill="#E2A93B"/><rect x="259.1" y="44.8" width="19.5" height="11.2" rx="1.5" fill="#6B7A90"/><rect x="217.7" y="11.2" width="40.2" height="44.8" rx="1.5" fill="#E2A93B"/><rect x="197.1" y="44.8" width="19.5" height="11.2" rx="1.5" fill="#6B7A90"/><rect x="155.7" y="11.2" width="40.2" height="44.8" rx="1.5" fill="#E2A93B"/><rect x="135.0" y="44.8" width="19.5" height="11.2" rx="1.5" fill="#6B7A90"/><rect x="0.5" y="44.8" width="133.3" height="11.2" rx="1.5" fill="#6B7A90"/><line x1="0" y1="56.5" x2="600" y2="56.5" stroke="#2C3E5A" stroke-width="1"/></svg>
+        <p class="mc-p">هذه هي الخطة قبل التسجيل اليومي. اختر «بعد تسجيلك اليومي» لترى ما تغير.</p>
       </div>
     </div>
   </div></header>
@@ -542,6 +648,11 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
     <p class="micro logonote"><span data-lang="en">Any watch that exports .fit, .tcx or .gpx files also works.</span><span data-lang="ar">وتعمل أيضا أي ساعة تصدّر ملفات ‎.fit‎ أو ‎.tcx‎ أو ‎.gpx‎.</span></p>
   </div>
   </div>
+
+  <div class="section tight" id="sports"><div class="ck-wrap">
+    <div data-lang="en"><p class="eyebrow">Swim, bike and run</p><h2>How the plan treats each sport</h2><div class="sportgrid"><div class="sportcard"><div class="sh"><span class="si"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6FB7E9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17.5" cy="6.5" r="2"/><path d="M3.5 12.5 C 7 8.5, 11 8, 14.5 10.5 L 17 9"/><path d="M2 16.5 q 2.5 -2 5 0 t 5 0 t 5 0 t 5 0"/><path d="M2 20.5 q 2.5 -2 5 0 t 5 0 t 5 0 t 5 0"/></svg></span><h3>Swim</h3></div><p>Swim sessions fall on your preferred swim days, and open water sessions are checked against the forecast sea temperature for that day.</p><div class="sz"><svg class="zones" viewBox="0 0 600 45" preserveAspectRatio="none" role="img" aria-label="Threshold repeats, 10 x 200 m" height="45"><rect x="0.5" y="35.2" width="101.7" height="8.8" rx="1.5" fill="#858E9B"/><rect x="103.4" y="26.4" width="67.4" height="17.6" rx="1.5" fill="#5B6472"/><rect x="171.9" y="8.8" width="27.9" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="201.1" y="35.2" width="3.9" height="8.8" rx="1.5" fill="#858E9B"/><rect x="206.2" y="8.8" width="27.9" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="235.4" y="35.2" width="3.9" height="8.8" rx="1.5" fill="#858E9B"/><rect x="240.5" y="8.8" width="27.9" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="269.6" y="35.2" width="3.9" height="8.8" rx="1.5" fill="#858E9B"/><rect x="274.8" y="8.8" width="27.9" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="303.9" y="35.2" width="3.9" height="8.8" rx="1.5" fill="#858E9B"/><rect x="309.1" y="8.8" width="27.9" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="338.2" y="35.2" width="3.9" height="8.8" rx="1.5" fill="#858E9B"/><rect x="343.4" y="8.8" width="27.9" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="372.5" y="35.2" width="3.9" height="8.8" rx="1.5" fill="#858E9B"/><rect x="377.6" y="8.8" width="27.9" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="406.8" y="35.2" width="3.9" height="8.8" rx="1.5" fill="#858E9B"/><rect x="411.9" y="8.8" width="27.9" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="441.1" y="35.2" width="3.9" height="8.8" rx="1.5" fill="#858E9B"/><rect x="446.2" y="8.8" width="27.9" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="475.4" y="35.2" width="3.9" height="8.8" rx="1.5" fill="#858E9B"/><rect x="480.5" y="8.8" width="27.9" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="509.6" y="35.2" width="3.9" height="8.8" rx="1.5" fill="#858E9B"/><rect x="514.8" y="35.2" width="84.5" height="8.8" rx="1.5" fill="#858E9B"/><line x1="0" y1="44.5" x2="600" y2="44.5" stroke="#E5DED2" stroke-width="1"/></svg><span>Threshold repeats, 10 x 200 m</span></div></div><div class="sportcard"><div class="sh"><span class="si"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8BD3A0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="16.5" r="3.5"/><circle cx="18.5" cy="16.5" r="3.5"/><path d="M5.5 16.5 L9.5 10 L11.5 16.5 Z M9.5 10 L16 10 L11.5 16.5 M16 10 L18.5 16.5 M9.5 10 L9 8 M7.5 8 H10.5 M16 10 L15.4 7.5 H18"/></svg></span><h3>Bike</h3></div><p>Threshold intervals on the bike stay within two blocks of 20 minutes, and when the heat stays high the rides move onto an indoor trainer.</p><div class="sz"><svg class="zones" viewBox="0 0 600 45" preserveAspectRatio="none" role="img" aria-label="Threshold, 2 x 20 min" height="45"><rect x="0.5" y="26.4" width="127.4" height="17.6" rx="1.5" fill="#5B6472"/><rect x="129.1" y="8.8" width="170.2" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="300.5" y="35.2" width="41.7" height="8.8" rx="1.5" fill="#858E9B"/><rect x="343.4" y="8.8" width="170.2" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="514.8" y="35.2" width="84.5" height="8.8" rx="1.5" fill="#858E9B"/><line x1="0" y1="44.5" x2="600" y2="44.5" stroke="#E5DED2" stroke-width="1"/></svg><span>Threshold, 2 x 20 min</span></div></div><div class="sportcard"><div class="sh"><span class="si"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E2A93B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="15.5" cy="4.5" r="2"/><path d="M14 8 L11.5 13.5 M14 8 L10.5 9.8 L8.6 12.4 M14 8 L16.6 10.6 L19.6 10.2 M11.5 13.5 L15 16.2 L14 21 M11.5 13.5 L8.8 17.6 L4.8 18.4"/></svg></span><h3>Run</h3></div><p>Your weekly running time rises by no more than 10%, and athletes with less than a year of training get no intervals in their first four weeks.</p><div class="sz"><svg class="zones" viewBox="0 0 600 45" preserveAspectRatio="none" role="img" aria-label="Intervals, 5 x 1 km" height="45"><rect x="0.5" y="35.2" width="122.9" height="8.8" rx="1.5" fill="#858E9B"/><rect x="124.6" y="26.4" width="29.8" height="17.6" rx="1.5" fill="#5B6472"/><rect x="155.7" y="8.8" width="40.2" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="197.1" y="35.2" width="19.5" height="8.8" rx="1.5" fill="#858E9B"/><rect x="217.7" y="8.8" width="40.2" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="259.1" y="35.2" width="19.5" height="8.8" rx="1.5" fill="#858E9B"/><rect x="279.8" y="8.8" width="40.2" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="321.2" y="35.2" width="19.5" height="8.8" rx="1.5" fill="#858E9B"/><rect x="341.9" y="8.8" width="40.2" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="383.3" y="35.2" width="19.5" height="8.8" rx="1.5" fill="#858E9B"/><rect x="403.9" y="8.8" width="40.2" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="445.3" y="35.2" width="19.5" height="8.8" rx="1.5" fill="#858E9B"/><rect x="466.0" y="35.2" width="133.3" height="8.8" rx="1.5" fill="#858E9B"/><line x1="0" y1="44.5" x2="600" y2="44.5" stroke="#E5DED2" stroke-width="1"/></svg><span>Intervals, 5 x 1 km</span></div></div></div></div>
+    <div data-lang="ar" dir="rtl" lang="ar"><p class="eyebrow">السباحة والدراجة والجري</p><h2>كيف تتعامل الخطة مع كل رياضة</h2><div class="sportgrid"><div class="sportcard"><div class="sh"><span class="si"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6FB7E9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17.5" cy="6.5" r="2"/><path d="M3.5 12.5 C 7 8.5, 11 8, 14.5 10.5 L 17 9"/><path d="M2 16.5 q 2.5 -2 5 0 t 5 0 t 5 0 t 5 0"/><path d="M2 20.5 q 2.5 -2 5 0 t 5 0 t 5 0 t 5 0"/></svg></span><h3>السباحة</h3></div><p>تأتي حصص السباحة في أيام السباحة التي تفضلها، وتُراجع حصص المياه المفتوحة وفق توقعات حرارة البحر لذلك اليوم.</p><div class="sz"><svg class="zones" viewBox="0 0 600 45" preserveAspectRatio="none" role="img" aria-label="تكرارات عتبة ١٠ × ٢٠٠ م" height="45"><rect x="497.6" y="35.2" width="101.7" height="8.8" rx="1.5" fill="#858E9B"/><rect x="429.1" y="26.4" width="67.4" height="17.6" rx="1.5" fill="#5B6472"/><rect x="399.9" y="8.8" width="27.9" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="394.8" y="35.2" width="3.9" height="8.8" rx="1.5" fill="#858E9B"/><rect x="365.6" y="8.8" width="27.9" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="360.5" y="35.2" width="3.9" height="8.8" rx="1.5" fill="#858E9B"/><rect x="331.4" y="8.8" width="27.9" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="326.2" y="35.2" width="3.9" height="8.8" rx="1.5" fill="#858E9B"/><rect x="297.1" y="8.8" width="27.9" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="291.9" y="35.2" width="3.9" height="8.8" rx="1.5" fill="#858E9B"/><rect x="262.8" y="8.8" width="27.9" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="257.6" y="35.2" width="3.9" height="8.8" rx="1.5" fill="#858E9B"/><rect x="228.5" y="8.8" width="27.9" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="223.4" y="35.2" width="3.9" height="8.8" rx="1.5" fill="#858E9B"/><rect x="194.2" y="8.8" width="27.9" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="189.1" y="35.2" width="3.9" height="8.8" rx="1.5" fill="#858E9B"/><rect x="159.9" y="8.8" width="27.9" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="154.8" y="35.2" width="3.9" height="8.8" rx="1.5" fill="#858E9B"/><rect x="125.6" y="8.8" width="27.9" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="120.5" y="35.2" width="3.9" height="8.8" rx="1.5" fill="#858E9B"/><rect x="91.4" y="8.8" width="27.9" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="86.2" y="35.2" width="3.9" height="8.8" rx="1.5" fill="#858E9B"/><rect x="0.5" y="35.2" width="84.5" height="8.8" rx="1.5" fill="#858E9B"/><line x1="0" y1="44.5" x2="600" y2="44.5" stroke="#E5DED2" stroke-width="1"/></svg><span>تكرارات عتبة ١٠ × ٢٠٠ م</span></div></div><div class="sportcard"><div class="sh"><span class="si"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8BD3A0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="16.5" r="3.5"/><circle cx="18.5" cy="16.5" r="3.5"/><path d="M5.5 16.5 L9.5 10 L11.5 16.5 Z M9.5 10 L16 10 L11.5 16.5 M16 10 L18.5 16.5 M9.5 10 L9 8 M7.5 8 H10.5 M16 10 L15.4 7.5 H18"/></svg></span><h3>الدراجة</h3></div><p>لا تتجاوز فترات العتبة على الدراجة كتلتين مدة كل منهما ٢٠ دقيقة، وعندما تبقى الحرارة مرتفعة تنتقل حصص الدراجة إلى جهاز التدريب الداخلي.</p><div class="sz"><svg class="zones" viewBox="0 0 600 45" preserveAspectRatio="none" role="img" aria-label="عتبة ٢ × ٢٠ دقيقة" height="45"><rect x="471.9" y="26.4" width="127.4" height="17.6" rx="1.5" fill="#5B6472"/><rect x="300.5" y="8.8" width="170.2" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="257.6" y="35.2" width="41.7" height="8.8" rx="1.5" fill="#858E9B"/><rect x="86.2" y="8.8" width="170.2" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="0.5" y="35.2" width="84.5" height="8.8" rx="1.5" fill="#858E9B"/><line x1="0" y1="44.5" x2="600" y2="44.5" stroke="#E5DED2" stroke-width="1"/></svg><span>عتبة ٢ × ٢٠ دقيقة</span></div></div><div class="sportcard"><div class="sh"><span class="si"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E2A93B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="15.5" cy="4.5" r="2"/><path d="M14 8 L11.5 13.5 M14 8 L10.5 9.8 L8.6 12.4 M14 8 L16.6 10.6 L19.6 10.2 M11.5 13.5 L15 16.2 L14 21 M11.5 13.5 L8.8 17.6 L4.8 18.4"/></svg></span><h3>الجري</h3></div><p>لا يزيد وقت جريك الأسبوعي بأكثر من ١٠٪، ولا يحصل من تقل خبرته التدريبية عن سنة على حصص فترات في أسابيعه الأربعة الأولى.</p><div class="sz"><svg class="zones" viewBox="0 0 600 45" preserveAspectRatio="none" role="img" aria-label="فترات ٥ × ١ كم" height="45"><rect x="476.4" y="35.2" width="122.9" height="8.8" rx="1.5" fill="#858E9B"/><rect x="445.3" y="26.4" width="29.8" height="17.6" rx="1.5" fill="#5B6472"/><rect x="403.9" y="8.8" width="40.2" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="383.3" y="35.2" width="19.5" height="8.8" rx="1.5" fill="#858E9B"/><rect x="341.9" y="8.8" width="40.2" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="321.2" y="35.2" width="19.5" height="8.8" rx="1.5" fill="#858E9B"/><rect x="279.8" y="8.8" width="40.2" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="259.1" y="35.2" width="19.5" height="8.8" rx="1.5" fill="#858E9B"/><rect x="217.7" y="8.8" width="40.2" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="197.1" y="35.2" width="19.5" height="8.8" rx="1.5" fill="#858E9B"/><rect x="155.7" y="8.8" width="40.2" height="35.2" rx="1.5" fill="#8A5A00"/><rect x="135.0" y="35.2" width="19.5" height="8.8" rx="1.5" fill="#858E9B"/><rect x="0.5" y="35.2" width="133.3" height="8.8" rx="1.5" fill="#858E9B"/><line x1="0" y1="44.5" x2="600" y2="44.5" stroke="#E5DED2" stroke-width="1"/></svg><span>فترات ٥ × ١ كم</span></div></div></div></div>
+  </div></div>
 
   <div class="section tight"><div class="ck-wrap">
     <div data-lang="en">
@@ -698,17 +809,17 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
   <div class="section" id="faq"><div class="ck-wrap">
     <p class="eyebrow"><span data-lang="en">Questions</span><span data-lang="ar">أسئلة</span></p>
     <h2><span data-lang="en">Frequently asked questions</span><span data-lang="ar">الأسئلة الشائعة</span></h2>
-    <div class="faqlist"><details class="faq"><summary><span data-lang="en">What happens after the free month?</span><span data-lang="ar">ماذا يحدث بعد الشهر المجاني؟</span></summary><p><span data-lang="en">The first month is free for every new athlete who confirms their email. After that, membership is US$20 a month, paid by BenefitPay or bank transfer. If a payment has not arrived by the end of your month, your plan pauses until it does.</span><span data-lang="ar">الشهر الأول مجاني لكل رياضي جديد يؤكد بريده الإلكتروني. وبعد ذلك يكون الاشتراك 20 دولارا أمريكيا شهريا، يُدفع عبر BenefitPay أو التحويل البنكي. وإن لم تصل الدفعة بنهاية شهرك تتوقف خطتك مؤقتا حتى تصل.</span></p></details><details class="faq"><summary><span data-lang="en">Can I cancel?</span><span data-lang="ar">هل يمكنني إلغاء الاشتراك؟</span></summary><p><span data-lang="en">Yes. There is no contract, and you can stop at any time by not renewing. Fees for a month that has already started are not refunded, and if the fee ever changes you are told by email at least 30 days before it applies to you.</span><span data-lang="ar">نعم، لا يوجد عقد، ويمكنك التوقف في أي وقت بعدم التجديد. ولا تُسترد رسوم شهر بدأ بالفعل، وإن تغيرت الرسوم يوما ما فستُبلّغ بالبريد قبل 30 يوما على الأقل من تطبيقها عليك.</span></p></details><details class="faq"><summary><span data-lang="en">Which watches work?</span><span data-lang="ar">ما الساعات التي تعمل مع الخدمة؟</span></summary><p><span data-lang="en">Garmin watches receive each session through a free Intervals.icu account, which also brings your workouts back to your coach. Workouts from Coros, Polar and Suunto reach your coach through Intervals.icu as well. An Apple Watch connects through an iPhone app, as the Check-in and watch page explains, and any other watch can upload workout files.</span><span data-lang="ar">تستقبل ساعات Garmin كل حصة عبر حساب مجاني في Intervals.icu، وهو يعيد تمارينك أيضا إلى مدربك. وتصل تمارين Coros وPolar وSuunto إلى مدربك عبر Intervals.icu كذلك. وترتبط ساعة Apple عبر تطبيق على الآيفون كما تشرح صفحة التسجيل اليومي والساعة، ويمكن رفع ملفات التمارين من أي ساعة أخرى.</span></p></details><details class="faq"><summary><span data-lang="en">Is it suitable for beginners?</span><span data-lang="ar">هل تناسب المبتدئين؟</span></summary><p><span data-lang="en">Yes, for adults aged 18 and over. Your first two weeks never go above what you have been doing already, and athletes with less than a year of endurance training get no interval sessions in their first four weeks.</span><span data-lang="ar">نعم، للبالغين من 18 عاما فأكثر. فلا يتجاوز أول أسبوعين ما كنت تتدربه بالفعل، ولا يحصل من تقل خبرته في رياضات التحمل عن سنة على حصص تدريب متقطع في أسابيعه الأربعة الأولى.</span></p></details><details class="faq"><summary><span data-lang="en">What if I get injured or ill?</span><span data-lang="ar">ماذا لو أصبت أو مرضت؟</span></summary><p><span data-lang="en">Tick the pain or illness box in your daily check-in, or tell the coach. Your plan pauses straight away, you are told to see a doctor, and our head coach reviews the case. The plan restarts only when you confirm that you have been cleared.</span><span data-lang="ar">ضع علامة في خانة الألم أو المرض في تسجيلك اليومي، أو أخبر المدرب. فتتوقف خطتك فورا، وتُنصح بمراجعة الطبيب، ويراجع مدربنا الرئيسي حالتك. ولا تُستأنف الخطة إلا بعد أن تؤكد حصولك على الإذن.</span></p></details><details class="faq"><summary><span data-lang="en">Who can see my health data?</span><span data-lang="ar">من يستطيع رؤية بياناتي الصحية؟</span></summary><p><span data-lang="en">Your data is used only to provide the coaching service. The AI system never receives your name, your email address or what you write about injuries or health conditions, and you can download or delete all of your data from your profile at any time.</span><span data-lang="ar">تُستخدم بياناتك لتقديم خدمة التدريب فقط. ولا يتلقى نظام الذكاء الاصطناعي اسمك ولا بريدك الإلكتروني ولا ما تكتبه عن الإصابات أو الحالات الصحية، ويمكنك تنزيل بياناتك كلها أو حذفها من ملفك في أي وقت.</span></p></details><details class="faq"><summary><span data-lang="en">Is this medical advice?</span><span data-lang="ar">هل هذه نصيحة طبية؟</span></summary><p><span data-lang="en">No. Arabian Method is a training service and not a medical one. If you have a medical condition, check with your doctor before you start, and see a doctor about any pain or illness.</span><span data-lang="ar">لا، فالمنهج العربي خدمة تدريب وليست خدمة طبية. وإن كانت لديك حالة صحية فاستشر طبيبك قبل أن تبدأ، وراجع الطبيب عند أي ألم أو مرض.</span></p></details></div>
+    <div class="faqlist"><details class="faq"><summary><span data-lang="en">Is there a fee?</span><span data-lang="ar">هل هناك رسوم؟</span></summary><p><span data-lang="en">Membership is free, and no payment details are needed.</span><span data-lang="ar">الاشتراك مجاني، ولا حاجة إلى أي بيانات دفع.</span></p></details><details class="faq"><summary><span data-lang="en">Can I stop at any time?</span><span data-lang="ar">هل يمكنني التوقف في أي وقت؟</span></summary><p><span data-lang="en">Yes. There is no contract, and you can delete your account at any time from your profile page.</span><span data-lang="ar">نعم، لا يوجد عقد، ويمكنك حذف حسابك في أي وقت من صفحة ملفك.</span></p></details><details class="faq"><summary><span data-lang="en">Which watches work?</span><span data-lang="ar">ما الساعات التي تعمل مع الخدمة؟</span></summary><p><span data-lang="en">Garmin watches receive each session through a free Intervals.icu account, which also brings your workouts back to your coach. Workouts from Coros, Polar and Suunto reach your coach through Intervals.icu as well. An Apple Watch connects through an iPhone app, as the Check-in and watch page explains, and any other watch can upload workout files.</span><span data-lang="ar">تستقبل ساعات Garmin كل حصة عبر حساب مجاني في Intervals.icu، وهو يعيد تمارينك أيضا إلى مدربك. وتصل تمارين Coros وPolar وSuunto إلى مدربك عبر Intervals.icu كذلك. وترتبط ساعة Apple عبر تطبيق على الآيفون كما تشرح صفحة التسجيل اليومي والساعة، ويمكن رفع ملفات التمارين من أي ساعة أخرى.</span></p></details><details class="faq"><summary><span data-lang="en">Is it suitable for beginners?</span><span data-lang="ar">هل تناسب المبتدئين؟</span></summary><p><span data-lang="en">Yes, for adults aged 18 and over. Your first two weeks never go above what you have been doing already, and athletes with less than a year of endurance training get no interval sessions in their first four weeks.</span><span data-lang="ar">نعم، للبالغين من 18 عاما فأكثر. فلا يتجاوز أول أسبوعين ما كنت تتدربه بالفعل، ولا يحصل من تقل خبرته في رياضات التحمل عن سنة على حصص تدريب متقطع في أسابيعه الأربعة الأولى.</span></p></details><details class="faq"><summary><span data-lang="en">What if I get injured or ill?</span><span data-lang="ar">ماذا لو أصبت أو مرضت؟</span></summary><p><span data-lang="en">Tick the pain or illness box in your daily check-in, or tell the coach. Your plan pauses straight away, you are told to see a doctor, and our head coach reviews the case. The plan restarts only when you confirm that you have been cleared.</span><span data-lang="ar">ضع علامة في خانة الألم أو المرض في تسجيلك اليومي، أو أخبر المدرب. فتتوقف خطتك فورا، وتُنصح بمراجعة الطبيب، ويراجع مدربنا الرئيسي حالتك. ولا تُستأنف الخطة إلا بعد أن تؤكد حصولك على الإذن.</span></p></details><details class="faq"><summary><span data-lang="en">Who can see my health data?</span><span data-lang="ar">من يستطيع رؤية بياناتي الصحية؟</span></summary><p><span data-lang="en">Your data is used only to provide the coaching service. The AI system never receives your name, your email address or what you write about injuries or health conditions, and you can download or delete all of your data from your profile at any time.</span><span data-lang="ar">تُستخدم بياناتك لتقديم خدمة التدريب فقط. ولا يتلقى نظام الذكاء الاصطناعي اسمك ولا بريدك الإلكتروني ولا ما تكتبه عن الإصابات أو الحالات الصحية، ويمكنك تنزيل بياناتك كلها أو حذفها من ملفك في أي وقت.</span></p></details><details class="faq"><summary><span data-lang="en">Is this medical advice?</span><span data-lang="ar">هل هذه نصيحة طبية؟</span></summary><p><span data-lang="en">No. Arabian Method is a training service and not a medical one. If you have a medical condition, check with your doctor before you start, and see a doctor about any pain or illness.</span><span data-lang="ar">لا، فالمنهج العربي خدمة تدريب وليست خدمة طبية. وإن كانت لديك حالة صحية فاستشر طبيبك قبل أن تبدأ، وراجع الطبيب عند أي ألم أو مرض.</span></p></details></div>
   </div></div>
   <div class="section tight"><div class="ck-wrap">
     <div class="ctaband">
       <div>
-        <h2 data-lang="en">Your race is already on the calendar, so your plan should be there too.</h2>
-        <h2 data-lang="ar" dir="rtl" lang="ar">سباقك موجود في التقويم بالفعل، فلتكن خطتك هناك أيضا.</h2>
-        <p data-lang="en">The first month is free for every new athlete who confirms their email.</p>
-        <p data-lang="ar" dir="rtl" lang="ar">الشهر الأول مجاني لكل رياضي جديد يؤكد بريده الإلكتروني.</p>
+        <h2 data-lang="en">Create your account and get your first weekly plan</h2>
+        <h2 data-lang="ar" dir="rtl" lang="ar">أنشئ حسابك واحصل على خطتك الأسبوعية الأولى</h2>
+        <p data-lang="en">Membership is free, and no payment details are needed.</p>
+        <p data-lang="ar" dir="rtl" lang="ar">الاشتراك مجاني، ولا حاجة إلى أي بيانات دفع.</p>
       </div>
-      <div class="ck-cta" style="margin-top:0"><a class="btn onband" href="#register" data-go="register"><span data-lang="en">Start free</span><span data-lang="ar">ابدأ مجانا</span></a><a class="btn outline-dark" style="border-color:#fff" href="#sponsor" data-go="sponsor"><span data-lang="en">Apply for sponsored training</span><span data-lang="ar">قدّم على التدريب المموَّل</span></a></div>
+      <div class="ck-cta" style="margin-top:0"><a class="btn" href="#register" data-go="register"><span data-lang="en">Start free</span><span data-lang="ar">ابدأ مجانا</span></a><a class="btn ghost" href="#sponsor" data-go="sponsor"><span data-lang="en">Apply for sponsored training</span><span data-lang="ar">قدّم على التدريب المموَّل</span></a></div>
     </div>
   </div></div>
 </section>
@@ -719,7 +830,7 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
   <p class="eyebrow" data-t="register"></p>
   <h2 data-t="regH"></h2>
   <p class="lead" data-t="regLead"></p>
-  <p class="free"><span data-lang="en">First month free for every new athlete who confirms their email</span><span data-lang="ar">الشهر الأول مجاني لكل رياضي جديد يؤكد بريده الإلكتروني</span></p>
+  <p class="free"><span data-lang="en">Membership is free, and no payment details are needed.</span><span data-lang="ar">الاشتراك مجاني، ولا حاجة إلى أي بيانات دفع.</span></p>
   </div>
   <form class="form formcard" id="regForm" novalidate>
     <div class="social" id="regSocial" hidden>
@@ -776,7 +887,7 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
     <div class="ck-cta"><button class="btn" type="submit" data-t="signin"></button><button class="btn ghost" type="button" id="forgotBtn" data-t="forgot"></button></div>
     <p class="ok-msg" id="signOk"></p>
     <div class="si-new">
-      <p><b><span data-lang="en">New to Arabian Method?</span><span data-lang="ar">جديد في المنهج العربي؟</span></b> <span data-lang="en">Create an account to get your first plan. The first month is free.</span><span data-lang="ar">أنشئ حسابا لتحصل على خطتك الأولى، والشهر الأول مجاني.</span></p>
+      <p><b><span data-lang="en">New to Arabian Method?</span><span data-lang="ar">جديد في المنهج العربي؟</span></b> <span data-lang="en">Create an account to get your first plan. Membership is free.</span><span data-lang="ar">أنشئ حسابا لتحصل على خطتك الأولى، والاشتراك مجاني.</span></p>
       <a class="btn ghost" href="#register" data-go="register"><span data-lang="en">Create an account</span><span data-lang="ar">أنشئ حسابا</span></a>
       <p class="si-small"><span data-lang="en">Registered but never got the confirmation email?</span><span data-lang="ar">سجّلت ولم تصلك رسالة التأكيد؟</span> <button class="linkbtn" type="button" id="siResend"><span data-lang="en">Send it again</span><span data-lang="ar">أعد إرسالها</span></button></p>
     </div>
@@ -1054,10 +1165,10 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
   <h2 data-t="memH"></h2>
   <p class="lead" id="memStatus" data-t="memLead"></p>
   <div class="memgrid">
-    <div class="card dark memmain"><div class="memtop"><div class="memprice"><p class="chip"><span data-lang="en">First month free</span><span data-lang="ar">الشهر الأول مجانا</span></p><p class="price">$20</p><p class="micro"><span data-lang="en">US dollars a month</span><span data-lang="ar">دولار أمريكي شهريا</span></p><p class="nocontract"><span data-lang="en">There is no contract, and you can stop at any time by not renewing.</span><span data-lang="ar">لا يوجد عقد، ويمكنك التوقف في أي وقت بعدم التجديد.</span></p></div><div class="ck-cta" id="memCta"><a class="btn" href="#register" data-go="register"><span data-lang="en">Start free</span><span data-lang="ar">ابدأ مجانا</span></a></div></div><div class="incgrid"><div class="incg"><p class="inc-h"><span data-lang="en">How your plan is made</span><span data-lang="ar">كيف تُبنى خطتك</span></p><ul class="inc"><li><span data-lang="en"><b>Built on sports science.</b> Every plan follows fixed rules taken from published research and leading coaches, including Seiler on the mix of easy and hard training, Bosquet and Mujika on tapering, ACSM and IOC guidance on heat, and the methods of Joe Friel and Jack Daniels.</span><span data-lang="ar"><b>مبنية على علوم الرياضة.</b> تلتزم كل خطة بقواعد ثابتة مأخوذة من الأبحاث المنشورة وكبار المدربين، ومنها أبحاث Seiler في توزيع التدريب السهل والصعب، وBosquet وMujika في التخفيف قبل السباق، وإرشادات ACSM واللجنة الأولمبية الدولية في الحرارة، ومنهجا Joe Friel وJack Daniels.</span></li><li><span data-lang="en"><b>Checked before it reaches you.</b> Software tests every plan against those rules and removes anything outside them, so no session goes past a safe limit.</span><span data-lang="ar"><b>تُفحص قبل أن تصلك.</b> يختبر النظام كل خطة مقابل تلك القواعد ويحذف أي شيء يتجاوزها، فلا تتخطى أي حصة حدا آمنا.</span></li><li><span data-lang="en"><b>Written for your body.</b> The plan is built from your own data: your fitness tests, training history, age, sleep, resting heart rate, race and the days you can train.</span><span data-lang="ar"><b>مكتوبة لجسمك أنت.</b> تُبنى الخطة من بياناتك: اختبارات لياقتك وتاريخك التدريبي وعمرك ونومك ونبض راحتك وسباقك والأيام التي تستطيع التدرب فيها.</span></li><li><span data-lang="en"><b>Developed as you train.</b> Every workout and check-in feeds the next plan, so it moves with your fitness week by week.</span><span data-lang="ar"><b>تتطور مع تدريبك.</b> كل تمرين وكل تسجيل يومي يغذي الخطة التالية، فتتقدم مع لياقتك أسبوعا بعد أسبوع.</span></li><li><span data-lang="en"><b>Kept up to date with the research.</b> The rules are reviewed as new studies appear, and the science section on the Overview page names each source and how strong its evidence is.</span><span data-lang="ar"><b>محدّثة مع الأبحاث.</b> تُراجع القواعد مع صدور الدراسات الجديدة، ويذكر قسم العلم في الصفحة الرئيسية مصدر كل قاعدة ومدى قوة أدلتها.</span></li></ul></div><div class="incg"><p class="inc-h"><span data-lang="en">Every day</span><span data-lang="ar">كل يوم</span></p><ul class="inc"><li><span data-lang="en">Every session sent to your Garmin or other watch through Intervals.icu, with heart rate, pace or power targets from your own zones</span><span data-lang="ar">كل حصة تُرسل إلى ساعة Garmin أو غيرها عبر Intervals.icu، بأهداف للنبض أو السرعة أو القدرة من مناطق جهدك أنت</span></li><li><span data-lang="en">A daily check-in on sleep, resting heart rate and how you feel, which turns a hard day into an easy one when your body needs it</span><span data-lang="ar">تسجيل يومي للنوم ونبض الراحة وشعورك، يحوّل اليوم الصعب إلى يوم سهل عندما يحتاج جسمك إلى ذلك</span></li><li><span data-lang="en">A short note after every workout on how it went against the plan</span><span data-lang="ar">ملاحظة قصيرة بعد كل تمرين عن أدائك مقارنة بالخطة</span></li><li><span data-lang="en">A coach you can message at any time to move, shorten or swap sessions around work and travel</span><span data-lang="ar">مدرب تراسله في أي وقت لنقل الحصص أو تقصيرها أو تبديلها بحسب العمل والسفر</span></li><li><span data-lang="en">A daily email with the day's session, and a calendar feed for your phone</span><span data-lang="ar">بريد يومي بحصة اليوم، ورابط تقويم لهاتفك</span></li></ul></div><div class="incg"><p class="inc-h"><span data-lang="en">Around your life and climate</span><span data-lang="ar">حول حياتك ومناخك</span></p><ul class="inc"><li><span data-lang="en">Sessions placed around the busy hours in your calendar, if you connect it</span><span data-lang="ar">حصص توضع خارج أوقات انشغالك في تقويمك، إن ربطته</span></li><li><span data-lang="en">A heat and dust check every evening for your city, with sessions moved to cooler hours or indoors when needed</span><span data-lang="ar">فحص للحرارة والغبار كل مساء لمدينتك، مع نقل الحصص إلى أوقات أبرد أو إلى الداخل عند الحاجة</span></li><li><span data-lang="en">A summer indoor mode, and open water swims adjusted to the sea temperature and the wetsuit rules</span><span data-lang="ar">وضع للتدريب الداخلي صيفا، وحصص سباحة في المياه المفتوحة تراعي حرارة البحر وقواعد بدلة السباحة</span></li><li><span data-lang="en">Training planned around the fast in Ramadan, if you choose it</span><span data-lang="ar">تدريب مخطط حول الصيام في رمضان، إن اخترت ذلك</span></li><li><span data-lang="en">Strength and mobility sessions for the gym or at home, if you want them</span><span data-lang="ar">حصص للقوة والمرونة في النادي أو في المنزل، إن أردتها</span></li></ul></div><div class="incg"><p class="inc-h"><span data-lang="en">Toward race day</span><span data-lang="ar">نحو يوم السباق</span></p><ul class="inc"><li><span data-lang="en">Short fitness tests every eight weeks that set and update your training zones</span><span data-lang="ar">اختبارات لياقة قصيرة كل ثمانية أسابيع تحدد مناطق تدريبك وتحدّثها</span></li><li><span data-lang="en">A race time estimate that updates as your fitness changes</span><span data-lang="ar">تقدير لزمن السباق يتحدث مع تغير لياقتك</span></li><li><span data-lang="en">A race-day plan for pacing, fuel and fluids two weeks before your race, updated three days before with the forecast</span><span data-lang="ar">خطة ليوم السباق للإيقاع والوقود والسوائل قبل السباق بأسبوعين، تُحدّث قبله بثلاثة أيام بحسب توقعات الطقس</span></li><li><span data-lang="en">An optional sweat rate test that sets your own fluid targets</span><span data-lang="ar">اختبار اختياري لمعدل التعرق يحدد أهدافك الخاصة للسوائل</span></li><li><span data-lang="en">Your plan paused and reviewed by our head coach whenever you report pain, illness or warning symptoms</span><span data-lang="ar">إيقاف خطتك ومراجعتها من مدربنا الرئيسي متى أبلغت عن ألم أو مرض أو أعراض مقلقة</span></li></ul></div></div></div>
-    <div class="card"><p class="micro">BenefitPay</p><h3 data-t="bpH"></h3><p data-t="bpP"></p><dl class="pay" id="bpDetails"></dl></div>
-    <div class="card"><p class="micro" data-t="bankMicro"></p><h3 data-t="bankH"></h3><p data-t="bankP"></p><dl class="pay" id="bankDetails"></dl></div>
-    <div class="card"><p class="micro" data-t="reportMicro"></p><h3 data-t="reportH"></h3>
+    <div class="card dark memmain"><div class="memtop"><div class="memprice"><p class="price"><span data-lang="en">Free</span><span data-lang="ar">مجاني</span></p><p class="micro"><span data-lang="en">No payment details are needed</span><span data-lang="ar">لا حاجة إلى أي بيانات دفع</span></p><p class="nocontract"><span data-lang="en">There is no contract, and you can delete your account at any time from your profile page.</span><span data-lang="ar">لا يوجد عقد، ويمكنك حذف حسابك في أي وقت من صفحة ملفك.</span></p></div><div class="ck-cta" id="memCta"><a class="btn" href="#register" data-go="register"><span data-lang="en">Start free</span><span data-lang="ar">ابدأ مجانا</span></a></div></div><div class="incgrid"><div class="incg"><p class="inc-h"><span data-lang="en">How your plan is made</span><span data-lang="ar">كيف تُبنى خطتك</span></p><ul class="inc"><li><span data-lang="en"><b>Built on sports science.</b> Every plan follows fixed rules taken from published research and leading coaches, including Seiler on the mix of easy and hard training, Bosquet and Mujika on tapering, ACSM and IOC guidance on heat, and the methods of Joe Friel and Jack Daniels.</span><span data-lang="ar"><b>مبنية على علوم الرياضة.</b> تلتزم كل خطة بقواعد ثابتة مأخوذة من الأبحاث المنشورة وكبار المدربين، ومنها أبحاث Seiler في توزيع التدريب السهل والصعب، وBosquet وMujika في التخفيف قبل السباق، وإرشادات ACSM واللجنة الأولمبية الدولية في الحرارة، ومنهجا Joe Friel وJack Daniels.</span></li><li><span data-lang="en"><b>Checked before it reaches you.</b> Software tests every plan against those rules and removes anything outside them, so no session goes past a safe limit.</span><span data-lang="ar"><b>تُفحص قبل أن تصلك.</b> يختبر النظام كل خطة مقابل تلك القواعد ويحذف أي شيء يتجاوزها، فلا تتخطى أي حصة حدا آمنا.</span></li><li><span data-lang="en"><b>Written for your body.</b> The plan is built from your own data: your fitness tests, training history, age, sleep, resting heart rate, race and the days you can train.</span><span data-lang="ar"><b>مكتوبة لجسمك أنت.</b> تُبنى الخطة من بياناتك: اختبارات لياقتك وتاريخك التدريبي وعمرك ونومك ونبض راحتك وسباقك والأيام التي تستطيع التدرب فيها.</span></li><li><span data-lang="en"><b>Developed as you train.</b> Every workout and check-in feeds the next plan, so it moves with your fitness week by week.</span><span data-lang="ar"><b>تتطور مع تدريبك.</b> كل تمرين وكل تسجيل يومي يغذي الخطة التالية، فتتقدم مع لياقتك أسبوعا بعد أسبوع.</span></li><li><span data-lang="en"><b>Kept up to date with the research.</b> The rules are reviewed as new studies appear, and the science section on the Overview page names each source and how strong its evidence is.</span><span data-lang="ar"><b>محدّثة مع الأبحاث.</b> تُراجع القواعد مع صدور الدراسات الجديدة، ويذكر قسم العلم في الصفحة الرئيسية مصدر كل قاعدة ومدى قوة أدلتها.</span></li></ul></div><div class="incg"><p class="inc-h"><span data-lang="en">Every day</span><span data-lang="ar">كل يوم</span></p><ul class="inc"><li><span data-lang="en">Every session sent to your Garmin or other watch through Intervals.icu, with heart rate, pace or power targets from your own zones</span><span data-lang="ar">كل حصة تُرسل إلى ساعة Garmin أو غيرها عبر Intervals.icu، بأهداف للنبض أو السرعة أو القدرة من مناطق جهدك أنت</span></li><li><span data-lang="en">A daily check-in on sleep, resting heart rate and how you feel, which turns a hard day into an easy one when your body needs it</span><span data-lang="ar">تسجيل يومي للنوم ونبض الراحة وشعورك، يحوّل اليوم الصعب إلى يوم سهل عندما يحتاج جسمك إلى ذلك</span></li><li><span data-lang="en">A short note after every workout on how it went against the plan</span><span data-lang="ar">ملاحظة قصيرة بعد كل تمرين عن أدائك مقارنة بالخطة</span></li><li><span data-lang="en">A coach you can message at any time to move, shorten or swap sessions around work and travel</span><span data-lang="ar">مدرب تراسله في أي وقت لنقل الحصص أو تقصيرها أو تبديلها بحسب العمل والسفر</span></li><li><span data-lang="en">A daily email with the day's session, and a calendar feed for your phone</span><span data-lang="ar">بريد يومي بحصة اليوم، ورابط تقويم لهاتفك</span></li></ul></div><div class="incg"><p class="inc-h"><span data-lang="en">Around your life and climate</span><span data-lang="ar">حول حياتك ومناخك</span></p><ul class="inc"><li><span data-lang="en">Sessions placed around the busy hours in your calendar, if you connect it</span><span data-lang="ar">حصص توضع خارج أوقات انشغالك في تقويمك، إن ربطته</span></li><li><span data-lang="en">A heat and dust check every evening for your city, with sessions moved to cooler hours or indoors when needed</span><span data-lang="ar">فحص للحرارة والغبار كل مساء لمدينتك، مع نقل الحصص إلى أوقات أبرد أو إلى الداخل عند الحاجة</span></li><li><span data-lang="en">A summer indoor mode, and open water swims adjusted to the sea temperature and the wetsuit rules</span><span data-lang="ar">وضع للتدريب الداخلي صيفا، وحصص سباحة في المياه المفتوحة تراعي حرارة البحر وقواعد بدلة السباحة</span></li><li><span data-lang="en">Training planned around the fast in Ramadan, if you choose it</span><span data-lang="ar">تدريب مخطط حول الصيام في رمضان، إن اخترت ذلك</span></li><li><span data-lang="en">Strength and mobility sessions for the gym or at home, if you want them</span><span data-lang="ar">حصص للقوة والمرونة في النادي أو في المنزل، إن أردتها</span></li></ul></div><div class="incg"><p class="inc-h"><span data-lang="en">Toward race day</span><span data-lang="ar">نحو يوم السباق</span></p><ul class="inc"><li><span data-lang="en">Short fitness tests every eight weeks that set and update your training zones</span><span data-lang="ar">اختبارات لياقة قصيرة كل ثمانية أسابيع تحدد مناطق تدريبك وتحدّثها</span></li><li><span data-lang="en">A race time estimate that updates as your fitness changes</span><span data-lang="ar">تقدير لزمن السباق يتحدث مع تغير لياقتك</span></li><li><span data-lang="en">A race-day plan for pacing, fuel and fluids two weeks before your race, updated three days before with the forecast</span><span data-lang="ar">خطة ليوم السباق للإيقاع والوقود والسوائل قبل السباق بأسبوعين، تُحدّث قبله بثلاثة أيام بحسب توقعات الطقس</span></li><li><span data-lang="en">An optional sweat rate test that sets your own fluid targets</span><span data-lang="ar">اختبار اختياري لمعدل التعرق يحدد أهدافك الخاصة للسوائل</span></li><li><span data-lang="en">Your plan paused and reviewed by our head coach whenever you report pain, illness or warning symptoms</span><span data-lang="ar">إيقاف خطتك ومراجعتها من مدربنا الرئيسي متى أبلغت عن ألم أو مرض أو أعراض مقلقة</span></li></ul></div></div></div>
+    <div class="card paycard" hidden><p class="micro">BenefitPay</p><h3 data-t="bpH"></h3><p data-t="bpP"></p><dl class="pay" id="bpDetails"></dl></div>
+    <div class="card paycard" hidden><p class="micro" data-t="bankMicro"></p><h3 data-t="bankH"></h3><p data-t="bankP"></p><dl class="pay" id="bankDetails"></dl></div>
+    <div class="card paycard" hidden><p class="micro" data-t="reportMicro"></p><h3 data-t="reportH"></h3>
       <form id="payForm" novalidate>
         <div class="field"><label for="pay-method" data-t="payMethod"></label><select class="sel" id="pay-method" data-opts="paymethod"></select></div>
         <div class="row2">
@@ -1121,7 +1232,7 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 <p class="note">Version 2026-11-11.</p>
 
 <h3>1. Who is responsible for your data</h3>
-<p>The data controller is Dr. Saqer AlKhalifa, an individual resident in the Kingdom of Bahrain, who runs Arabian Method (the Arabian Method service) at arabianmethod.com. For any question or request about your data, email <a href="mailto:contact@arabianmethod.com">contact@arabianmethod.com</a> or write through the <a href="https://saqeralkhalifa.com/contact-me/">contact page</a>. This notice is given under the Personal Data Protection Law, Law No. (30) of 2018, and the resolutions issued under it.</p>
+<p>The data controller is Dr. Saqer AlKhalifa, an individual resident in the Kingdom of Bahrain, who runs Arabian Method (the Arabian Method service) at arabianmethod.com. For any question or request about your data, email <a href="mailto:contact@arabianmethod.com">contact@arabianmethod.com</a>. This notice is given under the Personal Data Protection Law, Law No. (30) of 2018, and the resolutions issued under it.</p>
 
 <h3>2. What data is collected</h3>
 <ul>
@@ -1135,12 +1246,12 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 </ul>
 
 <h3>3. Why the data is used, and on what legal basis</h3>
-<p>Your data is used only to provide the coaching service: to write and adjust your weekly training plan, to send each session to your calendar and watch, to email you your daily session, to pause your plan and alert Dr. Saqer when you report pain, illness or warning symptoms, to answer your messages to the coach and make the plan changes you ask for, to send you messages from your coach and notifications, to adjust sessions for forecast heat and dust, to plan around your calendar and, if you choose, around Ramadan, to manage your membership, and to meet legal obligations.</p>
+<p>Your data is used only to provide the coaching service: to write and adjust your weekly training plan, to send each session to your calendar and watch, to email you your daily session, to pause your plan and alert Dr. Saqer AlKhalifa when you report pain, illness or warning symptoms, to answer your messages to the coach and make the plan changes you ask for, to send you messages from your coach and notifications, to adjust sessions for forecast heat and dust, to plan around your calendar and, if you choose, around Ramadan, to manage your membership, and to meet legal obligations.</p>
 <p>Sensitive health data is processed on the basis of your explicit consent, given at registration and recorded. Your Ramadan setting is processed only on the basis of a separate explicit consent, given when you choose it, and withdrawing that consent clears the setting. Coach messages and the calendar connection can be switched off on your profile page at any time. Account and payment data are processed to perform the membership agreement you enter into. You can withdraw any consent at any time from your profile page. Withdrawing consent to the processing of health data, to international transfer, or to AI processing pauses your plan, because the service cannot run without them. Withdrawal does not affect processing carried out before it.</p>
 <p>Your data is not sold, not used for advertising, and not used to train AI models.</p>
 
 <h3>4. How plans are written: automated processing</h3>
-<p>Each week an AI system (Claude, provided by Anthropic) proposes your training plan from your training data and check-ins. Software then checks every plan against fixed training rules and corrects or removes anything outside them. Dr. Saqer reviews and approves plans for the first group of athletes, and reviews every case that is flagged. Daily adjustments for short sleep or a raised resting heart rate are made automatically and only ever make a session easier. You can ask for any plan or adjustment to be reviewed by Dr. Saqer by writing to the contact address above.</p>
+<p>Each week an AI system (Claude, provided by Anthropic) proposes your training plan from your training data and check-ins. Software then checks every plan against fixed training rules and corrects or removes anything outside them. Dr. Saqer AlKhalifa reviews and approves plans for the first group of athletes, and reviews every case that is flagged. Daily adjustments for short sleep or a raised resting heart rate are made automatically and only ever make a session easier. You can ask for any plan or adjustment to be reviewed by Dr. Saqer AlKhalifa by writing to the contact address above.</p>
 <p>The AI system does not receive your name, email address or the text you write about injuries or health conditions. It receives your age, race details, training days, training numbers and check-in numbers. The exception is the coach chat: the AI system receives the messages you write or dictate to the coach, which may include anything you choose to say, together with your plan, recent training, check-ins and calendar busy times, so that it can answer you. Plan changes made in the chat are checked against the same training rules as the weekly plans before they are saved. Changes for heat and dust are made by fixed rules and only make a session easier, shorter or indoor.</p>
 
 <h3>5. Who receives your data, and where</h3>
@@ -1161,7 +1272,7 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 <p>Under the law you may ask to be told whether your data is processed and to receive a copy of it, to have inaccurate data corrected, to have your data erased or blocked, to object to processing, to withdraw consent, and to object to a decision based solely on automated processing. Your profile page lets you download all your data, change your profile, withdraw consents and delete your account at any time. For anything else, write to the contact address above. Requests are answered within the period the law sets. You may also complain to the Personal Data Protection Authority.</p>
 
 <h3>8. Security</h3>
-<p>Passwords are stored only in hashed form. All connections are encrypted. Each athlete's data can be read only by that athlete and by Dr. Saqer, which the database enforces. Intervals.icu access tokens cannot be read from any browser. If a breach affects your data, Arabian Method will notify the Authority and you as the law requires.</p>
+<p>Passwords are stored only in hashed form. All connections are encrypted. Each athlete's data can be read only by that athlete and by Dr. Saqer AlKhalifa, which the database enforces. Intervals.icu access tokens cannot be read from any browser. If a breach affects your data, Arabian Method will notify the Authority and you as the law requires.</p>
 
 <h3>9. Cookies and local storage</h3>
 <p>The site uses your browser's local storage only to keep you signed in and to remember your language, and, if you turn on notifications, a small background script that shows them. It uses no advertising or tracking cookies and no analytics.</p>
@@ -1175,7 +1286,7 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 <p class="note">إصدار 2026-11-11.</p>
 
 <h3>1. المسؤول عن بياناتك</h3>
-<p>مدير البيانات هو د. صقر بن سلمان آل خليفة، وهو شخص طبيعي مقيم في مملكة البحرين، ويدير خدمة المنهج العربي على الموقع arabianmethod.com. لأي سؤال أو طلب يتعلق ببياناتك، راسلنا على <a href="mailto:contact@arabianmethod.com" dir="ltr">contact@arabianmethod.com</a> أو عبر <a href="https://saqeralkhalifa.com/contact-ar/">صفحة التواصل</a>. يصدر هذا الإشعار وفقا لقانون حماية البيانات الشخصية الصادر بالقانون رقم (30) لسنة 2018 والقرارات الصادرة تنفيذا له.</p>
+<p>مدير البيانات هو د. صقر بن سلمان آل خليفة، وهو شخص طبيعي مقيم في مملكة البحرين، ويدير خدمة المنهج العربي على الموقع arabianmethod.com. لأي سؤال أو طلب يتعلق ببياناتك، راسلنا على <a href="mailto:contact@arabianmethod.com" dir="ltr">contact@arabianmethod.com</a>. يصدر هذا الإشعار وفقا لقانون حماية البيانات الشخصية الصادر بالقانون رقم (30) لسنة 2018 والقرارات الصادرة تنفيذا له.</p>
 
 <h3>2. البيانات التي تُجمع</h3>
 <ul>
@@ -1189,12 +1300,12 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 </ul>
 
 <h3>3. أغراض استخدام البيانات وأساسها القانوني</h3>
-<p>تُستخدم بياناتك لتقديم خدمة التدريب فقط: لإعداد خطتك الأسبوعية وتعديلها، وإرسال كل حصة إلى تقويمك وساعتك، وإرسال حصة اليوم إليك بالبريد الإلكتروني، وإيقاف خطتك وتنبيه د. صقر عند إبلاغك عن ألم أو مرض أو أعراض تحذيرية، والرد على رسائلك للمدرب وإجراء التعديلات التي تطلبها، وإرسال رسائل المدرب والإشعارات إليك، وتعديل الحصص بحسب الحرارة والغبار المتوقعين، والتخطيط حول تقويمك، وحول رمضان إن اخترت ذلك، وإدارة اشتراكك، والوفاء بالالتزامات القانونية.</p>
+<p>تُستخدم بياناتك لتقديم خدمة التدريب فقط: لإعداد خطتك الأسبوعية وتعديلها، وإرسال كل حصة إلى تقويمك وساعتك، وإرسال حصة اليوم إليك بالبريد الإلكتروني، وإيقاف خطتك وتنبيه د. صقر بن سلمان آل خليفة عند إبلاغك عن ألم أو مرض أو أعراض تحذيرية، والرد على رسائلك للمدرب وإجراء التعديلات التي تطلبها، وإرسال رسائل المدرب والإشعارات إليك، وتعديل الحصص بحسب الحرارة والغبار المتوقعين، والتخطيط حول تقويمك، وحول رمضان إن اخترت ذلك، وإدارة اشتراكك، والوفاء بالالتزامات القانونية.</p>
 <p>تُعالج البيانات الصحية الحساسة بناء على موافقتك الصريحة التي تمنحها عند التسجيل وتُسجل. ولا يُعالج إعداد رمضان إلا بناء على موافقة صريحة مستقلة تمنحها عند اختياره، ويؤدي سحبها إلى مسح الإعداد. ويمكنك إيقاف رسائل المدرب وربط التقويم من صفحة ملفك في أي وقت. وتُعالج بيانات الحساب والدفع لتنفيذ اتفاق الاشتراك الذي تبرمه. يمكنك سحب أي موافقة في أي وقت من صفحة ملفك. ويؤدي سحب الموافقة على معالجة البيانات الصحية أو على نقل البيانات دوليا أو على المعالجة بالذكاء الاصطناعي إلى إيقاف خطتك، لأن الخدمة لا تعمل بدونها. ولا يمس السحب ما تم من معالجة قبله.</p>
 <p>لا تُباع بياناتك، ولا تُستخدم للإعلان، ولا تُستخدم لتدريب نماذج الذكاء الاصطناعي.</p>
 
 <h3>4. كيف تُعد الخطط: المعالجة الآلية</h3>
-<p>يقترح نظام ذكاء اصطناعي (Claude من شركة Anthropic) خطتك كل أسبوع بناء على بيانات تدريبك وتسجيلاتك اليومية. ثم يتحقق برنامج من كل خطة وفق قواعد تدريب ثابتة، ويصحح أو يحذف كل ما يتجاوزها. ويراجع د. صقر الخطط ويعتمدها لأول مجموعة من الرياضيين، ويراجع كل حالة تُرفع إليه. أما التعديلات اليومية بسبب قلة النوم أو ارتفاع نبض الراحة فتتم آليا، ولا تؤدي إلا إلى تخفيف الحصة. ويمكنك طلب مراجعة أي خطة أو تعديل من د. صقر بمراسلة العنوان المذكور أعلاه.</p>
+<p>يقترح نظام ذكاء اصطناعي (Claude من شركة Anthropic) خطتك كل أسبوع بناء على بيانات تدريبك وتسجيلاتك اليومية. ثم يتحقق برنامج من كل خطة وفق قواعد تدريب ثابتة، ويصحح أو يحذف كل ما يتجاوزها. ويراجع د. صقر بن سلمان آل خليفة الخطط ويعتمدها لأول مجموعة من الرياضيين، ويراجع كل حالة تُرفع إليه. أما التعديلات اليومية بسبب قلة النوم أو ارتفاع نبض الراحة فتتم آليا، ولا تؤدي إلا إلى تخفيف الحصة. ويمكنك طلب مراجعة أي خطة أو تعديل من د. صقر بن سلمان آل خليفة بمراسلة العنوان المذكور أعلاه.</p>
 <p>لا يتلقى نظام الذكاء الاصطناعي اسمك أو بريدك الإلكتروني أو ما تكتبه عن الإصابات أو الحالات الصحية. بل يتلقى عمرك وتفاصيل السباق وأيام التدريب وأرقام التدريب وأرقام التسجيل اليومي. ويُستثنى من ذلك المحادثة مع المدرب: إذ يتلقى نظام الذكاء الاصطناعي الرسائل التي تكتبها لمدربك أو تمليها، وقد تتضمن أي شيء تختار قوله، مع خطتك وتدريبك الأخير وتسجيلاتك اليومية وأوقات انشغالك، ليتمكن من الرد عليك. ويُتحقق من أي تعديل على الخطة يُجرى في المحادثة وفق قواعد التدريب نفسها التي تخضع لها الخطط الأسبوعية قبل حفظه. أما التعديلات بسبب الحرارة والغبار فتتم وفق قواعد ثابتة، ولا تؤدي إلا إلى تخفيف الحصة أو تقصيرها أو نقلها إلى الداخل.</p>
 
 <h3>5. من يتلقى بياناتك وأين</h3>
@@ -1215,7 +1326,7 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 <p>يحق لك بموجب القانون أن تطلب إعلامك بما إذا كانت بياناتك تُعالج وأن تحصل على نسخة منها، وتصحيح البيانات غير الدقيقة، ومحو بياناتك أو حجبها، والاعتراض على المعالجة، وسحب الموافقة، والاعتراض على أي قرار يقوم على المعالجة الآلية وحدها. وتتيح لك صفحة ملفك تنزيل جميع بياناتك وتعديل ملفك وسحب الموافقات وحذف حسابك في أي وقت. ولأي طلب آخر، راسل العنوان المذكور أعلاه. ويُرد على الطلبات خلال المدة التي يحددها القانون. ويحق لك أيضا تقديم شكوى إلى هيئة حماية البيانات الشخصية.</p>
 
 <h3>8. أمن البيانات</h3>
-<p>لا تُحفظ كلمات المرور إلا بصيغة مشفرة غير قابلة للاسترجاع. وجميع الاتصالات مشفرة. ولا يستطيع قراءة بيانات أي رياضي سوى الرياضي نفسه ود. صقر، وتفرض قاعدة البيانات ذلك. ولا يمكن قراءة رموز الوصول إلى Intervals.icu من أي متصفح. وفي حال وقوع خرق يمس بياناتك، يُخطر المنهج العربي الهيئة ويخطرك وفقا لما يقتضيه القانون.</p>
+<p>لا تُحفظ كلمات المرور إلا بصيغة مشفرة غير قابلة للاسترجاع. وجميع الاتصالات مشفرة. ولا يستطيع قراءة بيانات أي رياضي سوى الرياضي نفسه ود. صقر بن سلمان آل خليفة، وتفرض قاعدة البيانات ذلك. ولا يمكن قراءة رموز الوصول إلى Intervals.icu من أي متصفح. وفي حال وقوع خرق يمس بياناتك، يُخطر المنهج العربي الهيئة ويخطرك وفقا لما يقتضيه القانون.</p>
 
 <h3>9. ملفات تعريف الارتباط والتخزين المحلي</h3>
 <p>لا يستخدم الموقع التخزين المحلي في متصفحك إلا لإبقائك مسجلا الدخول ولحفظ اللغة التي تختارها، وإذا فعّلت الإشعارات فبرنامجا صغيرا يعمل في الخلفية لعرضها. ولا يستخدم ملفات تعريف ارتباط إعلانية أو للتتبع، ولا أدوات تحليل.</p>
@@ -1239,7 +1350,7 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 <h3>3. Medical disclaimer</h3>
 <p>Endurance training carries a risk of injury, illness and, rarely, serious medical events. Before starting any plan you should be cleared to train by a doctor, particularly if you have a heart, lung or other medical condition, take regular medication, are pregnant, are returning from injury or illness, or have not trained regularly for some time.</p>
 <p>Stop training at once and seek medical help if you have chest pain or pressure, fainting, dizziness, palpitations, unusual breathlessness, or any symptom that worries you. In an emergency, call your local emergency number.</p>
-<p>Report pain, illness or warning symptoms in your daily check-in. Doing so pauses your plan and alerts Dr. Saqer. Your plan restarts only after you confirm that a doctor has cleared you to train. You remain responsible for deciding whether you are fit to train on any day, and for training within your own limits.</p>
+<p>Report pain, illness or warning symptoms in your daily check-in. Doing so pauses your plan and alerts Dr. Saqer AlKhalifa. Your plan restarts only after you confirm that a doctor has cleared you to train. You remain responsible for deciding whether you are fit to train on any day, and for training within your own limits.</p>
 <p>Heat is a serious risk in the Gulf and other hot climates. Train in the coolest part of the day, drink before and during sessions, and stop if you feel unwell.</p>
 
 <h3>4. Membership and payment</h3>
@@ -1253,7 +1364,7 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 <p>Training plans are general guidance written for your stated goals and data. To the extent permitted by the law of the Kingdom of Bahrain, Dr. Saqer AlKhalifa is not liable for injury, illness or loss arising from training you choose to undertake, and his total liability to you in connection with the service is limited to the fees you paid in the three months before the claim. Nothing in these terms limits liability that cannot be limited under Bahraini law, including liability for fraud or gross negligence.</p>
 
 <h3>7. Ending the service</h3>
-<p>You can delete your account at any time from your profile page. Dr. Saqer may suspend or close an account that breaks these terms or where continuing would put the athlete at risk, and will tell the athlete why.</p>
+<p>You can delete your account at any time from your profile page. Dr. Saqer AlKhalifa may suspend or close an account that breaks these terms or where continuing would put the athlete at risk, and will tell the athlete why.</p>
 
 <h3>8. Governing law</h3>
 <p>These terms are governed by the law of the Kingdom of Bahrain, and the courts of the Kingdom of Bahrain have jurisdiction over any dispute.</p>
@@ -1272,7 +1383,7 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 <h3>3. إخلاء المسؤولية الطبية</h3>
 <p>ينطوي التدريب على رياضات التحمل على خطر الإصابة والمرض، وفي حالات نادرة على أحداث طبية خطيرة. وينبغي أن تحصل على إذن من طبيب بالتدريب قبل البدء في أي خطة، ولا سيما إذا كانت لديك حالة في القلب أو الرئة أو أي حالة طبية أخرى، أو كنت تتناول دواء بانتظام، أو كنت حاملا، أو عائدا من إصابة أو مرض، أو لم تتدرب بانتظام منذ مدة.</p>
 <p>توقف عن التدريب فورا واطلب المساعدة الطبية إذا شعرت بألم أو ضغط في الصدر، أو إغماء، أو دوار، أو خفقان، أو ضيق غير معتاد في التنفس، أو أي عرض يقلقك. وفي حالات الطوارئ اتصل برقم الطوارئ المحلي في بلدك.</p>
-<p>أبلغ عن أي ألم أو مرض أو أعراض تحذيرية في تسجيلك اليومي، فذلك يوقف خطتك وينبه د. صقر. ولا تُستأنف خطتك إلا بعد أن تؤكد أن طبيبا أذن لك بالتدريب. وتبقى مسؤولا عن تقرير مدى لياقتك للتدريب في أي يوم، وعن التدريب في حدود قدرتك.</p>
+<p>أبلغ عن أي ألم أو مرض أو أعراض تحذيرية في تسجيلك اليومي، فذلك يوقف خطتك وينبه د. صقر بن سلمان آل خليفة. ولا تُستأنف خطتك إلا بعد أن تؤكد أن طبيبا أذن لك بالتدريب. وتبقى مسؤولا عن تقرير مدى لياقتك للتدريب في أي يوم، وعن التدريب في حدود قدرتك.</p>
 <p>الحرارة خطر جدي في منطقة الخليج وغيرها من المناطق الحارة. تدرب في أبرد أوقات اليوم، واشرب الماء قبل الحصص وأثناءها، وتوقف إذا شعرت بتوعك.</p>
 
 <h3>4. الاشتراك والدفع</h3>
@@ -1286,17 +1397,32 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
 <p>خطط التدريب إرشادات عامة تُعد وفق أهدافك وبياناتك المعلنة. وفي الحدود التي يجيزها قانون مملكة البحرين، لا يُسأل د. صقر بن سلمان آل خليفة عن أي إصابة أو مرض أو خسارة تنشأ عن تدريب تختار القيام به، وتقتصر مسؤوليته الكاملة تجاهك فيما يتعلق بالخدمة على الرسوم التي دفعتها في الأشهر الثلاثة السابقة للمطالبة. ولا يحد أي من هذه الشروط من المسؤولية التي لا يجوز تحديدها بموجب القانون البحريني، بما في ذلك المسؤولية عن الغش أو الخطأ الجسيم.</p>
 
 <h3>7. إنهاء الخدمة</h3>
-<p>يمكنك حذف حسابك في أي وقت من صفحة ملفك. ويجوز للدكتور صقر تعليق أو إغلاق أي حساب يخالف هذه الشروط أو يكون في استمراره خطر على الرياضي، مع إبلاغ الرياضي بالسبب.</p>
+<p>يمكنك حذف حسابك في أي وقت من صفحة ملفك. ويجوز للدكتور صقر بن سلمان آل خليفة تعليق أو إغلاق أي حساب يخالف هذه الشروط أو يكون في استمراره خطر على الرياضي، مع إبلاغ الرياضي بالسبب.</p>
 
 <h3>8. القانون الواجب التطبيق</h3>
 <p>تخضع هذه الشروط لقانون مملكة البحرين، وتختص محاكم مملكة البحرين بالنظر في أي نزاع.</p>
 </section>
 </div></div></section>
 
-<div class="ck-wrap"><footer class="site"><p class="contact-line"><span data-lang="en">Questions or inquiries: </span><span data-lang="ar">للأسئلة والاستفسارات: </span><a href="mailto:contact@arabianmethod.com" dir="ltr">contact@arabianmethod.com</a></p><p data-th="footer"></p><p class="copy">© 2026 Arabian Method</p></footer></div>
 </main>
+<footer class="site"><div class="ck-wrap">
+  <div class="foot">
+    <div class="fbrand">
+      <span class="fname"><svg class="" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><g transform="translate(16 16)" fill="none" stroke="#E2A93B" stroke-width="2" stroke-linejoin="round"><rect x="-10" y="-10" width="20" height="20"/><rect x="-10" y="-10" width="20" height="20" transform="rotate(45)"/></g></svg><span data-lang="en">Arabian Method</span><span data-lang="ar">المنهج العربي</span></span>
+      <p class="contact-line"><span data-lang="en">Questions or inquiries:</span><span data-lang="ar">للأسئلة والاستفسارات:</span> <a class="fmail" href="mailto:contact@arabianmethod.com" dir="ltr">contact@arabianmethod.com</a></p>
+    </div>
+    <nav class="fnav" aria-label="Footer" data-aria-ar="روابط أسفل الصفحة">
+      <a href="#overview" data-go="overview" data-t="tabOverview"></a>
+      <a href="#membership" data-go="membership" data-t="tabMembership"></a>
+      <a href="/notables/" data-lang="en">Triathlon Notables</a><a href="/notables/ar" data-lang="ar">أعلام الترايثلون</a>
+      <a href="#privacy" data-go="privacy"><span data-lang="en">Privacy notice</span><span data-lang="ar">إشعار الخصوصية</span></a>
+      <a href="#terms" data-go="terms"><span data-lang="en">Terms and medical disclaimer</span><span data-lang="ar">الشروط وإخلاء المسؤولية الطبية</span></a>
+    </nav>
+  </div>
+  <p class="copy"><span data-lang="en">© 2026 Arabian Method</span><span data-lang="ar">© ٢٠٢٦ المنهج العربي</span></p>
+</div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
-<script src="coach.js?v=20261120a"></script>
+<script src="coach.js?v=20261125a"></script>
 </body>
 </html>

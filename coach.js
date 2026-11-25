@@ -53,7 +53,7 @@ en:{
   cHealth:'I give my explicit consent to the collection and processing of my health data (heart rate, sleep, workouts, and reports of pain, illness or symptoms) to write and adjust my training plans, as set out in the <a href="#privacy" data-go="privacy" target="_blank">privacy notice</a>.',
   cTransfer:"I consent to my data being stored and processed in the European Union (Germany and Ireland) and the United States, by the service providers named in the privacy notice, and exchanged with Intervals.icu if I connect it.",
   cAi:"I understand that my plans are proposed by an AI system, checked against fixed training rules and supervised by Dr. Saqer, and that I can ask for any plan to be reviewed by him.",
-  regBtn:"Create account", regOk:"Check your email and open the confirmation link. Your account opens once your address is confirmed. Then sign in, complete your training profile and pay the first month.",
+  regBtn:"Create account", regOk:"Check your email and open the confirmation link. Your account opens once your address is confirmed. Then sign in and complete your training profile.",
   eName:"Enter your full name.", eEmail:"Enter a valid email address.", ePass:"The password needs at least 10 characters.", ePass2:"The two passwords do not match.",
   eYear:"Enter your year of birth.", eAge:"Registration is open to adults aged 18 and over.", eConsent:"Every consent box is required to register.",
   eNet:"Something went wrong. Check your connection and try again.", eSession:"Your sign-in has expired. Please sign in again, then try once more.", ePreview:"This is a preview, so nothing was saved.",
@@ -80,7 +80,7 @@ en:{
   tpP:"Partner access will be requested from TrainingPeaks. If it is approved, your sessions will also appear in your TrainingPeaks calendar.",
   stravaP:"Strava's API terms do not allow its data to be used by AI systems, so it cannot be connected. If your watch also syncs to Strava, connect the watch here directly.",
   clearH:"Restarting your plan", clearP:"Your plan was paused after a report of pain, illness or symptoms. Once a doctor has cleared you to train, confirm it below and Dr. Saqer will restart your plan.",
-  clearCheck:"A doctor has examined me and cleared me to return to training.", clearBtn:"Send confirmation", clearOk:"Thank you. Dr. Saqer will review this and restart your plan.", eClear:"Tick the box to confirm.",
+  clearCheck:"A doctor has examined me and cleared me to return to training.", clearBtn:"Send confirmation", clearOk:"Thank you. Dr. Saqer AlKhalifa will review this and restart your plan.", eClear:"Tick the box to confirm.",
   profH:"Your race and your week", profLead:"The plan is built from these answers. You can change them at any time, and next week's plan adjusts.",
   pRace:"Target race", pDate:"Race date", pDist:"Distance", pYears:"Years of endurance training", pHours:"Hours you train now, per week",
   pDays:"Days you can train", pSwim:"Preferred swim days", pSwimH:"Choose the days you have pool or open water access",
@@ -96,7 +96,7 @@ en:{
   delH:"Delete your account", delP:"Deletes your account and all your data, and disconnects Intervals.icu. Payment records are kept without health data, as the law requires.",
   delLabel:"Type DELETE to confirm", delBtn:"Delete account", eDel:"Type DELETE in capital letters to confirm.", delDone:"Your account has been deleted.",
   outH:"Sign out", outP:"Sign out of this browser.",
-  memH:"Monthly membership", memLead:"Every new athlete who confirms their email gets the first month free, starting with their first approved plan. After that, pay by BenefitPay or by bank transfer, then report the payment below.",
+  memH:"Membership", memLead:"Membership is free, and no payment details are needed.",
   memFee:"Monthly fee", memPrice:"US$20 a month, first month free",
   memIncl:"Weekly plans, daily sessions sent to your watch, the daily check-in, and review of any flagged report by our head coach.",
   bpH:"BenefitPay", bpP:"Send US$20, or the equivalent, for each month by BenefitPay to:", bankMicro:"Bank transfer", bankH:"From any bank", bankP:"Send US$20 for each month, or the equivalent, by bank transfer. Bank charges are paid by the sender.",
@@ -104,18 +104,18 @@ en:{
   reportMicro:"After paying", reportH:"Report your payment", payMethod:"Method", payMonths:"Months paid", payRef:"Payment reference",
   paySend:"Report payment", payOk:"Payment reported. You will see it confirmed here once it has been checked.", eRef:"Enter the payment reference from your receipt.",
   pReported:"Reported", pConfirmed:"Confirmed", pRejected:"Not found",
-  memTerms:'Membership terms are in the <a href="#terms" data-go="terms">terms and medical disclaimer</a>. Fees already paid for a month that has started are not refunded.',
-  stPending:"Your account is waiting for the first payment.", stTrialWait:"You have one of the 30 free months. It starts when your first plan is approved.", stTrial:function(d){return "Your free month runs until "+d+". To continue after that, pay below.";}, payLater:"Payment details will appear here before the free months end.", stActive:function(d){return "Your membership is active until "+d+".";}, stPaused:"Your plan is paused.", stClosed:"Your account is closed.",
-  signedOutMem:"Register or sign in to pay and see your membership.",
-  wkEyebrow:"My week", wkNone:"Your first plan is being prepared", wkNoneP:"Plans are written each Wednesday evening for the week starting Friday, and the first group's plans are approved by Dr. Saqer before they are sent. Complete your profile, connect your watch and send your daily check-in.",
+  memTerms:'Membership terms are in the <a href="#terms" data-go="terms">terms and medical disclaimer</a>.',
+  stPending:"Your account is waiting for the first payment.", stTrialWait:"Your membership is free. It starts when your first plan is approved.", stTrial:function(d){return "Your membership is active until "+d+".";}, payLater:"Payment details will appear here before the free months end.", stActive:function(d){return "Your membership is active until "+d+".";}, stPaused:"Your plan is paused.", stClosed:"Your account is closed.",
+  signedOutMem:"Register or sign in to see your membership.",
+  wkEyebrow:"My week", wkNone:"Your first plan is being prepared", wkNoneP:"Plans are written each Wednesday evening for the week starting Friday, and the first group's plans are approved by Dr. Saqer AlKhalifa before they are sent. Complete your profile, connect your watch and send your daily check-in.",
   wkPending:"Your account is waiting for payment", wkPendingP:"Pay the first month on the Membership page. Your first plan follows once the payment is confirmed.",
   wkPaused:"Your plan is paused", wkPausedP:"Your plan was paused after a report of pain, illness or symptoms, a withdrawn consent, or a payment due. Dr. Saqer has been told.",
-  wkH:function(i,ph){return "Week "+i+", "+ph+" phase";}, wkLead:function(r,d,w){return "Target race: "+r+", "+d+". "+w+" weeks to go.";},
+  wkH:function(i,ph){return "Week "+i+", "+ph+" phase";}, wkLead:function(r,d,w){var n = Number(w), s = (w === "" || w === null || w === undefined || isNaN(n)) ? "" : n === 0 ? " Race week." : n === 1 ? " 1 week to go." : " " + n + " weeks to go."; return "Target race: "+r+", "+d+"."+s;},
   todayL:"Today", rest:"Rest day", min:"min", sentGarmin:"Sent to Intervals.icu and Garmin Connect. It appears on your watch after the next sync.", notSent:"It is sent to your watch early on the morning of the session.",
   easy:"Easy", moderate:"Moderate", hard:"Hard", zone:"zone", made_easier:"Made easier",
   chH:"Talk to your coach", chLead:"Ask about a session, tell your coach about travel or a busy day, or say how training feels. Your coach can move, shorten or change sessions within the safety rules, and changes go to your watch and calendar.",
   chAi:"Your coach is an AI. Dr. Saqer reviews anything flagged and can reply here himself. Report pain or illness here or in the daily check-in, and your plan will pause until a doctor clears you.",
-  chLabel:"Your message", chSend:"Send", chEmpty:"Write a message first.", chYou:"You", chCoach:"Coach", chDr:"Dr. Saqer", chThinking:"Your coach is replying.", chHello:"Your conversation with your coach will appear here.",
+  chLabel:"Your message", chSend:"Send", chEmpty:"Write a message first.", chYou:"You", chCoach:"Coach", chDr:"Dr. Saqer AlKhalifa", chThinking:"Your coach is replying.", chHello:"Your conversation with your coach will appear here.",
   chMic:"Speak", chMicStop:"Stop", chMicHint:"Speak now. Check the words before you send them.", chMicNo:"Voice input is not available in this browser. On an iPhone it works in Safari, and on a computer or Android phone it works in Chrome. You can also type your message.", chListen:"Listen", chMicErr:"Voice input stopped. Check that the site may use your microphone, or type your message.",
   pHeatH:"Heat", pHeat:"I am new to hot weather, or just back from a cooler climate. Your coach takes extra care with heat for the next two weeks.",
   pRamH:"Ramadan", pRamHint:"Optional. If you fast in Ramadan, your coach plans sessions around iftar and suhoor during the month. This choice is used only for your training plan.",
@@ -172,7 +172,7 @@ ar:{
   cHealth:'أوافق صراحة على جمع بياناتي الصحية (نبض القلب والنوم والتمارين وبلاغات الألم أو المرض أو الأعراض) ومعالجتها لإعداد خططي التدريبية وتعديلها، على النحو المبين في <a href="#privacy" data-go="privacy" target="_blank">إشعار الخصوصية</a>.',
   cTransfer:"أوافق على حفظ بياناتي ومعالجتها في الاتحاد الأوروبي (ألمانيا وأيرلندا) والولايات المتحدة، لدى مزودي الخدمات المذكورين في إشعار الخصوصية، وعلى تبادلها مع Intervals.icu إذا ربطته.",
   cAi:"أدرك أن خططي يقترحها نظام ذكاء اصطناعي، ويُتحقق منها وفق قواعد تدريب ثابتة، تحت إشراف د. صقر، وأن لي أن أطلب منه مراجعة أي خطة.",
-  regBtn:"إنشاء الحساب", regOk:"افتح بريدك الإلكتروني واضغط رابط التأكيد. يُفعّل حسابك بعد تأكيد عنوانك، ثم سجّل الدخول وأكمل ملف تدريبك وادفع رسوم الشهر الأول.",
+  regBtn:"إنشاء الحساب", regOk:"افتح بريدك الإلكتروني واضغط رابط التأكيد. يُفعّل حسابك بعد تأكيد عنوانك، ثم سجّل الدخول وأكمل ملف تدريبك.",
   eName:"اكتب اسمك الكامل.", eEmail:"اكتب بريدا إلكترونيا صحيحا.", ePass:"يجب ألا تقل كلمة المرور عن 10 أحرف.", ePass2:"كلمتا المرور غير متطابقتين.",
   eYear:"اكتب سنة ميلادك.", eAge:"التسجيل متاح للبالغين الذين أتموا 18 عاما.", eConsent:"جميع خانات الموافقة مطلوبة للتسجيل.",
   eNet:"حدث خطأ. تحقق من اتصالك وحاول مرة أخرى.", eSession:"انتهت صلاحية تسجيل دخولك. يرجى تسجيل الدخول مرة أخرى ثم المحاولة من جديد.", ePreview:"هذه معاينة، لذلك لم يُحفظ شيء.",
@@ -199,7 +199,7 @@ ar:{
   tpP:"سيُطلب الوصول بصفة شريك من TrainingPeaks، وإذا وافقت عليه ستظهر حصصك في تقويمك على TrainingPeaks أيضا.",
   stravaP:"لا تسمح شروط الواجهة البرمجية لخدمة Strava باستخدام بياناتها في أنظمة الذكاء الاصطناعي، لذلك لا يمكن ربطها. وإذا كانت ساعتك تتزامن مع Strava أيضا، فاربط الساعة هنا مباشرة.",
   clearH:"استئناف خطتك", clearP:"توقفت خطتك بعد بلاغ عن ألم أو مرض أو أعراض. بعد أن يأذن لك طبيب بالتدريب، أكد ذلك أدناه وسيستأنف د. صقر خطتك.",
-  clearCheck:"فحصني طبيب وأذن لي بالعودة إلى التدريب.", clearBtn:"إرسال التأكيد", clearOk:"شكرا لك. سيراجع د. صقر التأكيد ويستأنف خطتك.", eClear:"ضع علامة في الخانة للتأكيد.",
+  clearCheck:"فحصني طبيب وأذن لي بالعودة إلى التدريب.", clearBtn:"إرسال التأكيد", clearOk:"شكرا لك. سيراجع د. صقر بن سلمان آل خليفة التأكيد ويستأنف خطتك.", eClear:"ضع علامة في الخانة للتأكيد.",
   profH:"سباقك وأسبوعك", profLead:"تُبنى الخطة على هذه الإجابات، ويمكنك تعديلها في أي وقت فتتكيف خطة الأسبوع التالي.",
   pRace:"السباق المستهدف", pDate:"تاريخ السباق", pDist:"المسافة", pYears:"سنوات التدريب على رياضات التحمل", pHours:"ساعات تدريبك الحالية أسبوعيا",
   pDays:"الأيام التي تستطيع التدرب فيها", pSwim:"أيام السباحة المفضلة", pSwimH:"اختر الأيام التي يتاح لك فيها مسبح أو مياه مفتوحة",
@@ -215,7 +215,7 @@ ar:{
   delH:"حذف حسابك", delP:"يحذف حسابك وجميع بياناتك ويلغي ربط Intervals.icu. وتُحفظ سجلات المدفوعات دون بيانات صحية، وفقا لما يقتضيه القانون.",
   delLabel:"اكتب DELETE للتأكيد", delBtn:"حذف الحساب", eDel:"اكتب DELETE بالأحرف الإنجليزية الكبيرة للتأكيد.", delDone:"حُذف حسابك.",
   outH:"تسجيل الخروج", outP:"تسجيل الخروج من هذا المتصفح.",
-  memH:"الاشتراك الشهري", memLead:"يحصل كل رياضي جديد يؤكد بريده الإلكتروني على الشهر الأول مجانا، ويبدأ مع أول خطة معتمدة لهم. وبعد ذلك ادفع عبر BenefitPay أو بالتحويل البنكي، ثم أبلغ عن الدفعة أدناه.",
+  memH:"الاشتراك", memLead:"الاشتراك مجاني، ولا حاجة إلى أي بيانات دفع.",
   memFee:"الرسوم الشهرية", memPrice:"20 دولارا أمريكيا شهريا، والشهر الأول مجاني",
   memIncl:"خطط أسبوعية، وحصص يومية تُرسل إلى ساعتك، والتسجيل اليومي، ومراجعة مدربنا الرئيسي لأي بلاغ يُرفع إليه.",
   bpH:"BenefitPay", bpP:"أرسل 20 دولارا أو ما يعادلها عن كل شهر عبر BenefitPay إلى:", bankMicro:"التحويل البنكي", bankH:"من أي بنك", bankP:"أرسل 20 دولارا عن كل شهر أو ما يعادلها بالتحويل البنكي، ويتحمل المرسل الرسوم البنكية.",
@@ -223,18 +223,18 @@ ar:{
   reportMicro:"بعد الدفع", reportH:"أبلغ عن دفعتك", payMethod:"طريقة الدفع", payMonths:"عدد الأشهر المدفوعة", payRef:"الرقم المرجعي للدفعة",
   paySend:"إبلاغ عن الدفعة", payOk:"تم الإبلاغ عن الدفعة، وسترى تأكيدها هنا بعد التحقق منها.", eRef:"اكتب الرقم المرجعي من إيصال الدفع.",
   pReported:"مُبلغ عنها", pConfirmed:"مؤكدة", pRejected:"لم يُعثر عليها",
-  memTerms:'شروط الاشتراك واردة في <a href="#terms" data-go="terms">الشروط وإخلاء المسؤولية الطبية</a>. ولا تُرد الرسوم المدفوعة عن شهر بدأ.',
-  stPending:"حسابك بانتظار الدفعة الأولى.", stTrialWait:"لك أحد الأشهر المجانية الثلاثين، ويبدأ عند اعتماد أول خطة لك.", stTrial:function(d){return "شهرك المجاني ساري حتى "+d+". وللاستمرار بعده ادفع أدناه.";}, payLater:"ستظهر بيانات الدفع هنا قبل انتهاء الأشهر المجانية.", stActive:function(d){return "اشتراكك ساري حتى "+d+".";}, stPaused:"خطتك متوقفة.", stClosed:"حسابك مغلق.",
-  signedOutMem:"سجّل أو سجّل الدخول لتدفع وترى اشتراكك.",
-  wkEyebrow:"أسبوعي", wkNone:"يجري إعداد خطتك الأولى", wkNoneP:"تُكتب الخطط مساء كل أربعاء للأسبوع الذي يبدأ يوم الجمعة، ويعتمد د. صقر خطط المجموعة الأولى قبل إرسالها. أكمل ملفك واربط ساعتك وأرسل تسجيلك اليومي.",
+  memTerms:'شروط الاشتراك واردة في <a href="#terms" data-go="terms">الشروط وإخلاء المسؤولية الطبية</a>.',
+  stPending:"حسابك بانتظار الدفعة الأولى.", stTrialWait:"اشتراكك مجاني، ويبدأ عند اعتماد أول خطة لك.", stTrial:function(d){return "اشتراكك ساري حتى "+d+".";}, payLater:"ستظهر بيانات الدفع هنا قبل انتهاء الأشهر المجانية.", stActive:function(d){return "اشتراكك ساري حتى "+d+".";}, stPaused:"خطتك متوقفة.", stClosed:"حسابك مغلق.",
+  signedOutMem:"سجّل أو سجّل الدخول لترى اشتراكك.",
+  wkEyebrow:"أسبوعي", wkNone:"يجري إعداد خطتك الأولى", wkNoneP:"تُكتب الخطط مساء كل أربعاء للأسبوع الذي يبدأ يوم الجمعة، ويعتمد د. صقر بن سلمان آل خليفة خطط المجموعة الأولى قبل إرسالها. أكمل ملفك واربط ساعتك وأرسل تسجيلك اليومي.",
   wkPending:"حسابك بانتظار الدفع", wkPendingP:"ادفع رسوم الشهر الأول من صفحة الاشتراك، وتصلك خطتك الأولى بعد تأكيد الدفعة.",
   wkPaused:"خطتك متوقفة", wkPausedP:"توقفت خطتك بعد بلاغ عن ألم أو مرض أو أعراض، أو سحب موافقة، أو استحقاق دفعة. وقد أُبلغ د. صقر.",
-  wkH:function(i,ph){return "الأسبوع "+i+"، مرحلة "+ph;}, wkLead:function(r,d,w){return "السباق المستهدف: "+r+"، "+d+". متبقٍ "+w+" أسبوعا.";},
+  wkH:function(i,ph){return "الأسبوع "+i+"، مرحلة "+ph;}, wkLead:function(r,d,w){var n = Number(w), s = (w === "" || w === null || w === undefined || isNaN(n)) ? "" : n === 0 ? " أسبوع السباق." : n === 1 ? " بقي أسبوع واحد." : n === 2 ? " بقي أسبوعان." : n <= 10 ? " بقيت " + n + " أسابيع." : " بقي " + n + " أسبوعا."; return "السباق المستهدف: "+r+"، "+d+"."+s;},
   todayL:"اليوم", rest:"يوم راحة", min:"دقيقة", sentGarmin:"أُرسلت إلى Intervals.icu وGarmin Connect، وتظهر على ساعتك بعد المزامنة التالية.", notSent:"تُرسل إلى ساعتك في الصباح الباكر من يوم الحصة.",
   easy:"سهلة", moderate:"متوسطة", hard:"شاقة", zone:"منطقة", made_easier:"خُففت",
   chH:"تحدث مع مدربك", chLead:"اسأل عن حصة، أو أخبر مدربك عن سفر أو يوم مزدحم، أو صف كيف تشعر في تدريبك. يستطيع مدربك نقل الحصص أو تقصيرها أو تغييرها ضمن قواعد السلامة، وتصل التغييرات إلى ساعتك وتقويمك.",
   chAi:"مدربك نظام ذكاء اصطناعي. يراجع د. صقر أي حالة يُبلَّغ عنها ويستطيع الرد هنا بنفسه. أبلغ عن أي ألم أو مرض هنا أو في التسجيل اليومي، وستتوقف خطتك مؤقتا حتى يأذن لك الطبيب.",
-  chLabel:"رسالتك", chSend:"إرسال", chEmpty:"اكتب رسالة أولا.", chYou:"أنت", chCoach:"المدرب", chDr:"د. صقر", chThinking:"مدربك يكتب الرد.", chHello:"ستظهر هنا محادثتك مع مدربك.",
+  chLabel:"رسالتك", chSend:"إرسال", chEmpty:"اكتب رسالة أولا.", chYou:"أنت", chCoach:"المدرب", chDr:"د. صقر بن سلمان آل خليفة", chThinking:"مدربك يكتب الرد.", chHello:"ستظهر هنا محادثتك مع مدربك.",
   chMic:"تحدث", chMicStop:"إيقاف", chMicHint:"تحدث الآن، وراجع الكلمات قبل الإرسال.", chMicNo:"الإدخال الصوتي غير متاح في هذا المتصفح. يعمل في Safari على iPhone، وفي Chrome على الحاسوب وهواتف Android، ويمكنك أيضا كتابة رسالتك.", chListen:"استمع", chMicErr:"توقف الإدخال الصوتي. تأكد من السماح للموقع باستخدام الميكروفون، أو اكتب رسالتك.",
   pHeatH:"الحرارة", pHeat:"أنا جديد على الطقس الحار، أو عدت للتو من مناخ أبرد. سيأخذ مدربك الحرارة بحذر إضافي خلال الأسبوعين القادمين.",
   pRamH:"رمضان", pRamHint:"اختياري. إذا كنت تصوم رمضان فسيخطط مدربك حصصك حول الإفطار والسحور خلال الشهر. ويُستخدم هذا الاختيار لخطتك التدريبية فقط.",
@@ -306,7 +306,7 @@ function sep(){ return LANG === "ar" ? "، " : ", "; }
 
 /* ---------- i18n ---------- */
 function applyI18n(){
-  document.documentElement.lang = LANG; document.documentElement.dir = "ltr"; // the header keeps its own layout; main switches to rtl in CSS
+  document.documentElement.lang = LANG; document.documentElement.dir = LANG === "ar" ? "rtl" : "ltr"; // the whole page mirrors in Arabic, header included
   document.querySelectorAll("[data-t]").forEach(function(n){ var v = t(n.dataset.t); if(typeof v === "string") n.textContent = v; });
   document.querySelectorAll("[data-th]").forEach(function(n){ var v = t(n.dataset.th); if(typeof v === "string") n.innerHTML = v; });
   document.querySelectorAll("select[data-opts]").forEach(function(s){
@@ -321,10 +321,12 @@ function applyI18n(){
     DAYS.forEach(function(d){ var inp = el("input",{type:"checkbox",value:d}); inp.checked = checked.indexOf(d) > -1; box.appendChild(el("label",{cls:"day"},[inp, el("span",{text:t("dayShort")[d]})])); });
   });
   document.title = LANG === "ar" ? "المنهج العربي: تدريب ذكي للجري والترايثلون" : "Arabian Method: AI coaching for running and triathlon";
+  var md = document.querySelector('meta[name="description"]'); if(md) md.setAttribute("content", LANG === "ar" ? "تدريب للجري والترايثلون بخطة تتكيف كل يوم مع نومك وتمارينك والحرارة وجدولك، وتصل مباشرة إلى ساعتك." : "Running and triathlon coaching with a plan that adjusts every day to your sleep, your workouts, the heat and your calendar, and goes straight to your watch.");
   if(STATE.view) render(STATE.view);
 }
 var lt = $("langToggle");
-function flipLang(){ LANG = LANG === "ar" ? "en" : "ar"; try{ localStorage.setItem("mc-lang", LANG); }catch(e){} applyI18n(); }
+function flipLang(e){ if(e && e.preventDefault) e.preventDefault(); LANG = LANG === "ar" ? "en" : "ar"; try{ localStorage.setItem("mc-lang", LANG); }catch(err){} applyI18n(); syncLangLink(); }
+function syncLangLink(){ var a = $("langToggle2"); if(!a || a.tagName !== "A") return; var o = LANG === "ar" ? "en" : "ar"; a.setAttribute("href", "?lang=" + o + "#" + (STATE.view || "overview")); a.setAttribute("hreflang", o); }
 if(lt) lt.addEventListener("click", flipLang);
 if($("langToggle2")) $("langToggle2").addEventListener("click", flipLang);
 
@@ -335,9 +337,10 @@ var NEEDS_IN = {week:1, raceplan:1, coach:1, connect:1, profile:1, admin:1};
 
 function setTabs(){
   var signed = !!STATE.user || !sb; // the preview shows every athlete page
-  document.querySelectorAll("#tabs a").forEach(function(a){
+  document.querySelectorAll("#tabs a, #apptabs a").forEach(function(a){
     var w = a.dataset.when; a.hidden = (w === "out" && !!STATE.user) || (w === "in" && !signed) || (w === "admin" && !STATE.admin);
   });
+  if($("apptabs")) $("apptabs").hidden = !signed;
   $("heroCta").hidden = !!STATE.user;
   ["navCta","memCta"].forEach(function(id){ var x = $(id); if(x) x.hidden = !!STATE.user; });
 }
@@ -348,10 +351,12 @@ function go(v, push){
   if(LIVE && STATE.profile && STATE.profile.status === "pending_consent" && ["register","privacy","terms"].indexOf(hash) < 0) hash = "register";
   STATE.view = hash;
   VIEWS.forEach(function(x){ $("v-" + x).classList.toggle("on", x === hash); });
-  document.querySelectorAll("#tabs a").forEach(function(a){ if(a.dataset.go === hash){ a.setAttribute("aria-current","page"); try{ a.scrollIntoView({ inline:"center", block:"nearest" }); }catch(e){} } else a.removeAttribute("aria-current"); });
+  document.querySelectorAll("#tabs a, #apptabs a").forEach(function(a){ if(a.dataset.go === hash) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+  if(window.__closeMenu) window.__closeMenu();
   if(window.__tabsMore) window.__tabsMore();
   if(push !== false){ try{ history.replaceState(null, "", "#" + hash); }catch(e){} }
   render(hash);
+  syncLangLink();
 }
 document.addEventListener("click", function(e){
   var sc = e.target.closest("[data-scroll]");
@@ -553,11 +558,11 @@ function drawStats(sessions, checkins){
 function drawChart(weeks){
   if(!weeks.length){ $("loadChart").hidden = true; return; }
   var max = Math.max.apply(null, weeks.map(function(w){ return w.minutes; }).concat([1]));
-  var svg = '<svg viewBox="0 0 640 200" role="img" aria-label="' + t("chartH") + '"><line x1="40" y1="170" x2="630" y2="170" stroke="#E3DBD0" stroke-width="1"/>';
+  var svg = '<svg viewBox="0 0 640 200" role="img" aria-label="' + t("chartH") + '"><line x1="40" y1="170" x2="630" y2="170" stroke="#D9D0C2" stroke-width="1"/>';
   weeks.forEach(function(w, i){
     var h = Math.round(w.minutes / max * 140), x = 60 + i * 72;
-    svg += '<rect x="' + x + '" y="' + (170 - h) + '" rx="6" width="44" height="' + h + '" fill="' + (w.recovery ? "#E3DBD0" : "#D9401A") + '"/>';
-    svg += '<text x="' + (x + 22) + '" y="190" font-family="Geist, sans-serif" font-size="12" fill="#8A8279" text-anchor="middle">' + w.week_start.slice(5) + '</text>';
+    svg += '<rect x="' + x + '" y="' + (170 - h) + '" rx="6" width="44" height="' + h + '" fill="' + (w.recovery ? "#858E9B" : "#0F1B2D") + '"/>';
+    svg += '<text x="' + (x + 22) + '" y="190" font-family="Readex Pro, sans-serif" font-size="13" fill="#5B6472" text-anchor="middle">' + w.week_start.slice(5) + '</text>';
   });
   $("chartSvg").innerHTML = svg + "</svg>"; $("loadChart").hidden = false;
 }
@@ -909,15 +914,15 @@ var fileList = $("files"), drop = $("drop"), fin = $("fileIn");
 async function addFiles(fs){
   for(var i = 0; i < fs.length; i++){
     var f = fs[i], good = /\.(fit|tcx|gpx)$/i.test(f.name) && f.size < 30 * 1024 * 1024;
-    var status = el("span",{text: good ? "…" : t("uBad")}); status.style.color = good ? "#6F5D4A" : "#8C3A30";
+    var status = el("span",{text: good ? "…" : t("uBad")}); status.style.color = good ? "#5B6472" : "#B42318";
     fileList.appendChild(el("li",{},[el("span",{text:f.name, dir:"ltr"}), status]));
     if(!good) continue;
-    if(!sb){ status.textContent = t("uOk"); status.style.color = "#3F6B4F"; continue; }
+    if(!sb){ status.textContent = t("uOk"); status.style.color = "#2E6B47"; continue; }
     var path = STATE.user.id + "/" + Date.now() + "-" + f.name.replace(/[^\w.\-]+/g, "_");
     var up = await sb.storage.from("workout-files").upload(path, f);
-    if(up.error){ status.textContent = t("uErr"); status.style.color = "#8C3A30"; continue; }
+    if(up.error){ status.textContent = t("uErr"); status.style.color = "#B42318"; continue; }
     var res = await sb.functions.invoke("parse-upload", { body:{ path:path } });
-    status.textContent = res.error ? t("uErr") : t("uOk"); status.style.color = res.error ? "#8C3A30" : "#3F6B4F";
+    status.textContent = res.error ? t("uErr") : t("uOk"); status.style.color = res.error ? "#B42318" : "#2E6B47";
   }
   var n = fileList.querySelectorAll("li").length, us = $("u-status"); us.textContent = String(n); us.className = "badge ok";
 }
@@ -1072,7 +1077,7 @@ async function renderAdmin(){
     var list = byUser[uid].slice(0, 12).reverse();
     var waiting = byUser[uid].some(function(m){ return m.pending; });
     var card = el("div",{cls:"card"},[el("p",{cls:"micro", text:(name[uid] || "Athlete") + (waiting ? ", " + t("admWaiting") : "")})]);
-    list.forEach(function(m){ card.appendChild(el("p",{cls:"note", dir:"auto", text:m.created_at.slice(5,16).replace("T"," ") + "  " + (m.role === "athlete" ? "Athlete" : m.role === "admin" ? "Dr. Saqer" : "Coach") + (m.pending ? " (held)" : "") + ": " + m.body})); });
+    list.forEach(function(m){ card.appendChild(el("p",{cls:"note", dir:"auto", text:m.created_at.slice(5,16).replace("T"," ") + "  " + (m.role === "athlete" ? "Athlete" : m.role === "admin" ? "Dr. Saqer AlKhalifa" : "Coach") + (m.pending ? " (held)" : "") + ": " + m.body})); });
     var ta = el("textarea",{cls:"ta", rows:"2", maxlength:"2000"});
     card.appendChild(ta);
     card.appendChild(el("div",{cls:"ck-cta"},[btn(t("admReply"), async function(){
@@ -1363,4 +1368,52 @@ document.addEventListener("visibilitychange", function(){
   if(document.hidden || !sb || !STATE.user) return;
   freshSession().then(function(s){ if(!s){ STATE.user = null; setTabs(); banner(t("eSession"), true); go("signin"); } });
 });
+
+/* ---------- presentation (refresh of 25 November 2026): menu panel, morning card, labels, Arabic-Indic digits ---------- */
+(function(){
+  var btn = $("menuBtn"), panel = $("hpanel");
+  function setOpen(o){ if(!panel) return; panel.hidden = !o; if(btn) btn.setAttribute("aria-expanded", o ? "true" : "false"); }
+  window.__closeMenu = function(){ setOpen(false); };
+  if(btn && panel){
+    btn.addEventListener("click", function(e){ e.stopPropagation(); var open = panel.hidden; setOpen(open); if(open){ var f = panel.querySelector("a:not([hidden])"); if(f) f.focus(); } });
+    document.addEventListener("click", function(e){ if(!panel.hidden && !panel.contains(e.target) && e.target !== btn) setOpen(false); });
+    panel.addEventListener("click", function(e){ if(e.target.closest("a")) setTimeout(function(){ setOpen(false); }, 0); });
+    document.addEventListener("keydown", function(e){ if(e.key === "Escape" && !panel.hidden){ setOpen(false); btn.focus(); } });
+  }
+  // the planned and adjusted views of the morning run card on the landing page
+  document.addEventListener("click", function(e){
+    var b = e.target.closest(".mc-btn"); if(!b) return;
+    var card = b.closest(".mcard"), show = b.getAttribute("data-show");
+    card.querySelectorAll(".mc-btn").forEach(function(x){ x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+    card.querySelectorAll(".mc-pane").forEach(function(p){ var on = p.getAttribute("data-pane") === show; p.hidden = !on; if(on){ p.classList.remove("fadein"); void p.offsetWidth; p.classList.add("fadein"); } });
+  });
+  // aria labels in the page language
+  function labels(){ document.querySelectorAll("[data-aria-ar]").forEach(function(n){ if(!n.dataset.ariaEn) n.dataset.ariaEn = n.getAttribute("aria-label") || ""; n.setAttribute("aria-label", LANG === "ar" ? n.dataset.ariaAr : n.dataset.ariaEn); }); }
+  // Arabic pages use Arabic-Indic digits; money stays in Western digits, and anything marked dir="ltr" is left as written
+  var AR = "٠١٢٣٤٥٦٧٨٩", NUM = /(US\$\s?\d[\d.,]*|\$\s?\d[\d.,]*|\d[\d.,]*\s?(?:US\$|USD|BHD|دولار[؀-ۿ]*))|(\d+(?:[.,]\d+)*%?)/g;
+  function toAr(s){ return s.replace(NUM, function(m, money, num){ if(money) return m; return num.replace(/\d/g, function(d){ return AR[d]; }).replace(/([٠-٩])\.(?=[٠-٩])/g, "$1٫").replace(/([٠-٩]),(?=[٠-٩])/g, "$1٬").replace("%", "٪"); }); }
+  function toEn(s){ return s.replace(/[٠-٩]/g, function(d){ return String(AR.indexOf(d)); }).replace(/(\d)٫(?=\d)/g, "$1.").replace(/(\d)٬(?=\d)/g, "$1,").replace(/(\d)٪/g, "$1%"); }
+  function skip(n, ar){
+    for(var e = n.parentNode; e && e.nodeType === 1; e = e.parentNode){
+      var t = e.tagName;
+      if(t === "SCRIPT" || t === "STYLE" || t === "TEXTAREA" || t === "INPUT") return true;
+      if(e.classList && e.classList.contains("money")) return true;
+      var lg = e.getAttribute("data-lang") || (e === document.documentElement ? null : e.getAttribute("lang"));
+      if(ar){ if(e.getAttribute("dir") === "ltr") return true; if(lg === "en") return true; if(lg === "ar") return false; }
+      else { if(lg === "ar") return true; if(lg === "en") return false; }
+    }
+    return false;
+  }
+  var busy = false;
+  function digits(){
+    busy = true;
+    var ar = LANG === "ar", w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null), n, re = ar ? /\d/ : /[٠-٩]/;
+    while((n = w.nextNode())){ var v = n.nodeValue; if(!re.test(v) || skip(n, ar)) continue; var x = ar ? toAr(v) : toEn(v); if(x !== v) n.nodeValue = x; }
+    busy = false;
+  }
+  var queued = false;
+  function queue(){ if(queued || busy) return; queued = true; requestAnimationFrame(function(){ queued = false; digits(); labels(); }); }
+  try{ new MutationObserver(queue).observe(document.body, { childList:true, subtree:true, characterData:true }); }catch(e){}
+  queue(); syncLangLink();
+})();
 })();

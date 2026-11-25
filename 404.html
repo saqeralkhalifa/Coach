@@ -1,36 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Page not found | Arabian Method</title>
+<meta name="description" content="This page does not exist on Arabian Method.">
 <meta name="robots" content="noindex">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icon-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
-<link rel="stylesheet" href="/fonts/fonts.css">
-<style>
-body{margin:0;background:#FBF8F4;color:#17140F;font-family:"Geist",Helvetica,Arial,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;}
-main{max-width:560px;width:100%;}
-img{width:56px;height:56px;border-radius:12px;}
-h1{font-family:"Bricolage Grotesque",Helvetica,Arial,sans-serif;font-weight:800;font-size:40px;line-height:1.1;margin:24px 0 12px;}
-p{font-size:17px;line-height:1.6;color:#4A4038;margin:0 0 12px;}
-.ar{direction:rtl;text-align:right;font-family:"Noto Sans Arabic",Tahoma,sans-serif;margin-top:32px;padding-top:24px;border-top:1px solid #ECE5DC;}
-.ar h2{font-family:"Noto Kufi Arabic",Tahoma,sans-serif;font-size:26px;margin:0 0 10px;}
-.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;}
-a.btn{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border-radius:999px;background:#D9401A;color:#fff;font-weight:600;text-decoration:none;}
-a.btn.ghost{background:transparent;color:#17140F;border:1px solid #D8CFC4;}
-</style>
+<meta name="theme-color" content="#0F1B2D">
+<link rel="preload" href="/fonts/ReadexPro-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css?v=20261125">
+<link rel="stylesheet" href="/site.css?v=20261125">
+<style>.nf h1{font-weight:700;font-size:34px;line-height:1.2;color:var(--ink);margin:0;}.nf + .nf{margin-top:48px;padding-top:40px;border-top:1px solid var(--line);}.nf .lead{max-width:560px;}</style>
 </head>
 <body>
-<main>
-  <img src="/icon-192.png" alt="Arabian Method">
-  <h1>This page does not exist</h1>
-  <p>The link may be mistyped, or the page may have moved. Everything on Arabian Method is on the main page.</p>
-  <div class="btns"><a class="btn" href="/">Go to the main page</a><a class="btn ghost" href="/#signin">Sign in</a></div>
-  <div class="ar">
-    <h2>هذه الصفحة غير موجودة</h2>
-    <p>ربما كُتب الرابط بشكل خاطئ أو نُقلت الصفحة، وكل ما في المنهج العربي موجود في الصفحة الرئيسية.</p>
-    <div class="btns"><a class="btn" href="/?lang=ar">الصفحة الرئيسية</a><a class="btn ghost" href="/?lang=ar#signin">تسجيل الدخول</a></div>
+<header class="pnav" id="pnav"><div class="pnav-in">
+  <a class="pbrand" href="/?lang=en#overview"><svg class="plogo-star" viewBox="0 0 32 32" aria-hidden="true"><g transform="translate(16 16)" fill="none" stroke="#E2A93B" stroke-width="2" stroke-linejoin="round"><rect x="-10" y="-10" width="20" height="20"/><rect x="-10" y="-10" width="20" height="20" transform="rotate(45)"/></g></svg><span class="plock">Arabian Method</span></a>
+  <div class="ck-tabs" id="tabs">
+    <nav class="hnav" aria-label="Main">
+      <a href="/?lang=en#overview" data-when="out">Overview</a>
+      <a href="/?lang=en#membership" data-when="out">Membership</a>
+      <a href="/notables/" data-when="out">Triathlon Notables</a>
+      <a href="/?lang=en#signin" data-when="out">Sign in</a>
+      <a href="/?lang=en#week" data-when="in" hidden>My week</a>
+      <a href="/?lang=en#coach" data-when="in" hidden>Coach</a>
+      <a href="/?lang=en#raceplan" data-when="in" hidden>Race plan</a>
+      <a href="/?lang=en#profile" data-when="in" hidden>Profile</a>
+    </nav>
+    <div class="hpanel" id="hpanel" hidden>
+      <nav aria-label="All pages">
+        <a class="btn gold" href="/?lang=en#register" data-when="out">Start free</a>
+        <a href="/?lang=en#week" data-when="in" hidden>My week</a>
+        <a href="/?lang=en#coach" data-when="in" hidden>Coach</a>
+        <a href="/?lang=en#raceplan" data-when="in" hidden>Race plan</a>
+        <a href="/?lang=en#connect" data-when="in" hidden>Check-in and watch</a>
+        <a href="/?lang=en#profile" data-when="in" hidden>Profile</a>
+        <a href="/?lang=en#overview">Overview</a>
+        <a href="/?lang=en#signin" data-when="out">Sign in</a>
+        <a href="/?lang=en#membership">Membership</a>
+        <a href="/notables/">Triathlon Notables</a>
+        <a href="mailto:contact@arabianmethod.com">Contact</a>
+      </nav>
+    </div>
   </div>
-</main>
+  <div class="pnav-r">
+    <a class="hlang" href="/?lang=ar" hreflang="ar" lang="ar">العربية</a>
+    <a class="btn gold" id="navCta" href="/?lang=en#register" data-when="out">Start free</a>
+    <button class="hmenu" id="menuBtn" type="button" aria-expanded="false" aria-controls="hpanel" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</div></header>
+<main><div class="section"><div class="ck-wrap nfwrap">
+<div class="nf" lang="en" dir="ltr"><h1>This page does not exist</h1><p class="lead">The link may be mistyped, or the page may have moved. Everything on Arabian Method can be reached from the main page.</p><div class="ck-cta"><a class="btn" href="/?lang=en">Go to the main page</a><a class="btn ghost" href="/?lang=en#signin">Sign in</a></div></div>
+<div class="nf" lang="ar" dir="rtl"><h1>هذه الصفحة غير موجودة</h1><p class="lead">ربما كُتب الرابط بشكل خاطئ أو نُقلت الصفحة، ويمكن الوصول إلى كل ما في المنهج العربي من الصفحة الرئيسية.</p><div class="ck-cta"><a class="btn" href="/?lang=ar">الصفحة الرئيسية</a><a class="btn ghost" href="/?lang=ar#signin">تسجيل الدخول</a></div></div>
+</div></div></main>
+<footer class="site"><div class="ck-wrap">
+  <div class="foot">
+    <div class="fbrand">
+      <span class="fname"><svg class="" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><g transform="translate(16 16)" fill="none" stroke="#E2A93B" stroke-width="2" stroke-linejoin="round"><rect x="-10" y="-10" width="20" height="20"/><rect x="-10" y="-10" width="20" height="20" transform="rotate(45)"/></g></svg>Arabian Method</span>
+      <p class="contact-line">Questions or inquiries: <a class="fmail" href="mailto:contact@arabianmethod.com" dir="ltr">contact@arabianmethod.com</a></p>
+    </div>
+    <nav class="fnav" aria-label="Footer">
+      <a href="/?lang=en#overview">Overview</a>
+      <a href="/?lang=en#membership">Membership</a>
+      <a href="/notables/">Triathlon Notables</a>
+      <a href="/legal_en.html#privacy-en">Privacy notice</a>
+      <a href="/legal_en.html#terms-en">Terms and medical disclaimer</a>
+    </nav>
+  </div>
+  <p class="copy">© 2026 Arabian Method</p>
+</div></footer>
+<script>
+(function(){
+  var signed = false;
+  try{ for(var i = 0; i < localStorage.length; i++){ var k = localStorage.key(i); if(/^sb-.*-auth-token$/.test(k)){ var v = JSON.parse(localStorage.getItem(k) || "null"); if(v && (v.access_token || (v.currentSession && v.currentSession.access_token))) signed = true; } } }catch(e){}
+  document.querySelectorAll("[data-when]").forEach(function(a){ a.hidden = a.getAttribute("data-when") === "in" ? !signed : signed; });
+  var btn = document.getElementById("menuBtn"), panel = document.getElementById("hpanel");
+  if(!btn || !panel) return;
+  function setOpen(o){ panel.hidden = !o; btn.setAttribute("aria-expanded", o ? "true" : "false"); }
+  btn.addEventListener("click", function(e){ e.stopPropagation(); setOpen(panel.hidden); if(!panel.hidden){ var f = panel.querySelector("a:not([hidden])"); if(f) f.focus(); } });
+  document.addEventListener("click", function(e){ if(!panel.hidden && !panel.contains(e.target)) setOpen(false); });
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape" && !panel.hidden){ setOpen(false); btn.focus(); } });
+})();
+</script>
 </body>
 </html>
