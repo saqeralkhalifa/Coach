@@ -332,7 +332,7 @@ if($("langToggle2")) $("langToggle2").addEventListener("click", flipLang);
 
 /* ---------- state and routing ---------- */
 var STATE = { view:null, user:null, profile:null, admin:false };
-var VIEWS = ["overview","register","signin","week","raceplan","coach","connect","profile","membership","sponsor","admin","privacy","terms"];
+var VIEWS = ["overview","register","signin","week","raceplan","coach","connect","profile","membership","sponsor","admin","privacy","terms","app"];
 var NEEDS_IN = {week:1, raceplan:1, coach:1, connect:1, profile:1, admin:1};
 
 function setTabs(){
@@ -1419,4 +1419,37 @@ document.addEventListener("visibilitychange", function(){
   try{ new MutationObserver(queue).observe(document.body, { childList:true, subtree:true, characterData:true }); }catch(e){}
   queue(); syncLangLink();
 })();
+})();
+
+
+/* ---------- app mode (25 Nov 2026): Home Screen app on iPhone and Android ---------- */
+(function(){
+  var html = document.documentElement, ua = navigator.userAgent || "";
+  var standalone = (window.matchMedia && matchMedia("(display-mode: standalone)").matches) || window.navigator.standalone === true;
+  if(standalone) html.classList.add("standalone");
+  var ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  var phone = ios || /Android/.test(ua);
+  var deferred = null, KEY = "am-install-hide";
+  function dismissed(){ try{ return localStorage.getItem(KEY) === "1"; }catch(e){ return false; } }
+  function draw(){
+    var card = document.getElementById("installCard"), b1 = document.getElementById("installBtn"),
+        b2 = document.getElementById("appInstall"), done = document.getElementById("appDone");
+    if(done) done.hidden = !standalone;
+    if(b1) b1.hidden = !deferred;
+    if(b2) b2.hidden = !deferred || standalone;
+    if(card) card.hidden = standalone || dismissed() || !phone;
+  }
+  window.addEventListener("beforeinstallprompt", function(e){ e.preventDefault(); deferred = e; draw(); });
+  window.addEventListener("appinstalled", function(){ deferred = null; try{ localStorage.setItem(KEY, "1"); }catch(e){} draw(); });
+  document.addEventListener("click", function(e){
+    if(e.target.closest("#installClose")){ try{ localStorage.setItem(KEY, "1"); }catch(err){} draw(); return; }
+    if(e.target.closest("#installBtn, #appInstall") && deferred){
+      var d = deferred; d.prompt();
+      d.userChoice.then(function(){ deferred = null; draw(); }, function(){ deferred = null; draw(); });
+    }
+  });
+  if("serviceWorker" in navigator){
+    window.addEventListener("load", function(){ navigator.serviceWorker.register("/sw.js", { scope:"/" }).catch(function(){}); });
+  }
+  draw();
 })();

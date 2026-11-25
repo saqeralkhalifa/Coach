@@ -2,10 +2,21 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Arabian Method: AI coaching for running and triathlon</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
+<link rel="apple-touch-startup-image" href="splash/splash-1320x2868.png" media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="splash/splash-1290x2796.png" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="splash/splash-1260x2736.png" media="(device-width: 420px) and (device-height: 912px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="splash/splash-1284x2778.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="splash/splash-1242x2688.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="splash/splash-828x1792.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="splash/splash-1206x2622.png" media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="splash/splash-1179x2556.png" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="splash/splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="splash/splash-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" href="splash/splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <meta name="theme-color" content="#0F1B2D">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -22,15 +33,18 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Arabian Method">
 <meta property="og:url" content="https://arabianmethod.com/">
-<meta property="og:title" content="Arabian Method: AI coaching for running and triathlon">
+<meta property="og:title" content="Arabian Method | المنهج العربي">
 <meta property="og:description" content="A training plan for your race that adjusts every day to your sleep, your workouts, the heat and your calendar, and goes straight to your watch.">
-<meta property="og:image" content="https://arabianmethod.com/og-image.png">
+<meta property="og:image" content="https://arabianmethod.com/og-arabian-method.jpg">
+<meta property="og:image:secure_url" content="https://arabianmethod.com/og-arabian-method.jpg">
+<meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Arabian Method, AI coaching for running and triathlon">
+<meta property="og:image:alt" content="Arabian Method, running and triathlon coaching">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="ar_AR">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://arabianmethod.com/og-arabian-method.jpg">
 <style id="coach-css">
 /* Arabian Method theme, Night and sand (refresh of 25 November 2026). One theme for the coach app, the legal pages,
    the 404 page and Triathlon Notables. Night blue is kept to the header, the footer, the morning run card on the
@@ -529,6 +543,32 @@ html[lang="ar"] .stats3 .v,html[lang="ar"] .stat .v,html[lang="ar"] .price{lette
 @media (min-width:1280px){html[lang="ar"] .ck-hero h1{font-size:46px;} html[lang="ar"] h2{font-size:34px;}}
 html[lang="ar"] [dir="ltr"]{text-align:left;}
 html[lang="ar"] .in[dir="ltr"],html[lang="ar"] .ta[dir="ltr"]{text-align:left;}
+
+/* App mode (25 Nov 2026). html.standalone is set when the site is opened from the Home Screen. On phones and tablets
+   the athlete tabs then sit in a bar at the bottom of the screen with icons, clear of the iPhone home indicator. */
+.apptabs .ti{display:none;}
+html.standalone{-webkit-tap-highlight-color:transparent;}
+html.standalone body{overscroll-behavior-y:none;}
+@media (max-width:1023px){
+  html.standalone body{padding-bottom:calc(68px + env(safe-area-inset-bottom));}
+  html.standalone .apptabs{position:fixed;left:0;right:0;bottom:0;z-index:150;border-bottom:0;border-top:1px solid var(--line);padding:4px 4px calc(4px + env(safe-area-inset-bottom));background:var(--surface);}
+  html.standalone .apptabs a{flex:1 1 0;flex-direction:column;gap:3px;min-height:56px;padding:6px 2px 4px;font-size:12px;line-height:1.2;border:0;}
+  html.standalone .apptabs a .ti{display:block;width:24px;height:24px;flex:0 0 auto;}
+  html.standalone .apptabs a[aria-current="page"]{color:var(--acc);}
+}
+.install{display:flex;gap:14px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;margin:0 0 24px;}
+.install .install-ic{flex:0 0 auto;width:44px;height:44px;border-radius:10px;background:var(--night);display:flex;align-items:center;justify-content:center;}
+.install p{margin:0;font-size:15px;line-height:1.6;color:var(--text);}
+.install-a{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+.appgrid{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;margin-top:28px;}
+@media (min-width:768px){.appgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;}}
+.appcard h3{margin:0 0 12px;}
+.appsteps{margin:0;padding-inline-start:22px;}
+.appsteps li{margin:0 0 10px;font-size:16px;line-height:1.6;color:var(--text);}
+.appsteps li:last-child{margin-bottom:0;}
+ol.appsteps[lang="ar"]{list-style-type:arabic-indic;}
+.appnote{margin-top:24px;font-size:15px;color:var(--muted);}
+.appdone{margin-top:20px;font-weight:600;color:var(--ink);}
 </style>
 
 </head>
@@ -560,6 +600,7 @@ html[lang="ar"] .in[dir="ltr"],html[lang="ar"] .ta[dir="ltr"]{text-align:left;}
         <a href="#overview" data-go="overview" data-t="tabOverview"></a>
         <a href="#signin" data-go="signin" data-t="signin" data-when="out"></a>
         <a href="#membership" data-go="membership" data-t="tabMembership"></a>
+        <a href="#app" data-go="app"><span data-lang="en">Use it as an app</span><span data-lang="ar">استخدمه كتطبيق</span></a>
         <a href="/notables/" data-lang="en">Triathlon Notables</a><a href="/notables/ar" data-lang="ar">أعلام الترايثلون</a>
         <a href="mailto:contact@arabianmethod.com"><span data-lang="en">Contact</span><span data-lang="ar">تواصل معنا</span></a>
       </nav>
@@ -572,22 +613,23 @@ html[lang="ar"] .in[dir="ltr"],html[lang="ar"] .ta[dir="ltr"]{text-align:left;}
   </div>
 </div></header>
 <nav class="apptabs" id="apptabs" aria-label="Your training" data-aria-ar="تدريبك" hidden>
-  <a href="#week" data-go="week" data-t="tabWeek" data-when="in"></a>
-  <a href="#coach" data-go="coach" data-t="tabCoach" data-when="in"></a>
-  <a href="#raceplan" data-go="raceplan" data-when="in"><span data-lang="en">Race plan</span><span data-lang="ar">خطة السباق</span></a>
-  <a href="#profile" data-go="profile" data-t="tabProfile" data-when="in"></a>
+  <a href="#week" data-go="week" data-when="in"><svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span data-t="tabWeek"></span></a>
+  <a href="#coach" data-go="coach" data-when="in"><svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 5h13A2.5 2.5 0 0 1 21 7.5v7a2.5 2.5 0 0 1-2.5 2.5H11l-4.5 3.5V17h-1A2.5 2.5 0 0 1 3 14.5v-7A2.5 2.5 0 0 1 5.5 5z"/></svg><span data-t="tabCoach"></span></a>
+  <a href="#raceplan" data-go="raceplan" data-when="in"><svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 21V4.5M5.5 4.5h11.5l-2.5 4.25 2.5 4.25H5.5"/></svg><span data-lang="en">Race plan</span><span data-lang="ar">خطة السباق</span></a>
+  <a href="#profile" data-go="profile" data-when="in"><svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.75"/><path d="M4.75 20.5c1.3-3.7 4.1-5.6 7.25-5.6s5.95 1.9 7.25 5.6"/></svg><span data-t="tabProfile"></span></a>
 </nav>
 <script>
 /* First paint only: show the header for the sign-in kept in this browser, and keep the overview hidden when the link
    opens another page, until coach.js has checked the session and taken over. */
 (function(){
+  try{ if((window.matchMedia && matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true) document.documentElement.classList.add("standalone"); }catch(e){}
   var s = false;
   try{ for(var i = 0; i < localStorage.length; i++){ var k = localStorage.key(i); if(/^sb-.*-auth-token$/.test(k)){ var v = JSON.parse(localStorage.getItem(k) || "null"); if(v && (v.access_token || (v.currentSession && v.currentSession.access_token))) s = true; } } }catch(e){}
   document.querySelectorAll("#tabs a[data-when], #apptabs a[data-when]").forEach(function(a){ var w = a.getAttribute("data-when"); a.hidden = w === "in" ? !s : w === "admin" ? true : s; });
   var at = document.getElementById("apptabs"); if(at) at.hidden = !s;
   var c = document.getElementById("navCta"); if(c) c.hidden = s;
   var h = (location.hash || "").slice(1).split(/[#&?]/)[0];
-  if(/^(register|signin|week|raceplan|coach|connect|profile|membership|sponsor|admin|privacy|terms)$/.test(h)) document.documentElement.classList.add("pre");
+  if(/^(register|signin|week|raceplan|coach|connect|profile|membership|sponsor|admin|privacy|terms|app)$/.test(h)) document.documentElement.classList.add("pre");
 })();
 </script>
 
@@ -823,7 +865,7 @@ html[lang="ar"] .in[dir="ltr"],html[lang="ar"] .ta[dir="ltr"]{text-align:left;}
   <div class="section" id="faq"><div class="ck-wrap">
     <p class="eyebrow"><span data-lang="en">Questions</span><span data-lang="ar">أسئلة</span></p>
     <h2><span data-lang="en">Frequently asked questions</span><span data-lang="ar">الأسئلة الشائعة</span></h2>
-    <div class="faqlist"><details class="faq"><summary><span data-lang="en">Is there a fee?</span><span data-lang="ar">هل هناك رسوم؟</span></summary><p><span data-lang="en">Membership is free, and no payment details are needed.</span><span data-lang="ar">الاشتراك مجاني، ولا حاجة إلى أي بيانات دفع.</span></p></details><details class="faq"><summary><span data-lang="en">Can I stop at any time?</span><span data-lang="ar">هل يمكنني التوقف في أي وقت؟</span></summary><p><span data-lang="en">Yes. There is no contract, and you can delete your account at any time from your profile page.</span><span data-lang="ar">نعم، لا يوجد عقد، ويمكنك حذف حسابك في أي وقت من صفحة ملفك.</span></p></details><details class="faq"><summary><span data-lang="en">Which watches work?</span><span data-lang="ar">ما الساعات التي تعمل مع الخدمة؟</span></summary><p><span data-lang="en">Garmin watches receive each session through a free Intervals.icu account, which also brings your workouts back to your coach. Workouts from Coros, Polar and Suunto reach your coach through Intervals.icu as well. An Apple Watch connects through an iPhone app, as the Check-in and watch page explains, and any other watch can upload workout files.</span><span data-lang="ar">تستقبل ساعات Garmin كل حصة عبر حساب مجاني في Intervals.icu، وهو يعيد تمارينك أيضا إلى مدربك. وتصل تمارين Coros وPolar وSuunto إلى مدربك عبر Intervals.icu كذلك. وترتبط ساعة Apple عبر تطبيق على الآيفون كما تشرح صفحة التسجيل اليومي والساعة، ويمكن رفع ملفات التمارين من أي ساعة أخرى.</span></p></details><details class="faq"><summary><span data-lang="en">Is it suitable for beginners?</span><span data-lang="ar">هل تناسب المبتدئين؟</span></summary><p><span data-lang="en">Yes, for adults aged 18 and over. Your first two weeks never go above what you have been doing already, and athletes with less than a year of endurance training get no interval sessions in their first four weeks.</span><span data-lang="ar">نعم، للبالغين من ١٨ عاما فأكثر. فلا يتجاوز أول أسبوعين ما كنت تتدربه بالفعل، ولا يحصل من تقل خبرته في رياضات التحمل عن سنة على حصص تدريب متقطع في أسابيعه الأربعة الأولى.</span></p></details><details class="faq"><summary><span data-lang="en">What if I get injured or ill?</span><span data-lang="ar">ماذا لو أصبت أو مرضت؟</span></summary><p><span data-lang="en">Tick the pain or illness box in your daily check-in, or tell the coach. Your plan pauses straight away, you are told to see a doctor, and our head coach reviews the case. The plan restarts only when you confirm that you have been cleared.</span><span data-lang="ar">ضع علامة في خانة الألم أو المرض في تسجيلك اليومي، أو أخبر المدرب. فتتوقف خطتك فورا، وتُنصح بمراجعة الطبيب، ويراجع مدربنا الرئيسي حالتك. ولا تُستأنف الخطة إلا بعد أن تؤكد حصولك على الإذن.</span></p></details><details class="faq"><summary><span data-lang="en">Who can see my health data?</span><span data-lang="ar">من يستطيع رؤية بياناتي الصحية؟</span></summary><p><span data-lang="en">Your data is used only to provide the coaching service. The AI system never receives your name, your email address or what you write about injuries or health conditions, and you can download or delete all of your data from your profile at any time.</span><span data-lang="ar">تُستخدم بياناتك لتقديم خدمة التدريب فقط. ولا يتلقى نظام الذكاء الاصطناعي اسمك ولا بريدك الإلكتروني ولا ما تكتبه عن الإصابات أو الحالات الصحية، ويمكنك تنزيل بياناتك كلها أو حذفها من ملفك في أي وقت.</span></p></details><details class="faq"><summary><span data-lang="en">Is this medical advice?</span><span data-lang="ar">هل هذه نصيحة طبية؟</span></summary><p><span data-lang="en">No. Arabian Method is a training service and not a medical one. If you have a medical condition, check with your doctor before you start, and see a doctor about any pain or illness.</span><span data-lang="ar">لا، فالمنهج العربي خدمة تدريب وليست خدمة طبية. وإن كانت لديك حالة صحية فاستشر طبيبك قبل أن تبدأ، وراجع الطبيب عند أي ألم أو مرض.</span></p></details></div>
+    <div class="faqlist"><details class="faq"><summary><span data-lang="en">Is there a fee?</span><span data-lang="ar">هل هناك رسوم؟</span></summary><p><span data-lang="en">Membership is free, and no payment details are needed.</span><span data-lang="ar">الاشتراك مجاني، ولا حاجة إلى أي بيانات دفع.</span></p></details><details class="faq"><summary><span data-lang="en">Can I stop at any time?</span><span data-lang="ar">هل يمكنني التوقف في أي وقت؟</span></summary><p><span data-lang="en">Yes. There is no contract, and you can delete your account at any time from your profile page.</span><span data-lang="ar">نعم، لا يوجد عقد، ويمكنك حذف حسابك في أي وقت من صفحة ملفك.</span></p></details><details class="faq"><summary><span data-lang="en">Can I use it like an app on my phone?</span><span data-lang="ar">هل يمكنني استخدامه كتطبيق على هاتفي؟</span></summary><p><span data-lang="en">You can add it to your Home Screen from Safari on an iPhone or from Chrome on Android, and it then opens full screen like an app. The steps for both phones are on the <a href="#app" data-go="app">app page</a>.</span><span data-lang="ar">يمكنك إضافته إلى الشاشة الرئيسية من سفاري على آيفون أو من كروم على أندرويد، فيفتح بعدها بملء الشاشة كتطبيق. خطوات الهاتفين موجودة في <a href="#app" data-go="app">صفحة التطبيق</a>.</span></p></details><details class="faq"><summary><span data-lang="en">Which watches work?</span><span data-lang="ar">ما الساعات التي تعمل مع الخدمة؟</span></summary><p><span data-lang="en">Garmin watches receive each session through a free Intervals.icu account, which also brings your workouts back to your coach. Workouts from Coros, Polar and Suunto reach your coach through Intervals.icu as well. An Apple Watch connects through an iPhone app, as the Check-in and watch page explains, and any other watch can upload workout files.</span><span data-lang="ar">تستقبل ساعات Garmin كل حصة عبر حساب مجاني في Intervals.icu، وهو يعيد تمارينك أيضا إلى مدربك. وتصل تمارين Coros وPolar وSuunto إلى مدربك عبر Intervals.icu كذلك. وترتبط ساعة Apple عبر تطبيق على الآيفون كما تشرح صفحة التسجيل اليومي والساعة، ويمكن رفع ملفات التمارين من أي ساعة أخرى.</span></p></details><details class="faq"><summary><span data-lang="en">Is it suitable for beginners?</span><span data-lang="ar">هل تناسب المبتدئين؟</span></summary><p><span data-lang="en">Yes, for adults aged 18 and over. Your first two weeks never go above what you have been doing already, and athletes with less than a year of endurance training get no interval sessions in their first four weeks.</span><span data-lang="ar">نعم، للبالغين من ١٨ عاما فأكثر. فلا يتجاوز أول أسبوعين ما كنت تتدربه بالفعل، ولا يحصل من تقل خبرته في رياضات التحمل عن سنة على حصص تدريب متقطع في أسابيعه الأربعة الأولى.</span></p></details><details class="faq"><summary><span data-lang="en">What if I get injured or ill?</span><span data-lang="ar">ماذا لو أصبت أو مرضت؟</span></summary><p><span data-lang="en">Tick the pain or illness box in your daily check-in, or tell the coach. Your plan pauses straight away, you are told to see a doctor, and our head coach reviews the case. The plan restarts only when you confirm that you have been cleared.</span><span data-lang="ar">ضع علامة في خانة الألم أو المرض في تسجيلك اليومي، أو أخبر المدرب. فتتوقف خطتك فورا، وتُنصح بمراجعة الطبيب، ويراجع مدربنا الرئيسي حالتك. ولا تُستأنف الخطة إلا بعد أن تؤكد حصولك على الإذن.</span></p></details><details class="faq"><summary><span data-lang="en">Who can see my health data?</span><span data-lang="ar">من يستطيع رؤية بياناتي الصحية؟</span></summary><p><span data-lang="en">Your data is used only to provide the coaching service. The AI system never receives your name, your email address or what you write about injuries or health conditions, and you can download or delete all of your data from your profile at any time.</span><span data-lang="ar">تُستخدم بياناتك لتقديم خدمة التدريب فقط. ولا يتلقى نظام الذكاء الاصطناعي اسمك ولا بريدك الإلكتروني ولا ما تكتبه عن الإصابات أو الحالات الصحية، ويمكنك تنزيل بياناتك كلها أو حذفها من ملفك في أي وقت.</span></p></details><details class="faq"><summary><span data-lang="en">Is this medical advice?</span><span data-lang="ar">هل هذه نصيحة طبية؟</span></summary><p><span data-lang="en">No. Arabian Method is a training service and not a medical one. If you have a medical condition, check with your doctor before you start, and see a doctor about any pain or illness.</span><span data-lang="ar">لا، فالمنهج العربي خدمة تدريب وليست خدمة طبية. وإن كانت لديك حالة صحية فاستشر طبيبك قبل أن تبدأ، وراجع الطبيب عند أي ألم أو مرض.</span></p></details></div>
   </div></div>
   <div class="section tight"><div class="ck-wrap">
     <div class="ctaband">
@@ -917,6 +959,18 @@ html[lang="ar"] .in[dir="ltr"],html[lang="ar"] .ta[dir="ltr"]{text-align:left;}
 
 <!-- MY WEEK -->
 <section class="view" id="v-week"><div class="section"><div class="ck-wrap">
+  <div class="install" id="installCard" hidden>
+    <span class="install-ic"><svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><g transform="translate(16 16)" fill="none" stroke="#E2A93B" stroke-width="2" stroke-linejoin="round"><rect x="-10" y="-10" width="20" height="20"/><rect x="-10" y="-10" width="20" height="20" transform="rotate(45)"/></g></svg></span>
+    <div>
+      <p data-lang="en">You can add Arabian Method to your Home Screen and open it like an app, full screen and straight to your week.</p>
+      <p data-lang="ar" dir="rtl" lang="ar">يمكنك إضافة المنهج العربي إلى الشاشة الرئيسية وفتحه كتطبيق، بملء الشاشة ومباشرة على أسبوعك.</p>
+      <div class="install-a">
+        <a class="btn small" href="#app" data-go="app"><span data-lang="en">Show me how</span><span data-lang="ar">أرني الطريقة</span></a>
+        <button type="button" class="btn small" id="installBtn" hidden><span data-lang="en">Install the app</span><span data-lang="ar">ثبّت التطبيق</span></button>
+        <button type="button" class="btn ghost small" id="installClose"><span data-lang="en">Not now</span><span data-lang="ar">ليس الآن</span></button>
+      </div>
+    </div>
+  </div>
   <p class="eyebrow" id="wkEyebrow"></p>
   <h2 id="wkH"></h2>
   <p class="lead" id="wkLead"></p>
@@ -1200,6 +1254,19 @@ html[lang="ar"] .in[dir="ltr"],html[lang="ar"] .ta[dir="ltr"]{text-align:left;}
 </div></div></section>
 
 <!-- SPONSORED TRAINING -->
+<section class="view" id="v-app"><div class="section"><div class="ck-wrap">
+  <div data-lang="en"><p class="eyebrow">On your phone</p><h2>Use Arabian Method as an app</h2>
+    <p class="lead">Add Arabian Method to your Home Screen and it opens full screen like an app, straight to your week, with the same plan, check-in and coach messages as on the website.</p></div>
+  <div data-lang="ar" dir="rtl" lang="ar"><p class="eyebrow">على هاتفك</p><h2>استخدم المنهج العربي كتطبيق</h2>
+    <p class="lead">أضف المنهج العربي إلى الشاشة الرئيسية ليفتح بملء الشاشة كتطبيق، ومباشرة على أسبوعك، بالخطة والتسجيل اليومي ورسائل المدرب نفسها الموجودة في الموقع.</p></div>
+  <p class="appdone" id="appDone" hidden><span data-lang="en">Arabian Method is open as an app on this device.</span><span data-lang="ar">المنهج العربي مفتوح كتطبيق على هذا الجهاز.</span></p>
+  <p><button type="button" class="btn" id="appInstall" hidden><span data-lang="en">Install the app</span><span data-lang="ar">ثبّت التطبيق</span></button></p>
+  <div class="appgrid">
+    <div class="card appcard"><h3><span data-lang="en">On an iPhone, in Safari</span><span data-lang="ar">على آيفون، في سفاري</span></h3><ol class="appsteps" data-lang="en"><li>Open arabianmethod.com in Safari.</li><li>Tap the three dots next to the address bar, then tap Share. On older versions of iOS, tap the Share button at the bottom of the screen.</li><li>Scroll down and tap Add to Home Screen.</li><li>If you see Open as Web App, keep it switched on, then tap Add.</li><li>Open Arabian Method from your Home Screen and sign in once.</li></ol><ol class="appsteps" data-lang="ar" dir="rtl" lang="ar"><li>افتح arabianmethod.com في متصفح سفاري.</li><li>اضغط على النقاط الثلاث بجانب شريط العنوان، ثم اضغط «مشاركة». وفي إصدارات iOS الأقدم اضغط زر المشاركة أسفل الشاشة.</li><li>انزل في القائمة واضغط «إضافة إلى الشاشة الرئيسية».</li><li>إن ظهر لك خيار فتحه كتطبيق ويب فأبقه مفعلا، ثم اضغط «إضافة».</li><li>افتح المنهج العربي من الشاشة الرئيسية وسجّل الدخول مرة واحدة.</li></ol></div>
+    <div class="card appcard"><h3><span data-lang="en">On Android, in Chrome</span><span data-lang="ar">على أندرويد، في كروم</span></h3><ol class="appsteps" data-lang="en"><li>Open arabianmethod.com in Chrome.</li><li>Tap the three dots at the top of the screen, then tap Install app or Add to Home screen.</li><li>Confirm, then open Arabian Method from your Home Screen and sign in once.</li></ol><ol class="appsteps" data-lang="ar" dir="rtl" lang="ar"><li>افتح arabianmethod.com في متصفح كروم.</li><li>اضغط على النقاط الثلاث أعلى الشاشة، ثم اضغط «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».</li><li>أكّد الإضافة، ثم افتح المنهج العربي من الشاشة الرئيسية وسجّل الدخول مرة واحدة.</li></ol></div>
+  </div>
+  <p class="appnote"><span data-lang="en">Once it is on your Home Screen, you can turn on notifications for messages from your coach on the Coach page.</span><span data-lang="ar">بعد إضافته إلى الشاشة الرئيسية يمكنك تفعيل التنبيهات لرسائل مدربك من صفحة المدرب.</span></p>
+</div></div></section>
 <section class="view" id="v-sponsor"><div class="section"><div class="ck-wrap">
   <div class="split"><div class="intro">
     <div data-lang="en"><p class="eyebrow">Sponsored training</p><h2>Apply for a sponsored place</h2>
@@ -1429,6 +1496,7 @@ html[lang="ar"] .in[dir="ltr"],html[lang="ar"] .ta[dir="ltr"]{text-align:left;}
       <a href="#overview" data-go="overview" data-t="tabOverview"></a>
       <a href="#membership" data-go="membership" data-t="tabMembership"></a>
       <a href="/notables/" data-lang="en">Triathlon Notables</a><a href="/notables/ar" data-lang="ar">أعلام الترايثلون</a>
+      <a href="#app" data-go="app"><span data-lang="en">Use it as an app</span><span data-lang="ar">استخدمه كتطبيق</span></a>
       <a href="#privacy" data-go="privacy"><span data-lang="en">Privacy notice</span><span data-lang="ar">إشعار الخصوصية</span></a>
       <a href="#terms" data-go="terms"><span data-lang="en">Terms and medical disclaimer</span><span data-lang="ar">الشروط وإخلاء المسؤولية الطبية</span></a>
     </nav>
@@ -1437,6 +1505,6 @@ html[lang="ar"] .in[dir="ltr"],html[lang="ar"] .ta[dir="ltr"]{text-align:left;}
 </div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
-<script src="coach.js?v=20261125d"></script>
+<script src="coach.js?v=20261125e"></script>
 </body>
 </html>

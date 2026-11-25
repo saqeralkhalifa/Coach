@@ -1,6 +1,29 @@
-// Arabian Method service worker: shows coach notifications and opens the Coach page when tapped.
-self.addEventListener("install", function(){ self.skipWaiting(); });
-self.addEventListener("activate", function(e){ e.waitUntil(self.clients.claim()); });
+// Arabian Method service worker: keeps a copy of the pages so the Home Screen app opens without a connection,
+// always asking the network first, and shows coach notifications, opening the Coach page when one is tapped.
+var CACHE = "am-shell-20261125";
+self.addEventListener("install", function(e){
+  self.skipWaiting();
+  e.waitUntil(caches.open(CACHE).then(function(c){ return c.addAll(["/", "/manifest.webmanifest", "/icon-192.png"]); }).catch(function(){}));
+});
+self.addEventListener("activate", function(e){
+  e.waitUntil(caches.keys().then(function(keys){
+    return Promise.all(keys.filter(function(k){ return k.indexOf("am-shell-") === 0 && k !== CACHE; }).map(function(k){ return caches.delete(k); }));
+  }).then(function(){ return self.clients.claim(); }));
+});
+self.addEventListener("fetch", function(e){
+  var r = e.request;
+  if(r.method !== "GET") return;
+  var u = new URL(r.url);
+  if(u.origin !== self.location.origin || u.pathname === "/sw.js") return;
+  e.respondWith(fetch(r).then(function(res){
+    if(res && res.ok && res.type === "basic"){ var copy = res.clone(); caches.open(CACHE).then(function(c){ c.put(r, copy); }); }
+    return res;
+  }).catch(function(){
+    return caches.match(r, { ignoreSearch: r.mode === "navigate" }).then(function(m){
+      return m || (r.mode === "navigate" ? caches.match("/") : Response.error());
+    });
+  }));
+});
 self.addEventListener("push", function(e){
   var d = {};
   try{ d = e.data ? e.data.json() : {}; }catch(err){ d = {}; }

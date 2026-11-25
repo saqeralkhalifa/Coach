@@ -495,3 +495,29 @@ html[lang="ar"] .stats3 .v,html[lang="ar"] .stat .v,html[lang="ar"] .price{lette
 @media (min-width:1280px){html[lang="ar"] .ck-hero h1{font-size:46px;} html[lang="ar"] h2{font-size:34px;}}
 html[lang="ar"] [dir="ltr"]{text-align:left;}
 html[lang="ar"] .in[dir="ltr"],html[lang="ar"] .ta[dir="ltr"]{text-align:left;}
+
+/* App mode (25 Nov 2026). html.standalone is set when the site is opened from the Home Screen. On phones and tablets
+   the athlete tabs then sit in a bar at the bottom of the screen with icons, clear of the iPhone home indicator. */
+.apptabs .ti{display:none;}
+html.standalone{-webkit-tap-highlight-color:transparent;}
+html.standalone body{overscroll-behavior-y:none;}
+@media (max-width:1023px){
+  html.standalone body{padding-bottom:calc(68px + env(safe-area-inset-bottom));}
+  html.standalone .apptabs{position:fixed;left:0;right:0;bottom:0;z-index:150;border-bottom:0;border-top:1px solid var(--line);padding:4px 4px calc(4px + env(safe-area-inset-bottom));background:var(--surface);}
+  html.standalone .apptabs a{flex:1 1 0;flex-direction:column;gap:3px;min-height:56px;padding:6px 2px 4px;font-size:12px;line-height:1.2;border:0;}
+  html.standalone .apptabs a .ti{display:block;width:24px;height:24px;flex:0 0 auto;}
+  html.standalone .apptabs a[aria-current="page"]{color:var(--acc);}
+}
+.install{display:flex;gap:14px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;margin:0 0 24px;}
+.install .install-ic{flex:0 0 auto;width:44px;height:44px;border-radius:10px;background:var(--night);display:flex;align-items:center;justify-content:center;}
+.install p{margin:0;font-size:15px;line-height:1.6;color:var(--text);}
+.install-a{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+.appgrid{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;margin-top:28px;}
+@media (min-width:768px){.appgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;}}
+.appcard h3{margin:0 0 12px;}
+.appsteps{margin:0;padding-inline-start:22px;}
+.appsteps li{margin:0 0 10px;font-size:16px;line-height:1.6;color:var(--text);}
+.appsteps li:last-child{margin-bottom:0;}
+ol.appsteps[lang="ar"]{list-style-type:arabic-indic;}
+.appnote{margin-top:24px;font-size:15px;color:var(--muted);}
+.appdone{margin-top:20px;font-weight:600;color:var(--ink);}
