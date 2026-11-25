@@ -441,6 +441,14 @@ html[lang="ar"] .ck-preview b{letter-spacing:0;text-transform:none;font-size:14p
 html[lang="ar"] [dir="ltr"]{text-align:left;}
 html[lang="ar"] .ck-preview{direction:rtl;text-align:right;}
 html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);direction:ltr;text-align:right;}
+/* Desktop tab row (25 Nov 2026, Triathlon Notables tab added): the tabs fill the space between the brand and the
+   language pill and scroll sideways when they do not fit, so the pill never drops to a second row. */
+@media (min-width:1024px){
+  .ck-tabs{flex:1 1 0;min-width:0;margin:0;justify-content:flex-start;}
+  .ck-tabs::before,.ck-tabs::after{content:"";flex:1 0 0;}
+  .ck-tabs.more{-webkit-mask-image:linear-gradient(to right,#000 88%,transparent);mask-image:linear-gradient(to right,#000 88%,transparent);}
+  html[lang="ar"] .ck-tabs.more{-webkit-mask-image:linear-gradient(to left,#000 88%,transparent);mask-image:linear-gradient(to left,#000 88%,transparent);}
+}
 </style>
 
 </head>
@@ -460,6 +468,8 @@ html[lang="ar"] .stats3 .v, html[lang="ar"] .price{font-family:var(--fd);directi
     <a href="#membership" data-go="membership" data-t="tabMembership"></a>
     <a href="mailto:contact@arabianmethod.com"><span data-lang="en">Contact</span><span data-lang="ar">تواصل معنا</span></a>
     <a href="#admin" data-go="admin" data-t="tabAdmin" data-when="admin"></a>
+    <a href="/notables/" data-lang="en">Triathlon Notables</a>
+    <a href="/notables/ar" data-lang="ar">أعلام الترايثلون</a>
   </nav>
   <div class="pnav-r">
     <button class="pill" type="button" id="langToggle2"><span data-lang="en" lang="ar">العربية</span><span data-lang="ar" lang="en">English</span></button>

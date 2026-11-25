@@ -12,6 +12,18 @@
     <xhtml:link rel="alternate" hreflang="ar" href="https://arabianmethod.com/?lang=ar"/>
     <lastmod>2026-11-12</lastmod>
   </url>
+  <url>
+    <loc>https://arabianmethod.com/notables/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://arabianmethod.com/notables/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://arabianmethod.com/notables/ar"/>
+    <lastmod>2026-11-25</lastmod>
+  </url>
+  <url>
+    <loc>https://arabianmethod.com/notables/ar</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://arabianmethod.com/notables/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://arabianmethod.com/notables/ar"/>
+    <lastmod>2026-11-25</lastmod>
+  </url>
   <url><loc>https://arabianmethod.com/legal_en.html</loc><lastmod>2026-11-11</lastmod></url>
   <url><loc>https://arabianmethod.com/legal_ar.html</loc><lastmod>2026-11-11</lastmod></url>
 </urlset>
