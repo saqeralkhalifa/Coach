@@ -140,7 +140,7 @@ en:{
   admH:"Items that need you", admFlags:"Open flags", admPlans:"Plans awaiting approval", admPays:"Payments to confirm", admClear:"Clearance confirmations", admAth:"Athletes",
   approve:"Approve and send", reject:"Reject", confirm:"Confirm", notFound:"Not found", resolve:"Resolve", reactivate:"Restart plan", none:"Nothing here.",
   ruleNotes:"Rule checks", fixed:"fixed automatically", unresolved:"needs your decision",
-  footer:'Arabian Method AI Coaching, <a href="https://arabianmethod.com/">arabianmethod.com</a>, <a href="#privacy" data-go="privacy">Privacy notice</a>, <a href="#terms" data-go="terms">Terms and medical disclaimer</a>',
+  footer:'Arabian Method AI Coaching, <a href="https://arabianmethod.com/">arabianmethod.com</a>, <a href="guide.html?lang=en">How to use your coaching</a>, <a href="#privacy" data-go="privacy">Privacy notice</a>, <a href="#terms" data-go="terms">Terms and medical disclaimer</a>',
   opts:{
     countries:[["Bahrain","Bahrain"],["Saudi Arabia","Saudi Arabia"],["United Arab Emirates","United Arab Emirates"],["Kuwait","Kuwait"],["Qatar","Qatar"],["Oman","Oman"],["Other","Other"]],
     feel:[["","Choose one"],["fresh","Fresh"],["normal","Normal"],["tired","Tired"],["very_tired","Very tired"]],
@@ -259,7 +259,7 @@ ar:{
   admH:"ما يحتاج إليك", admFlags:"البلاغات المفتوحة", admPlans:"خطط بانتظار الاعتماد", admPays:"مدفوعات بانتظار التأكيد", admClear:"تأكيدات الإذن الطبي", admAth:"الرياضيون",
   approve:"اعتماد وإرسال", reject:"رفض", confirm:"تأكيد", notFound:"لم يُعثر عليها", resolve:"إغلاق", reactivate:"استئناف الخطة", none:"لا شيء هنا.",
   ruleNotes:"فحوص القواعد", fixed:"صُححت آليا", unresolved:"تحتاج إلى قرارك",
-  footer:'المنهج العربي للتدريب بالذكاء الاصطناعي، <a href="https://arabianmethod.com/">arabianmethod.com</a>، <a href="#privacy" data-go="privacy">إشعار الخصوصية</a>، <a href="#terms" data-go="terms">الشروط وإخلاء المسؤولية الطبية</a>',
+  footer:'المنهج العربي للتدريب بالذكاء الاصطناعي، <a href="https://arabianmethod.com/">arabianmethod.com</a>، <a href="guide.html?lang=ar">كيف تستخدم تدريبك</a>، <a href="#privacy" data-go="privacy">إشعار الخصوصية</a>، <a href="#terms" data-go="terms">الشروط وإخلاء المسؤولية الطبية</a>',
   opts:{
     countries:[["Bahrain","البحرين"],["Saudi Arabia","السعودية"],["United Arab Emirates","الإمارات"],["Kuwait","الكويت"],["Qatar","قطر"],["Oman","عُمان"],["Other","بلد آخر"]],
     feel:[["","اختر"],["fresh","نشيط"],["normal","طبيعي"],["tired","متعب"],["very_tired","متعب جدا"]],
