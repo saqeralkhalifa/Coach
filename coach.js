@@ -1373,7 +1373,8 @@ document.addEventListener("visibilitychange", function(){
 (function(){
   var btn = $("menuBtn"), panel = $("hpanel");
   function setOpen(o){ if(!panel) return; panel.hidden = !o; if(btn) btn.setAttribute("aria-expanded", o ? "true" : "false"); }
-  window.__closeMenu = function(){ setOpen(false); };
+  window.__closeMenu = function(){ setOpen(false); document.documentElement.classList.remove("pre"); };
+  setTimeout(function(){ document.documentElement.classList.remove("pre"); }, 8000);
   if(btn && panel){
     btn.addEventListener("click", function(e){ e.stopPropagation(); var open = panel.hidden; setOpen(open); if(open){ var f = panel.querySelector("a:not([hidden])"); if(f) f.focus(); } });
     document.addEventListener("click", function(e){ if(!panel.hidden && !panel.contains(e.target) && e.target !== btn) setOpen(false); });
