@@ -230,7 +230,7 @@ ar:{
   wkPending:"حسابك بانتظار الدفع", wkPendingP:"ادفع رسوم الشهر الأول من صفحة الاشتراك، وتصلك خطتك الأولى بعد تأكيد الدفعة.",
   wkPaused:"خطتك متوقفة", wkPausedP:"توقفت خطتك بعد بلاغ عن ألم أو مرض أو أعراض، أو سحب موافقة، أو استحقاق دفعة. وقد أُبلغ د. صقر.",
   wkH:function(i,ph){return "الأسبوع "+i+"، مرحلة "+ph;}, wkLead:function(r,d,w){var n = Number(w), s = (w === "" || w === null || w === undefined || isNaN(n)) ? "" : n === 0 ? " أسبوع السباق." : n === 1 ? " بقي أسبوع واحد." : n === 2 ? " بقي أسبوعان." : n <= 10 ? " بقيت " + n + " أسابيع." : " بقي " + n + " أسبوعا."; return "السباق المستهدف: "+r+"، "+d+"."+s;},
-  todayL:"اليوم", rest:"يوم راحة", min:"دقيقة", sentGarmin:"أُرسلت إلى Intervals.icu وGarmin Connect، وتظهر على ساعتك بعد المزامنة التالية.", notSent:"تُرسل إلى ساعتك في الصباح الباكر من يوم الحصة.",
+  todayL:"اليوم", rest:"يوم راحة", min:"دقيقة", sentGarmin:"أُرسلت إلى \u2068Intervals.icu\u2069 و\u2068Garmin Connect\u2069، وتظهر على ساعتك بعد المزامنة التالية.", notSent:"تُرسل إلى ساعتك في الصباح الباكر من يوم الحصة.",
   easy:"سهلة", moderate:"متوسطة", hard:"شاقة", zone:"منطقة", made_easier:"خُففت",
   chH:"تحدث مع مدربك", chLead:"اسأل عن حصة، أو أخبر مدربك عن سفر أو يوم مزدحم، أو صف كيف تشعر في تدريبك. يستطيع مدربك نقل الحصص أو تقصيرها أو تغييرها ضمن قواعد السلامة، وتصل التغييرات إلى ساعتك وتقويمك.",
   chAi:"مدربك نظام ذكاء اصطناعي. يراجع د. صقر أي حالة يُبلَّغ عنها ويستطيع الرد هنا بنفسه. أبلغ عن أي ألم أو مرض هنا أو في التسجيل اليومي، وستتوقف خطتك مؤقتا حتى يأذن لك الطبيب.",
@@ -1392,7 +1392,9 @@ document.addEventListener("visibilitychange", function(){
   function labels(){ document.querySelectorAll("[data-aria-ar]").forEach(function(n){ if(!n.dataset.ariaEn) n.dataset.ariaEn = n.getAttribute("aria-label") || ""; n.setAttribute("aria-label", LANG === "ar" ? n.dataset.ariaAr : n.dataset.ariaEn); }); }
   // Arabic pages use Arabic-Indic digits; money stays in Western digits, and anything marked dir="ltr" is left as written
   var AR = "٠١٢٣٤٥٦٧٨٩", NUM = /(US\$\s?\d[\d.,]*|\$\s?\d[\d.,]*|\d[\d.,]*\s?(?:US\$|USD|BHD|دولار[؀-ۿ]*))|(\d+(?:[.,]\d+)*%?)/g;
-  function toAr(s){ return s.replace(NUM, function(m, money, num){ if(money) return m; return num.replace(/\d/g, function(d){ return AR[d]; }).replace(/([٠-٩])\.(?=[٠-٩])/g, "$1٫").replace(/([٠-٩]),(?=[٠-٩])/g, "$1٬").replace("%", "٪"); }); }
+  var SKIP = /[\s\u2066-\u2069\u200e\u200f]/, LAT = /[A-Za-z]/;
+  function latinSide(s, a, b){ var i = a - 1, j = b; while(i >= 0 && SKIP.test(s[i])) i--; while(j < s.length && SKIP.test(s[j])) j++; return (i >= 0 && LAT.test(s[i])) || (j < s.length && LAT.test(s[j])); }
+  function toAr(s){ return s.replace(NUM, function(m, money, num, off){ if(money) return m; if(latinSide(s, off, off + m.length)) return m; return num.replace(/\d/g, function(d){ return AR[d]; }).replace(/([٠-٩])\.(?=[٠-٩])/g, "$1٫").replace(/([٠-٩]),(?=[٠-٩])/g, "$1٬").replace("%", "٪"); }); }
   function toEn(s){ return s.replace(/[٠-٩]/g, function(d){ return String(AR.indexOf(d)); }).replace(/(\d)٫(?=\d)/g, "$1.").replace(/(\d)٬(?=\d)/g, "$1,").replace(/(\d)٪/g, "$1%"); }
   function skip(n, ar){
     for(var e = n.parentNode; e && e.nodeType === 1; e = e.parentNode){

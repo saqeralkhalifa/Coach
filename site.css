@@ -75,7 +75,7 @@ img,svg{max-width:100%;}
 /* app tabs for athletes on phones and tablets: a light row under the header */
 .apptabs{display:flex;background:var(--surface);border-bottom:1px solid var(--line);padding:0 8px;}
 @media (min-width:1024px){.apptabs{display:none !important;}}
-.apptabs a{flex:1 1 0;min-width:0;display:flex;align-items:center;justify-content:center;min-height:48px;padding:0 6px;font-size:15px;font-weight:600;color:var(--muted);text-decoration:none;text-align:center;border-bottom:2px solid transparent;border-top:2px solid transparent;}
+.apptabs a{flex:1 1 auto;min-width:0;white-space:nowrap;display:flex;align-items:center;justify-content:center;min-height:48px;padding:0 6px;font-size:15px;font-weight:600;color:var(--muted);text-decoration:none;text-align:center;border-bottom:2px solid transparent;border-top:2px solid transparent;}
 .apptabs a:hover{color:var(--ink);}
 .apptabs a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--night);}
 @media (max-width:359px){.apptabs{padding:0 2px;} .apptabs a{font-size:14px;padding:0 3px;}}
