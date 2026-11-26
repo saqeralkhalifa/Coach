@@ -107,7 +107,7 @@ en:{
   memTerms:'Membership terms are in the <a href="#terms" data-go="terms">terms and medical disclaimer</a>.',
   stPending:"Your account is waiting for the first payment.", stTrialWait:"Your membership is free. It starts when your first plan is approved.", stTrial:function(d){return "Your membership is active until "+d+".";}, payLater:"Payment details will appear here before the free months end.", stActive:function(d){return "Your membership is active until "+d+".";}, stPaused:"Your plan is paused.", stClosed:"Your account is closed.",
   signedOutMem:"Register or sign in to see your membership.",
-  wkEyebrow:"My week", wkNone:"Your first plan is being prepared", wkNoneP:"Plans are written each Wednesday evening for the week starting Friday, and the first group's plans are approved by Dr. Saqer AlKhalifa before they are sent. Complete your profile, connect your watch and send your daily check-in.",
+  wkEyebrow:"My week", wkNone:"Your first plan is being prepared", wkNoneP:"Plans are written each Wednesday evening for the week starting Friday, and your first plan is reviewed by Dr. Saqer AlKhalifa before it is sent. Complete your profile, connect your watch and send your daily check-in.",
   wkPending:"Your account is waiting for payment", wkPendingP:"Pay the first month on the Membership page. Your first plan follows once the payment is confirmed.",
   wkPaused:"Your plan is paused", wkPausedP:"Your plan was paused after a report of pain, illness or symptoms, a withdrawn consent, or a payment due. Dr. Saqer has been told.",
   wkH:function(i,ph){return "Week "+i+", "+ph+" phase";}, wkLead:function(r,d,w){var n = Number(w), s = (w === "" || w === null || w === undefined || isNaN(n)) ? "" : n === 0 ? " Race week." : n === 1 ? " 1 week to go." : " " + n + " weeks to go."; return "Target race: "+r+", "+d+"."+s;},
@@ -226,7 +226,7 @@ ar:{
   memTerms:'شروط الاشتراك واردة في <a href="#terms" data-go="terms">الشروط وإخلاء المسؤولية الطبية</a>.',
   stPending:"حسابك بانتظار الدفعة الأولى.", stTrialWait:"اشتراكك مجاني، ويبدأ عند اعتماد أول خطة لك.", stTrial:function(d){return "اشتراكك ساري حتى "+d+".";}, payLater:"ستظهر بيانات الدفع هنا قبل انتهاء الأشهر المجانية.", stActive:function(d){return "اشتراكك ساري حتى "+d+".";}, stPaused:"خطتك متوقفة.", stClosed:"حسابك مغلق.",
   signedOutMem:"سجّل أو سجّل الدخول لترى اشتراكك.",
-  wkEyebrow:"أسبوعي", wkNone:"يجري إعداد خطتك الأولى", wkNoneP:"تُكتب الخطط مساء كل أربعاء للأسبوع الذي يبدأ يوم الجمعة، ويعتمد د. صقر بن سلمان آل خليفة خطط المجموعة الأولى قبل إرسالها. أكمل ملفك واربط ساعتك وأرسل تسجيلك اليومي.",
+  wkEyebrow:"أسبوعي", wkNone:"يجري إعداد خطتك الأولى", wkNoneP:"تُكتب الخطط مساء كل أربعاء للأسبوع الذي يبدأ يوم الجمعة، ويراجع د. صقر آل خليفة خطتك الأولى قبل إرسالها. أكمل ملفك واربط ساعتك وأرسل تسجيلك اليومي.",
   wkPending:"حسابك بانتظار الدفع", wkPendingP:"ادفع رسوم الشهر الأول من صفحة الاشتراك، وتصلك خطتك الأولى بعد تأكيد الدفعة.",
   wkPaused:"خطتك متوقفة", wkPausedP:"توقفت خطتك بعد بلاغ عن ألم أو مرض أو أعراض، أو سحب موافقة، أو استحقاق دفعة. وقد أُبلغ د. صقر.",
   wkH:function(i,ph){return "الأسبوع "+i+"، مرحلة "+ph;}, wkLead:function(r,d,w){var n = Number(w), s = (w === "" || w === null || w === undefined || isNaN(n)) ? "" : n === 0 ? " أسبوع السباق." : n === 1 ? " بقي أسبوع واحد." : n === 2 ? " بقي أسبوعان." : n <= 10 ? " بقيت " + n + " أسابيع." : " بقي " + n + " أسبوعا."; return "السباق المستهدف: "+r+"، "+d+"."+s;},
@@ -578,6 +578,14 @@ async function renderWeek(){
     return;
   }
   var p = STATE.profile || {};
+  // Start here card (26 November 2026): shown until the Profile is complete and a watch is connected or a workout has arrived.
+  (async function(){
+    var card = $("startCard"); if(!card) return;
+    var profileDone = !!(p.race_date && p.race_distance && p.years_training && (p.train_days || []).length >= 3);
+    var watchDone = !!p.intervals_connected_at;
+    if(!watchDone){ var wc = await sb.from("workouts").select("id",{count:"exact",head:true}).eq("user_id", STATE.user.id); watchDone = (wc.count || 0) > 0; }
+    card.hidden = profileDone && watchDone;
+  })();
   if(p.status === "pending_payment"){ $("wkH").textContent = t("wkPending"); lead.textContent = t("wkPendingP"); clearWeek(); return; }
   if(p.status === "paused"){ $("wkH").textContent = t("wkPaused"); lead.textContent = t("wkPausedP"); clearWeek(); return; }
   drawCal();
