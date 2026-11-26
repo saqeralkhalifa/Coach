@@ -198,7 +198,7 @@
     home.href = isAr ? "./?lang=ar" : "./";
     try { localStorage.setItem("mc-lang", l); } catch(e) {}
   }
-  var q = new URLSearchParams(location.search).get("mc-lang"), saved = null;
+  var q = new URLSearchParams(location.search).get("lang"), saved = null;
   try { saved = localStorage.getItem("mc-lang"); } catch(e) {}
   set(q || saved || "en");
   if(location.hash === "#start"){ var tgt = document.getElementById(document.documentElement.lang === "ar" ? "start-ar" : "start"); if(tgt) tgt.scrollIntoView(); }
